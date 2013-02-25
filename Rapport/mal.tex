@@ -1,0 +1,117 @@
+%ha med dette her
+\documentclass[titlepage]{article}
+\usepackage[norsk]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{parskip}
+%\usepackage[latin1]{inputenc}
+%\usepackage{graphicx}
+%\usepackage{float}
+
+%hva som skal stå på tittelsida
+\author{Christoffer Tønnessen}
+\title{tittel}
+\date{\today}
+
+\begin{document}
+
+%lager forsida
+\maketitle
+
+%man burde ha med et sammendrag
+\begin{abstract}
+Sammendrag av rapporten
+\end{abstract}
+
+%man skal ha romertall på de innholdsfortegnelse
+%før dette punktet skal man IKKE ha sidetall
+\pagenumbering{roman}
+\tableofcontents
+
+%newpage gjør at du starter på neste side etterpå
+\newpage
+
+%herfra skal vi ha vanlige tall (arabiske (1,2,3,4,5...))
+\pagenumbering{arabic}
+
+%man pleier å starte med innledning
+\section{Innledning}
+Blablabla
+
+\newpage
+
+\section{Hovedseksjon}
+Kanskje noe tekst?
+
+\subsection{Underseksjon}
+Blabla
+
+\subsubsection{Underunderseksjon}
+Bla bla
+
+%slutt seksjon med newpage
+\newpage
+
+\section*{Seksjon som ikke er nummerert}
+Blabla
+\\ %tvinger frem en ny linje, kan kombineres til flere \\\\ => to nye linjer
+``Her kommre ting i hermetegn'' %forferdelig at det er disse to tegna som brukes, men sånn er det
+\\\\
+\begin{itemize}
+\item Punktvise grupper
+\item \sigma blabla
+\item bla 
+\end{itemize}
+\\\\
+\textbf{Tykk tekst}
+
+%%lag figur
+
+%\begin{figure}[H]
+%\label{fig:logo}
+%\includegraphics[width=1px]{navn.png}
+%\caption{chriserdigg}
+%\end{figure}
+%\\
+
+%%inkluder figur
+%\includegraphics[width=0.25,angle=45]{navn.png}
+
+%tabell
+\begin{table}[H]
+   \centering
+   \label{tab:lulz}
+   \begin{tabular}{| l | c | r |}
+      \hline
+      1 & 2 & 3 \\
+      \hline
+      4 & 5 & 6 \\
+      \hline
+      7 & 8 & 9 \\
+      \hline
+   \end{tabular}
+   \caption{verdens beste tabell}
+\end{table}
+
+
+%inkludért seksjon, hva vi burde bruke
+\input{filnavn.tex}
+%input setter inn teksten som er i filnavn.tex, og vi kan dermed style i dette dokumentet
+
+\newpage
+%referanseliste
+\begin{thebibliography}{9}
+
+\bibitem{telenorweb}
+	Telenor,
+	\emph{http://www.telenor.no}
+
+\bibitem{netcomweb}
+	Netcom,
+	\emph{http://www.netcom.no}
+
+\bibitem{foils}
+	Dag Svanæs,
+	\emph{Foiler medfølgende faget TDT4180}
+\end{thebibliography}
+
+\end{document}
