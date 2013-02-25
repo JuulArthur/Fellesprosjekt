@@ -7,8 +7,35 @@
 %\usepackage{graphicx}
 %\usepackage{float}
 
+%---- Listings --------------
+\usepackage{listings}
+\lstset{numbers=right,
+      %numberstyle=\tiny,
+      %numbers=left,
+      %stepnumber=2,
+      literate={æ}{{\ae}}
+        {Æ}{{\AE}}1
+        {ø}{{\o}}1
+        {Ø}{{\O}}1
+        {å}{{\aa}}1
+        {Å}{{\AA}}1,
+      firstnumber=1,
+      numberfirstline=true
+     breaklines=true,
+     backgroundcolor=\color{light-gray},
+     numbersep=5pt,
+     xleftmargin=.25in,
+     xrightmargin=.25in}
+     \lstset{language=Java}
+
+%Listings brukes slikt:
+%\begin{lstlisting}{insert}
+%Sett inn kode her
+%\end{lstlisting}
+%--------------------------
+
 %hva som skal stå på tittelsida
-\author{Christoffer Tønnessen}
+\author{De kule gutta pluss jenta}
 \title{tittel}
 \date{\today}
 
