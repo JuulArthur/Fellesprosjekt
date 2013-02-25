@@ -8,6 +8,7 @@
 %\usepackage{float}
 
 %---- Listings --------------
+\usepackage{color}
 \definecolor{light-gray}{gray}{0.95}
 \usepackage{listings}
 \lstset{numbers=right,
@@ -81,15 +82,15 @@ Bla bla
 
 \section*{Seksjon som ikke er nummerert}
 Blabla
-\\ %tvinger frem en ny linje, kan kombineres til flere \\\\ => to nye linjer
+%\\ %tvinger frem en ny linje, kan kombineres til flere \\\\ => to nye linjer
 ``Her kommre ting i hermetegn'' %forferdelig at det er disse to tegna som brukes, men sånn er det
-\\\\
+%\\\\
 \begin{itemize}
 \item Punktvise grupper
-\item \sigma blabla
+\item IKKE SIGMA FFS%\sigma blabla
 \item bla 
 \end{itemize}
-\\\\
+%\\\\
 \textbf{Tykk tekst}
 
 %%lag figur
@@ -122,7 +123,7 @@ Blabla
 
 
 %inkludért seksjon, hva vi burde bruke
-\input{filnavn.tex}
+%\input{filnavn.tex}
 %input setter inn teksten som er i filnavn.tex, og vi kan dermed style i dette dokumentet
 
 \newpage
