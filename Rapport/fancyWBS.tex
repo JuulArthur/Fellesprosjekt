@@ -3,53 +3,68 @@
 \usetikzlibrary{arrows,shapes,positioning,shadows,trees}
 
 
+
 \tikzset{
-every node/.style={draw,text width=2cm,drop shadow},
-style1/.style= {rectangle, rounded corners=2pt, thin,align=center,fill=green!30},
-style2/.style= {rectangle, rounded corners=6pt, thin,align=center,fill=green!60},
-style3/.style= {rectangle,thin,align=left,fill=pink!60}
+  basic/.style  = {draw, text width=2cm, drop shadow, font=\sffamily, rectangle},
+  root/.style   = {basic, rounded corners=2pt, thin, align=center,
+                   fill=green!30},
+  level 2/.style = {basic, rounded corners=6pt, thin,align=center, fill=green!60,
+                   text width=8em},
+  level 3/.style = {basic, thin, align=left, fill=pink!60, text width=6.5em}
 }
+
+%To use line breaks you can use every tree node key and use center alignment.
+\tikzset{every tree node/.style={align=center}}
+%You can shorten the sibling distance to make it more compact.
+\tikzset{sibling distance=6pt}
+%You can also set the level distance
+\tikzset{level distance=60pt}
 
 \begin{document}
 
-
 \begin{tikzpicture}[
-remember picture,
-level 1/.style={sibling distance=40mm},
-edge from parent/.style={->,draw},
->=latex]
-
-% the initial tree ("root" and "text nodes")
-\node[style1] {Greatest calender in the entire frikkin world}
-child {node[style2] (c1) {Hei på deg}}
-child {node[style2] (c2) {text}}
-child {node[style2] (c3) {text}}
-child {node[style2] (c4) {hus}};
-
-% the nodes below each of the "text" nodes
-\node [style3,below of = c1,xshift=15pt] (c11) {kakebaking};
-\node [style3,below of = c11] (c12) {A};
-\node [style3,below of = c12] (c13) {A};
-
-\node [style3,below of = c2,xshift=15pt] (c21) {B};
-\node [style3,below of = c21] (c22) {B};
-\node [style3,below of = c22] (c23) {B};
-\node [style3,below of = c23] (c24) {B};
-
-\node [style3,below of = c3,xshift=15pt] (c31) {C};
-\node [style3,below of = c31] (c32) {C};
-\node [style3,below of = c32] (c33) {C};
-\node [style3,below of = c33] (c34) {C};
-\node [style3,below of = c34] (c35) {C};
+  level 1/.style={sibling distance=40mm},
+  edge from parent/.style={->,draw},
+  >=latex]
+  
 
 
-\node [style3,below of = c4,xshift=15pt] (c41) {DDDDD};
-\node [style3,below of = c41] (c42) {C};
-\node [style3,below of = c42] (c43) {C};
-\node [style3,below of = c43] (c44) {C};
-\node [style3,below of = c44] (c45) {C};
+% root of the the initial tree, level 1
+\node[root] {Drawing diagrams}
+% The first level, as children of the initial tree
+child {node[level 2] (c1) {SU 1}}
+child {node[level 2] (c2) {SU 2}}
+child {node[level 2] (c3) {DB 1}}
+child {node[level 2] (c4) {SU 3}}
+child {node[level 2] (c5) {MMI D2 1}}
+child {node[level 2] (c6) {KTN 1 fase 1}}
+child {node[level 2] (c7) {MMI D2 2}}
+child {node[level 2] (c8) {KTN 1 fase 2}}
+child {node[level 2] (c9) {DB 2}}
+child {node[level 2] (c10) {SU 4}}
+child {node[level 2] (c11) {MMI D3}}
+child {node[level 2] (c12) {SU 5}}
+child {node[level 2] (c13) {KTN 2}};
 
-% lines from each "text" node to every one of its "children"
+% The second level, relatively positioned nodes
+\begin{scope}[every node/.style={level 3}]
+\node [below of = c1, xshift=15pt] (c11) {Setting shape};
+\node [below of = c11] (c12) {Choosing color};
+\node [below of = c12] (c13) {Adding shading};
+
+\node [below of = c2, xshift=15pt] (c21) {Using a Matrix};
+\node [below of = c21] (c22) {Relatively};
+\node [below of = c22] (c23) {Absolutely};
+\node [below of = c23] (c24) {Using overlays};
+
+\node [below of = c3, xshift=15pt] (c31) {Default arrows};
+\node [below of = c31] (c32) {Arrow library};
+\node [below of = c32] (c33) {Resizing tips};
+\node [below of = c33] (c34) {Shortening};
+\node [below of = c34] (c35) {Bending};
+\end{scope}
+
+% lines from each level 1 node to every one of its "children"
 \foreach \value in {1,2,3}
   \draw[->] (c1.195) |- (c1\value.west);
 
@@ -58,9 +73,6 @@ child {node[style2] (c4) {hus}};
 
 \foreach \value in {1,...,5}
   \draw[->] (c3.195) |- (c3\value.west);
-  
-\foreach \value in {1,...,5}
-  \draw[->] (c4.195) |- (c4\value.west);
 \end{tikzpicture}
 
 \end{document}
