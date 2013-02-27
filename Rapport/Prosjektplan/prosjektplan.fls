@@ -114,6 +114,9 @@ INPUT risikoanalyse.tex
 INPUT prosjektplan.lot
 INPUT prosjektplan.lot
 OUTPUT prosjektplan.lot
+INPUT prosjektplan.lof
+INPUT prosjektplan.lof
+OUTPUT prosjektplan.lof
 INPUT prosjektplan.aux
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
