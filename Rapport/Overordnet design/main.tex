@@ -1,0 +1,64 @@
+\documentclass[titlepage]{article}
+\usepackage[norsk]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{longtable}
+
+\author{Gruppe 38}
+\title{Overordnet design}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{sammendrag.tex}
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+\section{Innledning}
+\input{innledning.tex}
+
+\newpage
+\section{Scenario 1}
+\input{scenario1.tex}
+
+\newpage
+\section{Scenario 2}
+\input{scenario2.tex}
+
+\newpage
+\section{Scenario 3}
+\input{scenario3.tex}
+
+\newpage
+\section{Scenario 4}
+\input{scenario4.tex}
+
+
+\newpage
+\listoftables
+
+\newpage
+\listoffigures
+
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{fpkomp}
+	Kompendium til fellesprosjektet,
+	\emph{it's learning-gruppa til faget}
+\end{thebibliography}
+
+\end{document}
