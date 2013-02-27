@@ -100,13 +100,13 @@ INPUT ansvarsfordeling.tex
 INPUT ansvarsfordeling.tex
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
-INPUT fristerogfravaer.tex
-INPUT fristerogfravaer.tex
 INPUT gantt.tex
 INPUT gantt.tex
 INPUT Gantt-diagram.png
 INPUT ./Gantt-diagram.png
 INPUT ./Gantt-diagram.png
+INPUT arbeidspakker.tex
+INPUT arbeidspakker.tex
 INPUT sprint.tex
 INPUT sprint.tex
 INPUT risikoanalyse.tex
