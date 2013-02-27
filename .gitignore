@@ -61,3 +61,6 @@ local.properties
 *.xdy
 *.tdo
 *.fls
+
+#PDF
+*.pdf
