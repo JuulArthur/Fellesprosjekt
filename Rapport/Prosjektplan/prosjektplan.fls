@@ -91,6 +91,9 @@ INPUT sammendrag.tex
 INPUT sammendrag.tex
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT prosjektplan.toc
+INPUT prosjektplan.toc
+OUTPUT prosjektplan.toc
 INPUT innledning.tex
 INPUT innledning.tex
 INPUT ansvarsfordeling.tex
