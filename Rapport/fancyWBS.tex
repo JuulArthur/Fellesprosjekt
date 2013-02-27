@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{tikz}
+\usepackage{rotating}
 \usetikzlibrary{arrows,shapes,positioning,shadows,trees}
 
 
@@ -21,6 +22,7 @@
 \tikzset{level distance=60pt}
 
 \begin{document}
+\begin{rotate}{90}
 
 \begin{tikzpicture}[
   level 1/.style={sibling distance=40mm},
@@ -74,5 +76,6 @@ child {node[level 2] (c13) {KTN 2}};
 \foreach \value in {1,...,5}
   \draw[->] (c3.195) |- (c3\value.west);
 \end{tikzpicture}
+\end{rotate}
 
 \end{document}
