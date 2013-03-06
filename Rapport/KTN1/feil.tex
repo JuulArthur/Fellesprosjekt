@@ -1,0 +1,17 @@
+\textbf{Beskrivelsen av A2 tilsier at det kan oppstå fire forskjellige typer feil med tanke på pakkeoverføring. Vi skal implementere A1, som skal behandle, og rette opp disse feilene.}
+
+\subsection{Package lost}
+Hvis senderen ikke mottar en ACK før den når timeout-tiden vil en pakke bli regnet som tapt.
+Pakker med lavere sekvensnummer blir regnet som tapt hvis sekvensnummeret vi mottar er høyere enn forventet. 
+Hvis dette skjer vil samme pakke bli sendt på nytt, helt til senderen mottar en ACK før timeout-tiden, og får forventet sekvensnummer tilbake.
+Metoden sendDataPacketWithRetransmit() i klassen AbstractConnection gjør akkurat dette for oss. 
+
+\subsection{Package delayed}
+Hvis mottakeren sender ACK to ganger for samme pakke, betyr det at pakken har blitt sendt to ganger fordi den første ikke kom fram raskt nok.
+Dette har ikke noe å si for senderen, han vil bare ignorere den andre ACKen. Mottakeren vil ignorere en pakke han allerede har fått. 
+ 
+\subsection{Package has errors}
+Vi må her sjekke om pakken mottatt er samme pakke som ble sendt og inneholder det samme med et sekvensnummer. Vi kan her implementere isValid()-funksjonen for å gjøre dette. 
+ 
+\subsection{Ghost package}
+Her er det snakk om en pakke ingen venter, som bare oppstår. Vi kan sjekke sekvensnummer, og bruke isValid()-funksjonen for å eliminere dette. 

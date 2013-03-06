@@ -1,0 +1,54 @@
+\documentclass[titlepage]{article}
+\usepackage[norsk]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{longtable}
+
+\author{Gruppe 38}
+\title{KTN 1}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section{Innledning}
+\input{innledning.tex}
+
+\newpage
+\section{Feilhåndtering}
+\input{feil.tex}
+
+\newpage
+\section{Diagrammer}
+\input{diagrammer.tex}
+
+\newpage
+\section{Testplan}
+\input{testplan.tex}
+
+\newpage
+\listoftables
+
+\newpage
+\listoffigures
+
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{fpkomp}
+	Kompendium til fellesprosjektet,
+	\emph{it's learning-gruppa til faget}
+\end{thebibliography}
+
+\end{document}

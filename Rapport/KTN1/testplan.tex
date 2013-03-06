@@ -1,0 +1,69 @@
+\subsection{Krav som skal testes}
+Krav 1: Bruke Connection-klassen i applikasjonen
+Krav 2: Kommunisere mellom A1 og A2 via send(), receive og cancel\_revceive()
+Krav 3: A1 skal kunne kople fra, motta data og sende data til andre instanser.
+Krav 4: Alle feil som oppstår i A2, skal tas hånd om i A1
+
+\subsection{Krav 1 og 2}
+Vi skal bruke Connection-klassen for å kommunisere med applikasjonen, og A1 kan kun kommunisere med A2 gjennom metodene beskrevet i Krav 2. 
+Siden disse to kravene allerede er gitt av oppgaveteksten, vil vi ikke legge så mye vekt på å teste dem.
+
+\subsection{Krav 3}
+\subsubsection{Kople til}
+Vi kan lage testcase for å sjekke at når du kobler til mellom klient og server. så blir en three-way-handshake gjennomført som beskrevet i *sekvensdiagrammet for connection*. Dette er blir da bare å sjekke at et SYN-flagg blir sendt, at det blir sendt tilbake SYN\_ACK-flagg og at det tilslutt blir sendt et ACK-flagg.
+
+\subsubsection{Kople fra}
+På samme måte som koble til, lager vi en testcase og bruker flaggene som skal bli sendt for å sjekke at det foregår på riktig måte. Senderen skal sende et FIN-flagg og få i retur et ACK-flagg og et FIN-flagg. Når senderen mottar dette sender han et ACK-flagg tilbake, og klienten blir koblet fra. Dette er beskrevet i sekvensdiagram \ref{fig:closeSEQ}.
+
+\subsubsection{Motta / sende data}
+Hvis man ser på sekvensdiagram \ref{fig:sendSEQ}, så hver gang data blir sendt skal mottaker svare med en ACK så senderen vet at pakken har kommet fram. Hvis senderen ikke mottar en ACK før timeout-tiden vil den sende pakken på nytt. Dette kan vi teste med en testcase hvor vi prøver å sende pakker, og se om vi mottar ACK og riktig forventet sekvensnummer fra mottaker.
+
+\subsection{Krav 4}
+Feil som kan forekomme i A2 har vi skrevet om i *feilhåndtering*. Det er fire forskjellige feil det er snakk om og disse er, forsvunnet pakke, forsinket pakke, feil i pakke og ghostpakke. 
+Alle de feilene skal vi håndtere i A1 og måten vi kan teste dette på er å bruke filen, Settings.xml i Admin-pakken, som gir oss mulighet til å sette sannsynligheter for hvor ofte hver feil skal forekomme. Samtidig som vi tester dette, må vi sjekke at hvis feil oppstår så er de usynlige for applikasjonen.
+
+\subsubsection{Sannsynlighet for feil}
+\begin{table}[H]
+\centering
+\label{tab:feilsan}
+\begin{tabular}{| l | l | l | l | l |}
+\hline
+Testcase & Package lost & Package delayed & Package has errors & Ghost package \\
+\hline
+1 - Uten feil & 0 & 0 & 0 & 0 \\
+\hline
+2.1 & 0.1 & 0 & 0 & 0 \\
+\hline
+2.2 & 0.5 & 0 & 0 & 0 \\
+\hline
+3.1 & 0 & 0.1 & 0 & 0 \\
+\hline
+3.2 & 0 & 0.5 & 0 & 0 \\
+\hline
+4.1 & 0 & 0 & 0.1 & 0 \\
+\hline
+4.2 & 0 & 0 & 0.5 & 0 \\
+\hline
+5.1 & 0 & 0 & 0 & 0.1 \\
+\hline
+5.2 & 0 & 0 & 0 & 0.5 \\
+\hline
+6.1 - Kombinasjon & 0 & 0 & 0.5 & 0.5 \\
+\hline
+6.2 - Kombinasjon & 0.5 & 0.5 & 0.3 & 0 \\
+\hline
+7 - Alle feil & 0.5 & 0.5 & 0.5 & 0.5 \\
+\hline
+\end{tabular}
+\caption{Tabell for feilsannsynlighet}
+\end{table}
+
+Vi vil kjøre testcasene i samme rekkefølge som tabellen fordi vi syns dette gir oss mest ut av testcasene. Før må vi sjekke at alt fungerer med ingen feil, så går vi systematisk igjennom hver av feilene som kan oppstå og først sjekker for 10 \% sannsynlighet og så 50 \% sannsynlighet.
+
+\textbf{Testcase 6}:\\
+I 6.1 har vi valgt å teste feil i pakken og ghostpakke med lik sannsynlighet for begge to, fordi da får vi sjekket om implementasjonen vår håndterer pakker som har feil i header-felt (ghostpakke) og feil i payloaden (feil i pakke). Grunnen til at vi har valgt 50 \% sannsynlighet for begge to, er fordi implementasjonen skal klare å håndtere begge feilene, og målet er at implementasjonen skak klare å håndtere feil opptil 50 \%. Det er bra å teste begge feilkategoriene sammen fordi de går ut på det samme, bare at feilen fins i forskjellige deler av pakken. 
+
+I 6.2 tester vi at pakker er mistet og at pakker er forsinket i samme testcase fordi dette henger mye sammen. Senderen vil reagere på samme måte hvis en pakke er forsinket eller mistet, fordi da har timeout-tiden gått og den vil sende pakken på nytt. Det vi da tester er at mottakeren klarere å håndtere dupliserte pakker, altså at den bare tar vare på den ene pakken. Samtidig får vi testet at senderen faktisk sender ut en ny pakke, hvis den ikke mottar en ACK innenfor en gitt tidsramme. Grunnen til å ha med feil i pakke i samme testcase er fordi mottakeren må se etter feil også når pakken er forsinket. Vi valgte å ta en lavere sannsynlighet for feil i pakker, fordi vi først og fremst skal sjekke at vi håndterer forsinket og tapte pakker.
+
+\textbf{Testcase 7}:\\
+Vi har bestemt oss for at implementasjonen skal klare å håndtere minst 50 \% sannsynlighet for feil i hver kategori, og derfor har vi satt den sannsynligheten på hver feil som kan oppstå. Når denne testcasen er bestått vil vi prøve å øke sannsynligheten for feil i alle kategoriene for å kartlegge hvor stor prosentandel med feil implementasjonen vår tåler. 
