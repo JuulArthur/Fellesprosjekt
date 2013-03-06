@@ -11,7 +11,7 @@ Hvis mottakeren sender ACK to ganger for samme pakke, betyr det at pakken har bl
 Dette har ikke noe å si for senderen, han vil bare ignorere den andre ACKen. Mottakeren vil ignorere en pakke han allerede har fått. 
  
 \subsection{Package has errors}
-Vi må her sjekke om pakken mottatt er samme pakke som ble sendt og inneholder det samme med et sekvensnummer. Vi kan her implementere isValid()-funksjonen for å gjøre dette. 
+Vi må her sjekke om pakken mottatt er samme pakke som ble sendt og inneholder det samme sekvensnummeret. Vi kan her implementere isValid()-funksjonen for å gjøre dette. Her brukers checksumen som blir sendt med pakken for å sjekke om pakken inneholder feil.
  
 \subsection{Ghost package}
 Her er det snakk om en pakke ingen venter, som bare oppstår. Vi kan sjekke sekvensnummer, og bruke isValid()-funksjonen for å eliminere dette. 
