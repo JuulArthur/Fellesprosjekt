@@ -15,17 +15,18 @@ public class CreateDatabase {
         Statement st = null;
         ResultSet rs = null;
 
-        String url = "jdbc:mysql://localhost:3306/testdb";
+        String url = "jdbc:mysql://localhost:3306/test3";
         String user = "testuser";
         String password = "test623";
 
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery("SELECT VERSION()");
-
+            //rs = st.executeQuery("SELECT VERSION()");
+            // rs = st.executeQuery("");
+            st.executeUpdate("insert into Avtale (id, starttidspunkt, sluttidsunkt, moeteleder, tittel, tekst) values (3,13,33,'jarudiha','jarudiha','bal');");
             if (rs.next()) {
-                System.out.println(rs.getString(1));
+                System.out.println(num_rows);
             }
 
         } catch (SQLException ex) {
