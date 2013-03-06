@@ -10,7 +10,7 @@ Ettersom disse kravene må være oppfylt for at de andre funskjonene skal funger
 
 \subsection{Krav 3}
 \subsubsection{Kople til}
-Vi kan lage testcase for å sjekke at når du kobler til mellom klient og server. så blir en three-way-handshake gjennomført som beskrevet i *sekvensdiagrammet for connection*. Dette er blir da bare å sjekke at et SYN-flagg blir sendt, at det blir sendt tilbake SYN\_ACK-flagg og at det tilslutt blir sendt et ACK-flagg.
+Vi kan lage testcase for å sjekke at når du kobler til mellom klient og server. så blir en three-way-handshake gjennomført som beskrevet i sekvensdiagram \ref{fig:conSEQ}. Dette er blir da bare å sjekke at et SYN-flagg blir sendt, at det blir sendt tilbake SYN\_ACK-flagg og at det tilslutt blir sendt et ACK-flagg.
 
 \subsubsection{Kople fra}
 På samme måte som koble til, lager vi en testcase og bruker flaggene som skal bli sendt for å sjekke at det foregår på riktig måte. Senderen skal sende et FIN-flagg og få i retur et ACK-flagg og et FIN-flagg. Når senderen mottar dette sender han et ACK-flagg tilbake, og klienten blir koblet fra. Dette er beskrevet i sekvensdiagram \ref{fig:closeSEQ}.

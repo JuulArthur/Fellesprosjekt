@@ -174,6 +174,7 @@ public abstract class AbstractConnection implements Connection {
      *            or data, and makes no sense.
      * @return Initialised flagged datagram.
      */
+    
     protected KtnDatagram constructInternalPacket(Flag flag) {
 
         KtnDatagram packet = new KtnDatagram();
