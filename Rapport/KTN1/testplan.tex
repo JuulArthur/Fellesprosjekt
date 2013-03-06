@@ -10,16 +10,16 @@ Ettersom disse kravene må være oppfylt for at de andre funskjonene skal funger
 
 \subsection{Krav 3}
 \subsubsection{Kople til}
-Vi kan lage testcase for å sjekke at når du kobler til mellom klient og server. så blir en three-way-handshake gjennomført som beskrevet i sekvensdiagram \ref{fig:conSEQ}. Dette er blir da bare å sjekke at et SYN-flagg blir sendt, at det blir sendt tilbake SYN\_ACK-flagg og at det tilslutt blir sendt et ACK-flagg.
+Vi kan lage testcase for å sjekke at når du kopler til mellom klient og server. så blir en three-way-handshake gjennomført som beskrevet i sekvensdiagram \ref{fig:conSEQ}. Dette er blir da bare å sjekke at et SYN-flagg blir sendt, at det blir sendt tilbake SYN\_ACK-flagg og at det tilslutt blir sendt et ACK-flagg.
 
 \subsubsection{Kople fra}
-På samme måte som koble til, lager vi en testcase og bruker flaggene som skal bli sendt for å sjekke at det foregår på riktig måte. Senderen skal sende et FIN-flagg og få i retur et ACK-flagg og et FIN-flagg. Når senderen mottar dette sender han et ACK-flagg tilbake, og klienten blir koblet fra. Dette er beskrevet i sekvensdiagram \ref{fig:closeSEQ}.
+På samme måte som kople til, lager vi en testcase og bruker flaggene som skal bli sendt for å sjekke at det foregår på riktig måte. Senderen skal sende et FIN-flagg og få i retur et ACK-flagg og et FIN-flagg. Når senderen mottar dette sender han et ACK-flagg tilbake, og klienten blir koplet fra. Dette er beskrevet i sekvensdiagram \ref{fig:closeSEQ}.
 
 \subsubsection{Motta / sende data}
-Hvis man ser på sekvensdiagram \ref{fig:sendSEQ} set man at hver gang data blir sendt skal mottaker svare med en ACK så senderen vet at pakken har kommet fram. Hvis senderen ikke mottar en ACK før timeout-tiden vil den sende pakken på nytt. Dette kan vi teste med en testcase hvor vi prøver å sende pakker, og se om vi mottar ACK og riktig forventet sekvensnummer fra mottaker.
+Hvis man ser på sekvensdiagram \ref{fig:sendSEQ} ser man at hver gang data blir sendt skal mottaker svare med en ACK så senderen vet at pakken har kommet fram. Hvis senderen ikke mottar en ACK før timeout-tiden vil den sende pakken på nytt. Dette kan vi teste med en testcase hvor vi prøver å sende pakker, og se om vi mottar ACK og riktig forventet sekvensnummer fra mottaker.
 
 \subsection{Krav 4}
-Feil som kan forekomme i A2 har vi skrevet om i *feilhåndtering*. Det er fire forskjellige feil det er snakk om og disse er, forsvunnet pakke, forsinket pakke, feil i pakke og ghostpakke. 
+Feil som kan forekomme i A2 har vi skrevet om i feilhåndtering \ref{fig:conSEQ}. Det er fire forskjellige feil det er snakk om og disse er, forsvunnet pakke, forsinket pakke, feil i pakke og ghostpakke. 
 Alle de feilene skal vi håndtere i A1 og måten vi kan teste dette på er å bruke filen, Settings.xml i Admin-pakken, som gir oss mulighet til å sette sannsynligheter for hvor ofte hver feil skal forekomme. Samtidig som vi tester dette, må vi sjekke at hvis feil oppstår så er de usynlige for applikasjonen.
 
 \subsubsection{Sannsynlighet for feil}
