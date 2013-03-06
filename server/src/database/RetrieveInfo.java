@@ -1,18 +1,20 @@
 package database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CreateDatabase {
+public class RetrieveInfo {
 
     public static void main(String[] args) {
 
         Connection con = null;
-        Statement st = null;
+        PreparedStatement pst = null;
         ResultSet rs = null;
 
         String url = "jdbc:mysql://localhost:3306/test3";
@@ -21,16 +23,22 @@ public class CreateDatabase {
 
         try {
             con = DriverManager.getConnection(url, user, password);
-            st = con.createStatement();
-            //rs = st.executeQuery("SELECT VERSION()");
-            // rs = st.executeQuery("");
-            st.executeUpdate("insert into Avtale (id, starttidspunkt, sluttidsunkt, moeteleder, tittel, tekst) values (3,13,33,'jarudiha','jarudiha','bal');");
-            if (rs.next()) {
-                System.out.println(num_rows);
+            pst = con.prepareStatement("SELECT * FROM Avtale");
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                System.out.print(rs.getInt(1));
+                System.out.print(": ");
+                System.out.println(rs.getString(4));
+                System.out.println(rs.getString(5));
             }
+            
+//            if (rs.next()) {
+//                System.out.println(rs.getString(2));
+//            }
 
         } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(CreateDatabase.class.getName());
+            Logger lgr = Logger.getLogger(EditDatabase.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
 
         } finally {
@@ -38,15 +46,15 @@ public class CreateDatabase {
                 if (rs != null) {
                     rs.close();
                 }
-                if (st != null) {
-                    st.close();
+                if (pst != null) {
+                    pst.close();
                 }
                 if (con != null) {
                     con.close();
                 }
 
             } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(CreateDatabase.class.getName());
+                Logger lgr = Logger.getLogger(EditDatabase.class.getName());
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
