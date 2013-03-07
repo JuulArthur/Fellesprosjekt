@@ -12,9 +12,14 @@ public abstract class BaseClientHandler implements IClientHandler {
 		this(new Socket(host, port));
 	}
 
+	/**
+	 * Sets up the communcation for the socket connection to the client.
+	 * @param socket
+	 */
 	public BaseClientHandler(Socket socket) {
 		try {
 			this.socket = socket;
+			
 			System.out.println("Creating reader");
 			System.out.printf("Socket - %s%n", socket);
 			System.out.printf("Input - %s%n", this.socket.getInputStream());
@@ -61,6 +66,9 @@ public abstract class BaseClientHandler implements IClientHandler {
 		e.printStackTrace();		
 	}	
 
+	/**
+	 * Disconnect connection to client. Takes 1 second.
+	 */
 	public void disconnect() {
 		this.reader.setConnected(false);
 		this.writer.setConnected(false);

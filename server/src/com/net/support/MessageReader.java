@@ -5,6 +5,12 @@ import java.io.InputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * Handles message reciving from the client
+ * 
+ * @author grp38
+ *
+ */
 public class MessageReader implements Runnable {
 
 	private static final Executor POOL = Executors.newFixedThreadPool(16);

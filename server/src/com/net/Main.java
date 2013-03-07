@@ -6,7 +6,10 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		//Main Server instance
 		final Server server = new Server(8080);
+		
+		//Start server on another thread
 		Runnable r = new Runnable() {
 			public void run() {
 				server.start();
@@ -17,6 +20,7 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
 
+		
 		while (loop) {
 			System.out.println("What do you want to do?:");
 			System.out.println("1 - Exit");

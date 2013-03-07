@@ -7,6 +7,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Handles message writing to the client
+ * 
+ * @author grp38
+ *
+ */
 public class MessageWriter implements Runnable {
 
 	private IClientHandler client;
