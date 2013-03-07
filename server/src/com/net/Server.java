@@ -33,11 +33,11 @@ public class Server {
 
 	public void start() {
 		try {
-			ServerSocket server = ServerSocketFactory.getDefault()
-					.createServerSocket(this.port);
+			ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
+			
 			while (server.isBound() && this.isConnected()) {
 				Socket client = server.accept();
-				System.out.printf("Cliente conectado: %s%n", client.getInetAddress());
+				System.out.printf("Client connected: %s%n", client.getInetAddress());
 				ClientHandler serverClient = new ClientHandler(client, this);
 				this.clients.add(serverClient);
 			}

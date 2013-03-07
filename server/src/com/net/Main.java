@@ -18,18 +18,22 @@ public class Main {
 		boolean loop = true;
 
 		while (loop) {
-			System.out.println("Digite uma opção:");
-			System.out.println("1 - Sair");
-			int opcao = s.nextInt();
-			switch (opcao) {
+			System.out.println("What do you want to do?:");
+			System.out.println("1 - Exit");
+			int command = s.nextInt();
+			switch (command) {
 			case 1:
 				server.setConnected(false);
 				loop = false;
 				break;
 			default:
-				System.out.println("Essa opção não existe");
+				System.out.println("I don't understand you");
 			}
 		}
+		
+		System.out.println("Server terminated.");
+		System.out.println("Good bye.");
+		System.exit(0);
 	}
 
 }
