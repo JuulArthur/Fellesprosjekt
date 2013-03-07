@@ -8,6 +8,12 @@ import java.util.List;
 
 import javax.net.ServerSocketFactory;
 
+/**
+ * Main SocketServer.
+ * Handles all the clients and the server.
+ * @author grp38
+ *
+ */
 public class Server {
 
 	private volatile boolean connected = true;
@@ -15,6 +21,9 @@ public class Server {
 	/* All the clients connected to the server */
 	private List<ClientHandler> clients = Collections.synchronizedList(new ArrayList<ClientHandler>());
 	
+	/**
+	 * Connected port number
+	 */
 	private int port;
 
 	public Server(int port) {

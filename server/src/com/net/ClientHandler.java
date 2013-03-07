@@ -4,9 +4,13 @@ import java.net.Socket;
 
 import com.net.support.BaseClientHandler;
 
-
+/**
+ * Default class for clients.
+ * @author perok
+ *
+ */
 public class ClientHandler  extends BaseClientHandler {
-
+	
 	private Server server;
 
 	public ClientHandler(Socket client, Server server) {
@@ -20,5 +24,4 @@ public class ClientHandler  extends BaseClientHandler {
 		System.out.println( message );
 		//this.server.onMessage(message, this);
 	}
-
 }
