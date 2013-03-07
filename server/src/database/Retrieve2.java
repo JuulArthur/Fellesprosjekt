@@ -25,7 +25,7 @@ public class Retrieve2 {
 
         try {
             //in = new FileInputStream("/Users/Juul/workspace/Fellesprosjekt/Fellesprosjekt/server/src/database/database.properties");
-        	in = new FileInputStream("src/database/database.properties");
+        	in = new FileInputStream("database.properties");
         	props.load(in);
 
         } catch (FileNotFoundException ex) {
