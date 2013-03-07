@@ -33,8 +33,8 @@ public class Server {
 
 	public void start() {
 		try {
-			ServerSocket server = ServerSocketFactory.getDefault()
-					.createServerSocket(this.port);
+			ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
+			
 			while (server.isBound() && this.isConnected()) {
 				Socket client = server.accept();
 				System.out.printf("Client connected: %s%n", client.getInetAddress());

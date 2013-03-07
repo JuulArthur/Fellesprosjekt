@@ -20,8 +20,8 @@ public class Main {
 		while (loop) {
 			System.out.println("What do you want to do?:");
 			System.out.println("1 - Exit");
-			int opcao = s.nextInt();
-			switch (opcao) {
+			int command = s.nextInt();
+			switch (command) {
 			case 1:
 				server.setConnected(false);
 				loop = false;

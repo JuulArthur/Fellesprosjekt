@@ -14,7 +14,7 @@ public class ClientHandler  extends BaseClientHandler {
 		this.server = server;
 	}
 
-	//@Override
+	@Override
 	public void onMessage(String message) {
 		System.out.println( "Got message from client:" );
 		System.out.println( message );
