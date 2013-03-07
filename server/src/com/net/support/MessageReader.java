@@ -9,11 +9,11 @@ public class MessageReader implements Runnable {
 
 	private static final Executor POOL = Executors.newFixedThreadPool(16);
 
-	final private MessageClient client;
+	final private IClientHandler client;
 	private DataInputStream stream;
 	private boolean connected = true;
 
-	public MessageReader(MessageClient client, InputStream stream) {
+	public MessageReader(IClientHandler client, InputStream stream) {
 		this.client = client;
 		this.stream = new DataInputStream(stream);
 		System.out.println("Reader is ready");

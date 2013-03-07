@@ -9,12 +9,12 @@ import java.util.concurrent.TimeUnit;
 
 public class MessageWriter implements Runnable {
 
-	private MessageClient client;
+	private IClientHandler client;
 	private DataOutputStream stream;
 	private BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 	private volatile boolean connected = true;
 
-	public MessageWriter( MessageClient client, OutputStream stream ) {
+	public MessageWriter( IClientHandler client, OutputStream stream ) {
 		this.client = client;
 		this.stream = new DataOutputStream( stream );
 		System.out.println("Writer is ready");
