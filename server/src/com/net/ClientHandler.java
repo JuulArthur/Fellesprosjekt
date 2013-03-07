@@ -4,7 +4,6 @@ import java.net.Socket;
 
 import com.net.support.BaseClientHandler;
 
-//import chat.support.BaseMessageClient;
 
 public class ClientHandler  extends BaseClientHandler {
 
@@ -19,7 +18,7 @@ public class ClientHandler  extends BaseClientHandler {
 	public void onMessage(String message) {
 		System.out.println( "Got message from client:" );
 		System.out.println( message );
-		//this.server.onMessage(message, this);
+		this.server.onMessage(message, this);
 	}
 
 }

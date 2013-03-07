@@ -30,6 +30,10 @@ public class Main {
 				System.out.println("I don't understand you");
 			}
 		}
+		
+		System.out.println("Server terminated.");
+		System.out.println("Good bye.");
+		System.exit(0);
 	}
 
 }
