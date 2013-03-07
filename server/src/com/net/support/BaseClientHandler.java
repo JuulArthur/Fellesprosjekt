@@ -22,8 +22,10 @@ public abstract class BaseClientHandler implements IClientHandler {
 			this.reader = new MessageReader(this, this.socket.getInputStream());
 			System.out.println("Creating writer");
 			this.writer = new MessageWriter(this, this.socket.getOutputStream());
+			
 			new Thread(this.reader).start();
 			new Thread(this.writer).start();
+			
 			System.out.println("Started threads");
 		} catch (Exception e) {
 			throw new RuntimeException(e);

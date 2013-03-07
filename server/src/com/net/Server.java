@@ -35,6 +35,10 @@ public class Server {
 		try {
 			ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
 			
+			System.out.println("ServerSocket InetAddress: " + server.getInetAddress());
+			System.out.println("ServerSocket port: " + server.getLocalPort());
+			System.out.println("ServerSocket localAddress: " + server.getLocalSocketAddress());
+			
 			while (server.isBound() && this.isConnected()) {
 				Socket client = server.accept();
 				System.out.printf("Client connected: %s%n", client.getInetAddress());
