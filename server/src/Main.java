@@ -1,6 +1,8 @@
-package com.net;
+
 
 import java.util.Scanner;
+
+import com.net.Server;
 
 public class Main {
 

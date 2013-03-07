@@ -42,6 +42,11 @@ public abstract class BaseClientHandler implements IClientHandler {
 		return reader;
 	}
 
+	/**
+	 * Gets the MessageWriter instance.
+	 * Handle message writing to client here.
+	 * @return
+	 */
 	public MessageWriter getWriter() {
 		return writer;
 	}

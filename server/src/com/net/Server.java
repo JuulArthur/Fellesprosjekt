@@ -12,7 +12,9 @@ public class Server {
 
 	private volatile boolean connected = true;
 	
+	/* All the clients connected to the server */
 	private List<ClientHandler> clients = Collections.synchronizedList(new ArrayList<ClientHandler>());
+	
 	private int port;
 
 	public Server(int port) {
