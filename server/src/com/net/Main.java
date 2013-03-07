@@ -18,8 +18,8 @@ public class Main {
 		boolean loop = true;
 
 		while (loop) {
-			System.out.println("Digite uma opção:");
-			System.out.println("1 - Sair");
+			System.out.println("What do you want to do?:");
+			System.out.println("1 - Exit");
 			int opcao = s.nextInt();
 			switch (opcao) {
 			case 1:
@@ -27,7 +27,7 @@ public class Main {
 				loop = false;
 				break;
 			default:
-				System.out.println("Essa opção não existe");
+				System.out.println("I don't understand you");
 			}
 		}
 	}
