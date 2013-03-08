@@ -1,17 +1,24 @@
 package com.server;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.w3c.dom.ranges.DocumentRange;
+
+import com.model.UserModel;
 import com.server.net.Server;
+import com.xml.JAXBMarshaller;
 
 public class Main {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		Properties props = new Properties();
 	    FileInputStream in = null;
+	    
+	    JAXBMarshaller jaxbMarshaller = new JAXBMarshaller();
 	    
 		/**
 		 * Load the properties
@@ -42,7 +49,7 @@ public class Main {
 		while (loop) {
 			System.out.println("What do you want to do?:");
 			System.out.println("1 - Exit");
-			System.out.println("2 - Send message to all clients");
+			//System.out.println("2 - Send User Model");
 			
 			int command = s.nextInt();
 			
@@ -50,9 +57,12 @@ public class Main {
 			case 1:
 				server.setConnected(false);
 				loop = false;
+				Thread.sleep(1001);
 				break;
 			case 2:
-				System.out.println("Not implemented");
+				
+				//server.sendXMLOutputStream(baos);
+
 				break;
 			default:
 				System.out.println("I don't understand you");

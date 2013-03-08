@@ -1,5 +1,6 @@
 package com.server.net;
 
+import java.io.ByteArrayOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -86,6 +87,14 @@ public class Server {
 			if (!client.equals(source)) {
 				client.onMessage(message);
 			}
+		}
+	}
+	
+	public void sendXMLOutputStream(ByteArrayOutputStream baos){
+		for (ClientHandler client : this.clients) {
+			//if (!client.equals(source)) {
+			client.writeMessage(baos.toString());
+			//}
 		}
 	}
 

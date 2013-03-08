@@ -14,14 +14,14 @@ import com.model.UserModel;
  */
 public class JAXBMarshaller {
 	
-	JAXBContext jaxbContext;
-	Marshaller jaxbMarshaller;
+	private JAXBContext jaxbContext;
+	private Marshaller jaxbMarshaller;
 	
 	public JAXBMarshaller() {
 		try {
 			/*UserModel*/
-			JAXBContext jaxbContext = JAXBContext.newInstance(UserModel.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			jaxbContext = JAXBContext.newInstance(UserModel.class);
+			jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		
 		} catch (JAXBException e) {
@@ -35,7 +35,9 @@ public class JAXBMarshaller {
 	 */
 	public void jaxbUserModel(UserModel um, OutputStream os){
 		try {
-			jaxbMarshaller.marshal(um, System.out);
+			System.out.println("FIKK: " + um);
+			jaxbMarshaller.marshal(um, os);
+			//jaxbMarshaller.mars
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
