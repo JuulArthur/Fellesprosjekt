@@ -2,6 +2,8 @@ package com.client;
 
 import java.util.Scanner;
 
+import com.xml.XML;
+
 public class Main {
 
 	/**
@@ -18,7 +20,8 @@ public class Main {
 		while ( loop ) {
 			System.out.println( "What do you want to do?" );
 			System.out.println( "1 - Send message" );
-			System.out.println( "2 - Exit" );
+			System.out.println( "2 - To cool for XML");
+			System.out.println( "3 - Exit" );
 
 			int opcao = s.nextInt();
 
@@ -31,6 +34,10 @@ public class Main {
 				client.writeMessage(message);
 				break;
 			case 2:
+				//XML xmlCreator = new XML();
+				//client.getWriter().
+				break;
+			case 3:
 				client.disconnect();
 				loop = false;
 				break;

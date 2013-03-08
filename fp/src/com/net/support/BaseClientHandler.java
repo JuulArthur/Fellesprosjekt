@@ -1,7 +1,12 @@
 package com.net.support;
 
 import java.net.Socket;
-
+/**
+ * For krytografi se; http://www.bouncycastle.org/
+ * 
+ * @author grp38
+ *
+ */
 public abstract class BaseClientHandler implements IClientHandler {
 
 	private Socket socket;
@@ -68,6 +73,8 @@ public abstract class BaseClientHandler implements IClientHandler {
 	@Override
 	public void errorOnRead(Exception e) {
 		System.out.println( "An error happened while reading" );
+		//Stacktrace for disconnect exception gets thrown to here.
+		//System.out.println(e.getCause());
 		e.printStackTrace();		
 	}	
 
