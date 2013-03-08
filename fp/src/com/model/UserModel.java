@@ -2,6 +2,11 @@ package com.model;
 
 import javax.xml.bind.annotation.*;
 
+/**
+ * Test modell
+ * @author perok
+ *
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserModel {

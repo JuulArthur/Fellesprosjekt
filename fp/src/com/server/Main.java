@@ -23,8 +23,9 @@ public class Main {
 		catch(Exception e){
 			
 		}
+		
 		//Main Server instance
-		final Server server = new Server(Integer.parseInt(props.getProperty("server.port", "8080")));
+		final Server server = new Server(8078);//Integer.parseInt(props.getProperty("server.port", "8080")));
 		
 		//Start server on another thread
 		Runnable r = new Runnable() {

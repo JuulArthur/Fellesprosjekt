@@ -7,7 +7,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import com.model.UserModel;
-
+/**
+ * Langt ifra ferdig
+ * @author perok
+ *
+ */
 public class JAXBMarshaller {
 	public static void main(String[] args) {
 

@@ -22,6 +22,11 @@ Repeat for the second document etc
 
 //http://stackoverflow.com/questions/10520757/parsing-xml-data-in-java
 
+/**
+ * Langt ifra ferdig
+ * @author perok
+ *
+ */
 public class XML {
 	private String username = "peri";
 	private String password = "hemmelig";
