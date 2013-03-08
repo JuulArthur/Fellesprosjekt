@@ -40,18 +40,30 @@ public class TestDB {
 	public void batchTest() throws SQLException, ClassNotFoundException{
 		DatabaseConnector db = new DatabaseConnector();
 		db.initialize();
-		String insert = "insert into Avtale (id, starttidspunkt, sluttidsunkt, moeteleder, tittel, tekst) values (4,4,4,'jarudiha','test!','tbla');";
+		String insert = "insert into Avtale (id, starttidspunkt, sluttidsunkt, moeteleder, tittel, tekst) values (?,?,?,'?','?','?');";
 		PreparedStatement ps = db.makeBatchUpdate(insert);
-		String name =null;
-		String birthyear =null;
+		String id =null;
+		String starttidspunkt =null;
+		String slutttidsunkt =null;
+		String moeteleder =null;
+		String tittel =null;
+		String tekst =null;
 		Scanner sc = new Scanner(System.in);
 		String line = sc.nextLine();
 		while(line.trim().length()>2){
 			StringTokenizer t = new StringTokenizer(line);
-			name=t.nextToken();
-			birthyear=t.nextToken();
-			ps.setString(1, name);
-			ps.setString(2, birthyear);
+			id=t.nextToken();
+			starttidspunkt=t.nextToken();
+			slutttidsunkt=t.nextToken();
+			moeteleder=t.nextToken();
+			tittel=t.nextToken();
+			tekst=t.nextToken();
+			ps.setInt(1, Integer.parseInt(id));
+			ps.setInt(2, Integer.parseInt(starttidspunkt));
+			ps.setInt(3, Integer.parseInt(slutttidsunkt));
+//			ps.setString(4, moeteleder);
+//			ps.setString(5, tittel);
+//			ps.setString(6, tekst);
 			
 			line=sc.nextLine();
 		}
@@ -63,7 +75,7 @@ public class TestDB {
 	public static void main(String args[]){
 		TestDB t = new TestDB();
 		try{
-			t.test();
+			t.batchTest();
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();
