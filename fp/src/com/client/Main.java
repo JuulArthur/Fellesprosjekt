@@ -3,6 +3,7 @@ package com.client;
 import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
 
+import com.client.net.Client;
 import com.model.UserModel;
 import com.xml.JAXBMarshaller;
 
@@ -49,7 +50,7 @@ public class Main {
 				/* Make a bytearray of the XML*/
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				jaxbMarshaller.jaxbUserModel(um, baos);
-				client.writeMessage(baos.toString());
+				client.writeMessage(baos.toString()); //byte[] data = bos.toByteArray(); better solution?
 				break;
 			case 3:
 				client.disconnect();
