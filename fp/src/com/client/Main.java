@@ -41,11 +41,12 @@ public class Main {
 				client.writeMessage(message);
 				break;
 			case 2:
+				s.nextLine();
 				UserModel um = new UserModel();
 				System.out.println("Write username");
-				um.setUsername(s.next());
+				um.setUsername(s.nextLine());
 				System.out.println("Write password");
-				um.setPassword(s.next());
+				um.setPassword(s.nextLine());
 				
 				/* Make a bytearray of the XML*/
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
