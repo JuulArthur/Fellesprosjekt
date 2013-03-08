@@ -56,8 +56,8 @@ public class Server {
 	 */
 	public void start() {
 		try {
-			ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
-			
+			//ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
+			ServerSocket server = new ServerSocket(this.port);
 			System.out.println("ServerSocket InetAddress: " + server.getInetAddress());
 			System.out.println("ServerSocket port: " + server.getLocalPort());
 			System.out.println("ServerSocket localAddress: " + server.getLocalSocketAddress());
