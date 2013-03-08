@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE user SYSTEM "user.dtd">
-<user>
-    <username>peri</username>
-    <password>hemmelig</password>
-</user>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userModel>
+    <username>perok</username>
+    <password>husmor</password>
+</userModel>

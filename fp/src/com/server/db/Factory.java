@@ -21,7 +21,3 @@ public class Factory {
 		db.close();
 	}
 }
-
-public class Factory {
-
-}
