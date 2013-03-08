@@ -38,22 +38,34 @@ public class MessageReader implements Runnable {
 
 		try {
 			while (this.isConnected()) {
+				//The size of the stream
+				// If -1 --> XML
 				int size = this.stream.readInt();
-				System.out.printf("Reading %d bytes%n", size);
-				byte[] message = new byte[size];
-				for (int x = 0; x < size; x++) {
-					System.out.printf("reading byte %d of %d%n", x, size);
-					message[x] = (byte) this.stream.read();
+				
+				if(size == -1){
+					System.out.println("Reading XML data");
+					size = this.stream.readInt();
+					System.out.println("XML size: " + size);
+					
+					
 				}
-				final String realMessage = new String(message);
-
-				Runnable runnable = new Runnable() {
-					@Override
-					public void run() {
-						client.onMessage(realMessage);
+				//else {
+					System.out.printf("Reading %d bytes%n", size);
+					byte[] message = new byte[size];
+					for (int x = 0; x < size; x++) {
+						System.out.printf("reading byte %d of %d%n", x, size);
+						message[x] = (byte) this.stream.read();
 					}
-				};
-				POOL.execute(runnable);
+					final String realMessage = new String(message);
+	
+					Runnable runnable = new Runnable() {
+						@Override
+						public void run() {
+							client.onMessage(realMessage);
+						}
+					};
+					POOL.execute(runnable);
+				//}
 			}
 		} catch (Exception e) {
 			this.client.errorOnRead(e);

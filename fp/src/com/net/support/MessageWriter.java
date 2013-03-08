@@ -7,6 +7,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.transform.stream.StreamResult;
+
+import com.xml.XML;
+
 /**
  * Handles message writing to the client
  * 
@@ -57,6 +61,27 @@ public class MessageWriter implements Runnable {
 		}
 
 	}
+	
+	/*
+	public void writeXML(){
+		try {
+			//We are XML
+			this.stream.writeInt(-1);
+			XML xml = new XML();
+			StreamResult sr = xml.saveToXML();
+			
+			//this.stream.write(sr.getOutputStream());
+			//if ( message != null ) {
+				//byte[] bytes = message.getBytes();
+				//this.stream.writeInt( bytes.length );
+				//this.stream.write( bytes );
+			//}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch ( IOException e ) {
+			this.client.errorOnWrite(e);
+		}
+	}*/
 
 
 }
