@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("Preparing client");
-		Client client = new Client("localhost", 8080 );
+		Client client = new Client("82.194.219.227", 8080 );
 		System.out.println("Client connected");
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
