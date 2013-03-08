@@ -2,7 +2,7 @@ package com.client;
 
 import java.util.Scanner;
 
-import com.xml.XML;
+//import com.xml.XML;
 
 public class Main {
 
@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("Preparing client");
-		Client client = new Client("82.194.219.227", 8080 );
+		Client client = new Client("82.194.219.227", 8078 );
 		System.out.println("Client connected");
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
@@ -22,7 +22,7 @@ public class Main {
 			System.out.println( "1 - Send message" );
 			System.out.println( "2 - To cool for XML");
 			System.out.println( "3 - Exit" );
-
+			
 			int opcao = s.nextInt();
 
 			switch( opcao ) {

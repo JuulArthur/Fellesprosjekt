@@ -15,19 +15,15 @@ import java.util.Properties;
 
 public class DatabaseConnector {
 
-	private String jdbcDriver;
 	private Connection conn;
-	private String url;
-	private Properties properties;
+	private Properties properties = new Properties();
 	
-	public DatabaseConnector(){
-		jdbcDriver=properties.getProperty("jdbcDriver");
-		url=properties.getProperty("url");
-		
+	public DatabaseConnector(){		
 		InputStream in = null;
 		
 		try{
 			in = new FileInputStream("database.properties");
+			System.out.println(in);
 			properties.load(in);
 		}
 		catch(FileNotFoundException e){
@@ -61,8 +57,6 @@ public class DatabaseConnector {
 	
 	public void initialize() throws SQLException, ClassNotFoundException{
 		
-		Class.forName(jdbcDriver);
-		
         String url = properties.getProperty("db.url");
         String user = properties.getProperty("db.user");
         String passwd = properties.getProperty("db.passwd");
@@ -76,15 +70,8 @@ public class DatabaseConnector {
 	public static void main(String args[]){
 		Properties p = new Properties();
 		try{
-			p.load(new FileInputStream(new File("Properties.properties")));
 			DatabaseConnector db = new DatabaseConnector();
 			db.initialize();
-		}
-		catch (FileNotFoundException e ){
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

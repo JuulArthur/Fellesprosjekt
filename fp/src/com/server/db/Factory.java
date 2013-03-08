@@ -5,10 +5,10 @@ import java.util.Properties;
 
 public class Factory {
 
-	DBConnection db;
+	DatabaseConnector db;
 	
-	public Factory(Properties properties){
-		db = new DBConnection(properties);
+	public Factory(){
+		db = new DatabaseConnector();
 	}
 	
 	public void createEmployee(String name, int birthyear) throws SQLException, ClassNotFoundException{
