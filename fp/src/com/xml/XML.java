@@ -27,6 +27,7 @@ Repeat for the second document etc
  * @author perok
  *
  */
+@Deprecated
 public class XML {
 	private String username = "peri";
 	private String password = "hemmelig";

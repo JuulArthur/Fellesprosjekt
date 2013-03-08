@@ -2,8 +2,15 @@ package com.net.support;
 
 import java.io.DataInputStream;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+
+import com.model.UserModel;
 
 /**
  * Handles message reciving from the client
@@ -38,34 +45,39 @@ public class MessageReader implements Runnable {
 
 		try {
 			while (this.isConnected()) {
-				//The size of the stream
-				// If -1 --> XML
+				// The size of the stream
 				int size = this.stream.readInt();
-				
-				if(size == -1){
-					System.out.println("Reading XML data");
-					size = this.stream.readInt();
-					System.out.println("XML size: " + size);
-					
-					
+
+				/* The UnMarshaller */
+				JAXBContext ctx = JAXBContext.newInstance(UserModel.class); //alle modeller med komma mellom
+				Unmarshaller um = ctx.createUnmarshaller();
+
+				System.out.printf("Reading %d bytes%n", size);
+				byte[] message = new byte[size];
+				for (int x = 0; x < size; x++) {
+					System.out.printf("reading byte %d of %d%n", x, size);
+					message[x] = (byte) this.stream.read();
 				}
-				//else {
-					System.out.printf("Reading %d bytes%n", size);
-					byte[] message = new byte[size];
-					for (int x = 0; x < size; x++) {
-						System.out.printf("reading byte %d of %d%n", x, size);
-						message[x] = (byte) this.stream.read();
+
+				// Creating the object from the string
+				Object o = um.unmarshal(new StreamSource(new StringReader(new String(message))));
+
+				//Check what we have recieved
+				if (o instanceof UserModel) {
+					//Do something
+				}
+				
+				final String realMessage = ((UserModel) o).getUsername();
+
+				//Send the message to the client
+				Runnable runnable = new Runnable() {
+					@Override
+					public void run() {
+						client.onMessage(realMessage);
 					}
-					final String realMessage = new String(message);
-	
-					Runnable runnable = new Runnable() {
-						@Override
-						public void run() {
-							client.onMessage(realMessage);
-						}
-					};
-					POOL.execute(runnable);
-				//}
+				};
+				
+				POOL.execute(runnable);
 			}
 		} catch (Exception e) {
 			this.client.errorOnRead(e);
@@ -75,3 +87,40 @@ public class MessageReader implements Runnable {
 	}
 
 }
+
+/*
+System.out.println(size);
+JAXBUnmarshaller jux = new JAXBUnmarshaller();
+
+UserModel u = jux.UserModelUnmarshaller(this.stream);
+
+System.out.println(u.getUsername());
+System.out.println(u.getPassword());*/
+
+/*
+ * XML Reader from stream with filter
+ */
+/*
+ XMLInputFactory xmlif = XMLInputFactory.newInstance();
+ XMLEventReader xmler = xmlif.createXMLEventReader(this.stream);
+ EventFilter filter = new EventFilter() {
+     public boolean accept(XMLEvent event) {
+         return true;//event.isStartElement();
+     }
+ };
+ XMLEventReader xmlfer = xmlif.createFilteredReader(xmler, filter); 
+
+ // Parse into typed objects
+ JAXBContext ctx = JAXBContext.newInstance("com.model");
+ Unmarshaller um = ctx.createUnmarshaller();
+ int bugs = 0;
+ while (xmlfer.peek() != null) {
+      Object o = um.unmarshal(xmler);
+      if (o instanceof UserModel) {
+    	  UserModel bi = (UserModel) o;
+          // process the bug instance
+          bugs++;
+      }
+ }*/
+
+//else {

@@ -22,6 +22,9 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
 		
+		/**
+		 * Object for creating XML from the models
+		 */
 		JAXBMarshaller jaxbMarshaller = new JAXBMarshaller();
 
 		while ( loop ) {
@@ -50,7 +53,7 @@ public class Main {
 				
 				/* Make a bytearray of the XML*/
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				jaxbMarshaller.jaxbUserModel(um, baos);
+				jaxbMarshaller.jaxbModeltoXML(um, baos);
 				client.writeMessage(baos.toString()); //byte[] data = bos.toByteArray(); better solution?
 				break;
 			case 3:

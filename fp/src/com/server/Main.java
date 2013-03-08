@@ -1,13 +1,9 @@
 package com.server;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
-import org.w3c.dom.ranges.DocumentRange;
-
-import com.model.UserModel;
 import com.server.net.Server;
 import com.xml.JAXBMarshaller;
 
@@ -32,7 +28,7 @@ public class Main {
 		}
 		
 		//Main Server instance
-		final Server server = new Server(8078);//Integer.parseInt(props.getProperty("server.port", "8080")));
+		final Server server = new Server(Integer.parseInt(props.getProperty("server.port", "8078")));
 		
 		//Start server on another thread
 		Runnable r = new Runnable() {
@@ -60,9 +56,6 @@ public class Main {
 				Thread.sleep(1001);
 				break;
 			case 2:
-				
-				//server.sendXMLOutputStream(baos);
-
 				break;
 			default:
 				System.out.println("I don't understand you");

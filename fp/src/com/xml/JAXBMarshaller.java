@@ -33,11 +33,10 @@ public class JAXBMarshaller {
 	 * Sends the XML edition of UserModel through the given OutputStream
 	 * @param os
 	 */
-	public void jaxbUserModel(UserModel um, OutputStream os){
+	public void jaxbModeltoXML(Object o, OutputStream os){
 		try {
-			System.out.println("FIKK: " + um);
-			jaxbMarshaller.marshal(um, os);
-			//jaxbMarshaller.mars
+			if(o instanceof UserModel)
+				jaxbMarshaller.marshal(o, os);
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
