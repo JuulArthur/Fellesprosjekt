@@ -26,14 +26,14 @@ public class TestDB {
 	public void readTest() throws SQLException, ClassNotFoundException{
 		DatabaseConnector db = new DatabaseConnector();
 		
-		String sql = "select username,password from appointment";
+		String sql = "select username,password from User WHERE username='perok'";
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(sql);
 		rs.beforeFirst();
 		while(rs.next()){
 			String name = rs.getString(1);
-			String birthyear = rs.getString(2);
-			System.out.println(String.format("%S %S\n",name,birthyear));
+			String password = rs.getString(2);
+			System.out.println(String.format("%S %S\n",name,password));
 		}
 		rs.close();
 	}
@@ -73,9 +73,10 @@ public class TestDB {
 	
 	public static void main(String args[]){
 		TestDB t = new TestDB();
+		Factory f = new Factory();
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "32234890", 0);
 		try{
-			t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "12345678", 0);
+			System.out.println(f.checkPassword("christea", "hei"));
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();
