@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.net.ServerSocketFactory;
 
+import com.net.msg.MSGWrapper;
+
 /**
  * Main SocketServer.
  * Handles all the clients and the server.
@@ -96,6 +98,23 @@ public class Server {
 			client.writeMessage(baos.toString());
 			//}
 		}
+	}
+	
+	/**
+	 * Send wrapper object to everybody
+	 * @param wrapper
+	 */
+	public void wrapperToAll(MSGWrapper wrapper){
+		
+	}
+	
+	/**
+	 * Send MSGWrapper to the users in ArrayList<String>
+	 * @param wrapper
+	 * @param users
+	 */
+	public void wrapperTo(MSGWrapper wrapper, ArrayList<String> users){
+		
 	}
 
 }
