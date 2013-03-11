@@ -2,6 +2,7 @@ package com.server.db;
 
 import java.sql.SQLException;
 import java.util.Properties;
+import com.model.UserModel;
 
 public class Factory {
 
@@ -11,13 +12,17 @@ public class Factory {
 		db = new DatabaseConnector();
 	}
 	
-	public void createEmployee(String name, int birthyear) throws SQLException, ClassNotFoundException{
+	public UserModel createUser(String userName, String password, String email, String name, String surName, String phoneNumber, int isAdmin ) throws SQLException, ClassNotFoundException{
 		//lage en person
 		//Last ned apache cayenne eller jbose hibernate
 		//Employee e = new Employee(name,birthyear);
-		String query = "";
+		UserModel um = new UserModel();
+		String query=String.format("insert into User " +
+				"(userName, email, name, surName, phoneNumber, password, isAdmin) values ('%s', '%s','%s','%s','%s','%s',%d)", userName, password, email, name, surName, phoneNumber, isAdmin); 
 		db.initialize();
-		db.makeSingleQuery(query);
+		db.makeUpdate(query);
 		db.close();
+	
+		return um;
 	}
 }
