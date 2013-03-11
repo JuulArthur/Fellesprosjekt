@@ -27,7 +27,9 @@ public class UserModel {
 	private Factory f;
 	
 	/* JAXB */
-	public UserModel(){}
+	public UserModel(){
+		
+	}
 	
 	public UserModel(String username, String password, String email,
 			String name, String surname, String phoneNumber, int isAdmin) {
@@ -40,9 +42,6 @@ public class UserModel {
 		this.isAdmin = isAdmin==1;
 		
 		this.f = new Factory();
-	}
-	public UserModel() {
-		// her perok!
 	}
 	
 	/* Methods */
