@@ -70,25 +70,19 @@ public class MessageReader implements Runnable {
 				// Creating the object from the string
 				final Object o = um.unmarshal(new StreamSource(new StringReader(new String(message))));
 				
-				//Send the wrapper to the listeners
-				Runnable runnableW = new Runnable() {
+				//Send the message to the client
+				Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
 						if (o instanceof MSGWrapper) {
 							client.onWrapper((MSGWrapper)o);
 						}
-					}
-				};
-				
-				//Send the message to the client
-				Runnable runnable = new Runnable() {
-					@Override
-					public void run() {
+						
 						if(verbose) client.onMessage("Object recieved: " + (MSGWrapper)o);
 					}
 				};
 				
-				POOL.execute(runnableW);
+				//POOL.execute(runnableW);
 				POOL.execute(runnable);
 			}
 		} catch (Exception e) {
