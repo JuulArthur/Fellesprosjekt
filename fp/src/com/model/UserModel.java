@@ -38,13 +38,6 @@ public class UserModel {
 	}
 	
 	/* Methods */
-	public void createProject() {
-		//f.createProject();
-	}
-	
-	public void removeProject(ProjectModel p) {
-		//f.removeProject(p);
-	}
 	
 	public void createUser() {
 		//f.createEmployee(name, birthyear);
