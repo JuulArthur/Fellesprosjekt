@@ -16,6 +16,8 @@ import com.net.support.State;
  */
 public class ServerHandler extends ServiceHandler {
 	
+	private boolean verbose = true;
+	
 	/**
 	 * the current flag type. Used for knowing the context of a response
 	 */
@@ -39,6 +41,7 @@ public class ServerHandler extends ServiceHandler {
 	 */
 	@Override
 	public void onWrapper( MSGWrapper msgW ){
+		if(verbose) System.out.println("[ServerHandler] onWrapper");
 		/* We are not connected and need to get a accept response message */
 		if(getState() == State.DISCONNECTED){
 			if(msgW.getType() == MSGType.RESPONSE ){

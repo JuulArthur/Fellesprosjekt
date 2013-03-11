@@ -8,6 +8,7 @@ import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
 import com.net.support.ServiceHandler;
 import com.net.support.State;
+import com.settings.Global;
 
 /**
  * Default class for clients connected to server.
@@ -16,8 +17,7 @@ import com.net.support.State;
  * @author perok
  *
  */
-public class ClientHandler  extends ServiceHandler {
-	
+public class ClientHandler  extends ServiceHandler {	
 	private Server server;
 
 	public ClientHandler(Socket client, Server server) {
@@ -37,6 +37,7 @@ public class ClientHandler  extends ServiceHandler {
 	 */
 	@Override
 	public void onWrapper( MSGWrapper msgW ){
+		if(Global.verbose) System.out.println("[ClientHandler] onWrapper: " + msgW + "--State: " + getState());
 		/* Client is not logged in */
 		if(getState() == State.DISCONNECTED ){
 			if(msgW.getType() == MSGType.REQUEST){
@@ -47,7 +48,7 @@ public class ClientHandler  extends ServiceHandler {
 						 * Query for login.
 						 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
 						 */
-						System.out.println("CLIENTHANDLER: Trying to log in: " + o);
+						if(Global.verbose) System.out.println("[ClientHandler] onWrapper: Logging in " + o);
 						
 						/* Set connected state*/
 						setState(State.CONNECTED);
@@ -56,6 +57,8 @@ public class ClientHandler  extends ServiceHandler {
 						writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, null));
 	
 					}
+					else
+						System.out.println("[ERROR][ClientHandler] onWrapper: bad protocol");
 				}
 			}
 			else {
