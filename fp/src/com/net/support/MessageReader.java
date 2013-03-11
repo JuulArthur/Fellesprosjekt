@@ -84,7 +84,7 @@ public class MessageReader implements Runnable {
 				Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
-						client.onMessage("Object recieved: " + (MSGWrapper)o);
+						if(verbose) client.onMessage("Object recieved: " + (MSGWrapper)o);
 					}
 				};
 				

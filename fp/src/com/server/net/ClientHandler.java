@@ -23,11 +23,6 @@ public class ClientHandler  extends ServiceHandler {
 	public ClientHandler(Socket client, Server server) {
 		super(client);
 		this.server = server;
-		
-		/**
-		 * Not logged in yet
-		 */
-		setState(State.DISCONNECTED);
 	}
 
 	@Override
@@ -50,7 +45,7 @@ public class ClientHandler  extends ServiceHandler {
 					 * Query for login.
 					 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
 					 */
-					System.out.println("Trying to log in: " + o);
+					System.out.println("CLIENTHANDLER: Trying to log in: " + o);
 					
 					/* Set connected state*/
 					setState(State.CONNECTED);

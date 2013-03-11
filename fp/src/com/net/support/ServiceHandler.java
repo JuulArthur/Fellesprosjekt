@@ -24,6 +24,11 @@ public abstract class ServiceHandler implements IClientHandler {
 
 	public ServiceHandler(String host, int port) throws Exception {
 		this(new Socket(host, port));
+		
+		/**
+		 * Not logged in yet
+		 */
+		setState(State.DISCONNECTED);
 	}
 
 	/**

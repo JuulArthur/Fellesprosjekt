@@ -1,6 +1,5 @@
 package com.client;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +7,6 @@ import com.client.net.ServerHandler;
 import com.model.UserModel;
 import com.net.msg.MSGFlag;
 import com.net.msg.MSGType;
-import com.net.msg.MSGWrapper;
 import com.xml.JAXBMarshaller;
 
 //import com.xml.XML;
