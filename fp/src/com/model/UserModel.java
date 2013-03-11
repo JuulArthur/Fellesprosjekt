@@ -41,9 +41,6 @@ public class UserModel {
 		
 		this.f = new Factory();
 	}
-	public UserModel() {
-		// her perok!
-	}
 	
 	/* Methods */
 	
