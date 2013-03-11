@@ -7,6 +7,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import com.model.UserModel;
+import com.net.msg.MSGFlag;
+import com.net.msg.MSGType;
+import com.net.msg.MSGWrapper;
 /**
  * XML creator for the models
  * @author perok
@@ -20,7 +23,7 @@ public class JAXBMarshaller {
 	public JAXBMarshaller() {
 		try {
 			/*UserModel*/
-			jaxbContext = JAXBContext.newInstance(UserModel.class);
+			jaxbContext = JAXBContext.newInstance(UserModel.class, MSGFlag.class, MSGType.class, MSGWrapper.class);
 			jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		
@@ -35,10 +38,12 @@ public class JAXBMarshaller {
 	 */
 	public void jaxbModeltoXML(Object o, OutputStream os){
 		try {
-			if(o instanceof UserModel)
-				jaxbMarshaller.marshal(o, os);
+			jaxbMarshaller.marshal(o, os);
 
 		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

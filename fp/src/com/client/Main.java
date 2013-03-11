@@ -1,10 +1,14 @@
 package com.client;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.client.net.Client;
 import com.model.UserModel;
+import com.net.msg.MSGFlag;
+import com.net.msg.MSGType;
+import com.net.msg.MSGWrapper;
 import com.xml.JAXBMarshaller;
 
 //import com.xml.XML;
@@ -17,7 +21,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("Preparing client");
-		Client client = new Client("mel.is", 8078 );
+		Client client = new Client("localhost", 8078 ); //mel.is
 		System.out.println("Client connected");
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
@@ -29,34 +33,37 @@ public class Main {
 
 		while ( loop ) {
 			System.out.println( "What do you want to do?" );
-			System.out.println( "1 - Send message" );
-			System.out.println( "2 - To cool for XML");
-			System.out.println( "3 - Exit" );
+			System.out.println( "1 - Login" );
+			System.out.println( "2 - Exit" );
 			
 			int command = s.nextInt();
 
 			switch( command ) {
 			case 1:
 				s.nextLine();
-				System.out.println("Write your message");
-				String message = s.nextLine();
-				System.out.printf("Sending your message -> %s%n", message);
-				client.writeMessage(message);
+				UserModel ums = new UserModel();
+				System.out.println("Write username");
+				ums.setUsername(s.nextLine());
+				System.out.println("Write password");
+				ums.setPassword(s.nextLine());
+				
+				ArrayList<Object> alist = new ArrayList<>();
+				alist.add(ums);
+				
+				MSGWrapper wrapper = new MSGWrapper(0, MSGType.REQUEST, MSGFlag.LOGIN, alist);
+				
+				ByteArrayOutputStream baoss = new ByteArrayOutputStream();
+				jaxbMarshaller.jaxbModeltoXML(wrapper, baoss);
+				
+				System.out.println("==DEBUG==");
+				System.out.println(baoss.toString());
+				System.out.println("== END ==");
+				
+				client.writeMessage(baoss.toString());
+				
+				
 				break;
 			case 2:
-				s.nextLine();
-				UserModel um = new UserModel();
-				System.out.println("Write username");
-				um.setUsername(s.nextLine());
-				System.out.println("Write password");
-				um.setPassword(s.nextLine());
-				
-				/* Make a bytearray of the XML*/
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				jaxbMarshaller.jaxbModeltoXML(um, baos);
-				client.writeMessage(baos.toString()); //byte[] data = bos.toByteArray(); better solution?
-				break;
-			case 3:
 				client.disconnect();
 				loop = false;
 				break;
