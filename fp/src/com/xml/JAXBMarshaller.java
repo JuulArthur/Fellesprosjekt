@@ -1,6 +1,8 @@
 package com.xml;
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,6 +18,8 @@ import com.net.msg.MSGWrapper;
  *
  */
 public class JAXBMarshaller {
+	
+	private boolean verbose = false;
 	
 	private JAXBContext jaxbContext;
 	private Marshaller jaxbMarshaller;
@@ -36,7 +40,7 @@ public class JAXBMarshaller {
 	 * Sends the XML edition of UserModel through the given OutputStream
 	 * @param os
 	 */
-	public void jaxbModeltoXML(Object o, OutputStream os){
+	private void jaxbWrapperToXML(Object o, OutputStream os){
 		try {
 			jaxbMarshaller.marshal(o, os);
 
@@ -46,5 +50,20 @@ public class JAXBMarshaller {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getXMLRepresentation(int ID, MSGType type, MSGFlag flag, ArrayList<Object> alist){
+		MSGWrapper wrapper = new MSGWrapper(ID, type, flag, alist);
+		
+		ByteArrayOutputStream baoss = new ByteArrayOutputStream();
+		
+		jaxbWrapperToXML(wrapper, baoss);
+		
+		if(verbose) System.out.println("==DEBUG==");
+		if(verbose) System.out.println(baoss.toString());
+		if(verbose) System.out.println("== END ==");
+		
+		return baoss.toString();
+		
 	}
 }

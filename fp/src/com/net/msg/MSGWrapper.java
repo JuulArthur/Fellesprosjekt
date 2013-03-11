@@ -93,6 +93,9 @@ public class MSGWrapper {
 
 	@Override
 	public String toString(){
-		return ID + " " + type + " " + flag + " " + objects.size();
+		String s = ID + " " + type + " " + flag + " ";
+		if(objects != null)
+			s += objects.size();
+		return s;
 	}
 }

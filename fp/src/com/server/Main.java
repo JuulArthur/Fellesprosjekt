@@ -30,7 +30,7 @@ public class Main {
 		}
 		
 		//Main Server instance
-		final Server server = new Server(Integer.parseInt(props.getProperty("server.port", "8078")));
+		final Server server = new Server(Integer.parseInt(props.getProperty("server.port", "8078")), jaxbMarshaller);
 		
 		//Start server on another thread
 		Runnable r = new Runnable() {

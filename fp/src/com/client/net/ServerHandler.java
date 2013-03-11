@@ -1,7 +1,7 @@
 package com.client.net;
 
 import com.net.msg.MSGWrapper;
-import com.net.support.BaseClientHandler;
+import com.net.support.ServiceHandler;
 
 /**
  * Default handler for connection to server.
@@ -11,7 +11,7 @@ import com.net.support.BaseClientHandler;
  * @author perok
  *
  */
-public class ServerHandler extends BaseClientHandler {
+public class ServerHandler extends ServiceHandler {
 
 	public ServerHandler(String host, int port) throws Exception {
 		super( host, port );

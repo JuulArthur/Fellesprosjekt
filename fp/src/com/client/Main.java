@@ -50,17 +50,7 @@ public class Main {
 				ArrayList<Object> alist = new ArrayList<>();
 				alist.add(ums);
 				
-				MSGWrapper wrapper = new MSGWrapper(0, MSGType.REQUEST, MSGFlag.LOGIN, alist);
-				
-				ByteArrayOutputStream baoss = new ByteArrayOutputStream();
-				jaxbMarshaller.jaxbModeltoXML(wrapper, baoss);
-				
-				System.out.println("==DEBUG==");
-				System.out.println(baoss.toString());
-				System.out.println("== END ==");
-				
-				serverH.writeMessage(baoss.toString());
-				
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlag.LOGIN, alist));
 				
 				break;
 			case 2:
