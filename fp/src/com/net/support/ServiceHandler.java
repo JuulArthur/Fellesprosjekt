@@ -114,9 +114,7 @@ public abstract class ServiceHandler implements IClientHandler {
 
 	/*
 	 * Getters and setters
-	 */
-	
-	
+	 */	
 	public State getState() {
 		return state;
 	}

@@ -12,15 +12,13 @@ import com.model.UserModel;
 import com.net.msg.MSGFlag;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
+import com.settings.Global;
 /**
  * XML creator for the models
  * @author perok
  *
  */
-public class JAXBMarshaller {
-	
-	private boolean verbose = false;
-	
+public class JAXBMarshaller {	
 	private JAXBContext jaxbContext;
 	private Marshaller jaxbMarshaller;
 	
@@ -55,15 +53,15 @@ public class JAXBMarshaller {
 	public String getXMLRepresentation(int ID, MSGType type, MSGFlag flag, ArrayList<Object> alist){
 		MSGWrapper wrapper = new MSGWrapper(ID, type, flag, alist);
 		
-		ByteArrayOutputStream baoss = new ByteArrayOutputStream();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
-		jaxbWrapperToXML(wrapper, baoss);
+		jaxbWrapperToXML(wrapper, baos);
 		
-		if(verbose) System.out.println("==DEBUG==");
-		if(verbose) System.out.println(baoss.toString());
-		if(verbose) System.out.println("== END ==");
+		//if(Global.verbose) System.out.println("==DEBUG==");
+		//if(Global.verbose) System.out.println(baoss.toString());
+		//if(Global.verbose) System.out.println("== END ==");
 		
-		return baoss.toString();
+		return baos.toString();
 		
 	}
 }
