@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import com.model.UserModel;
 
 public class TestDB {
 	
@@ -25,7 +26,7 @@ public class TestDB {
 	public void readTest() throws SQLException, ClassNotFoundException{
 		DatabaseConnector db = new DatabaseConnector();
 		
-		String sql = "select title,host from appointment";
+		String sql = "select username,password from appointment";
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(sql);
 		rs.beforeFirst();
@@ -61,10 +62,20 @@ public class TestDB {
 		db.close();
 	}
 	
+	public UserModel testCreateUser(String userName, String password, String email, 
+			String name, String surname, String phoneNumber, int isAdmin ) throws SQLException, ClassNotFoundException{
+		Factory f = new Factory();
+		UserModel um = f.createUser(userName, password, email, 
+		 name, surname, phoneNumber, isAdmin );
+				return um;
+		
+	}
+	
 	public static void main(String args[]){
 		TestDB t = new TestDB();
+//		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "32234890", 0);
 		try{
-			t.batchTest();
+			t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "12345678", 0);
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();

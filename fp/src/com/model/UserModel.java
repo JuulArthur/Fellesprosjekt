@@ -1,5 +1,7 @@
 package com.model;
 
+import java.sql.SQLException;
+
 import javax.xml.bind.annotation.*;
 
 import com.server.db.Factory;
@@ -18,23 +20,26 @@ public class UserModel {
 	@XmlElement(name="surname")
 	private String surname;
 	@XmlElement(name="phonenumber")
-	private int phoneNumber;
+	private String phoneNumber;
 	@XmlElement(name="isAdmin")
 	private boolean isAdmin;
 	
 	private Factory f;
 	
 	public UserModel(String username, String password, String email,
-			String name, String surname, int phoneNumber, boolean isAdmin) {
+			String name, String surname, String phoneNumber, int isAdmin) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.phoneNumber = phoneNumber;
-		this.isAdmin = isAdmin;
+		this.isAdmin = isAdmin==1;
 		
 		this.f = new Factory();
+	}
+	public UserModel() {
+		// her perok!
 	}
 	
 	/* Methods */
@@ -93,11 +98,11 @@ public class UserModel {
 		this.surname = surname;
 	}
 
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
