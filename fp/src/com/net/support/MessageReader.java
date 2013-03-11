@@ -20,6 +20,8 @@ import com.model.UserModel;
  */
 public class MessageReader implements Runnable {
 
+	private static boolean verbose = true;
+	
 	private static final Executor POOL = Executors.newFixedThreadPool(16);
 
 	final private IClientHandler client;
@@ -52,28 +54,31 @@ public class MessageReader implements Runnable {
 				JAXBContext ctx = JAXBContext.newInstance(UserModel.class); //alle modeller med komma mellom
 				Unmarshaller um = ctx.createUnmarshaller();
 
-				System.out.printf("Reading %d bytes%n", size);
+				if(verbose)System.out.printf("Reading %d bytes%n", size);
 				byte[] message = new byte[size];
 				for (int x = 0; x < size; x++) {
-					System.out.printf("reading byte %d of %d%n", x, size);
+					if(verbose)System.out.printf("reading byte %d of %d%n", x, size);
 					message[x] = (byte) this.stream.read();
 				}
+				if(verbose)System.out.println("===DEBUG MESSAGE===");
+				if(verbose)System.out.println(new String(message));
+				if(verbose)System.out.println("===DEBUG END    ===");
 
 				// Creating the object from the string
-				Object o = um.unmarshal(new StreamSource(new StringReader(new String(message))));
+				final Object o = um.unmarshal(new StreamSource(new StringReader(new String(message))));
 
 				//Check what we have recieved
 				if (o instanceof UserModel) {
 					//Do something
 				}
 				
-				final String realMessage = ((UserModel) o).getUsername();
+				//final String realMessage = ((UserModel) o).getUsername();
 
 				//Send the message to the client
 				Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
-						client.onMessage(realMessage);
+						client.onMessage(o.toString());
 					}
 				};
 				
