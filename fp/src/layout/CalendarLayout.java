@@ -150,6 +150,7 @@ public class CalendarLayout extends JPanel {
 		add(list, gbc_list);
 		
 		table = new JTable(model);
+		table.setRowSelectionAllowed(false);
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridheight = 6;
 		gbc_table.gridwidth = 7;
@@ -231,9 +232,7 @@ public class CalendarLayout extends JPanel {
 		  public CalendarModel() {
 		    for (int i = 0; i < days.length; ++i)
 		      calendar[0][i] = days[i];
-		    /*for (int i = 1; i < 7; ++i)
-		      for (int j = 0; j < 7; ++j)
-		        calendar[i][j] = " ";*/
+		   
 		  }
 
 	
@@ -246,10 +245,12 @@ public class CalendarLayout extends JPanel {
 		}
 		
 		public Object getValueAt(int row, int column) {
+			System.out.println(calendar[row][column]);
 			return calendar[row][column];
 		}
 		public void setValueAt(Object value, int row, int column) {
 		    calendar[row][column] = (String) value;
+		    
 		  }
 
 
