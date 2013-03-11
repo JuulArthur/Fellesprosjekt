@@ -1,14 +1,12 @@
 package com.client;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.client.net.Client;
+import com.client.net.ServerHandler;
 import com.model.UserModel;
 import com.net.msg.MSGFlag;
 import com.net.msg.MSGType;
-import com.net.msg.MSGWrapper;
 import com.xml.JAXBMarshaller;
 
 //import com.xml.XML;
@@ -21,7 +19,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("Preparing client");
-		Client client = new Client("localhost", 8078 ); //mel.is
+		ServerHandler serverH = new ServerHandler("localhost", 8078 ); //mel.is
 		System.out.println("Client connected");
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
@@ -50,21 +48,12 @@ public class Main {
 				ArrayList<Object> alist = new ArrayList<>();
 				alist.add(ums);
 				
-				MSGWrapper wrapper = new MSGWrapper(0, MSGType.REQUEST, MSGFlag.LOGIN, alist);
-				
-				ByteArrayOutputStream baoss = new ByteArrayOutputStream();
-				jaxbMarshaller.jaxbModeltoXML(wrapper, baoss);
-				
-				System.out.println("==DEBUG==");
-				System.out.println(baoss.toString());
-				System.out.println("== END ==");
-				
-				client.writeMessage(baoss.toString());
-				
+				serverH.setCurrentFlag(MSGFlag.LOGIN);
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlag.LOGIN, alist));
 				
 				break;
 			case 2:
-				client.disconnect();
+				serverH.disconnect();
 				loop = false;
 				break;
 			default:
@@ -72,7 +61,7 @@ public class Main {
 			}
 		}
 
-		client.disconnect();
+		serverH.disconnect();
 		
 		System.exit(0);
 

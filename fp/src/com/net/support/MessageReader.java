@@ -23,7 +23,7 @@ import com.net.msg.MSGWrapper;
  */
 public class MessageReader implements Runnable {
 
-	private static boolean verbose = true;
+	private static boolean verbose = false;
 	
 	private static final Executor POOL = Executors.newFixedThreadPool(16);
 
@@ -69,22 +69,26 @@ public class MessageReader implements Runnable {
 
 				// Creating the object from the string
 				final Object o = um.unmarshal(new StreamSource(new StringReader(new String(message))));
-
-				//Check what we have recieved
-				if (o instanceof UserModel) {
-					//Do something
-				}
 				
-				//final String realMessage = ((UserModel) o).getUsername();
-
+				//Send the wrapper to the listeners
+				Runnable runnableW = new Runnable() {
+					@Override
+					public void run() {
+						if (o instanceof MSGWrapper) {
+							client.onWrapper((MSGWrapper)o);
+						}
+					}
+				};
+				
 				//Send the message to the client
 				Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
-						client.onMessage(o.toString());
+						if(verbose) client.onMessage("Object recieved: " + (MSGWrapper)o);
 					}
 				};
 				
+				POOL.execute(runnableW);
 				POOL.execute(runnable);
 			}
 		} catch (Exception e) {

@@ -30,7 +30,7 @@ public class Main {
 		}
 		
 		//Main Server instance
-		final Server server = new Server(Integer.parseInt(props.getProperty("server.port", "8078")));
+		final Server server = new Server(Integer.parseInt(props.getProperty("server.port", "8078")), jaxbMarshaller);
 		
 		//Start server on another thread
 		Runnable r = new Runnable() {
@@ -47,7 +47,6 @@ public class Main {
 		while (loop) {
 			System.out.println("What do you want to do?:");
 			System.out.println("1 - Exit");
-			//System.out.println("2 - Send User Model");
 			
 			int command = s.nextInt();
 			

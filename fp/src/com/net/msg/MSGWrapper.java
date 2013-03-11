@@ -10,12 +10,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MSGWrapper {
+	
+	/**
+	 * ID for that communcation object. Used for multiple requests
+	 */
 	@XmlElement(name="ID")
 	private int ID;
+	
+	/**
+	 * What type of object it is
+	 */
 	@XmlElement(name="type")
 	private MSGType type;
+	
+	/**
+	 * Flag for 
+	 */
 	@XmlElement(name="flag")
 	private MSGFlag flag;
+	
+	/**
+	 * Who?
+	 */
+	@XmlElement(name="user")
+	private String user;
 	
 	@XmlElement(name="objects")
 	private ArrayList<Object> objects;
@@ -65,8 +83,19 @@ public class MSGWrapper {
 		this.objects = objects;
 	}
 	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString(){
-		return ID + " " + type + " " + flag + " " + objects.size();
+		String s = ID + " " + type + " " + flag + " ";
+		if(objects != null)
+			s += objects.size();
+		return s;
 	}
 }

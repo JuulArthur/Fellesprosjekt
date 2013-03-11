@@ -9,6 +9,9 @@ import java.util.List;
 
 import javax.net.ServerSocketFactory;
 
+import com.net.msg.MSGWrapper;
+import com.xml.JAXBMarshaller;
+
 /**
  * Main SocketServer.
  * Handles all the clients and the server.
@@ -16,6 +19,8 @@ import javax.net.ServerSocketFactory;
  *
  */
 public class Server {
+	
+	private JAXBMarshaller jaxbMarshaller;
 
 	private volatile boolean connected = true;
 	
@@ -27,8 +32,9 @@ public class Server {
 	 */
 	private int port;
 
-	public Server(int port) {
+	public Server(int port, JAXBMarshaller jaxbMarshaller) {
 		this.port = port;
+		this.jaxbMarshaller = jaxbMarshaller;
 	}
 	
 	/**
@@ -57,8 +63,8 @@ public class Server {
 	 */
 	public void start() {
 		try {
-			//ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
-			ServerSocket server = new ServerSocket(this.port);
+			ServerSocket server = ServerSocketFactory.getDefault().createServerSocket(this.port);
+			//ServerSocket server = new ServerSocket(this.port);
 			System.out.println("ServerSocket InetAddress: " + server.getInetAddress());
 			System.out.println("ServerSocket port: " + server.getLocalPort());
 			System.out.println("ServerSocket localAddress: " + server.getLocalSocketAddress());
@@ -70,6 +76,7 @@ public class Server {
 				System.out.printf("Client connected: %s%n", client.getInetAddress());
 				
 				ClientHandler serverClient = new ClientHandler(client, this);
+				
 				this.clients.add(serverClient);
 			}
 		} catch (Exception e) {
@@ -78,6 +85,8 @@ public class Server {
 	}
 
 	/**
+	 * 
+	 * Sends a String to all clients except source
 	 * 
 	 * @param message
 	 * @param source
@@ -90,6 +99,7 @@ public class Server {
 		}
 	}
 	
+	@Deprecated
 	public void sendXMLOutputStream(ByteArrayOutputStream baos){
 		for (ClientHandler client : this.clients) {
 			//if (!client.equals(source)) {
@@ -97,5 +107,37 @@ public class Server {
 			//}
 		}
 	}
+	
+	/**
+	 * Send wrapper object to everybody
+	 * @param wrapper
+	 */
+	public void wrapperToAll(MSGWrapper wrapper){
+		
+	}
+	
+	/**
+	 * Send MSGWrapper to the users in ArrayList<String>
+	 * @param wrapper
+	 * @param users
+	 */
+	public void wrapperTo(MSGWrapper wrapper, ArrayList<String> users){
+		
+	}
+
+	
+	/*
+	 * GETTERS AND SETTERS
+	 */
+	
+	public JAXBMarshaller getJaxbMarshaller() {
+		return jaxbMarshaller;
+	}
+
+	public void setJaxbMarshaller(JAXBMarshaller jaxbMarshaller) {
+		this.jaxbMarshaller = jaxbMarshaller;
+	}
+	
+	
 
 }

@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public enum MSGFlag {
 	LOGIN,
+	LOGOUT,
 	UPDATE,
 	DELETE,
 	GET,
