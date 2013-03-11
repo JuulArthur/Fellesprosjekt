@@ -11,6 +11,9 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
 import com.model.UserModel;
+import com.net.msg.MSGFlag;
+import com.net.msg.MSGType;
+import com.net.msg.MSGWrapper;
 
 /**
  * Handles message reciving from the client
@@ -20,7 +23,7 @@ import com.model.UserModel;
  */
 public class MessageReader implements Runnable {
 
-	private static boolean verbose = true;
+	private static boolean verbose = false;
 	
 	private static final Executor POOL = Executors.newFixedThreadPool(16);
 
@@ -51,7 +54,7 @@ public class MessageReader implements Runnable {
 				int size = this.stream.readInt();
 
 				/* The UnMarshaller */
-				JAXBContext ctx = JAXBContext.newInstance(UserModel.class); //alle modeller med komma mellom
+				JAXBContext ctx = JAXBContext.newInstance(UserModel.class, MSGFlag.class, MSGType.class, MSGWrapper.class); //alle modeller med komma mellom
 				Unmarshaller um = ctx.createUnmarshaller();
 
 				if(verbose)System.out.printf("Reading %d bytes%n", size);
@@ -66,22 +69,26 @@ public class MessageReader implements Runnable {
 
 				// Creating the object from the string
 				final Object o = um.unmarshal(new StreamSource(new StringReader(new String(message))));
-
-				//Check what we have recieved
-				if (o instanceof UserModel) {
-					//Do something
-				}
 				
-				//final String realMessage = ((UserModel) o).getUsername();
-
+				//Send the wrapper to the listeners
+				Runnable runnableW = new Runnable() {
+					@Override
+					public void run() {
+						if (o instanceof MSGWrapper) {
+							client.onWrapper((MSGWrapper)o);
+						}
+					}
+				};
+				
 				//Send the message to the client
 				Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
-						client.onMessage(o.toString());
+						if(verbose) client.onMessage("Object recieved: " + (MSGWrapper)o);
 					}
 				};
 				
+				POOL.execute(runnableW);
 				POOL.execute(runnable);
 			}
 		} catch (Exception e) {

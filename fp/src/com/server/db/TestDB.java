@@ -16,7 +16,7 @@ public class TestDB {
 	public void test() throws SQLException, ClassNotFoundException{
 		DatabaseConnector db = new DatabaseConnector();
 		
-		String insert = "insert into Avtale (id, starttidspunkt, sluttidsunkt, moeteleder, tittel, tekst) values (4,4,4,'jarudiha','test!','tbla');";
+		String insert = "insert into Groupp (id, groupName) values (2,'test');";
 		db.initialize();
 		db.makeUpdate(insert);
 		db.close();
@@ -25,7 +25,7 @@ public class TestDB {
 	public void readTest() throws SQLException, ClassNotFoundException{
 		DatabaseConnector db = new DatabaseConnector();
 		
-		String sql = "select name,birthyear from employee";
+		String sql = "select title,host from appointment";
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(sql);
 		rs.beforeFirst();
@@ -40,33 +40,22 @@ public class TestDB {
 	public void batchTest() throws SQLException, ClassNotFoundException{
 		DatabaseConnector db = new DatabaseConnector();
 		db.initialize();
-		String insert = "insert into Avtale (id, starttidspunkt, sluttidsunkt, moeteleder, tittel, tekst) values (?,?,?,'?','?','?');";
+		String insert = "insert into Groupp (id, groupName) values (?,?);";
 		PreparedStatement ps = db.makeBatchUpdate(insert);
 		String id =null;
-		String starttidspunkt =null;
-		String slutttidsunkt =null;
-		String moeteleder =null;
-		String tittel =null;
-		String tekst =null;
+		String groupName =null;
 		Scanner sc = new Scanner(System.in);
 		String line = sc.nextLine();
 		while(line.trim().length()>2){
 			StringTokenizer t = new StringTokenizer(line);
 			id=t.nextToken();
-			starttidspunkt=t.nextToken();
-			slutttidsunkt=t.nextToken();
-			moeteleder=t.nextToken();
-			tittel=t.nextToken();
-			tekst=t.nextToken();
+			groupName=t.nextToken();
 			ps.setInt(1, Integer.parseInt(id));
-			ps.setInt(2, Integer.parseInt(starttidspunkt));
-			ps.setInt(3, Integer.parseInt(slutttidsunkt));
-//			ps.setString(4, moeteleder);
-//			ps.setString(5, tittel);
-//			ps.setString(6, tekst);
-			
+			ps.setString(2, groupName);
+			ps.addBatch();
 			line=sc.nextLine();
 		}
+		System.out.println(ps.toString());
 		ps.executeBatch();
 		ps.close();
 		db.close();
