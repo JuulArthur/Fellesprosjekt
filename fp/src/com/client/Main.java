@@ -48,6 +48,7 @@ public class Main {
 				ArrayList<Object> alist = new ArrayList<>();
 				alist.add(ums);
 				
+				serverH.setCurrentFlag(MSGFlag.LOGIN);
 				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlag.LOGIN, alist));
 				
 				break;

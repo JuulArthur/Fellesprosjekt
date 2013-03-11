@@ -37,27 +37,41 @@ public class ClientHandler  extends ServiceHandler {
 	 */
 	@Override
 	public void onWrapper( MSGWrapper msgW ){
-		if(msgW.getType() == MSGType.REQUEST){
-			if(msgW.getFlag() == MSGFlag.LOGIN){
-				Object o = msgW.getObjects().get(0);
-				if(o instanceof UserModel){
-					/*
-					 * Query for login.
-					 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
-					 */
-					System.out.println("CLIENTHANDLER: Trying to log in: " + o);
-					
-					/* Set connected state*/
-					setState(State.CONNECTED);
-					
-					/* Send back an acknowledged state*/					
-					writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, null));
-
+		/* Client is not logged in */
+		if(getState() == State.DISCONNECTED ){
+			if(msgW.getType() == MSGType.REQUEST){
+				if(msgW.getFlag() == MSGFlag.LOGIN){
+					Object o = msgW.getObjects().get(0);
+					if(o instanceof UserModel){
+						/*
+						 * Query for login.
+						 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
+						 */
+						System.out.println("CLIENTHANDLER: Trying to log in: " + o);
+						
+						/* Set connected state*/
+						setState(State.CONNECTED);
+						
+						/* Send back an acknowledged state*/					
+						writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, null));
+	
+					}
 				}
 			}
+			else {
+				
+			}
 		}
-		else {
+		/* Client is logged in */
+		else{
+			if(msgW.getType() == MSGType.REQUEST){
+				if(msgW.getFlag() == MSGFlag.GET){}
+				if(msgW.getFlag() == MSGFlag.UPDATE){}
+				if(msgW.getFlag() == MSGFlag.DELETE){}
+				if(msgW.getFlag() == MSGFlag.LOGOUT){}
+			}
+		}
+		
 			
-		}
 	}
 }
