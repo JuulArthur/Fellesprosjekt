@@ -26,6 +26,9 @@ public class UserModel {
 	
 	private Factory f;
 	
+	/* JAXB */
+	public UserModel(){}
+	
 	public UserModel(String username, String password, String email,
 			String name, String surname, String phoneNumber, int isAdmin) {
 		this.username = username;
