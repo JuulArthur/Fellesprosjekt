@@ -17,7 +17,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("Preparing client");
-		Client client = new Client("localhost", 8078 ); //82.194.219.227 8078
+		Client client = new Client("mel.is", 8078 );
 		System.out.println("Client connected");
 		Scanner s = new Scanner(System.in);
 		boolean loop = true;
@@ -33,9 +33,9 @@ public class Main {
 			System.out.println( "2 - To cool for XML");
 			System.out.println( "3 - Exit" );
 			
-			int opcao = s.nextInt();
+			int command = s.nextInt();
 
-			switch( opcao ) {
+			switch( command ) {
 			case 1:
 				s.nextLine();
 				System.out.println("Write your message");
