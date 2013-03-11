@@ -19,6 +19,11 @@ import javax.swing.JList;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import layout.CalendarJDialog.CalendarModel;
+import layout.CalendarJDialog.MouseclickedClass;
 
 public class MeetingPanel extends JPanel {
 	private JTextField startTextField;
@@ -45,12 +50,13 @@ public class MeetingPanel extends JPanel {
 	private JButton addPerson;
 	private JButton removePerson;
 	private AddParticipantPanel addParticipant;
+	private JButton btnOpenCalendar;
 	
 	
 	public MeetingPanel() {
 	
 		/* 
-		 * Need to implement calendar function, maybe use JTable? 
+		 * Need to implement calendar-popup, maybe use JTable? 
 		 */
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -113,6 +119,15 @@ public class MeetingPanel extends JPanel {
 		gbc_startTextField.gridy = 2;
 		add(startTextField, gbc_startTextField);
 		startTextField.setColumns(15);
+		
+		btnOpenCalendar = new JButton("Calendar");
+		btnOpenCalendar.addActionListener(new openCalendar());
+			
+		GridBagConstraints gbc_btnOpenCalendar = new GridBagConstraints();
+		gbc_btnOpenCalendar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnOpenCalendar.gridx = 6;
+		gbc_btnOpenCalendar.gridy = 2;
+		add(btnOpenCalendar, gbc_btnOpenCalendar);
 		
 		JLabel lblSlutt = new JLabel("Slutt:");
 		GridBagConstraints gbc_lblSlutt = new GridBagConstraints();
@@ -258,19 +273,23 @@ public class MeetingPanel extends JPanel {
 		gbc_btnSlett.gridx = 6;
 		gbc_btnSlett.gridy = 10;
 		add(btnSlett, gbc_btnSlett);	
-						
+		
 	}
 	
+	class openCalendar implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CalendarJDialog calendarDialog = new CalendarJDialog();
+			calendarDialog.setVisible(true);	
+			calendarDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+	// TODO: Det som skjer i calendarDialog oppdateres i startTextField		
+		}
+	}	
+	 	
 	class addNewPerson implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 // AddParticipant should pop-up when addPerson is pressed. 			
-//			System.out.println("bah");
-//			JPanel test = new JPanel();
-//			addParticipant = new AddParticipant();
-//			test.add(addParticipant);
-//			test.setVisible(true);
 		}
 
 	}
