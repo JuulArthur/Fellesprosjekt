@@ -1,6 +1,7 @@
 package com.net.support;
 
 import java.net.Socket;
+
 /**
  * For krytografi se; http://www.bouncycastle.org/
  * 
@@ -27,7 +28,7 @@ public abstract class ServiceHandler implements IClientHandler {
 		
 		/**
 		 * Not logged in yet
-		 */
+		 */		
 		setState(State.DISCONNECTED);
 	}
 
@@ -51,6 +52,11 @@ public abstract class ServiceHandler implements IClientHandler {
 			new Thread(this.writer).start();
 			
 			System.out.println("Started threads");
+			
+			/**
+			 * Not logged in yet
+			 */	
+			setState(State.DISCONNECTED);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
