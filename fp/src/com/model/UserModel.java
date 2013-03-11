@@ -54,15 +54,6 @@ public class UserModel {
 		//f.removeUser(u);
 	}
 	
-	public void createExperience() {
-		//f.createExperience();
-	}
-	
-	public void removeExperience(ExperienceModel e) {
-		//f.removeExperience(e);
-	}
-	
-
 	/*
 	 * Getters and setters
 	 * NOT for Factory f
