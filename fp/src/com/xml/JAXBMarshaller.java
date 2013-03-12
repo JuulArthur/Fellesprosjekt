@@ -57,9 +57,9 @@ public class JAXBMarshaller {
 		
 		jaxbWrapperToXML(wrapper, baos);
 		
-		//if(Global.verbose) System.out.println("==DEBUG==");
+		//if(Global.verbose) System.out.println("[JAXBMarshaller]==DEBUG==");
 		//if(Global.verbose) System.out.println(baoss.toString());
-		//if(Global.verbose) System.out.println("== END ==");
+		//if(Global.verbose) System.out.println("[JAXBMarshaller]== END ==");
 		
 		return baos.toString();
 		
