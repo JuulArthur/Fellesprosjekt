@@ -88,11 +88,16 @@ public class ServerHandler extends ServiceHandler {
 				switch (msgW.getFlag()) {
 				case ACCEPT:
 					
-					if(currentFlag == MSGFlag.LOGOUT){
-						//LOG OUT
-						
-					}
 					
+					switch (currentFlag) {
+					case LOGOUT:
+						//We can now terminate
+						disconnect();
+						break;
+
+					default:
+						break;
+					}					
 					
 					/* Must always null out a response*/
 					currentFlag = null;

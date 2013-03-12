@@ -53,7 +53,8 @@ public class Main {
 				
 				break;
 			case 2:
-				serverH.disconnect();
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlag.LOGOUT, null));
+				//serverH.disconnect();
 				loop = false;
 				break;
 			default:
