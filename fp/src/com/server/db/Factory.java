@@ -148,7 +148,6 @@ public class Factory {
 	
 	/* APPOINTMENT */
 	//GET
-	
 	public AppointmentModel getAppointmentModel(int pid) throws SQLException, ClassNotFoundException{
 		
 		String query=String.format("Select startTime, EndTime, host, title, text, place, isDeleted, date" +
@@ -201,5 +200,9 @@ public class Factory {
 	}
 	//UPDATE
 	//CREATE
+	
+	public void createAppointmentModel(AppointmentModel apModel){
+		
+	}
 	//DELETE
 }
