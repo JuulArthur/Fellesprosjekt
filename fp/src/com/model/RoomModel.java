@@ -15,6 +15,14 @@ public class RoomModel {
 	@XmlElement(name="location")
 	private String location;
 	
+	/* Thought here is to have a bool that will say if the room is
+	 * available or not, when the appointment is over, the bool
+	 * is flipped.
+	 */
+	
+	@XmlElement(name="reserved")
+	private boolean reserved;
+	
 	public RoomModel() {} /* for jaxb */
 	
 	public RoomModel(int roomNumber, String roomName,
@@ -23,6 +31,9 @@ public class RoomModel {
 		this.roomName = roomName;
 		this.capacity = capacity;
 		this.location = location;
+		
+		/* start with the room not reserved */
+		this.reserved = false;
 	}
 	
 	/* setters & getters */
@@ -58,16 +69,20 @@ public class RoomModel {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
+	public boolean isReserved() {
+		return reserved;
+	}
+
+	public void setReserved(boolean reserved) {
+		this.reserved = reserved;
+	}
 
 	@Override
 	public String toString() {
 		return "RoomModel [roomNumber=" + roomNumber + ", roomName=" + roomName
 				+ ", capacity=" + capacity + ", location=" + location
-				+ ", getRoomNumber()=" + getRoomNumber() + ", getRoomName()="
-				+ getRoomName() + ", getCapacity()=" + getCapacity()
-				+ ", getLocation()=" + getLocation() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ ", reserved=" + reserved + "]";
 	}
-	
+
 }

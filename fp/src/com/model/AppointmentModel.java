@@ -1,6 +1,7 @@
 package com.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.xml.bind.annotation.*;
 
@@ -26,12 +27,14 @@ public class AppointmentModel {
 	private boolean isDeleted; //should be hidden or not
 	@XmlElement(name="date")
 	private Date date;
+	@XmlElement(name="members")
+	private ArrayList<UserModel> members;
 	
 	public AppointmentModel() {} /* for jaxb */
 	
 	public AppointmentModel(int id, int startTime, int endTime,
 			UserModel host, String title, String text, String place,
-			Date date) {
+			Date date, ArrayList<UserModel> members) {
 		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -40,6 +43,7 @@ public class AppointmentModel {
 		this.text = text;
 		this.place = place;
 		this.date = date;
+		this.members = members;
 		
 		/* not hidden when made */
 		this.isDeleted = false;
@@ -116,19 +120,22 @@ public class AppointmentModel {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	public ArrayList<UserModel> getMembers() {
+		return members;
+	}
+
+	public void setMembers(ArrayList<UserModel> members) {
+		this.members = members;
+	}
 
 	@Override
 	public String toString() {
 		return "AppointmentModel [id=" + id + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", host=" + host + ", title="
 				+ title + ", text=" + text + ", place=" + place
-				+ ", isDeleted=" + isDeleted + ", date=" + date + ", getId()="
-				+ getId() + ", getStartTime()=" + getStartTime()
-				+ ", getEndTime()=" + getEndTime() + ", getHost()=" + getHost()
-				+ ", getTitle()=" + getTitle() + ", getText()=" + getText()
-				+ ", getPlace()=" + getPlace() + ", isDeleted()=" + isDeleted()
-				+ ", getDate()=" + getDate() + "]";
+				+ ", isDeleted=" + isDeleted + ", date=" + date + ", members="
+				+ members + "]";
 	}
 	
-
 }
