@@ -71,7 +71,7 @@ public class ClientHandler  extends ServiceHandler {
 							/* Set connected state*/
 							setState(State.CONNECTED);
 							
-							ArrayList<Object> al = new ArrayList<>();
+							ArrayList<Object> al = new ArrayList<Object>();
 							al.add(server.getFactory().getUserModel(um.getUsername()));
 							
 							/* Send back an acknowledged state*/					

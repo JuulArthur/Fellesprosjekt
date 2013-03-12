@@ -1,0 +1,101 @@
+%ha med dette her
+\documentclass[titlepage]{article}
+\usepackage[norsk]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{parskip}
+%\usepackage[latin1]{inputenc}
+%\usepackage{graphicx}
+%\usepackage{float}
+
+%---- Listings --------------
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
+\usepackage{listings}
+\lstset{numbers=right,
+      %numberstyle=\tiny,
+      %numbers=left,
+      %stepnumber=2,
+      literate={æ}{{\ae}}
+        {Æ}{{\AE}}1
+        {ø}{{\o}}1
+        {Ø}{{\O}}1
+        {å}{{\aa}}1
+        {Å}{{\AA}}1,
+      firstnumber=1,
+      numberfirstline=true
+     breaklines=true,
+     backgroundcolor=\color{light-gray},
+     numbersep=5pt,
+     xleftmargin=.25in,
+     xrightmargin=.25in}
+     \lstset{language=Java}
+
+%Listings brukes slikt:
+%\begin{lstlisting}{insert}
+%Sett inn kode her
+%\end{lstlisting}
+%--------------------------
+
+%hva som skal stå på tittelsida
+\author{grp 38}
+\title{Rapport til papirprototypen}
+\date{\today}
+
+\begin{document}
+
+%lager forsida
+\maketitle
+
+%man burde ha med et sammendrag
+
+%man skal ha romertall på de innholdsfortegnelse
+%før dette punktet skal man IKKE ha sidetall
+\pagenumbering{roman}
+\tableofcontents
+
+%newpage gjør at du starter på neste side etterpå
+\newpage
+
+%herfra skal vi ha vanlige tall (arabiske (1,2,3,4,5...))
+\pagenumbering{arabic}
+
+%man pleier å starte med innledning
+\section{Innledning}
+\input{innledning.tex}
+
+\newpage
+
+\section{Produktbeskrivelse}
+\input{produktbeskrivelse.tex}
+
+%slutt seksjon med newpage
+
+\section{Oppgavelisten}
+\input{oppgavetask.tex}
+%\\ %tvinger frem en ny linje, kan kombineres til flere \\\\ => to nye linjer
+%forferdelig at det er disse to tegna som brukes, men sånn er det
+
+\newpage
+
+\section{Gjennomføring}
+\input{gjennomgangen.tex}
+
+%inkludért seksjon, hva vi burde bruke
+%\input{filnavn.tex}
+%input setter inn teksten som er i filnavn.tex, og vi kan dermed style i dette dokumentet
+
+%referanseliste
+\section{SUS resultater}
+\input{SUSscore.tex}
+
+\section{Uklarheter}
+\input{uklarhet.tex}
+
+\newpage
+\section{Endringer}
+\input{endring.tex}
+
+\section{Eventuelle forbedring til prototypetesten}
+\input{forbedring.tex}
+\end{document}
+

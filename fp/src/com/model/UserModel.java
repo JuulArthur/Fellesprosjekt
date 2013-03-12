@@ -33,8 +33,7 @@ public class UserModel {
 	}
 	
 	public UserModel(String username, String password, String email,
-			String name, String surname, String phoneNumber, int isAdmin,
-			ArrayList<NotificationModel> notifications) {
+			String name, String surname, String phoneNumber, int isAdmin) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -42,7 +41,7 @@ public class UserModel {
 		this.surname = surname;
 		this.phoneNumber = phoneNumber;
 		this.isAdmin = isAdmin==1;
-		this.notifications = notifications;
+		this.notifications = new ArrayList<NotificationModel>();
 	}
 	
 	/* Methods */
