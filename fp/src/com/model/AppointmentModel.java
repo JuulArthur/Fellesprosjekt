@@ -8,33 +8,34 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AppointmentModel {
-	
-	@XmlElement(name="id")
+
+	@XmlElement(name = "id")
 	private int id;
-	@XmlElement(name="startTime")
+	@XmlElement(name = "startTime")
 	private int startTime;
-	@XmlElement(name="endTime")
+	@XmlElement(name = "endTime")
 	private int endTime;
-	@XmlElement(name="host")
+	@XmlElement(name = "host")
 	private UserModel host;
-	@XmlElement(name="title")
+	@XmlElement(name = "title")
 	private String title;
-	@XmlElement(name="text")
+	@XmlElement(name = "text")
 	private String text;
-	@XmlElement(name="place")
-	private String place; //private RoomModel place
-	@XmlElement(name="isDeleted")
-	private boolean isDeleted; //should be hidden or not
-	@XmlElement(name="date")
+	@XmlElement(name = "place")
+	private String place; // private RoomModel place
+	@XmlElement(name = "isDeleted")
+	private boolean isDeleted; // should be hidden or not
+	@XmlElement(name = "date")
 	private Date date;
-	@XmlElement(name="members")
+	@XmlElement(name = "members")
 	private ArrayList<UserModel> members;
-	
-	public AppointmentModel() {} /* for jaxb */
-	
-	public AppointmentModel(int id, int startTime, int endTime,
-			UserModel host, String title, String text, String place,
-			Date date, ArrayList<UserModel> members) {
+
+	public AppointmentModel() {
+	} /* for jaxb */
+
+	public AppointmentModel(int id, int startTime, int endTime, UserModel host,
+			String title, String text, String place, Date date,
+			ArrayList<UserModel> members) {
 		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -44,7 +45,7 @@ public class AppointmentModel {
 		this.place = place;
 		this.date = date;
 		this.members = members;
-		
+
 		/* not hidden when made */
 		this.isDeleted = false;
 	}
@@ -120,13 +121,23 @@ public class AppointmentModel {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public ArrayList<UserModel> getMembers() {
 		return members;
 	}
 
 	public void setMembers(ArrayList<UserModel> members) {
 		this.members = members;
+	}
+
+	public void addMember(UserModel member) {
+		if (!this.members.contains(member))
+			this.members.add(member);
+	}
+
+	public void removeMember(UserModel member) {
+		if (this.members.contains(member))
+			this.members.remove(member);
 	}
 
 	@Override
@@ -137,5 +148,5 @@ public class AppointmentModel {
 				+ ", isDeleted=" + isDeleted + ", date=" + date + ", members="
 				+ members + "]";
 	}
-	
+
 }

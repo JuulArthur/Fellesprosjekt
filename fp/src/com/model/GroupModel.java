@@ -8,18 +8,18 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GroupModel {
 
-	@XmlElement(name="id")
+	@XmlElement(name = "id")
 	private int id;
-	@XmlElement(name="name")
+	@XmlElement(name = "name")
 	private String name;
-	@XmlElement(name="members")
+	@XmlElement(name = "members")
 	private ArrayList<UserModel> members;
-	
+
 	/* for jabx */
-	public GroupModel() {}
-	
-	public GroupModel(int id, String name,
-			ArrayList<UserModel> members) {
+	public GroupModel() {
+	}
+
+	public GroupModel(int id, String name, ArrayList<UserModel> members) {
 		this.id = id;
 		this.name = name;
 		this.members = members;
@@ -49,10 +49,20 @@ public class GroupModel {
 		this.members = members;
 	}
 
+	public void addMember(UserModel member) {
+		if (!this.members.contains(member))
+			this.members.add(member);
+	}
+
+	public void removeMember(UserModel member) {
+		if (this.members.contains(member))
+			this.members.remove(member);
+	}
+
 	@Override
 	public String toString() {
 		return "GroupModel [id=" + id + ", name=" + name + ", members="
 				+ members + "]";
 	}
-	
+
 }
