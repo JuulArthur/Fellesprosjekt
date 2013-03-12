@@ -11,7 +11,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-
+/*
+ * Database101
+ * 
+ * $ mysql -u root -p //Skriv ditt rotpassord
+ * $ create database test3;
+ * $ CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'test623';
+ * $ GRANT ALL PRIVILEGES ON * . * TO 'testuser'@'localhost';
+ * $ grant all privileges on test3.* to testuser@localhost; //Ikke nødvendig??
+ * $ FLUSH PRIVILEGES; //Reload privileges
+ * Login
+ * $ mysql -u testuser -p test3 //Skriv passord til testuser
+ * $ use test3;
+ * 
+ * Here you can learn more about mysql: http://zetcode.com/db/mysqljava/
+ */
 public class DatabaseConnector {
 
 	private Connection conn;
