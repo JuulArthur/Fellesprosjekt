@@ -39,35 +39,31 @@ public class ClientHandler  extends ServiceHandler {
 	/**
 	 * Recieves wrapper object and processes it.
 	 * Should this be a queue system?
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Override
 	public void onWrapper( MSGWrapper msgW ){
 		if(Global.verbose) System.out.println("[ClientHandler] onWrapper: " + msgW + "--State: " + getState());
 		/* Client is not logged in */
-		if(getState() == State.DISCONNECTED ){
-			if(msgW.getType() == MSGType.REQUEST){
-				if(msgW.getFlag() == MSGFlag.LOGIN){
+		try {
+			
+			switch (getState()) {
+			case DISCONNECTED:
+				/* Trying to log in */
+				switch (msgW.getFlag()) {
+				case LOGIN:
 					Object o = msgW.getObjects().get(0);
 					if(o instanceof UserModel){
 						if(Global.verbose) System.out.println("[ClientHandler] onWrapper: Logging in " + o);
 						
 						UserModel um = (UserModel)o;
+						
 						/*
 						 * Query for login.
 						 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
 						 */
-						
-						boolean login = false;
-						
-						try {
-							login = server.getFactory().checkPassword(um.getUsername(), um.getPassword());
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						boolean login = server.getFactory().checkPassword(um.getUsername(), um.getPassword());
 						
 						if(login){
 							/* Set connected state*/
@@ -78,24 +74,71 @@ public class ClientHandler  extends ServiceHandler {
 						}
 						else{
 							writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.DECLINE, null));
-						}
+						}	
 					}
-					else
-						System.out.println("[ERROR][ClientHandler] onWrapper: bad protocol");
+					break;
+
+				default:
+					break;
 				}
-			}
-			else {
 				
-			}
-		}
-		/* Client is logged in */
-		else{
-			if(msgW.getType() == MSGType.REQUEST){
-				if(msgW.getFlag() == MSGFlag.GET){}
-				if(msgW.getFlag() == MSGFlag.UPDATE){}
-				if(msgW.getFlag() == MSGFlag.DELETE){}
-				if(msgW.getFlag() == MSGFlag.LOGOUT){}
-			}
+				//BREAK DISCONNECTED
+				break;
+			
+			/* We are logged in*/
+			case CONNECTED:
+				
+				/* What type of message */
+				switch (msgW.getType()) {
+				case REQUEST:
+					
+					Object o;
+					switch (msgW.getFlag()) {
+					case GET:
+						o = msgW.getObjects().get(0);
+						if(o instanceof UserModel){
+							
+						}
+						break;
+					case CREATE:
+						o = msgW.getObjects().get(0);
+						if(o instanceof UserModel){
+							
+						}
+						break;
+					case UPDATE:
+						o = msgW.getObjects().get(0);
+						if(o instanceof UserModel){
+							
+						}
+						break;
+					case DELETE:
+						o = msgW.getObjects().get(0);
+						if(o instanceof UserModel){
+							
+						}
+						break;
+					case LOGOUT:
+					default:
+						break;
+					}
+					
+					break; //BREAK REQUEST
+
+				default:
+					break;
+				}
+				
+				//BREAK CONNECTED
+				break;
+
+			default:
+				break;
+			}	
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 			
