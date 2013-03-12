@@ -45,7 +45,7 @@ public class Main {
 				System.out.println("Write password");
 				ums.setPassword(s.nextLine());
 				
-				ArrayList<Object> alist = new ArrayList<>();
+				ArrayList<Object> alist = new ArrayList<Object>();
 				alist.add(ums);
 				
 				serverH.setCurrentFlag(MSGFlag.LOGIN);
