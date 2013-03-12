@@ -1,5 +1,7 @@
 package com.net.support;
 
+import java.sql.SQLException;
+
 import com.net.msg.MSGWrapper;
 
 public interface IClientHandler {

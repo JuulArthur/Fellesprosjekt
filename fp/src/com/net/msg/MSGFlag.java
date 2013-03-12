@@ -11,6 +11,7 @@ public enum MSGFlag {
 	LOGOUT,
 	UPDATE,
 	DELETE,
+	CREATE,
 	GET,
 	ACCEPT,
 	DECLINE

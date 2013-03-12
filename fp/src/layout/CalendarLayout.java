@@ -9,8 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -45,7 +45,9 @@ public class CalendarLayout extends JPanel {
 		gbc_btnLeggTilAvtale.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLeggTilAvtale.gridx = 0;
 		gbc_btnLeggTilAvtale.gridy = 1;
+		btnLeggTilAvtale.addActionListener(new NewMeetingAction());
 		add(btnLeggTilAvtale, gbc_btnLeggTilAvtale);
+		
 		
 		JButton button_2 = new JButton("<");
 		GridBagConstraints gbc_button_2 = new GridBagConstraints();
@@ -55,10 +57,8 @@ public class CalendarLayout extends JPanel {
 		gbc_button_2.gridy = 1;
 		add(button_2, gbc_button_2);
 		
-		Calendar Cal = new GregorianCalendar();
-		int WEEK_OF_YEAR=Cal.get(Calendar.WEEK_OF_YEAR);
 		
-		JLabel lblNewLabel_3 = new JLabel("Uke " + Calendar.WEEK_OF_YEAR);
+		JLabel lblNewLabel_3 = new JLabel("Uke ");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 4;
@@ -253,5 +253,23 @@ public class CalendarLayout extends JPanel {
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 
+	class NewMeetingAction implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			MeetingPanel meetingPanel = new MeetingPanel();
+			JFrame frame = new JFrame("Avtale/M¿te");
+			frame.getContentPane().add(meetingPanel);
+			frame.pack();
+			frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
+				
+		
+			
+		}
+		
+	}
 		
 }
