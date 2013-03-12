@@ -3,14 +3,10 @@ package layout;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTable;
-import javax.swing.WindowConstants;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
-import javax.swing.JComboBox;
 import java.awt.GridBagConstraints;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -22,13 +18,16 @@ import javax.swing.table.AbstractTableModel;
 import java.awt.Insets;
 import java.util.GregorianCalendar;
 import javax.swing.ListSelectionModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class CalendarJDialog extends JDialog {
 
 	String[] months = { "Januar", "Februar", "Mars", "April", "Mai", "Juni", "July", "August",
 		      "September", "Oktober", "November", "Desember" };
-	
-	String[] years = { "2013", "2014"};
 	
 	JList list = new JList(months);
 	JScrollPane scrollPane;
@@ -37,13 +36,17 @@ public class CalendarJDialog extends JDialog {
 	
 	private final int thisYear = 2013;
 	private String dayChosen = "";
+	//private final JButton btnExit = new JButton("Exit");
+	private boolean dateSet = false;
+	private JTextField txtClockTime = new JTextField();
+	private final JLabel lblSkrivInnKlokkeslett = new JLabel("Skriv inn klokkeslett");
 	
-	public CalendarJDialog() {		
+	public CalendarJDialog() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		table.addMouseListener(new MouseclickedClass());
@@ -53,7 +56,7 @@ public class CalendarJDialog extends JDialog {
 		table.setShowGrid(true);		
 		GridBagConstraints gbc_table_1 = new GridBagConstraints();
 		gbc_table_1.gridwidth = 8;
-		gbc_table_1.insets = new Insets(0, 0, 0, 5);
+		gbc_table_1.insets = new Insets(0, 0, 5, 5);
 		gbc_table_1.fill = GridBagConstraints.BOTH;
 		gbc_table_1.gridx = 0;
 		gbc_table_1.gridy = 0;
@@ -64,18 +67,35 @@ public class CalendarJDialog extends JDialog {
 		
 		scrollPane = new JScrollPane(list);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 8;
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
+		
+		GridBagConstraints gbc_lblSkrivInnKlokkeslett = new GridBagConstraints();
+		gbc_lblSkrivInnKlokkeslett.gridwidth = 3;
+		gbc_lblSkrivInnKlokkeslett.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSkrivInnKlokkeslett.gridx = 0;
+		gbc_lblSkrivInnKlokkeslett.gridy = 3;
+		getContentPane().add(lblSkrivInnKlokkeslett, gbc_lblSkrivInnKlokkeslett);
+		
+		GridBagConstraints gbc_txtClockTime = new GridBagConstraints();
+		gbc_txtClockTime.gridwidth = 3;
+		gbc_txtClockTime.insets = new Insets(0, 0, 0, 5);
+		gbc_txtClockTime.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtClockTime.gridx = 0;
+		gbc_txtClockTime.gridy = 4;
+		txtClockTime.setColumns(15);		
+		getContentPane().add(txtClockTime, gbc_txtClockTime);
+		
 		setVisible(true);
-		setSize(300,300);
+		setSize(450,300);
 		setLocationRelativeTo(null);
 	}
 	
 	class ListSelected implements ListSelectionListener {
 
-		@Override
 		public void valueChanged(ListSelectionEvent e) {
 			model.setMonth(list.getSelectedIndex());
 			table.repaint();
@@ -87,15 +107,19 @@ public class CalendarJDialog extends JDialog {
 		return dayChosen;
 	}
 	
+	public String getclockTime () {
+		return txtClockTime.getText();
+	}
+	
 	 class MouseclickedClass implements MouseListener {
 		  public void mouseClicked(MouseEvent e) {
-	  		if (e.getClickCount() >= 2) {
+	  		if (e.getClickCount() >= 1) {
 	  			int row = table.getSelectedRow();
 	  			int column = table.getSelectedColumn();
 	  			System.out.println("Row" + row +"Column" + column);
 	  			System.out.println(model.getValueAt(row, column));
 	  			dayChosen = model.getValueAt(row, column);
-
+	  			dayChosen += "." + months[list.getSelectedIndex()];
 	  		}
 		  }
 		  
