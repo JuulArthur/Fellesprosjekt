@@ -76,7 +76,7 @@ public class TestDB {
 		Factory f = new Factory();
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "32234890", 0);
 		try{
-			System.out.println(f.checkPassword("christea", "hei"));
+			System.out.println(f.getUserModel("christea"));
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();

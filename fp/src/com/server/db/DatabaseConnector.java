@@ -24,6 +24,7 @@ import java.util.Properties;
  * $ mysql -u testuser -p test3 //Skriv passord til testuser
  * $ use test3;
  * 
+ * Here you can learn more about mysql: http://zetcode.com/db/mysqljava/
  */
 public class DatabaseConnector {
 
