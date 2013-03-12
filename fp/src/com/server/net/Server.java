@@ -10,6 +10,7 @@ import java.util.List;
 import javax.net.ServerSocketFactory;
 
 import com.net.msg.MSGWrapper;
+import com.server.db.Factory;
 import com.xml.JAXBMarshaller;
 
 /**
@@ -21,6 +22,8 @@ import com.xml.JAXBMarshaller;
 public class Server {
 	
 	private JAXBMarshaller jaxbMarshaller;
+	
+	Factory factory = new Factory();
 
 	private volatile boolean connected = true;
 	
@@ -138,6 +141,9 @@ public class Server {
 		this.jaxbMarshaller = jaxbMarshaller;
 	}
 	
+	public Factory getFactory(){
+		return factory;
+	}
 	
 
 }
