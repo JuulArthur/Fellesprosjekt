@@ -19,7 +19,7 @@ public class Factory {
 		db.close();
 	}
 	
-	public UserModel createUser(String username, String password, String email, 
+	public UserModel createUserModel(String username, String password, String email, 
 			String name, String surname, String phoneNumber, int isAdmin ) 
 					throws SQLException, ClassNotFoundException{
 		UserModel um = new UserModel(username, password, email, name, surname, phoneNumber, isAdmin);
@@ -59,6 +59,19 @@ public class Factory {
 		return um ;
 	
 		
+	}
+	
+	public void updateUserModel(String username, String password, String email, 
+			String name, String surname, String phoneNumber, int isAdmin ) 
+					throws SQLException, ClassNotFoundException{
+		String query = String.format("UPDATE User SET email='%s',name='%s',surname='%s',phonenumber='%s',password='%s',isAdmin=%d WHERE username='%s'", email, name, surname, phoneNumber, password, isAdmin, username);
+		UpdateDatabase(query);
+		
+	}
+	
+	public void deleteUserModel(String username) throws SQLException, ClassNotFoundException{
+		String query=String.format("DELETE from User WHERE username='%s'" ,username); 
+		UpdateDatabase(query);
 	}
 	
 	public boolean checkPassword(String username, String password) 
