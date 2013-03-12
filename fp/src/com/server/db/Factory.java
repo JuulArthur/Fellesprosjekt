@@ -1,8 +1,12 @@
 package com.server.db;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import com.model.AlarmModel;
+import com.model.AppointmentModel;
 import com.model.UserModel;
 
 public class Factory {
@@ -64,7 +68,8 @@ public class Factory {
 	public void updateUserModel(String username, String password, String email, 
 			String name, String surname, String phoneNumber, int isAdmin ) 
 					throws SQLException, ClassNotFoundException{
-		String query = String.format("UPDATE User SET email='%s',name='%s',surname='%s',phonenumber='%s',password='%s',isAdmin=%d WHERE username='%s'", email, name, surname, phoneNumber, password, isAdmin, username);
+		String query = String.format("UPDATE User SET email='%s',name='%s',surname='%s',phonenumber='%s'" +
+				",password='%s',isAdmin=%d WHERE username='%s'", email, name, surname, phoneNumber, password, isAdmin, username);
 		UpdateDatabase(query);
 		
 	}
@@ -88,5 +93,61 @@ public class Factory {
 		db.close();
 	
 		return returnPassword.equals(password)&& !returnPassword.equals("");
+	}
+	
+	public AlarmModel createAlarmModel(Date date, String text, AppointmentModel ap, UserModel um) 
+			throws SQLException, ClassNotFoundException{
+		AlarmModel am = new AlarmModel(date, text, ap, um);
+		String query=String.format("insert into Alarm " +
+				"(date, text, appointmentid, id, username) values " +
+				"('%s', '%s',%d,'%s')", date, text, ap.getId(), um.getUsername()); 
+		UpdateDatabase(query);
+		return am;
+	}
+	
+	public AlarmModel getAlarmModel(String username, int id) throws ClassNotFoundException, SQLException
+	{
+		
+		
+		String query=String.format("Select date, text " +
+				"from Alarm WHERE username='%s'AND appointmendid=%d",username,id);
+		db.initialize();
+		ResultSet rs=db.makeSingleQuery(query);
+		String password=null;
+		String email=null;
+		String name=null;
+		String surname=null;
+		String phoneNumber=null;
+		int isAdmin=0;
+		while(rs.next())
+		{
+			email=rs.getString(2);
+			name=rs.getString(3);
+			surname=rs.getString(4);
+			phoneNumber=rs.getString(5);
+			password=rs.getString(6);
+			isAdmin=rs.getInt(7);
+		}
+		
+		UserModel um = new UserModel(username, password, email, name, surname, phoneNumber, isAdmin);
+		rs.close();
+		db.close();
+		
+		return um ;
+	
+		
+	}
+	
+	public void updateAlarmModel(String username, String password, String email, 
+			String name, String surname, String phoneNumber, int isAdmin ) 
+					throws SQLException, ClassNotFoundException{
+		String query = String.format("UPDATE User SET email='%s',name='%s',surname='%s',phonenumber='%s',password='%s',isAdmin=%d WHERE username='%s'", email, name, surname, phoneNumber, password, isAdmin, username);
+		UpdateDatabase(query);
+		
+	}
+	
+	public void deleteAlarmModel(String username) throws SQLException, ClassNotFoundException{
+		String query=String.format("DELETE from User WHERE username='%s'" ,username); 
+		UpdateDatabase(query);
 	}
 }
