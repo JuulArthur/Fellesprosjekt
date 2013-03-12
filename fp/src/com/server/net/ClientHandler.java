@@ -141,8 +141,12 @@ public class ClientHandler  extends ServiceHandler {
 				break;
 			}	
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
