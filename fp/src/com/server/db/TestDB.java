@@ -65,7 +65,7 @@ public class TestDB {
 	public UserModel testCreateUser(String userName, String password, String email, 
 			String name, String surname, String phoneNumber, int isAdmin ) throws SQLException, ClassNotFoundException{
 		Factory f = new Factory();
-		UserModel um = f.createUser(userName, password, email, 
+		UserModel um = f.createUserModel(userName, password, email, 
 		 name, surname, phoneNumber, isAdmin );
 				return um;
 		
@@ -76,7 +76,12 @@ public class TestDB {
 		Factory f = new Factory();
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "32234890", 0);
 		try{
-			System.out.println(f.getUserModel("christea"));
+			System.out.println(f.createUserModel("heidi", "skjer", "neitakk", 
+					"Heidi", "Englestad", "81549300", 1 ));
+			System.out.println(f.getUserModel("heidi"));
+			f.updateUserModel("heidi", "sdfdsf", "neitakk", 
+					"Heidi", "Englestad", "12345687", 0 );
+			System.out.println(f.getUserModel("heidi"));
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();
