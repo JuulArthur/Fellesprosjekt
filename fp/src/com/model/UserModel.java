@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.ArrayList;
 import java.sql.SQLException;
 
 import javax.xml.bind.annotation.*;
@@ -23,8 +24,8 @@ public class UserModel {
 	private String phoneNumber;
 	@XmlElement(name="isAdmin")
 	private boolean isAdmin;
-	
-	private Factory f;
+	@XmlElement(name="notifications")
+	private ArrayList<NotificationModel> notifications;
 	
 	/* JAXB */
 	public UserModel(){
@@ -32,7 +33,8 @@ public class UserModel {
 	}
 	
 	public UserModel(String username, String password, String email,
-			String name, String surname, String phoneNumber, int isAdmin) {
+			String name, String surname, String phoneNumber, int isAdmin,
+			ArrayList<NotificationModel> notifications) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -40,8 +42,7 @@ public class UserModel {
 		this.surname = surname;
 		this.phoneNumber = phoneNumber;
 		this.isAdmin = isAdmin==1;
-		
-		this.f = new Factory();
+		this.notifications = notifications;
 	}
 	
 	/* Methods */
@@ -116,18 +117,28 @@ public class UserModel {
 		this.isAdmin = isAdmin;
 	}
 
+	public ArrayList<NotificationModel> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(ArrayList<NotificationModel> notifications) {
+		this.notifications = notifications;
+	}
+	
+	public void addNotification(NotificationModel notification) {
+		this.notifications.add(notification);
+	}
+	
+	public void removeNotification(NotificationModel notification) {
+		this.notifications.remove(notification);
+	}
+
 	@Override
 	public String toString() {
 		return "UserModel [username=" + username + ", password=" + password
 				+ ", email=" + email + ", name=" + name + ", surname="
 				+ surname + ", phoneNumber=" + phoneNumber + ", isAdmin="
-				+ isAdmin + ", f=" + f + ", getUsername()=" + getUsername()
-				+ ", getPassword()=" + getPassword() + ", getEmail()="
-				+ getEmail() + ", getName()=" + getName() + ", getSurname()="
-				+ getSurname() + ", getPhoneNumber()=" + getPhoneNumber()
-				+ ", isAdmin()=" + isAdmin() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ isAdmin + ", notifications=" + notifications + "]";
 	}
 
 }
