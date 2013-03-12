@@ -125,7 +125,7 @@ public class Factory {
 		rs.close();
 		db.close();
 		
-		return am ;
+		return am;
 	
 		
 	}
