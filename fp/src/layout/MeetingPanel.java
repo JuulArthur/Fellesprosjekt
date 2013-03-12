@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -58,7 +59,8 @@ public class MeetingPanel extends JPanel {
 		/* 
 		 * Mangler noe funksjonalitet 
 		 */
-
+		setBorder(new EmptyBorder(10,10,10,10));
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 2, 65, 72, 43, 90, 159, 0};
 		gridBagLayout.rowHeights = new int[]{23, 33, 7, 20, 20, 20, 30, 35, 77, 32};
@@ -241,7 +243,7 @@ public class MeetingPanel extends JPanel {
 
 		addPerson = new JButton("+");
 		addPerson.addActionListener(new addNewPerson());
-
+		addPerson.setPreferredSize(new Dimension(22, 20));
 		GridBagConstraints gbc_addPerson = new GridBagConstraints();
 		gbc_addPerson.insets = new Insets(0, 0, 5, 5);
 		gbc_addPerson.gridx = 4;
@@ -249,6 +251,7 @@ public class MeetingPanel extends JPanel {
 		add(addPerson, gbc_addPerson);
 
 		removePerson = new JButton("-");
+		removePerson.setPreferredSize(new Dimension(22, 20));
 		GridBagConstraints gbc_removePerson = new GridBagConstraints();
 		gbc_removePerson.anchor = GridBagConstraints.WEST;
 		gbc_removePerson.insets = new Insets(0, 0, 5, 5);
