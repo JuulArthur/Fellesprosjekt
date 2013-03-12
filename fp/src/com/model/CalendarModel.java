@@ -1,10 +1,11 @@
 package com.model;
 
+import javax.swing.table.AbstractTableModel;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CalendarModel {
+public class CalendarModel extends AbstractTableModel{
 	
 	private String[][] calendar = new String[13][7];
 	
