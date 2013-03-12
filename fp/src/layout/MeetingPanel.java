@@ -39,7 +39,7 @@ public class MeetingPanel extends JPanel {
 	private JLabel lblBeskrivelse;
 	private JScrollPane beskrivelseScrollPane;
 	private JScrollPane deltagerScrollPane;
-	
+
 	private JTextArea beskrivelseTextArea;
 	private JTextArea deltagerTextArea;
 	private JLabel lblDeltagere;
@@ -50,22 +50,22 @@ public class MeetingPanel extends JPanel {
 	private JButton addPerson;
 	private JButton removePerson;
 	private AddParticipantPanel addParticipant;
-	private JButton btnOpenCalendar;
-	
-	
+	private JButton btnopenStartCalendar;
+	private JButton btnopenStopCalendar;
+
 	public MeetingPanel() {
-	
+
 		/* 
-		 * Need to implement calendar-popup, maybe use JTable? 
+		 * Mangler noe funksjonalitet 
 		 */
-		
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 2, 65, 72, 43, 90, 159, 0};
 		gridBagLayout.rowHeights = new int[]{23, 33, 7, 20, 20, 20, 30, 35, 77, 32};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
-		
+
 		lblAvtale = new JLabel("Avtale/M\u00F8te");
 		lblAvtale.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblAvtale = new GridBagConstraints();
@@ -73,7 +73,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblAvtale.gridx = 3;
 		gbc_lblAvtale.gridy = 0;
 		add(lblAvtale, gbc_lblAvtale);
-		
+
 		btnTilbake = new JButton("Tilbake");		
 		GridBagConstraints gbc_btnTilbake = new GridBagConstraints();
 		gbc_btnTilbake.anchor = GridBagConstraints.WEST;
@@ -81,7 +81,7 @@ public class MeetingPanel extends JPanel {
 		gbc_btnTilbake.gridx = 6;
 		gbc_btnTilbake.gridy = 0;
 		add(btnTilbake, gbc_btnTilbake);
-		
+
 		lblTittel = new JLabel("Tittel");
 		GridBagConstraints gbc_lblTittel = new GridBagConstraints();
 		gbc_lblTittel.anchor = GridBagConstraints.WEST;
@@ -90,7 +90,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblTittel.gridx = 3;
 		gbc_lblTittel.gridy = 1;
 		add(lblTittel, gbc_lblTittel);
-		
+
 		titteltextField = new JTextField();
 		GridBagConstraints gbc_titteltextField = new GridBagConstraints();
 		gbc_titteltextField.anchor = GridBagConstraints.WEST;
@@ -100,7 +100,7 @@ public class MeetingPanel extends JPanel {
 		gbc_titteltextField.gridy = 1;
 		titteltextField.setColumns(15);
 		add(titteltextField, gbc_titteltextField);
-			
+
 		JLabel lblStart = new JLabel("Start:");
 		GridBagConstraints gbc_lblStart = new GridBagConstraints();
 		gbc_lblStart.anchor = GridBagConstraints.WEST;
@@ -109,7 +109,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblStart.gridx = 3;
 		gbc_lblStart.gridy = 2;
 		add(lblStart, gbc_lblStart);
-		
+
 		startTextField = new JTextField();
 		GridBagConstraints gbc_startTextField = new GridBagConstraints();
 		gbc_startTextField.anchor = GridBagConstraints.WEST;
@@ -117,18 +117,19 @@ public class MeetingPanel extends JPanel {
 		gbc_startTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_startTextField.gridx = 5;
 		gbc_startTextField.gridy = 2;
-		add(startTextField, gbc_startTextField);
 		startTextField.setColumns(15);
-		
-		btnOpenCalendar = new JButton("Calendar");
-		btnOpenCalendar.addActionListener(new openCalendar());
-			
-		GridBagConstraints gbc_btnOpenCalendar = new GridBagConstraints();
-		gbc_btnOpenCalendar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnOpenCalendar.gridx = 6;
-		gbc_btnOpenCalendar.gridy = 2;
-		add(btnOpenCalendar, gbc_btnOpenCalendar);
-		
+		startTextField.setEditable(false);
+		add(startTextField, gbc_startTextField);
+
+		btnopenStartCalendar = new JButton("\u00C5pne kalender");
+		btnopenStartCalendar.addActionListener(new openStartCalendar());
+
+		GridBagConstraints gbc_btnopenStartCalendar = new GridBagConstraints();
+		gbc_btnopenStartCalendar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnopenStartCalendar.gridx = 6;
+		gbc_btnopenStartCalendar.gridy = 2;
+		add(btnopenStartCalendar, gbc_btnopenStartCalendar);
+
 		JLabel lblSlutt = new JLabel("Slutt:");
 		GridBagConstraints gbc_lblSlutt = new GridBagConstraints();
 		gbc_lblSlutt.anchor = GridBagConstraints.WEST;
@@ -137,16 +138,26 @@ public class MeetingPanel extends JPanel {
 		gbc_lblSlutt.gridx = 3;
 		gbc_lblSlutt.gridy = 3;
 		add(lblSlutt, gbc_lblSlutt);
-		
+
 		sluttTextField = new JTextField();
 		GridBagConstraints gbc_sluttTextField = new GridBagConstraints();
 		gbc_sluttTextField.anchor = GridBagConstraints.WEST;
 		gbc_sluttTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_sluttTextField.gridx = 5;
 		gbc_sluttTextField.gridy = 3;
-		add(sluttTextField, gbc_sluttTextField);
 		sluttTextField.setColumns(15);
-		
+		sluttTextField.setEditable(false);
+		add(sluttTextField, gbc_sluttTextField);
+
+		btnopenStopCalendar = new JButton("\u00C5pne kalender");
+		btnopenStopCalendar.addActionListener(new openStopCalendar());
+
+		GridBagConstraints gbc_btnopenStopCalendar = new GridBagConstraints();
+		gbc_btnopenStopCalendar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnopenStopCalendar.gridx = 6;
+		gbc_btnopenStopCalendar.gridy = 3;
+		add(btnopenStopCalendar, gbc_btnopenStopCalendar);
+
 		JLabel lblSted = new JLabel("Sted:");
 		GridBagConstraints gbc_lblSted = new GridBagConstraints();
 		gbc_lblSted.anchor = GridBagConstraints.WEST;
@@ -155,7 +166,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblSted.gridx = 3;
 		gbc_lblSted.gridy = 4;
 		add(lblSted, gbc_lblSted);
-		
+
 		stedTextField = new JTextField();
 		GridBagConstraints gbc_stedTextField = new GridBagConstraints();
 		gbc_stedTextField.anchor = GridBagConstraints.WEST;
@@ -164,7 +175,7 @@ public class MeetingPanel extends JPanel {
 		gbc_stedTextField.gridy = 4;
 		add(stedTextField, gbc_stedTextField);
 		stedTextField.setColumns(15);
-		
+
 		JLabel lblAlarm = new JLabel("Alarm:");
 		GridBagConstraints gbc_lblAlarm = new GridBagConstraints();
 		gbc_lblAlarm.anchor = GridBagConstraints.WEST;
@@ -173,7 +184,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblAlarm.gridx = 3;
 		gbc_lblAlarm.gridy = 5;
 		add(lblAlarm, gbc_lblAlarm);
-		
+
 		alarmTextField = new JTextField();
 		GridBagConstraints gbc_alarmTextField = new GridBagConstraints();
 		gbc_alarmTextField.anchor = GridBagConstraints.WEST;
@@ -182,7 +193,7 @@ public class MeetingPanel extends JPanel {
 		gbc_alarmTextField.gridy = 5;
 		add(alarmTextField, gbc_alarmTextField);
 		alarmTextField.setColumns(15);
-		
+
 		lblKalender = new JLabel("Kalender:");
 		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
 		gbc_lblKalender.anchor = GridBagConstraints.WEST;
@@ -191,7 +202,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblKalender.gridx = 3;
 		gbc_lblKalender.gridy = 6;
 		add(lblKalender, gbc_lblKalender);
-		
+
 		kalenderComboBox = new JComboBox();
 		kalenderComboBox.setPreferredSize(new Dimension(120, 30));
 		GridBagConstraints gbc_kalenderComboBox = new GridBagConstraints();
@@ -200,7 +211,7 @@ public class MeetingPanel extends JPanel {
 		gbc_kalenderComboBox.gridx = 5;
 		gbc_kalenderComboBox.gridy = 6;
 		add(kalenderComboBox, gbc_kalenderComboBox);
-		
+
 		lblBeskrivelse = new JLabel("Beskrivelse: ");
 		GridBagConstraints gbc_lblBeskrivelse = new GridBagConstraints();
 		gbc_lblBeskrivelse.anchor = GridBagConstraints.WEST;
@@ -209,7 +220,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblBeskrivelse.gridx = 3;
 		gbc_lblBeskrivelse.gridy = 7;
 		add(lblBeskrivelse, gbc_lblBeskrivelse);
-		
+
 		beskrivelseTextArea = new JTextArea(5, 10);
 		JScrollPane beskrivelseScrollPane = new JScrollPane(beskrivelseTextArea); 
 		GridBagConstraints gbc_beskrivelseScrollPane = new GridBagConstraints();
@@ -219,7 +230,7 @@ public class MeetingPanel extends JPanel {
 		gbc_beskrivelseScrollPane.gridx = 3;
 		gbc_beskrivelseScrollPane.gridy = 8;
 		add(beskrivelseScrollPane, gbc_beskrivelseScrollPane);
-		
+
 		lblDeltagere = new JLabel("Deltagere:");
 		GridBagConstraints gbc_lblDeltagere = new GridBagConstraints();
 		gbc_lblDeltagere.anchor = GridBagConstraints.WEST;
@@ -227,16 +238,16 @@ public class MeetingPanel extends JPanel {
 		gbc_lblDeltagere.gridx = 3;
 		gbc_lblDeltagere.gridy = 9;
 		add(lblDeltagere, gbc_lblDeltagere);
-				
+
 		addPerson = new JButton("+");
 		addPerson.addActionListener(new addNewPerson());
-		
+
 		GridBagConstraints gbc_addPerson = new GridBagConstraints();
 		gbc_addPerson.insets = new Insets(0, 0, 5, 5);
 		gbc_addPerson.gridx = 4;
 		gbc_addPerson.gridy = 9;
 		add(addPerson, gbc_addPerson);
-		
+
 		removePerson = new JButton("-");
 		GridBagConstraints gbc_removePerson = new GridBagConstraints();
 		gbc_removePerson.anchor = GridBagConstraints.WEST;
@@ -244,7 +255,7 @@ public class MeetingPanel extends JPanel {
 		gbc_removePerson.gridx = 5;
 		gbc_removePerson.gridy = 9;
 		add(removePerson, gbc_removePerson);
-		
+
 		btnLagre_1 = new JButton("Lagre");
 		GridBagConstraints gbc_btnLagre_1 = new GridBagConstraints();
 		gbc_btnLagre_1.insets = new Insets(0, 0, 5, 0);
@@ -254,7 +265,7 @@ public class MeetingPanel extends JPanel {
 		gbc_btnLagre_1.gridx = 6;
 		gbc_btnLagre_1.gridy = 9;
 		add(btnLagre_1, gbc_btnLagre_1);
-		
+
 		deltagerTextArea = new JTextArea(5, 10);
 		JScrollPane deltagerScrollPane = new JScrollPane(deltagerTextArea); 
 		GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
@@ -264,7 +275,7 @@ public class MeetingPanel extends JPanel {
 		gbc_deltagerScrollPane.gridx = 3;
 		gbc_deltagerScrollPane.gridy = 10;
 		add(deltagerScrollPane, gbc_deltagerScrollPane);
-		
+
 		btnSlett = new JButton("Slett");
 		GridBagConstraints gbc_btnSlett = new GridBagConstraints();
 		gbc_btnSlett.ipady = 10;
@@ -273,36 +284,57 @@ public class MeetingPanel extends JPanel {
 		gbc_btnSlett.gridx = 6;
 		gbc_btnSlett.gridy = 10;
 		add(btnSlett, gbc_btnSlett);	
-		
+
 	}
+
+	private void setText(JTextField textField, String day, String clockTime) {
+		textField.setText(day + " Klokken: " + clockTime);
+	}
+/*
+ * Oppretter en instans av CalendarJDialog, og legger til en knapp du kan trykke på når du er ferdig.
+ * Når du trykker den knappen vil riktig textfield bli oppdatert.
+ */
 	
-	class openCalendar implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			CalendarJDialog calendarDialog = new CalendarJDialog();
-			calendarDialog.setVisible(true);	
-			calendarDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
-	// TODO: Det som skjer i calendarDialog oppdateres i startTextField		
-		}
+	private void createCalenderDialog (final JTextField textField) {
+		final CalendarJDialog calendarDialog = new CalendarJDialog();
+		calendarDialog.setVisible(true);
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnExit.gridx = 4;
+		gbc_btnExit.gridy = 4;
+		final JButton btnChangesDone = new JButton("Ferdig");
+		calendarDialog.getContentPane().add(btnChangesDone, gbc_btnExit);
+		calendarDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+
+		btnChangesDone.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setText(textField, calendarDialog.getdayChosen(), calendarDialog.getclockTime());					
+				calendarDialog.dispose();
+			}
+		});			
+	}		
+
+class openStopCalendar implements ActionListener {
+
+	public void actionPerformed(ActionEvent arg0) {
+		createCalenderDialog(sluttTextField);
+	}
+}	
+
+class openStartCalendar implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		createCalenderDialog(startTextField);
 	}	
-	 	
+}
+
 	class addNewPerson implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-// AddParticipant should pop-up when addPerson is pressed. 			
+			// TODO: AddParticipant should pop-up when addPerson is pressed. 			
 		}
 
-	}
 
-	public static void main(String[] args) {
-		MeetingPanel avtalePanel = new MeetingPanel();
-		JFrame frame = new JFrame("Avtale");
-		frame.getContentPane().add(avtalePanel);
-		frame.pack();
-		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	
 	}
 
 }
