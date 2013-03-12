@@ -1,5 +1,6 @@
 package com.client.net;
 
+import com.model.UserModel;
 import com.net.msg.MSGFlag;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
@@ -40,8 +41,8 @@ public class ServerHandler extends ServiceHandler {
 	@Override
 	public void onWrapper( MSGWrapper msgW ){
 		if(Global.verbose) System.out.println("[ServerHandler] onWrapper");
-		/* We are not connected and need to get a accept response message */
 		
+		/* We are not connected and need to get a accept response message */
 		switch (getState()) {
 		case DISCONNECTED:
 			
@@ -50,8 +51,12 @@ public class ServerHandler extends ServiceHandler {
 				
 				switch (msgW.getFlag()) {
 				case ACCEPT:
-					System.out.println("We are logged in!");
 					setState(State.CONNECTED);
+					
+					UserModel  userModel = (UserModel)msgW.getObjects().get(0);
+					
+					System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
+					
 					//END ACCEPT
 					break;
 					

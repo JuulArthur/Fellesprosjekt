@@ -2,6 +2,7 @@ package com.server.net;
 
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -11,6 +12,7 @@ import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
 import com.net.support.ServiceHandler;
 import com.net.support.State;
+import com.server.db.Factory;
 import com.settings.Global;
 
 /**
@@ -69,8 +71,11 @@ public class ClientHandler  extends ServiceHandler {
 							/* Set connected state*/
 							setState(State.CONNECTED);
 							
+							ArrayList<Object> al = new ArrayList<>();
+							al.add(server.getFactory().getUserModel(um.getUsername()));
+							
 							/* Send back an acknowledged state*/					
-							writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, null));
+							writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, al));
 						}
 						else{
 							writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.DECLINE, null));
