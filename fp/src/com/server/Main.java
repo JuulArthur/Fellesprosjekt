@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
+import com.server.db.Factory;
 import com.server.net.Server;
 import com.xml.JAXBMarshaller;
 
@@ -14,6 +15,7 @@ public class Main {
 	    FileInputStream in = null;
 	    
 	    JAXBMarshaller jaxbMarshaller = new JAXBMarshaller();
+	    
 	    
 		/**
 		 * Load the properties

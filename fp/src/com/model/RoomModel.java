@@ -14,7 +14,7 @@ public class RoomModel {
 	private int capacity;
 	@XmlElement(name="location")
 	private String location;
-	
+
 	public RoomModel() {} /* for jaxb */
 	
 	public RoomModel(int roomNumber, String roomName,
@@ -23,6 +23,7 @@ public class RoomModel {
 		this.roomName = roomName;
 		this.capacity = capacity;
 		this.location = location;
+		
 	}
 	
 	/* setters & getters */
@@ -63,11 +64,7 @@ public class RoomModel {
 	public String toString() {
 		return "RoomModel [roomNumber=" + roomNumber + ", roomName=" + roomName
 				+ ", capacity=" + capacity + ", location=" + location
-				+ ", getRoomNumber()=" + getRoomNumber() + ", getRoomName()="
-				+ getRoomName() + ", getCapacity()=" + getCapacity()
-				+ ", getLocation()=" + getLocation() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ "]";
 	}
-	
+
 }

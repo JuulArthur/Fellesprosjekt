@@ -82,7 +82,6 @@ public class MessageReader implements Runnable {
 					}
 				};
 				
-				//POOL.execute(runnableW);
 				POOL.execute(runnable);
 			}
 		} catch (Exception e) {
