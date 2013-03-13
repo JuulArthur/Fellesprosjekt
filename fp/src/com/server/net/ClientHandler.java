@@ -11,6 +11,7 @@ import com.model.AppointmentModel;
 import com.model.CalendarModel;
 import com.model.GroupModel;
 import com.model.NotificationModel;
+import com.model.RoomModel;
 import com.model.UserModel;
 import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
@@ -165,7 +166,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ROOM:
-							
+							al.add(factory.getRoomModel((Integer)msgW.getObjects().get(0)));
 							break;
 							
 						case USER: //String username
@@ -216,7 +217,6 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ROOM:
-							
 							break;
 							
 						case USER:
@@ -252,7 +252,6 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case GROUP:
-							
 							//factory.get
 							
 							break;
@@ -263,7 +262,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ROOM:
-							
+							factory.updateRoomModel((RoomModel)msgW.getObjects().get(0));
 							break;
 							
 						case USER: //UserModel

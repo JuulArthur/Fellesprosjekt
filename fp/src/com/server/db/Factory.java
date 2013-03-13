@@ -341,7 +341,7 @@ public class Factory {
 
 		return utAm;
 	}
-
+	
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
 		String query = String
@@ -350,8 +350,9 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	public void updateAlarmModel(AlarmModel am) throws SQLException,
-			ClassNotFoundException {
+
+	@Deprecated
+	public void updateAlarmModel(AlarmModel am) throws SQLException, ClassNotFoundException {
 		System.out.println(am.getDate());
 		String query = String
 				.format("UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
@@ -369,8 +370,17 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	public void deleteAlarmModel(AlarmModel am) throws SQLException,
-			ClassNotFoundException {
+	public void deleteAlarmModel(int id, String userName)
+			throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"DELETE from Alarm WHERE username='%s' AND appointmentid=%d",
+				userName, id);
+		updateDatabase(query);
+	}
+	
+	@Deprecated
+	public void deleteAlarmModel(AlarmModel am)
+			throws SQLException, ClassNotFoundException {
 		String query = String.format(
 				"DELETE from Alarm WHERE username='%s' AND appointmentid=%d",
 				am.getCreator().getUsername(), am.getAppointment().getId());
@@ -597,6 +607,7 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
+	@Deprecated
 	public NotificationModel createNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Notification "
@@ -607,6 +618,7 @@ public class Factory {
 		return nm;
 	}
 	
+	@Deprecated
 	public NotificationModel getNotificationModel(NotificationModel nm)
 			throws ClassNotFoundException, SQLException {
 
@@ -628,6 +640,27 @@ public class Factory {
 		return utNm;
 	}
 	
+	public NotificationModel getNotificationModel(String userName, int id)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String.format("Select text "
+				+ "from Notification WHERE username='%s'AND appointmentid=%d",
+				userName, id);
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		Date date = null;
+		String text = null;
+		while (rs.next()) {
+			text = rs.getString(1);
+		}
+
+		NotificationModel utNm = new NotificationModel(text, null, null);
+		rs.close();
+		db.close();
+
+		return utNm;
+	}
+	
 	public void updateNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
 		String query = String.format(
 				"UPDATE Notification SET text='%s' WHERE appointmentid=%d AND username='%s'",
@@ -635,6 +668,7 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
+	@Deprecated
 	public void deleteNotificationModel(NotificationModel nm)
 			throws SQLException, ClassNotFoundException {
 		String query = String.format(
@@ -643,6 +677,15 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
+	public void deleteNotificationModel(String userName, int id)
+			throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"DELETE from Notification WHERE username='%s' AND appointmentid=%d",
+				userName, id);
+		updateDatabase(query);
+	}
+	
+	@Deprecated
 	public RoomModel createRoomModel(RoomModel rm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Room "
@@ -652,6 +695,15 @@ public class Factory {
 		return rm;
 	}
 	
+	public void createRoomModel(int roomNumber, String roomName, int capacity, String location) throws SQLException, ClassNotFoundException {
+		String query = String
+				.format("insert into Room "
+						+ "(roomnumber, roomname, capacity, location) values (%d, '%s', %d, '%s')",
+						roomNumber, roomName, capacity, location);
+		updateDatabase(query);
+	}
+	
+	@Deprecated
 	public RoomModel getRoomModel(RoomModel rm)
 			throws ClassNotFoundException, SQLException {
 		String query = String.format("Select roomname, capacity, location "
@@ -674,6 +726,28 @@ public class Factory {
 		return utRm;
 	}
 	
+	public RoomModel getRoomModel(int roomNumber)
+			throws ClassNotFoundException, SQLException {
+		String query = String.format("Select roomname, capacity, location "
+				+ "from Room WHERE roomnumber=%d", roomNumber);
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		String roomName = null;
+		int capacity = 0;
+		String location = null;
+		while (rs.next()) {
+			roomName = rs.getString(1);
+			capacity = rs.getInt(2);
+			location = rs.getString(3);
+		}
+
+		RoomModel utRm = new RoomModel(roomNumber, roomName, capacity, location);
+		rs.close();
+		db.close();
+
+		return utRm;
+	}
+	
 	public void updateRoomModel(RoomModel rm) throws SQLException, ClassNotFoundException {
 		String query = String.format(
 				"UPDATE Room SET roomName='%s', capacity=%d, location='%s' WHERE roomnumber=%d",
@@ -681,11 +755,20 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
+	@Deprecated
 	public void deleteRoomModel(RoomModel rm)
 			throws SQLException, ClassNotFoundException {
 		String query = String.format(
 				"DELETE from Room WHERE roomnumber=%d",
 				rm.getRoomNumber());
+		updateDatabase(query);
+	}
+	
+	public void deleteRoomModel(int roomNumber)
+			throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"DELETE from Room WHERE roomnumber=%d",
+				roomNumber);
 		updateDatabase(query);
 	}
 }
