@@ -2,12 +2,20 @@ package com.xml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.transform.stream.StreamSource;
 
+import com.model.AlarmModel;
+import com.model.AppointmentModel;
+import com.model.CalendarModel;
+import com.model.GroupModel;
+import com.model.NotificationModel;
+import com.model.RoomModel;
 import com.model.UserModel;
 import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
@@ -26,7 +34,8 @@ public class JAXBMarshaller {
 	public JAXBMarshaller() {
 		try {
 			/*UserModel*/
-			jaxbContext = JAXBContext.newInstance(UserModel.class, MSGFlagVerb.class, MSGFlagSubject.class, MSGType.class, MSGWrapper.class);
+			jaxbContext = JAXBContext.newInstance(MSGFlagVerb.class, MSGFlagSubject.class, MSGType.class, MSGWrapper.class,
+					AlarmModel.class, AppointmentModel.class, CalendarModel.class, GroupModel.class, NotificationModel.class, RoomModel.class, UserModel.class);
 			jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		

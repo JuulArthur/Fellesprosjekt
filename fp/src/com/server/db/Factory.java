@@ -142,7 +142,25 @@ public class Factory {
 
 		UserModel um = new UserModel(username, password, email, name, surname,
 				phoneNumber, isAdmin);
+		
+		query = String.format("Select calendarid, isOwner from Follows Where username='%s'", username);
+		ResultSet crs = db.makeSingleQuery(query);
+		int calendarId = 0;
+		boolean isOwner = false;
+		while(crs.next()){
+			calendarId = crs.getInt(1);
+			isOwner = crs.getBoolean(2);
+			CalendarModel tempCal = getCalendarModel(calendarId);
+			if(isOwner){
+				um.addCalendar(tempCal);
+			}
+			else {
+				um.addSubscribedCalendars(tempCal);
+			}
+			
+		}
 		rs.close();
+		crs.close();
 		db.close();
 
 		return um;
