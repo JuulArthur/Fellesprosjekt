@@ -155,25 +155,23 @@ public class MainMeetingPanel extends JPanel {
 		alarmTextField.setEditable(false);
 		add(alarmTextField, gbc_alarmTextField);
 		alarmTextField.setColumns(15);
-
-		lblBeskrivelse = new JLabel("Beskrivelse: ");
-		GridBagConstraints gbc_lblBeskrivelse = new GridBagConstraints();
-		gbc_lblBeskrivelse.anchor = GridBagConstraints.WEST;
-		gbc_lblBeskrivelse.insets = new Insets(0, 0, 5, 5);
-		gbc_lblBeskrivelse.gridwidth = 2;
-		gbc_lblBeskrivelse.gridx = 3;
-		gbc_lblBeskrivelse.gridy = 7;
-		add(lblBeskrivelse, gbc_lblBeskrivelse);
-		
-		beskrivelseTextArea = new JTextArea(5, 10);
-		beskrivelseTextArea.setSize(new Dimension(40, 50));
-		GridBagConstraints gbc_beskrivelseTextArea = new GridBagConstraints();
-		gbc_beskrivelseTextArea.gridwidth = 2;
-		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 5, 5);
-		gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
-		gbc_beskrivelseTextArea.gridx = 3;
-		gbc_beskrivelseTextArea.gridy = 8;
-		add(beskrivelseTextArea, gbc_beskrivelseTextArea);
+				
+						lblBeskrivelse = new JLabel("Beskrivelse: ");
+						GridBagConstraints gbc_lblBeskrivelse = new GridBagConstraints();
+						gbc_lblBeskrivelse.anchor = GridBagConstraints.WEST;
+						gbc_lblBeskrivelse.insets = new Insets(0, 0, 5, 5);
+						gbc_lblBeskrivelse.gridx = 3;
+						gbc_lblBeskrivelse.gridy = 6;
+						add(lblBeskrivelse, gbc_lblBeskrivelse);
+				
+				beskrivelseTextArea = new JTextArea(5, 10);
+				beskrivelseTextArea.setSize(new Dimension(40, 50));
+				GridBagConstraints gbc_beskrivelseTextArea = new GridBagConstraints();
+				gbc_beskrivelseTextArea.insets = new Insets(0, 0, 5, 5);
+				gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
+				gbc_beskrivelseTextArea.gridx = 5;
+				gbc_beskrivelseTextArea.gridy = 6;
+				add(beskrivelseTextArea, gbc_beskrivelseTextArea);
 
 	}
 	

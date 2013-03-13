@@ -30,9 +30,12 @@ public class MeetingPanel extends MainMeetingPanel {
 	private JButton btnopenStartCalendar;
 	private JButton btnopenStopCalendar;
 	private JList participantList;
+	private JComboBox comboBox;
 	
 
 	public MeetingPanel() {
+		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
 
 		/* 
 		 * Mangler noe funksjonalitet:
@@ -44,7 +47,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		btnopenStartCalendar = new JButton("\u00C5pne kalender");
 		btnopenStartCalendar.addActionListener(new openStartCalendar());
 		GridBagConstraints gbc_btnopenStartCalendar = new GridBagConstraints();
-		gbc_btnopenStartCalendar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnopenStartCalendar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnopenStartCalendar.gridx = 6;
 		gbc_btnopenStartCalendar.gridy = 2;
 		add(btnopenStartCalendar, gbc_btnopenStartCalendar);
@@ -53,19 +56,10 @@ public class MeetingPanel extends MainMeetingPanel {
 		btnopenStopCalendar.addActionListener(new openStopCalendar());
 
 		GridBagConstraints gbc_btnopenStopCalendar = new GridBagConstraints();
-		gbc_btnopenStopCalendar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnopenStopCalendar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnopenStopCalendar.gridx = 6;
 		gbc_btnopenStopCalendar.gridy = 3;
 		add(btnopenStopCalendar, gbc_btnopenStopCalendar);
-
-		lblKalender = new JLabel("Kalender:");
-		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
-		gbc_lblKalender.anchor = GridBagConstraints.WEST;
-		gbc_lblKalender.insets = new Insets(0, 0, 5, 5);
-		gbc_lblKalender.gridwidth = 2;
-		gbc_lblKalender.gridx = 3;
-		gbc_lblKalender.gridy = 6;
-		add(lblKalender, gbc_lblKalender);
 
 		kalenderComboBox = new JComboBox();
 		kalenderComboBox.setPreferredSize(new Dimension(120, 30));
@@ -75,22 +69,40 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_kalenderComboBox.gridx = 5;
 		gbc_kalenderComboBox.gridy = 6;
 		add(kalenderComboBox, gbc_kalenderComboBox);
+		
+				lblKalender = new JLabel("Kalender:");
+				GridBagConstraints gbc_lblKalender = new GridBagConstraints();
+				gbc_lblKalender.anchor = GridBagConstraints.WEST;
+				gbc_lblKalender.insets = new Insets(0, 0, 5, 5);
+				gbc_lblKalender.gridwidth = 2;
+				gbc_lblKalender.gridx = 3;
+				gbc_lblKalender.gridy = 7;
+				add(lblKalender, gbc_lblKalender);
+		
+		comboBox = new JComboBox();
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 5;
+		gbc_comboBox.gridy = 7;
+		add(comboBox, gbc_comboBox);
 
 		lblDeltagere = new JLabel("Deltagere:");
 		GridBagConstraints gbc_lblDeltagere = new GridBagConstraints();
 		gbc_lblDeltagere.anchor = GridBagConstraints.WEST;
 		gbc_lblDeltagere.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDeltagere.gridx = 3;
-		gbc_lblDeltagere.gridy = 9;
+		gbc_lblDeltagere.gridy = 8;
 		add(lblDeltagere, gbc_lblDeltagere);
 
 		addPerson = new JButton("+");
 		addPerson.addActionListener(new addNewPerson());
 		addPerson.setPreferredSize(new Dimension(22, 20));
 		GridBagConstraints gbc_addPerson = new GridBagConstraints();
+		gbc_addPerson.anchor = GridBagConstraints.EAST;
 		gbc_addPerson.insets = new Insets(0, 0, 5, 5);
 		gbc_addPerson.gridx = 4;
-		gbc_addPerson.gridy = 9;
+		gbc_addPerson.gridy = 8;
 		add(addPerson, gbc_addPerson);
 
 		removePerson = new JButton("-");
@@ -99,40 +111,41 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_removePerson.anchor = GridBagConstraints.WEST;
 		gbc_removePerson.insets = new Insets(0, 0, 5, 5);
 		gbc_removePerson.gridx = 5;
-		gbc_removePerson.gridy = 9;
+		gbc_removePerson.gridy = 8;
 		add(removePerson, gbc_removePerson);
-
-		btnLagre_1 = new JButton("Lagre");
-		GridBagConstraints gbc_btnLagre_1 = new GridBagConstraints();
-		gbc_btnLagre_1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnLagre_1.ipady = 10;
-		gbc_btnLagre_1.ipadx = 5;
-		gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_btnLagre_1.gridx = 6;
-		gbc_btnLagre_1.gridy = 9;
-		btnLagre_1.addActionListener(new saveAction());
-		add(btnLagre_1, gbc_btnLagre_1);
+		
+				btnLagre_1 = new JButton("Lagre");
+				GridBagConstraints gbc_btnLagre_1 = new GridBagConstraints();
+				gbc_btnLagre_1.insets = new Insets(0, 0, 5, 5);
+				gbc_btnLagre_1.ipady = 10;
+				gbc_btnLagre_1.ipadx = 5;
+				gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHWEST;
+				gbc_btnLagre_1.gridx = 6;
+				gbc_btnLagre_1.gridy = 8;
+				btnLagre_1.addActionListener(new saveAction());
+				add(btnLagre_1, gbc_btnLagre_1);
 		
 		JScrollPane deltagerScrollPane = new JScrollPane(); 
 		GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
 		gbc_deltagerScrollPane.gridwidth = 2;
-		gbc_deltagerScrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_deltagerScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_deltagerScrollPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_deltagerScrollPane.gridx = 3;
-		gbc_deltagerScrollPane.gridy = 10;
+		gbc_deltagerScrollPane.gridy = 9;
 		add(deltagerScrollPane, gbc_deltagerScrollPane);
 		
 		participantList = new JList();
 		deltagerScrollPane.setViewportView(participantList);
-
-		btnSlett = new JButton("Slett");
-		GridBagConstraints gbc_btnSlett = new GridBagConstraints();
-		gbc_btnSlett.ipady = 10;
-		gbc_btnSlett.ipadx = 5;
-		gbc_btnSlett.anchor = GridBagConstraints.WEST;
-		gbc_btnSlett.gridx = 6;
-		gbc_btnSlett.gridy = 10;
-		add(btnSlett, gbc_btnSlett);	
+		
+				btnSlett = new JButton("Slett");
+				GridBagConstraints gbc_btnSlett = new GridBagConstraints();
+				gbc_btnSlett.insets = new Insets(0, 0, 5, 5);
+				gbc_btnSlett.ipady = 10;
+				gbc_btnSlett.ipadx = 5;
+				gbc_btnSlett.anchor = GridBagConstraints.NORTHWEST;
+				gbc_btnSlett.gridx = 6;
+				gbc_btnSlett.gridy = 9;
+				add(btnSlett, gbc_btnSlett);	
 
 	}
 
