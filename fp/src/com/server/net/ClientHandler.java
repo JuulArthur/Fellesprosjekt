@@ -104,6 +104,13 @@ public class ClientHandler  extends ServiceHandler {
 								writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, null));
 							}	
 						}
+						//END LOGIN
+						break;
+					case LOGOUT:
+						writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
+						disconnect();
+						server.removeCLient(this);
+						//END LOGOUT
 						break;
 
 					default:
@@ -156,7 +163,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case GROUP:
-							
+							//al.add(factory.getG)
 							//GroupModel gm = factory.get
 							
 							break;
@@ -258,7 +265,6 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case NOTIFICATION:// NotificationModel
 							factory.updateNotificationModel((NotificationModel)msgW.getObjects().get(0));
-
 							break;
 							
 						case ROOM:
@@ -287,12 +293,14 @@ public class ClientHandler  extends ServiceHandler {
 						/* SUBJECTT */
 						switch (subject) {
 						case ALARM: //AlarmModel
+							factory.deleteAlarmModel((AlarmModel)msgW.getObjects().get(0));
 							break;
 			
 						case CALENDAR:							
 							break;
 							
-						case APPOINTMENT: //AppointmentModel
+						case APPOINTMENT: //int aid
+							factory.deleteAppointmentModel((Integer)msgW.getObjects().get(0));
 							break;
 							
 						case GROUP:
@@ -301,7 +309,8 @@ public class ClientHandler  extends ServiceHandler {
 							
 							break;
 							
-						case NOTIFICATION:
+						case NOTIFICATION: //STRING username, INTEGER AppointmentID
+							factory.deleteNotificationModel((String)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1));
 							break;
 							
 						case ROOM:
@@ -309,6 +318,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case USER:
+							factory.deleteUserModel((String)msgW.getObjects().get(0));
 							break;
 
 						default:
