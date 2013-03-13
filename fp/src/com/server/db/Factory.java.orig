@@ -25,6 +25,7 @@ public class Factory {
 		db.makeUpdate(query);
 		db.close();
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * Make a single query. Inits the DB. Be a doll and close the connection afterwards
@@ -37,6 +38,14 @@ public class Factory {
 		db.initialize();
 		return db.makeSingleQuery(query);
 	}
+	
+	public UserModel createUserModel(String username, String password, String email, 
+			String name, String surname, String phoneNumber, int isAdmin ) 
+					throws SQLException, ClassNotFoundException{
+		UserModel um = new UserModel(username, password, email, name, surname, phoneNumber, isAdmin);
+		String query=String.format("insert into User " +
+				"(userName, password, email, name, surName, phoneNumber, isAdmin) values ('%s', '%s','%s','%s','%s','%s',%d)", username, password, email, name, surname, phoneNumber, isAdmin); 
+=======
 
 	public UserModel createUserModel(String username, String password,
 			String email, String name, String surname, String phoneNumber,
@@ -48,6 +57,7 @@ public class Factory {
 						+ "(userName, password, email, name, surName, phoneNumber, isAdmin) values ('%s', '%s','%s','%s','%s','%s',%d)",
 						username, password, email, name, surname, phoneNumber,
 						isAdmin);
+>>>>>>> f8b73ed9887b3dfb256db836b17c10d386d844a9
 		UpdateDatabase(query);
 		return um;
 	}
