@@ -217,7 +217,7 @@ public class TestDB {
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
 
 		try{
-			t.testUpdateRoom();
+			t.testDeleteRoom();
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();
