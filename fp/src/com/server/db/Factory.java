@@ -150,7 +150,7 @@ public class Factory {
 		while(crs.next()){
 			calendarId = crs.getInt(1);
 			isOwner = crs.getBoolean(2);
-			Calendar tempCal = getCalendarModel(calendarId);
+			CalendarModel tempCal = getCalendarModel(calendarId);
 			if(isOwner){
 				um.addCalendar(tempCal);
 			}
