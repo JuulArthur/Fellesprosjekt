@@ -433,21 +433,24 @@ public class Factory {
 		/*Update appointment*/
 		String query = String.format(
 				"UPDATE Appointment " +
-				"SET startTime='%d', EndTime='%d', host='%d', title='%d', text='%d', place='%d', isDeleted='%d', date='%d' " +
+				"SET startTime='%s', EndTime='%s', host='%s', title='%s', text='%s', place='%s', isDeleted=%b, date='%s' " +
 				"WHERE id=%d",
-				am.getStartTime(), am.getEndTime(), am.getHost(), am.getTitle(), am.getText(), am.getPlace(), am.isDeleted(), am.getDate(),
+				am.getStartTime(), am.getEndTime(), am.getHost().getUsername(), am.getTitle(), am.getText(), am.getPlace(), am.isDeleted(), am.getDate(),
 				am.getId());
 		UpdateDatabase(query);
 		
 		/* Update IsSummonedTo. We need to send notification as well */
 		//1. Who was invited
 		
-		ArrayList<String> summoned = getIsSummonedTo(am.getId());
+		//ArrayList<String> summoned = getIsSummonedTo(am.getId());
 		
 		//2. Empty IsSummonedTo rows for that appointment
 		deleteIsSummonedTo(am.getId());
+		if(am.getMembers() != null)
+			createIsSummonedTo(am.getMembers(), am.getId());
 		
 		//3. Add all the attends to the appointment
+		/*
 		if(summoned.size() != 0){
 			createIsSummonedTo(am.getMembers(), am.getId());
 			
@@ -468,32 +471,24 @@ public class Factory {
 				}
 			}
 			
-		}
+		}*/
 	}
 	//CREATE
 	
 	public void createAppointmentModel(AppointmentModel am) throws ClassNotFoundException, SQLException{
 		/*Update appointment*/
 		String query = String.format(
-				"UPDATE Appointment " +
-				"SET startTime='%d', EndTime='%d', host='%d', title='%d', text='%d', place='%d', isDeleted='%d', date='%d' " +
-				"WHERE id=%d",
-				am.getStartTime(), am.getEndTime(), am.getHost(), am.getTitle(), am.getText(), am.getPlace(), am.isDeleted(), am.getDate(),
-				am.getId());
+				"INSERT INTO Appointment " +
+				"(id, startTime, EndTime, host, title, text, place, isDeleted, date) " +
+				"VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', %b, '%s')",
+				am.getId(), am.getStartTime(), am.getEndTime(), am.getHost().getUsername(), am.getTitle(), am.getText(), am.getPlace(), am.isDeleted(), am.getDate());
+		
 		UpdateDatabase(query);
 		
 		
 		//Add all the attends to the appointment
-		if(am.getMembers().size() != 0){
+		if(am.getMembers() != null && am.getMembers().size() != 0){
 			createIsSummonedTo(am.getMembers(), am.getId());
-			
-			//SEND NOTIFICATION
-			//TODO Skal update ta seg av dette? 
-			//TODO GJøre det batch istedenfor
-
-			for (int i = 0; i < am.getMembers().size(); i++) {
-				createNotificationModel("Du har blitt invitert til: " + am.getTitle(), am.getId(), am.getMembers().get(i).getUsername());
-			}
 		}
 	}
 	
