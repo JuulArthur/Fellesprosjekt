@@ -199,7 +199,7 @@ public class ClientHandler  extends ServiceHandler {
 						/* We put the object in the database and ACCEPT or DECLINE
 						 * 
 						 * */
-						
+						System.out.println(msgW);
 						/* SUBJECTT */
 						switch (subject) {
 						case ALARM: //AlarmModel
@@ -214,7 +214,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case GROUP:
-							
+				
 							//factory.get
 							
 							break;
@@ -292,8 +292,8 @@ public class ClientHandler  extends ServiceHandler {
 						
 						/* SUBJECTT */
 						switch (subject) {
-						case ALARM: //AlarmModel
-							factory.deleteAlarmModel((AlarmModel)msgW.getObjects().get(0));
+						case ALARM: //Integer AppointmentId, String username
+							factory.deleteAlarmModel((Integer)msgW.getObjects().get(0), (String)msgW.getObjects().get(1));
 							break;
 			
 						case CALENDAR:							
