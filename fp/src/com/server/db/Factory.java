@@ -3,7 +3,10 @@ package com.server.db;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
+
+import javax.xml.bind.annotation.XmlElement;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
@@ -279,4 +282,64 @@ public class Factory {
 				am.getCreator().getUsername(), am.getAppointment().getId());
 		UpdateDatabase(query);
 	}
+	
+	/* APPOINTMENT */
+	//GET
+	public AppointmentModel getAppointmentModel(int pid) throws SQLException, ClassNotFoundException{
+		
+		String query=String.format("Select startTime, EndTime, host, title, text, place, isDeleted, date" +
+				"from Appointment WHERE id='%s'",pid);
+		
+		db.initialize();
+		ResultSet rs=db.makeSingleQuery(query);
+
+		int startTime = 0;
+		int endTime = 0;
+		UserModel host = null;
+		String title = null;
+		String text = null;
+		String place = null;
+		boolean isDeleted; 
+		Date date = null;
+		ArrayList<UserModel> members = null;
+		
+		while(rs.next())
+		{
+			startTime=rs.getInt(2);
+			endTime =rs.getInt(3);
+			host = getUserModel(rs.getString(4));
+			title=rs.getString(5);
+			text=rs.getString(6);
+			place=rs.getString(7);
+			isDeleted=rs.getBoolean(8);
+			date = rs.getDate(9);
+		}
+		
+		/* Get members */
+		members = new ArrayList<>();
+		
+		query=String.format("Select username" +
+				"from IsSummonedTo WHERE appointmentid='%s'",pid);
+		rs=db.makeSingleQuery(query);
+		
+		while(rs.next()){
+			members.add(getUserModel(rs.getString(1)));
+		}
+		
+		if(members.size() == 0)
+			members = null;
+		
+		
+		rs.close();
+		db.close();
+		
+		return new AppointmentModel(pid, startTime, endTime, host, title, text, place, date, members);
+	}
+	//UPDATE
+	//CREATE
+	
+	public void createAppointmentModel(AppointmentModel apModel){
+		
+	}
+	//DELETE
 }

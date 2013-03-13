@@ -34,7 +34,7 @@ public class MeetingPanel extends JPanel {
 	private JLabel lblTittel;
 	private JTextField titteltextField;
 	private JLabel lblAvtale;
-	private JButton btnTilbake;
+	private JButton btnReturn;
 	private JLabel lblKalender;
 	private JComboBox kalenderComboBox;
 	private JLabel lblBeskrivelse;
@@ -53,6 +53,8 @@ public class MeetingPanel extends JPanel {
 	private AddParticipantPanel addParticipant;
 	private JButton btnopenStartCalendar;
 	private JButton btnopenStopCalendar;
+	
+	private JFrame meetingFrame;
 
 	public MeetingPanel() {
 
@@ -76,13 +78,15 @@ public class MeetingPanel extends JPanel {
 		gbc_lblAvtale.gridy = 0;
 		add(lblAvtale, gbc_lblAvtale);
 
-		btnTilbake = new JButton("Tilbake");		
-		GridBagConstraints gbc_btnTilbake = new GridBagConstraints();
-		gbc_btnTilbake.anchor = GridBagConstraints.WEST;
-		gbc_btnTilbake.insets = new Insets(0, 0, 5, 0);
-		gbc_btnTilbake.gridx = 6;
-		gbc_btnTilbake.gridy = 0;
-		add(btnTilbake, gbc_btnTilbake);
+		btnReturn = new JButton("Tilbake");		
+		btnReturn.addActionListener(new returnAction());
+		
+		GridBagConstraints gbc_btnReturn = new GridBagConstraints();
+		gbc_btnReturn.anchor = GridBagConstraints.WEST;
+		gbc_btnReturn.insets = new Insets(0, 0, 5, 0);
+		gbc_btnReturn.gridx = 6;
+		gbc_btnReturn.gridy = 0;
+		add(btnReturn, gbc_btnReturn);
 
 		lblTittel = new JLabel("Tittel");
 		GridBagConstraints gbc_lblTittel = new GridBagConstraints();
@@ -297,6 +301,10 @@ public class MeetingPanel extends JPanel {
  * Oppretter en instans av CalendarJDialog, og legger til en knapp du kan trykke på når du er ferdig.
  * Når du trykker den knappen vil riktig textfield bli oppdatert.
  */
+	public void setFrame (JFrame frame) {
+		this.meetingFrame = frame;
+	}
+	
 	
 	private void createCalenderDialog (final JTextField textField) {
 		final CalendarJDialog calendarDialog = new CalendarJDialog();
@@ -316,28 +324,40 @@ public class MeetingPanel extends JPanel {
 			}
 		});			
 	}		
+	
+	class returnAction implements ActionListener {
 
-class openStopCalendar implements ActionListener {
-
-	public void actionPerformed(ActionEvent arg0) {
-		createCalenderDialog(sluttTextField);
+		public void actionPerformed(ActionEvent e) {
+			meetingFrame.dispose();
+		}
 	}
-}	
 
-class openStartCalendar implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		createCalenderDialog(startTextField);
+	class openStopCalendar implements ActionListener {
+
+		public void actionPerformed(ActionEvent arg0) {
+			createCalenderDialog(sluttTextField);
+		}
 	}	
-}
+
+	class openStartCalendar implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			createCalenderDialog(startTextField);
+		}	
+	}
 
 	class addNewPerson implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO: AddParticipant should pop-up when addPerson is pressed. 			
+			AddParticipantPanel participantPanel = new AddParticipantPanel();
+			JFrame participantFrame = new JFrame("Legg til brukere og/eller grupper");
+			participantFrame.getContentPane().add(participantPanel);
+			participantFrame.pack();
+			participantFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
+			participantFrame.setVisible(true);
+			participantFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			participantPanel.setMyFrame(participantFrame);
+			
 		}
-
-
 	}
 
 }

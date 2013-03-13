@@ -29,6 +29,7 @@ public class CalendarLayout extends JPanel {
 	private JTable table;
 	private String[] time = {"07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
 	
+	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
 		
@@ -188,8 +189,6 @@ public class CalendarLayout extends JPanel {
 		gbc_lblMyCalendars.gridy = 5;
 		add(lblMyCalendars, gbc_lblMyCalendars);
 	
-		
-		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -240,9 +239,8 @@ public class CalendarLayout extends JPanel {
 		gbc_list_3.gridy = 10;
 		add(list_3, gbc_list_3);
 		
-		
 	}
-
+	
 	public static void main(String[] args) {
 		CalendarLayout calendarlayout = new CalendarLayout();
 		JFrame frame = new JFrame("Kalender");
@@ -258,16 +256,14 @@ public class CalendarLayout extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MeetingPanel meetingPanel = new MeetingPanel();
-			JFrame frame = new JFrame("Avtale/M¿te");
-			frame.getContentPane().add(meetingPanel);
-			frame.pack();
-			frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			frame.setVisible(true);
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		
-				
-		
+			JFrame meetingFrame = new JFrame("Avtale/M¿te");
+			meetingFrame.getContentPane().add(meetingPanel);
+			meetingFrame.pack();
+			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
+			meetingFrame.setVisible(true);
+			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			
+			meetingPanel.setFrame(meetingFrame);
 		}
 		
 	}
