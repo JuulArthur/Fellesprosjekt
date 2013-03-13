@@ -59,11 +59,23 @@ public class ServerHandler extends ServiceHandler {
 				
 				switch (verb) {
 				case ACCEPT:
-					setState(State.CONNECTED);
 					
-					UserModel  userModel = (UserModel)msgW.getObjects().get(0);
-					
-					System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
+					switch (currentVerbFlag) {
+					case LOGIN:
+						
+						setState(State.CONNECTED);
+						
+						UserModel  userModel = (UserModel)msgW.getObjects().get(0);
+						
+						System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
+						
+						break;
+					case LOGOUT:
+						disconnect();
+						break;
+					default:
+						break;
+					}
 					
 					//END ACCEPT
 					break;
