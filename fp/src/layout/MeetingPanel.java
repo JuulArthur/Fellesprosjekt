@@ -59,7 +59,10 @@ public class MeetingPanel extends JPanel {
 	public MeetingPanel() {
 
 		/* 
-		 * Mangler noe funksjonalitet 
+		 * Mangler noe funksjonalitet:
+		 * TODO: 
+		 * - Kalender for alarm
+		 * - Knapp for sted som fører til MeetingRoomPanel 
 		 */
 		setBorder(new EmptyBorder(10,10,10,10));
 		
