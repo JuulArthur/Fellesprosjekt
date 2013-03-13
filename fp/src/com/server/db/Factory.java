@@ -209,16 +209,38 @@ public class Factory {
 		return am;
 	}
 
-	public AlarmModel createAlarmModel(AlarmModel am) throws SQLException,
+	public void createAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format("insert into Alarm "
 				+ "(date, text, appointmentid, username) values "
 				+ "('%s', '%s',%d,'%s')", am.getDate(), am.getText(), am
 				.getAppointment().getId(), am.getCreator().getUsername());
 		UpdateDatabase(query);
+	}
+	
+	public AlarmModel getAlarmModel(String user, int aid)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String.format("Select date, text "
+				+ "from Alarm WHERE username='%s'AND appointmendid=%d",
+				user, aid);
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		Date date = null;
+		String text = null;
+		while (rs.next()) {
+			date = rs.getDate(1);
+			text = rs.getString(2);
+		}
+
+		AlarmModel am = new AlarmModel(date, text, null, null);
+		rs.close();
+		db.close();
+
 		return am;
 	}
-
+	
+	@Deprecated
 	public AlarmModel getAlarmModel(AppointmentModel ap, UserModel user)
 			throws ClassNotFoundException, SQLException {
 

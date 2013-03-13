@@ -14,5 +14,6 @@ public enum MSGFlagVerb {
 	CREATE,
 	GET,
 	ACCEPT,
-	DECLINE
+	DECLINE,
+	ERROR
 }

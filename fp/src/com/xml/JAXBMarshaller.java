@@ -51,8 +51,24 @@ public class JAXBMarshaller {
 		}
 	}
 	
+	@Deprecated
 	public String getXMLRepresentation(int ID, MSGType type, MSGFlagVerb flag, ArrayList<Object> alist){
 		MSGWrapper wrapper = new MSGWrapper(ID, type, flag, alist);
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		jaxbWrapperToXML(wrapper, baos);
+		
+		//if(Global.verbose) System.out.println("[JAXBMarshaller]==DEBUG==");
+		//if(Global.verbose) System.out.println(baoss.toString());
+		//if(Global.verbose) System.out.println("[JAXBMarshaller]== END ==");
+		
+		return baos.toString();
+		
+	}
+	
+	public String getXMLRepresentation(int ID, MSGType type, MSGFlagVerb flag, MSGFlagSubject subject, ArrayList<Object> alist){
+		MSGWrapper wrapper = new MSGWrapper(ID, type, flag, subject, alist);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
