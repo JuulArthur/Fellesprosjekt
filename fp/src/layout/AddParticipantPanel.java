@@ -12,9 +12,12 @@ import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddParticipantPanel extends JPanel{
 
+	private JFrame myFrame;
 	
 	public AddParticipantPanel () {
 		/*
@@ -40,6 +43,7 @@ public class AddParticipantPanel extends JPanel{
 		add(lblLeggTilDeltagere, gbc_lblLeggTilDeltagere);
 		
 		JButton btnGoBack = new JButton("tilbake");
+		btnGoBack.addActionListener(new goBackAction());
 		GridBagConstraints gbc_btnGoBack = new GridBagConstraints();
 		gbc_btnGoBack.anchor = GridBagConstraints.EAST;
 		gbc_btnGoBack.gridwidth = 2;
@@ -94,14 +98,15 @@ public class AddParticipantPanel extends JPanel{
 		
 	}
 	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Legg til deltager");
-		frame.getContentPane().add(new AddParticipantPanel());
-		frame.pack();
-		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen/		
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+	public void setMyFrame (JFrame frame) {
+		this.myFrame = frame;
 	}
+	
+	class goBackAction implements ActionListener {
 
+		public void actionPerformed(ActionEvent e) {
+			myFrame.dispose();		
+		}	
+	}	
 }
+	
