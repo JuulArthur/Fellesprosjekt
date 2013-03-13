@@ -112,6 +112,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_btnLagre_1.gridy = 9;
 		btnLagre_1.addActionListener(new saveAction());
 		add(btnLagre_1, gbc_btnLagre_1);
+		
 		JScrollPane deltagerScrollPane = new JScrollPane(); 
 		GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
 		gbc_deltagerScrollPane.gridwidth = 2;
