@@ -40,7 +40,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		 * - Kalender for alarm
 		 * - Knapp for sted som fører til MeetingRoomPanel 
 		 */
-
+		
 		btnopenStartCalendar = new JButton("\u00C5pne kalender");
 		btnopenStartCalendar.addActionListener(new openStartCalendar());
 		GridBagConstraints gbc_btnopenStartCalendar = new GridBagConstraints();
@@ -214,5 +214,16 @@ public class MeetingPanel extends MainMeetingPanel {
 			
 		}
 	}
+	class backAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
+
+			
+		}
+		
+	
 
 }

@@ -36,7 +36,6 @@ public class DatabaseConnector {
 		
 		try{
 			in = new FileInputStream("database.properties");
-			System.out.println(in);
 			properties.load(in);
 		}
 		catch(FileNotFoundException e){
