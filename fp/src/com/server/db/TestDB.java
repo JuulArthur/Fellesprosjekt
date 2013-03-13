@@ -190,6 +190,25 @@ public class TestDB {
 		f.deleteRoomModel(rm);
 	}
 
+	public void testCreateAppointment() throws ClassNotFoundException, SQLException{
+		AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
+				new UserModel("perok", "hei", null, null, null, null, 1), 
+				"SEXEHTIME", "best time of the day", "room", new Date(0,0,0), null);
+		
+		Factory f = new Factory();
+		
+		f.createAppointmentModel(am);
+		
+		am.setTitle("NOT SO SEXEHTIME :(");
+				
+		f.updateAppointmentModel(am);
+		
+		AppointmentModel kake = f.getAppointmentModel(am.getId());
+		
+		System.out.println(kake);
+		
+		f.deleteAppointmentModel(am.getId());
+	}
 	
 	public static void main(String args[]){
 		TestDB t = new TestDB();

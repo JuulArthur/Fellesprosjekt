@@ -6,8 +6,13 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.model.AlarmModel;
 import com.model.AppointmentModel;
+import com.model.CalendarModel;
+import com.model.GroupModel;
+import com.model.NotificationModel;
 import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
@@ -58,42 +63,59 @@ public class ClientHandler  extends ServiceHandler {
 		/* Client is not logged in */
 		try {
 			
+			MSGType type = msgW.getType();
+			MSGFlagVerb verb = msgW.getFlagVerb();
+			MSGFlagSubject subject = msgW.getFlagSubject();
+			ArrayList<Object> al;
+			
+			
 			switch (getState()) {
 			case DISCONNECTED:
-				/* Trying to log in */
-				switch (msgW.getFlagVerb()) {
-				case LOGIN:
-					Object o = msgW.getObjects().get(0);
-					if(o instanceof UserModel){
-						if(Global.verbose) System.out.println("[ClientHandler] onWrapper: Logging in " + o);
-						
-						UserModel um = (UserModel)o;
-						
-						/*
-						 * Query for login.
-						 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
-						 */
-						boolean login = factory.checkPassword(um.getUsername(), um.getPassword());
-						
-						if(login){
-							/* Set connected state*/
-							setState(State.CONNECTED);
+				
+				switch (type) {
+				case REQUEST:
+					/* Trying to log in */
+					switch (verb) {
+					case LOGIN:
+						Object o = msgW.getObjects().get(0);
+						if(o instanceof UserModel){
+							if(Global.verbose) System.out.println("[ClientHandler] onWrapper: Logging in " + o);
 							
-							ArrayList<Object> al = new ArrayList<Object>();
-							al.add(factory.getUserModel(um.getUsername()));
+							UserModel um = (UserModel)o;
 							
-							/* Send back an acknowledged state*/					
-							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, al));
+							/*
+							 * Query for login.
+							 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
+							 */
+							boolean login = factory.checkPassword(um.getUsername(), um.getPassword());
+							
+							if(login){
+								/* Set connected state*/
+								setState(State.CONNECTED);
+								
+								al = new ArrayList<Object>();
+								al.add(factory.getUserModel(um.getUsername()));
+								
+								/* Send back an acknowledged state*/					
+								writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, al));
+							}
+							else{
+								writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, null));
+							}	
 						}
-						else{
-							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, null));
-						}	
+						break;
+
+					default:
+						break;
 					}
+					
 					break;
 
 				default:
 					break;
 				}
+				
+				
 				
 				//BREAK DISCONNECTED
 				break;
@@ -102,27 +124,118 @@ public class ClientHandler  extends ServiceHandler {
 			case CONNECTED:
 				
 				/* What type of message */
-				switch (msgW.getType()) {
+				switch (type) {
 				case REQUEST:
 					
+					//Was the request a success?
+					boolean success = true;
+					
 					Object o;
-					switch (msgW.getFlagVerb()) {
+					
+					/* VERB */
+					switch (verb) {
 					case GET:
-						o = msgW.getObjects().get(0);
-						if(o instanceof UserModel){
+						
+						al = new ArrayList<Object>();
+						
+						/* SUBJECTT */
+						switch (subject) {
+						case ALARM: //String user, int appointmentid
+							al.add(factory.getAlarmModel((String)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1)));
+							break;
 							
+						case CALENDAR:
+							
+							//CalendarModel cm = factory.getC
+							
+							break;
+							
+						case APPOINTMENT: //int appointmentid
+							al.add(factory.getAppointmentModel((Integer)msgW.getObjects().get(0)));
+							break;
+							
+						case GROUP:
+							
+							//GroupModel gm = factory.get
+							
+							break;
+							
+						case NOTIFICATION: //NotificationModel nm
+							al.add(factory.getNotificationModel((NotificationModel)msgW.getObjects().get(0)));
+							break;
+							
+						case ROOM:
+							
+							break;
+							
+						case USER: //String username
+							al.add(factory.getUserModel((String)msgW.getObjects().get(0)));
+							break;
+
+						default:
+							break;
 						}
+						
+						/* REPLY */
+						if(success)
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, subject, al));
+						else{
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, subject, null));
+						}
+						
+						al = null;
+						
+						//END GET
 						break;
 					case CREATE:
-						o = msgW.getObjects().get(0);
-						if(o instanceof UserModel){
+						/* We put the object in the database and ACCEPT or DECLINE
+						 * 
+						 * */
+						al = new ArrayList<Object>();
+						
+						/* SUBJECTT */
+						switch (subject) {
+						case ALARM: //AlarmModel
+							factory.createAlarmModel((AlarmModel)msgW.getObjects().get(0));
+							break;
+			
+						case CALENDAR:							
+							break;
 							
-						}
-						else if(o instanceof AppointmentModel){
-							factory.createAppointmentModel((AppointmentModel)o);
+						case APPOINTMENT: //AppointmentModel
+							factory.createAppointmentModel((AppointmentModel)msgW.getObjects().get(0));
+							break;
 							
-							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
+						case GROUP:
+							
+							//factory.get
+							
+							break;
+							
+						case NOTIFICATION:
+							factory.createNotificationModel((NotificationModel)msgW.getObjects().get(0));
+							break;
+							
+						case ROOM:
+							
+							break;
+							
+						case USER:
+							factory.createUserModel((UserModel)msgW.getObjects().get(0));
+							break;
+
+						default:
+							break;
 						}
+						
+						/* REPLY */
+						if(success)
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, subject, null));
+						else{
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, subject, null));
+						}
+						
+						//END CREATE
 						break;
 					case UPDATE:
 						o = msgW.getObjects().get(0);

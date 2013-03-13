@@ -71,7 +71,7 @@ public class LogginPane extends JPanel {
 								pane.add(loggin, gbc_loggin);
 	}
 	
-	public static void main (String args[]) {
+/*	public static void main (String args[]) {
         JFrame frame = new JFrame("Prototype");
         LogginPane panel=new LogginPane();
         frame.getContentPane().add(panel.pane);
@@ -79,5 +79,5 @@ public class LogginPane extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    }
-	
+	*/
 }
