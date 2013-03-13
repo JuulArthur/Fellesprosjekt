@@ -6,13 +6,18 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 
 public class MeetingRoomPanel extends JPanel {
 
+	private JFrame meetingRoomFrame;
 
 	public MeetingRoomPanel () {
 		/*
@@ -21,8 +26,7 @@ public class MeetingRoomPanel extends JPanel {
 		 * BtnChooseRoom will only activate if a JList object is targeted
 		 * 
 		 */
-		
-		
+			
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 62, 0, 0};
@@ -39,12 +43,13 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_lblMterom.gridy = 0;
 		add(lblMterom, gbc_lblMterom);
 		
-		JButton btnTilbake = new JButton("tilbake");
-		GridBagConstraints gbc_btnTilbake = new GridBagConstraints();
-		gbc_btnTilbake.insets = new Insets(0, 0, 5, 0);
-		gbc_btnTilbake.gridx = 4;
-		gbc_btnTilbake.gridy = 0;
-		add(btnTilbake, gbc_btnTilbake);
+		JButton btnReturn = new JButton("tilbake");
+		btnReturn.addActionListener(new returnAction());
+		GridBagConstraints gbc_btnReturn = new GridBagConstraints();
+		gbc_btnReturn.insets = new Insets(0, 0, 5, 0);
+		gbc_btnReturn.gridx = 4;
+		gbc_btnReturn.gridy = 0;
+		add(btnReturn, gbc_btnReturn);
 		
 		JLabel lblAntallPersoner = new JLabel("Antall personer");
 		GridBagConstraints gbc_lblAntallPersoner = new GridBagConstraints();
@@ -87,6 +92,16 @@ public class MeetingRoomPanel extends JPanel {
 		
 	}
 	
+	class returnAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			meetingRoomFrame.dispose();
+		}
+	}
+	
+	public void setFrame (JFrame frame) {
+		this.meetingRoomFrame = frame;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
