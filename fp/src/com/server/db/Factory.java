@@ -610,8 +610,8 @@ public class Factory {
 	
 	public void updateRoomModel(RoomModel rm) throws SQLException, ClassNotFoundException {
 		String query = String.format(
-				"UPDATE Room SET text='%s' WHERE roomnumber=%d",
-				rm.getRoomNumber());
+				"UPDATE Room SET roomName='%s', capacity=%d, location='%s' WHERE roomnumber=%d",
+				rm.getRoomName(), rm.getCapacity(), rm.getLocation(), rm.getRoomNumber());
 		UpdateDatabase(query);
 	}
 	
