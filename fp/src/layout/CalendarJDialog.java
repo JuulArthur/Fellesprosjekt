@@ -147,14 +147,6 @@ public class CalendarJDialog extends JDialog {
 			
 		}
 	  }
-
-	
-
-//	  public static void main(String[] args) {
-//	    CalendarJDialog app = new CalendarJDialog();
-//	   	app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-//	  }
-
 	
 	class CalendarModel extends AbstractTableModel {
 
@@ -190,10 +182,12 @@ public class CalendarJDialog extends JDialog {
 		}
 		
 		public void setMonth (int month) {
-			for (int i = 1; i < 7; ++i)
-				for (int j = 0; j < 7; ++j)
+			for (int i = 1; i < 7; ++i) {
+				for (int j = 0; j < 7; ++j) {
 					calendar[i][j] = " ";
-			  
+				}
+			}
+					
 			GregorianCalendar cal = new GregorianCalendar();
 			cal.set(thisYear, month, 1);
 			int offset = cal.get(GregorianCalendar.DAY_OF_WEEK) - 1;

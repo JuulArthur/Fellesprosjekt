@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.client.net.ServerHandler;
 import com.model.UserModel;
-import com.net.msg.MSGFlag;
+import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.xml.JAXBMarshaller;
 
@@ -48,12 +48,13 @@ public class Main {
 				ArrayList<Object> alist = new ArrayList<Object>();
 				alist.add(ums);
 				
-				serverH.setCurrentFlag(MSGFlag.LOGIN);
-				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlag.LOGIN, alist));
+				serverH.setCurrentFlag(MSGFlagVerb.LOGIN);
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGIN, alist));
 				
 				break;
 			case 2:
-				serverH.disconnect();
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGOUT, null));
+				//serverH.disconnect();
 				loop = false;
 				break;
 			default:

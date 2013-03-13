@@ -2,16 +2,20 @@ package com.server.net;
 
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.model.AppointmentModel;
 import com.model.UserModel;
-import com.net.msg.MSGFlag;
+import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
 import com.net.support.ServiceHandler;
 import com.net.support.State;
+import com.server.db.Factory;
 import com.settings.Global;
+import com.xml.JAXBMarshaller;
 
 /**
  * Default class for clients connected to server.
@@ -23,11 +27,17 @@ import com.settings.Global;
 public class ClientHandler  extends ServiceHandler {	
 	private Server server;
 	
+	Factory factory;
+	JAXBMarshaller jaxbMarshaller;
+	
 	private static final Executor POOL = Executors.newFixedThreadPool(16);
 
 	public ClientHandler(Socket client, Server server) {
 		super(client);
 		this.server = server;
+		
+		factory = server.getFactory();
+		jaxbMarshaller = server.getJaxbMarshaller();
 	}
 
 	@Override
@@ -51,7 +61,7 @@ public class ClientHandler  extends ServiceHandler {
 			switch (getState()) {
 			case DISCONNECTED:
 				/* Trying to log in */
-				switch (msgW.getFlag()) {
+				switch (msgW.getFlagVerb()) {
 				case LOGIN:
 					Object o = msgW.getObjects().get(0);
 					if(o instanceof UserModel){
@@ -63,17 +73,20 @@ public class ClientHandler  extends ServiceHandler {
 						 * Query for login.
 						 * If query accepted, set the State to connected and send a RESPONSE back with acknowledge 
 						 */
-						boolean login = server.getFactory().checkPassword(um.getUsername(), um.getPassword());
+						boolean login = factory.checkPassword(um.getUsername(), um.getPassword());
 						
 						if(login){
 							/* Set connected state*/
 							setState(State.CONNECTED);
 							
+							ArrayList<Object> al = new ArrayList<Object>();
+							al.add(factory.getUserModel(um.getUsername()));
+							
 							/* Send back an acknowledged state*/					
-							writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, null));
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, al));
 						}
 						else{
-							writeMessage(server.getJaxbMarshaller().getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.DECLINE, null));
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, null));
 						}	
 					}
 					break;
@@ -93,7 +106,7 @@ public class ClientHandler  extends ServiceHandler {
 				case REQUEST:
 					
 					Object o;
-					switch (msgW.getFlag()) {
+					switch (msgW.getFlagVerb()) {
 					case GET:
 						o = msgW.getObjects().get(0);
 						if(o instanceof UserModel){
@@ -104,6 +117,11 @@ public class ClientHandler  extends ServiceHandler {
 						o = msgW.getObjects().get(0);
 						if(o instanceof UserModel){
 							
+						}
+						else if(o instanceof AppointmentModel){
+							factory.createAppointmentModel((AppointmentModel)o);
+							
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
 						}
 						break;
 					case UPDATE:
@@ -119,6 +137,10 @@ public class ClientHandler  extends ServiceHandler {
 						}
 						break;
 					case LOGOUT:
+						writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
+						disconnect();
+						server.removeCLient(this);
+						break;
 					default:
 						break;
 					}
@@ -136,8 +158,12 @@ public class ClientHandler  extends ServiceHandler {
 				break;
 			}	
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 		

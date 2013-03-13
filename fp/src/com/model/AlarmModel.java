@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.xml.bind.annotation.*;
 
@@ -67,8 +67,5 @@ public class AlarmModel {
 				+ ", getAppointment()=" + getAppointment() + ", getCreator()="
 				+ getCreator() + "]";
 	}
-	
-	
-	
 
 }

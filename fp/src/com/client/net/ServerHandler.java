@@ -1,6 +1,7 @@
 package com.client.net;
 
-import com.net.msg.MSGFlag;
+import com.model.UserModel;
+import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
 import com.net.support.ServiceHandler;
@@ -19,7 +20,7 @@ public class ServerHandler extends ServiceHandler {
 	/**
 	 * the current flag type. Used for knowing the context of a response
 	 */
-	private MSGFlag currentFlag;
+	private MSGFlagVerb currentFlag;
 
 	public ServerHandler(String host, int port) throws Exception {
 		super( host, port );
@@ -30,7 +31,7 @@ public class ServerHandler extends ServiceHandler {
 	}
 	
 	
-	public void setCurrentFlag(MSGFlag flag){
+	public void setCurrentFlag(MSGFlagVerb flag){
 		currentFlag = flag;
 	}
 	
@@ -40,18 +41,22 @@ public class ServerHandler extends ServiceHandler {
 	@Override
 	public void onWrapper( MSGWrapper msgW ){
 		if(Global.verbose) System.out.println("[ServerHandler] onWrapper");
-		/* We are not connected and need to get a accept response message */
 		
+		/* We are not connected and need to get a accept response message */
 		switch (getState()) {
 		case DISCONNECTED:
 			
 			switch (msgW.getType()) {
 			case RESPONSE:
 				
-				switch (msgW.getFlag()) {
+				switch (msgW.getFlagVerb()) {
 				case ACCEPT:
-					System.out.println("We are logged in!");
 					setState(State.CONNECTED);
+					
+					UserModel  userModel = (UserModel)msgW.getObjects().get(0);
+					
+					System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
+					
 					//END ACCEPT
 					break;
 					
@@ -80,14 +85,19 @@ public class ServerHandler extends ServiceHandler {
 			switch (msgW.getType()) {
 			case RESPONSE:
 				
-				switch (msgW.getFlag()) {
+				switch (msgW.getFlagVerb()) {
 				case ACCEPT:
 					
-					if(currentFlag == MSGFlag.LOGOUT){
-						//LOG OUT
-						
-					}
 					
+					switch (currentFlag) {
+					case LOGOUT:
+						//We can now terminate
+						disconnect();
+						break;
+
+					default:
+						break;
+					}					
 					
 					/* Must always null out a response*/
 					currentFlag = null;
