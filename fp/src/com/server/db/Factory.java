@@ -1,15 +1,18 @@
 package com.server.db;
 
+import java.sql.BatchUpdateException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.UserModel;
+
 
 public class Factory {
 
@@ -293,11 +296,89 @@ public class Factory {
 		UpdateDatabase(query);
 	}
 	
+	/* IsSummonedTo */
+	/**
+	 * Gets all the usernames for the attending people of an appointment
+	 * @param aid AppointmentId
+	 * @return ArrayLisnt<String> attending peeps
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public ArrayList<String> getIsSummonedTo(int aid) throws ClassNotFoundException, SQLException{
+		ArrayList<String> summoned = new ArrayList<>();
+		
+		String query=String.format("Select username " +
+				"FROM IsSummonedTo WHERE appointmentid='%s'",aid);
+
+		ResultSet rs=makeQuery(query);
+
+		while(rs.next()){
+			summoned.add(rs.getString(1));
+		}
+		
+		return summoned;
+	}
+	
+	public void createIsSummonedTo(ArrayList<UserModel> users, int aid) throws ClassNotFoundException {
+		String query = "INSERT INTO IsSummonedTo "
+				+ "(appointmentid, username) VALUES "
+				+ "(?, ?)";
+		
+		PreparedStatement pst;
+		try {
+			db.initialize();
+			pst = db.makeBatchUpdate(query);
+
+		
+		/* insert data */
+	    for (int i = 0; i < users.size(); i++) {
+	    	pst.setInt(1, aid);
+	    	pst.setString(2, users.get(i).getUsername());
+	    	pst.addBatch();
+	    }
+	    
+	    // Execute the batch
+	    int [] updateCounts = pst.executeBatch();
+	    
+	    db.close();
+	    
+		} catch (BatchUpdateException e) {
+		    // Not all of the statements were successfully executed
+		    int[] updateCounts = e.getUpdateCounts();
+
+		    // Some databases will continue to execute after one fails.
+		    // If so, updateCounts.length will equal the number of batched statements.
+		    // If not, updateCounts.length will equal the number of successfully executed statements
+		    processUpdateCounts(updateCounts);
+
+		    // Either commit the successfully executed statements or rollback the entire batch
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		//UpdateDatabase(query);
+	}
+	
+	public static void processUpdateCounts(int[] updateCounts) {
+	    for (int i=0; i<updateCounts.length; i++) {
+	    	if (updateCounts[i] >= 0) {
+	    		// Successfully executed; the number represents number of affected rows
+	    	} else if (updateCounts[i] == Statement.SUCCESS_NO_INFO) {
+	    		// Successfully executed; number of affected rows not available
+	    	} else if (updateCounts[i] == Statement.EXECUTE_FAILED) {
+	    		// Failed to execute
+	    		System.err.println("[Factory] ProcessUpdateCounts: Batch updating failed");
+	    		System.err.println("[Factory] ProcessUpdateCounts: " + i);
+	    	}
+	    }
+	}
+	
 	/* APPOINTMENT */
 	//GET
-	public AppointmentModel getAppointmentModel(int pid) throws SQLException, ClassNotFoundException{
+	public AppointmentModel getAppointmentModel(int aid) throws SQLException, ClassNotFoundException{
 		String query=String.format("Select startTime, EndTime, host, title, text, place, isDeleted, date " +
-				"FROM Appointment WHERE id='%s'",pid);
+				"FROM Appointment WHERE id='%s'",aid);
 		
 		ResultSet rs = makeQuery(query);
 
@@ -324,27 +405,54 @@ public class Factory {
 		}
 		
 		/* Get members */
-//		members = new ArrayList<>();
-		
-		query=String.format("Select username " +
-				"FROM IsSummonedTo WHERE appointmentid='%s'",pid);
-
-		rs=makeQuery(query);
-
-		while(rs.next()){
-			members.add(getUserModel(rs.getString(1)));
-		}
-		
-		if(members.size() == 0)
-			members = null;
-		
+		ArrayList<String> summoned = getIsSummonedTo(aid);
+		if(summoned.size() != 0){
+			members = new ArrayList<>();
+			
+			for (int i = 0; i < summoned.size(); i++) {
+				members.add(getUserModel(summoned.get(i)));
+			}
+		}		
 		
 		rs.close();
 		db.close();
 		
-		return new AppointmentModel(pid, startTime, endTime, host, title, text, place, date, members);
+		return new AppointmentModel(aid, startTime, endTime, host, title, text, place, date, members);
 	}
 	//UPDATE
+	
+	public void updateAppointmentModel(AppointmentModel am) throws ClassNotFoundException, SQLException{
+		/*Update appointment*/
+		String query = String.format(
+				"UPDATE Appointment " +
+				"SET startTime='%d', EndTime='%d', host='%d', title='%d', text='%d', place='%d', isDeleted='%d', date='%d' " +
+				"WHERE id=%d",
+				am.getStartTime(), am.getEndTime(), am.getHost(), am.getTitle(), am.getText(), am.getPlace(), am.isDeleted(), am.getDate(),
+				am.getId());
+		UpdateDatabase(query);
+		
+		/* Update IsSummonedTo. We need to send notification as well */
+		//1. Who was invited
+		
+		ArrayList<String> summoned = getIsSummonedTo(am.getId());
+		
+		//2. Empty IsSummonedTo rows for that appointment
+		query = String.format("DELETE FROM IsSummonedTo WHERE appointmentid='%s'",
+				am.getId());
+		UpdateDatabase(query);
+		
+		//3. Add all the attends to the appointment
+		if(summoned.size() != 0){
+			createIsSummonedTo(am.getMembers(), am.getId());
+			
+			//4. We need to notify the new guys that they are invited
+			//TODO:
+			
+		}
+		
+		
+		
+	}
 	//CREATE
 	
 	public void createAppointmentModel(AppointmentModel apModel){
