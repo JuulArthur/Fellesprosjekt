@@ -86,6 +86,43 @@ public class Factory {
 		return cm;
 	}
 	
+	public CalendarModel getCalendarModel(int idIn) throws SQLException, ClassNotFoundException {
+		db.initialize();
+		String query = String
+				.format("Select '%s',name from calendar", idIn);
+		ResultSet rs = db.makeSingleQuery(query);
+		int id = -1;
+		String name = null;
+		UserModel owner = null;
+		while (rs.next()) {
+			id = rs.getInt(1);
+			name = rs.getString(2);
+		}
+		
+		query = String.format("select username from follows where isOwner=1 and calendarid='%s'", idIn);
+		rs = db.makeSingleQuery(query);
+		while(rs.next()) {
+			owner = getUserModel(rs.getString(1));
+		}
+		
+		/*
+		 * to do:
+		 * 
+		 * - get all followers, and put them in arraylist
+		 * - get all appointments, and put them in arralist
+		 * 
+		 */
+
+		CalendarModel cm = new CalendarModel();
+		rs.close();
+		db.close();
+
+		return cm;
+
+	}
+	
+	//TODO UPDATE & DELETE CALENDAR
+	
 	public ResultSet makeQuery(String query) throws SQLException, ClassNotFoundException{
 		db.initialize();
 		return db.makeSingleQuery(query);
