@@ -16,6 +16,7 @@ import java.util.StringTokenizer;
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.NotificationModel;
+import com.model.RoomModel;
 import com.model.UserModel;
 
 public class TestDB {
@@ -165,6 +166,30 @@ public class TestDB {
 		f.deleteNotificationModel(nm);
 	}
 	
+	public void testCreateRoom() throws SQLException, ClassNotFoundException{
+		Factory f = new Factory();
+		RoomModel rm = new RoomModel(1,"Soverom",6,"Hjemme");
+		f.createRoomModel(rm);
+	}
+	
+	public void testGetRoom() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		RoomModel nm = new RoomModel(1,"",1,"asd");
+		System.out.println(f.getRoomModel(nm));
+	}
+	
+	public void testUpdateRoom() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		RoomModel rm = new RoomModel(1,"updated",1,"jahman!");
+		f.updateRoomModel(rm);
+	}
+	
+	public void testDeleteRoom() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		RoomModel rm = new RoomModel(1,"",1,"");
+		f.deleteRoomModel(rm);
+	}
+
 	public void testCreateAppointment() throws ClassNotFoundException, SQLException{
 		AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
 				new UserModel("perok", "hei", null, null, null, null, 1), 
@@ -192,7 +217,7 @@ public class TestDB {
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
 
 		try{
-			t.testCreateAppointment();
+			t.testUpdateRoom();
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();
