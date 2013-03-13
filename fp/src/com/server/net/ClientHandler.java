@@ -191,7 +191,6 @@ public class ClientHandler  extends ServiceHandler {
 						/* We put the object in the database and ACCEPT or DECLINE
 						 * 
 						 * */
-						al = new ArrayList<Object>();
 						
 						/* SUBJECTT */
 						switch (subject) {
@@ -238,16 +237,93 @@ public class ClientHandler  extends ServiceHandler {
 						//END CREATE
 						break;
 					case UPDATE:
-						o = msgW.getObjects().get(0);
-						if(o instanceof UserModel){
+						
+						/* SUBJECTT */
+						switch (subject) {
+						case ALARM: //AlarmModel
+							factory.updateAlarmModel((AlarmModel)msgW.getObjects().get(0));
+							break;
+			
+						case CALENDAR:							
+							break;
 							
+						case APPOINTMENT: //AppointmentModel
+							factory.updateAppointmentModel((AppointmentModel)msgW.getObjects().get(0));
+							break;
+							
+						case GROUP:
+							
+							//factory.get
+							
+							break;
+							
+						case NOTIFICATION:// NotificationModel
+							factory.updateNotificationModel((NotificationModel)msgW.getObjects().get(0));
+
+							break;
+							
+						case ROOM:
+							
+							break;
+							
+						case USER: //UserModel
+							factory.updateUserModel((UserModel)msgW.getObjects().get(0));
+							break;
+
+						default:
+							break;
 						}
+						
+						/* REPLY */
+						if(success)
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, subject, null));
+						else{
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, subject, null));
+						}
+						
+						//END UPDATE
 						break;
 					case DELETE:
-						o = msgW.getObjects().get(0);
-						if(o instanceof UserModel){
+						
+						/* SUBJECTT */
+						switch (subject) {
+						case ALARM: //AlarmModel
+							break;
+			
+						case CALENDAR:							
+							break;
 							
+						case APPOINTMENT: //AppointmentModel
+							break;
+							
+						case GROUP:
+							
+							//factory.get
+							
+							break;
+							
+						case NOTIFICATION:
+							break;
+							
+						case ROOM:
+							
+							break;
+							
+						case USER:
+							break;
+
+						default:
+							break;
 						}
+						
+						/* REPLY */
+						if(success)
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, subject, null));
+						else{
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, subject, null));
+						}
+						
+						//END DELETE
 						break;
 					case LOGOUT:
 						writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
