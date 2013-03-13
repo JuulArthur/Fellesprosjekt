@@ -78,6 +78,7 @@ public class MeetingPanel extends JPanel {
 
 		btnTilbake = new JButton("Tilbake");		
 		GridBagConstraints gbc_btnTilbake = new GridBagConstraints();
+		btnTilbake.addActionListener(new backAction());
 		gbc_btnTilbake.anchor = GridBagConstraints.WEST;
 		gbc_btnTilbake.insets = new Insets(0, 0, 5, 0);
 		gbc_btnTilbake.gridx = 6;
@@ -339,5 +340,16 @@ class openStartCalendar implements ActionListener {
 
 
 	}
+	class backAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
+
+			
+		}
+		
+	
 
 }

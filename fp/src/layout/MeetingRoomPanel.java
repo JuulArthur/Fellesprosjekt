@@ -9,6 +9,7 @@ import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JButton;
+import javax.swing.JSpinner;
 
 public class MeetingRoomPanel extends JPanel {
 
@@ -52,13 +53,12 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_lblAntallPersoner.gridy = 1;
 		add(lblAntallPersoner, gbc_lblAntallPersoner);
 		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 1;
-		add(comboBox, gbc_comboBox);
+		JSpinner spinner = new JSpinner();
+		GridBagConstraints gbc_spinner = new GridBagConstraints();
+		gbc_spinner.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner.gridx = 2;
+		gbc_spinner.gridy = 1;
+		add(spinner, gbc_spinner);
 		
 		JLabel lblLedigeRom = new JLabel("Ledige rom");
 		GridBagConstraints gbc_lblLedigeRom = new GridBagConstraints();

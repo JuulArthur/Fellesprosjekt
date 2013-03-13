@@ -20,6 +20,7 @@ import javax.swing.WindowConstants;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import com.model.*;
+import javax.swing.JComboBox;
 
 
 
@@ -224,13 +225,13 @@ public class CalendarLayout extends JPanel {
 		gbc_lblNewLabel_2.gridy = 8;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JSpinner spinner = new JSpinner();
-		GridBagConstraints gbc_spinner = new GridBagConstraints();
-		gbc_spinner.anchor = GridBagConstraints.WEST;
-		gbc_spinner.insets = new Insets(0, 0, 5, 5);
-		gbc_spinner.gridx = 0;
-		gbc_spinner.gridy = 9;
-		add(spinner, gbc_spinner);
+		JComboBox comboBox = new JComboBox();
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 0;
+		gbc_comboBox.gridy = 9;
+		add(comboBox, gbc_comboBox);
 		
 		JList list_3 = new JList();
 		GridBagConstraints gbc_list_3 = new GridBagConstraints();
