@@ -26,8 +26,12 @@ public class UserModel {
 	private boolean isAdmin;
 	@XmlElement(name="notifications")
 	private ArrayList<NotificationModel> notifications;
+	@XmlElement(name="myCalendars")
+	private ArrayList<CalendarModel> myCalendars;
+	
+	// Skal vi ha med dette?
 	@XmlElement(name="calendars")
-	private ArrayList<CalendarModel> calendars;
+	private ArrayList<CalendarModel> subscribedCalendars;
 	
 	/* JAXB */
 	public UserModel(){
@@ -44,7 +48,7 @@ public class UserModel {
 		this.phoneNumber = phoneNumber;
 		this.isAdmin = isAdmin==1;
 		this.notifications = new ArrayList<NotificationModel>();
-		this.calendars = new ArrayList<CalendarModel>();
+		this.myCalendars = new ArrayList<CalendarModel>();
 	}
 	
 	/* Methods */
@@ -136,23 +140,43 @@ public class UserModel {
 	}
 
 	public ArrayList<CalendarModel> getCalendars() {
-		return calendars;
+		return myCalendars;
 	}
 
 	public void setCalendars(ArrayList<CalendarModel> calendars) {
-		this.calendars = calendars;
+		this.myCalendars = calendars;
 	}
 	
 	public void addCalendar(CalendarModel calendar) {
-		if (!calendars.contains(calendar))
-			this.calendars.add(calendar);
+		if (!myCalendars.contains(calendar))
+			this.myCalendars.add(calendar);
 	}
 	
 	public void removeCalendar(CalendarModel calendar) {
-		this.calendars.remove(calendar);
+		this.myCalendars.remove(calendar);
+	}
+	
+/*
+ * Skal vi ha med dette?
+ * 
+ */
+	public ArrayList<CalendarModel> getSubscribedCalendars() {
+		return subscribedCalendars;
 	}
 
+	public void setSubscribedCalendars(ArrayList<CalendarModel> subscribedCalendars) {
+		this.subscribedCalendars = subscribedCalendars;
+	}
 	
+	public void addSubscribedCalendars(CalendarModel calendar) {
+		if (!subscribedCalendars.contains(calendar))
+			this.subscribedCalendars.add(calendar);
+	}
+	
+	public void removeSubscribedCalendars(CalendarModel calendar) {
+		this.subscribedCalendars.remove(calendar);
+	}
+		
 
 	@Override
 	public String toString() {
