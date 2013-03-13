@@ -311,6 +311,14 @@ public class Factory {
 		UpdateDatabase(query);
 	}
 	
+	public void deleteAlarmModel(int id, String userName)
+			throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"DELETE from Alarm WHERE username='%s' AND appointmentid=%d",
+				userName, id);
+		UpdateDatabase(query);
+	}
+	
 	@Deprecated
 	public void deleteAlarmModel(AlarmModel am)
 			throws SQLException, ClassNotFoundException {
