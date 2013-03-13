@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
+import com.model.NotificationModel;
 import com.model.UserModel;
 
 
@@ -268,7 +269,6 @@ public class Factory {
 				"UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
 				date, text, ap.getId());
 		UpdateDatabase(query);
-
 	}
 
 	public void updateAlarmModel(AlarmModel am) throws SQLException, ClassNotFoundException {
@@ -277,7 +277,6 @@ public class Factory {
 				"UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
 				am.getDate(), am.getText(), am.getAppointment().getId(), am.getCreator().getUsername());
 		UpdateDatabase(query);
-
 	}
 
 	public void deleteAlarmModel(AppointmentModel ap, UserModel user)
@@ -459,4 +458,48 @@ public class Factory {
 		
 	}
 	//DELETE
+	public NotificationModel createNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
+		String query = String
+				.format("insert into Notification "
+						+ "(text, appointmentid, username) values ('%s', %d, '%s')",
+						nm.getText(), nm.getAppointment().getId(), nm.getCreator().getUsername());
+		UpdateDatabase(query);
+		return nm;
+	}
+	
+	public NotificationModel getNotificationModel(NotificationModel nm)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String.format("Select text "
+				+ "from Notification WHERE username='%s'AND appointmentid=%d",
+				nm.getCreator().getUsername(), nm.getAppointment().getId());
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		Date date = null;
+		String text = null;
+		while (rs.next()) {
+			text = rs.getString(1);
+		}
+
+		NotificationModel utNm = new NotificationModel(text, nm.getAppointment(), nm.getCreator());
+		rs.close();
+		db.close();
+
+		return utNm;
+	}
+	
+	public void updateNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"UPDATE Notification SET text='%s' WHERE appointmentid=%d AND username='%s'",
+				nm.getText(), nm.getAppointment().getId(), nm.getCreator().getUsername());
+		UpdateDatabase(query);
+	}
+	
+	public void deleteNotificationModel(NotificationModel nm)
+			throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"DELETE from Notification WHERE username='%s' AND appointmentid=%d",
+				nm.getCreator().getUsername(), nm.getAppointment().getId());
+		UpdateDatabase(query);
+	}
 }

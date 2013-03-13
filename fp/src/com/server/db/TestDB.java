@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
+import com.model.NotificationModel;
 import com.model.UserModel;
 
 public class TestDB {
@@ -89,7 +90,6 @@ public class TestDB {
 	
 	public void testGetAlarm() throws ClassNotFoundException, SQLException {
 		Factory f = new Factory();
-		AppointmentModel apm = new AppointmentModel();
 		UserModel user = new UserModel("perok", "hei", "hei", 
 				"Juul", "Rudihagen", "88888888", 1 );
 		Date date = new Date(0, 0, 0);
@@ -101,7 +101,6 @@ public class TestDB {
 	
 	public void testUpdateAlarm() throws ClassNotFoundException, SQLException {
 		Factory f = new Factory();
-		AppointmentModel apm = new AppointmentModel();
 		UserModel user = new UserModel("perok", "hei", "hei", 
 				"Juul", "Rudihagen", "88888888", 1 );
 		Date date = new Date(0, 0, 0);
@@ -113,7 +112,6 @@ public class TestDB {
 	
 	public void testDeleteAlarm() throws ClassNotFoundException, SQLException {
 		Factory f = new Factory();
-		AppointmentModel apm = new AppointmentModel();
 		UserModel user = new UserModel("perok", "hei", "hei", 
 				"Juul", "Rudihagen", "88888888", 1 );
 		Date date = new Date(0, 0, 0);
@@ -123,6 +121,50 @@ public class TestDB {
 		f.deleteAlarmModel(am);
 	}
 	
+	public void testCreateNotification() throws SQLException, ClassNotFoundException{
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(2, 3, 4);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+			"sdf", "gdf", "haa", date, null);
+		Factory f = new Factory();
+		NotificationModel nm = new NotificationModel("nidda", ap, user);
+		f.createNotificationModel(nm);
+	}
+	
+	public void testGetNotification() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(0, 0, 0);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+				"sdf", "gdf", "haa", date, null);
+		NotificationModel nm = new NotificationModel("", ap, user);
+		System.out.println(f.getNotificationModel(nm));
+	}
+	
+	public void testUpdateNotification() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(0, 0, 0);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+				"sdf", "gdf", "haa", date, null);
+		NotificationModel nm = new NotificationModel( "NEI", ap, user);
+		f.updateNotificationModel(nm);
+	}
+	
+	public void testDeleteNotification() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(0, 0, 0);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+				"sdf", "gdf", "haa", date, null);
+		NotificationModel nm = new NotificationModel("NEI", ap, user);
+		f.deleteNotificationModel(nm);
+	}
+	
 	public static void main(String args[]){
 		TestDB t = new TestDB();
 
@@ -130,7 +172,7 @@ public class TestDB {
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
 
 		try{
-			t.testDeleteAlarm();
+			t.testDeleteNotification();
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();
