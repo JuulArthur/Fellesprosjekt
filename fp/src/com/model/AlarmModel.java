@@ -67,8 +67,5 @@ public class AlarmModel {
 				+ ", getAppointment()=" + getAppointment() + ", getCreator()="
 				+ getCreator() + "]";
 	}
-	
-	
-	
 
 }

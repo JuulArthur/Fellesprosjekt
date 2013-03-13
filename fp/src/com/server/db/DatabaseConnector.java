@@ -36,7 +36,6 @@ public class DatabaseConnector {
 		
 		try{
 			in = new FileInputStream("database.properties");
-			System.out.println(in);
 			properties.load(in);
 		}
 		catch(FileNotFoundException e){
@@ -47,6 +46,7 @@ public class DatabaseConnector {
 	}
 	
 	public ResultSet makeSingleQuery(String sql) throws SQLException{
+		
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		return rs;

@@ -1,7 +1,7 @@
 package com.client.net;
 
 import com.model.UserModel;
-import com.net.msg.MSGFlag;
+import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
 import com.net.support.ServiceHandler;
@@ -20,7 +20,7 @@ public class ServerHandler extends ServiceHandler {
 	/**
 	 * the current flag type. Used for knowing the context of a response
 	 */
-	private MSGFlag currentFlag;
+	private MSGFlagVerb currentFlag;
 
 	public ServerHandler(String host, int port) throws Exception {
 		super( host, port );
@@ -31,7 +31,7 @@ public class ServerHandler extends ServiceHandler {
 	}
 	
 	
-	public void setCurrentFlag(MSGFlag flag){
+	public void setCurrentFlag(MSGFlagVerb flag){
 		currentFlag = flag;
 	}
 	
@@ -49,7 +49,7 @@ public class ServerHandler extends ServiceHandler {
 			switch (msgW.getType()) {
 			case RESPONSE:
 				
-				switch (msgW.getFlag()) {
+				switch (msgW.getFlagVerb()) {
 				case ACCEPT:
 					setState(State.CONNECTED);
 					
@@ -85,14 +85,19 @@ public class ServerHandler extends ServiceHandler {
 			switch (msgW.getType()) {
 			case RESPONSE:
 				
-				switch (msgW.getFlag()) {
+				switch (msgW.getFlagVerb()) {
 				case ACCEPT:
 					
-					if(currentFlag == MSGFlag.LOGOUT){
-						//LOG OUT
-						
-					}
 					
+					switch (currentFlag) {
+					case LOGOUT:
+						//We can now terminate
+						disconnect();
+						break;
+
+					default:
+						break;
+					}					
 					
 					/* Must always null out a response*/
 					currentFlag = null;

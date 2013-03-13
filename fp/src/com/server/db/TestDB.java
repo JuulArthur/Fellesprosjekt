@@ -17,6 +17,8 @@ import java.util.StringTokenizer;
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
+import com.model.NotificationModel;
+import com.model.RoomModel;
 import com.model.UserModel;
 
 public class TestDB {
@@ -116,9 +118,9 @@ public class TestDB {
 
 	public void testDeleteAlarm() throws ClassNotFoundException, SQLException {
 		Factory f = new Factory();
-		AppointmentModel apm = new AppointmentModel();
-		UserModel user = new UserModel("perok", "hei", "hei", "Juul",
-				"Rudihagen", "88888888", 1);
+ 
+		UserModel user = new UserModel("perok", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
 		Date date = new Date(0, 0, 0);
 		AppointmentModel ap = new AppointmentModel(2, 4, 5, user, "sdf", "gdf",
 				"haa", date, null);
@@ -145,17 +147,109 @@ public class TestDB {
 		))
 		);
 	}
+	
+	public void testCreateNotification() throws SQLException, ClassNotFoundException{
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(2, 3, 4);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+			"sdf", "gdf", "haa", date, null);
+		Factory f = new Factory();
+		NotificationModel nm = new NotificationModel("nidda", ap, user);
+		f.createNotificationModel(nm);
+	}
+	
+	public void testGetNotification() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(0, 0, 0);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+				"sdf", "gdf", "haa", date, null);
+		NotificationModel nm = new NotificationModel("", ap, user);
+		System.out.println(f.getNotificationModel(nm));
+	}
+	
+	public void testUpdateNotification() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(0, 0, 0);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+				"sdf", "gdf", "haa", date, null);
+		NotificationModel nm = new NotificationModel( "NEI", ap, user);
+		f.updateNotificationModel(nm);
+	}
+	
+	public void testDeleteNotification() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		UserModel user = new UserModel("jarudiha", "hei", "hei", 
+				"Juul", "Rudihagen", "88888888", 1 );
+		Date date = new Date(0, 0, 0);
+		AppointmentModel ap = new AppointmentModel(1, 4, 5, user,
+				"sdf", "gdf", "haa", date, null);
+		NotificationModel nm = new NotificationModel("NEI", ap, user);
+		f.deleteNotificationModel(nm);
+	}
+	
+	public void testCreateRoom() throws SQLException, ClassNotFoundException{
+		Factory f = new Factory();
+		RoomModel rm = new RoomModel(1,"Soverom",6,"Hjemme");
+		f.createRoomModel(rm);
+	}
+	
+	public void testGetRoom() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		RoomModel nm = new RoomModel(1,"",1,"asd");
+		System.out.println(f.getRoomModel(nm));
+	}
+	
+	public void testUpdateRoom() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		RoomModel rm = new RoomModel(1,"updated",1,"jahman!");
+		f.updateRoomModel(rm);
+	}
+	
+	public void testDeleteRoom() throws ClassNotFoundException, SQLException {
+		Factory f = new Factory();
+		RoomModel rm = new RoomModel(1,"",1,"");
+		f.deleteRoomModel(rm);
+	}
 
-	public static void main(String args[]) {
+	public void testCreateAppointment() throws ClassNotFoundException, SQLException{
+		AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
+				new UserModel("perok", "hei", null, null, null, null, 1), 
+				"SEXEHTIME", "best time of the day", "room", new Date(0,0,0), null);
+		
+		Factory f = new Factory();
+		
+		f.createAppointmentModel(am);
+		
+		am.setTitle("NOT SO SEXEHTIME :(");
+				
+		f.updateAppointmentModel(am);
+		
+		AppointmentModel kake = f.getAppointmentModel(am.getId());
+		
+		System.out.println(kake);
+		
+		f.deleteAppointmentModel(am.getId());
+	}
+	
+	public static void main(String args[]){
 		TestDB t = new TestDB();
-		try {
-			t.testMakeCal();
-			// }
-			// catch(FileNotFoundException e){
-			// e.getStackTrace();
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
+
+		Factory f = new Factory();
+//		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
+
+		try{
+			t.testDeleteRoom();
+//		}
+//		catch(FileNotFoundException e){
+//			e.getStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
