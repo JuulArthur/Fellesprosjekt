@@ -26,6 +26,8 @@ public class UserModel {
 	private boolean isAdmin;
 	@XmlElement(name="notifications")
 	private ArrayList<NotificationModel> notifications;
+	@XmlElement(name="calendars")
+	private ArrayList<CalendarModel> calendars;
 	
 	/* JAXB */
 	public UserModel(){
@@ -42,6 +44,7 @@ public class UserModel {
 		this.phoneNumber = phoneNumber;
 		this.isAdmin = isAdmin==1;
 		this.notifications = new ArrayList<NotificationModel>();
+		this.calendars = new ArrayList<CalendarModel>();
 	}
 	
 	/* Methods */
@@ -131,6 +134,25 @@ public class UserModel {
 	public void removeNotification(NotificationModel notification) {
 		this.notifications.remove(notification);
 	}
+
+	public ArrayList<CalendarModel> getCalendars() {
+		return calendars;
+	}
+
+	public void setCalendars(ArrayList<CalendarModel> calendars) {
+		this.calendars = calendars;
+	}
+	
+	public void addCalendar(CalendarModel calendar) {
+		if (!calendars.contains(calendar))
+			this.calendars.add(calendar);
+	}
+	
+	public void removeCalendar(CalendarModel calendar) {
+		this.calendars.remove(calendar);
+	}
+
+	
 
 	@Override
 	public String toString() {
