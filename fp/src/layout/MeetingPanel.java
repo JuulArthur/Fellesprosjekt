@@ -81,6 +81,7 @@ public class MeetingPanel extends JPanel {
 		gbc_lblAvtale.gridy = 0;
 		add(lblAvtale, gbc_lblAvtale);
 
+		
 		btnReturn = new JButton("Tilbake");		
 		btnReturn.addActionListener(new returnAction());
 		
@@ -362,5 +363,16 @@ public class MeetingPanel extends JPanel {
 			
 		}
 	}
+	class backAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
+
+			
+		}
+		
+	
 
 }
