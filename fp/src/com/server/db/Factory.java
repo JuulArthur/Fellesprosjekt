@@ -3,10 +3,9 @@ package com.server.db;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Properties;
 
-import javax.xml.bind.annotation.XmlElement;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
@@ -24,6 +23,18 @@ public class Factory {
 		db.initialize();
 		db.makeUpdate(query);
 		db.close();
+	}
+	
+	/**
+	 * Make a single query. Inits the DB. Be a doll and close the connection afterwards
+	 * @param query
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public ResultSet makeQuery(String query) throws SQLException, ClassNotFoundException{
+		db.initialize();
+		return db.makeSingleQuery(query);
 	}
 	
 	public UserModel createUserModel(String username, String password, String email, 
@@ -149,12 +160,10 @@ public class Factory {
 	/* APPOINTMENT */
 	//GET
 	public AppointmentModel getAppointmentModel(int pid) throws SQLException, ClassNotFoundException{
+		String query=String.format("Select startTime, EndTime, host, title, text, place, isDeleted, date " +
+				"FROM Appointment WHERE id='%s'",pid);
 		
-		String query=String.format("Select startTime, EndTime, host, title, text, place, isDeleted, date" +
-				"from Appointment WHERE id='%s'",pid);
-		
-		db.initialize();
-		ResultSet rs=db.makeSingleQuery(query);
+		ResultSet rs = makeQuery(query);
 
 		int startTime = 0;
 		int endTime = 0;
@@ -168,23 +177,24 @@ public class Factory {
 		
 		while(rs.next())
 		{
-			startTime=rs.getInt(2);
-			endTime =rs.getInt(3);
-			host = getUserModel(rs.getString(4));
-			title=rs.getString(5);
-			text=rs.getString(6);
-			place=rs.getString(7);
-			isDeleted=rs.getBoolean(8);
-			date = rs.getDate(9);
+			startTime=rs.getInt(1);
+			endTime =rs.getInt(2);
+			host = getUserModel(rs.getString(3));
+			title=rs.getString(4);
+			text=rs.getString(5);
+			place=rs.getString(6);
+			isDeleted=rs.getBoolean(7);
+			date = rs.getDate(8);
 		}
 		
 		/* Get members */
 		members = new ArrayList<>();
 		
-		query=String.format("Select username" +
-				"from IsSummonedTo WHERE appointmentid='%s'",pid);
-		rs=db.makeSingleQuery(query);
-		
+		query=String.format("Select username " +
+				"FROM IsSummonedTo WHERE appointmentid='%s'",pid);
+
+		rs=makeQuery(query);
+
 		while(rs.next()){
 			members.add(getUserModel(rs.getString(1)));
 		}

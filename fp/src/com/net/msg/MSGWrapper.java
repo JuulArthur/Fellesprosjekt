@@ -24,10 +24,16 @@ public class MSGWrapper {
 	private MSGType type;
 	
 	/**
-	 * Flag for 
+	 * Verb flag
 	 */
-	@XmlElement(name="flag")
-	private MSGFlag flag;
+	@XmlElement(name="flagV")
+	private MSGFlagVerb flagVerb;
+	
+	/**
+	 * Subject flag
+	 */
+	@XmlElement(name="flagS")
+	private MSGFlagSubject flagSubject;
 	
 	/**
 	 * Who?
@@ -44,10 +50,26 @@ public class MSGWrapper {
 	public MSGWrapper() {
 	}
 	
-	public MSGWrapper(int ID, MSGType type, MSGFlag flag, ArrayList<Object> objects) {
+	public MSGWrapper(int ID, MSGType type, MSGFlagVerb flagV, MSGFlagSubject flagS, ArrayList<Object> objects) {
 		this.ID = ID;
 		this.type = type;
-		this.flag = flag;
+		this.flagVerb = flagV;
+		this.flagSubject = flagS;
+		this.objects = objects;
+	}
+	
+	/**
+	 * OldSchool initing for ghey protocol
+	 * @param ID
+	 * @param type
+	 * @param flagV
+	 * @param objects
+	 */
+	@Deprecated
+	public MSGWrapper(int ID, MSGType type, MSGFlagVerb flagV, ArrayList<Object> objects) {
+		this.ID = ID;
+		this.type = type;
+		this.flagVerb = flagV;
 		this.objects = objects;
 	}
 	
@@ -67,12 +89,12 @@ public class MSGWrapper {
 		this.type = type;
 	}
 
-	public MSGFlag getFlag() {
-		return flag;
+	public MSGFlagVerb getFlagVerb() {
+		return flagVerb;
 	}
 
-	public void setFlag(MSGFlag flag) {
-		this.flag = flag;
+	public void setFlagVerb(MSGFlagVerb flag) {
+		this.flagVerb = flag;
 	}
 
 	public ArrayList<Object> getObjects() {
@@ -90,10 +112,18 @@ public class MSGWrapper {
 	public void setUser(String user) {
 		this.user = user;
 	}
+	
+	public MSGFlagSubject getFlagSubject() {
+		return flagSubject;
+	}
+
+	public void setFlagSubject(MSGFlagSubject flagS) {
+		this.flagSubject = flagS;
+	}
 
 	@Override
 	public String toString(){
-		String s = ID + " " + type + " " + flag + " ";
+		String s = ID + " " + type + " " + flagVerb + " " + flagSubject + " ";
 		if(objects != null)
 			s += objects.size();
 		return s;

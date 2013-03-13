@@ -47,6 +47,7 @@ public class DatabaseConnector {
 	}
 	
 	public ResultSet makeSingleQuery(String sql) throws SQLException{
+		
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		return rs;

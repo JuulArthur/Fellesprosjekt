@@ -74,7 +74,7 @@ public class TestDB {
 	public static void main(String args[]){
 		TestDB t = new TestDB();
 		Factory f = new Factory();
-//		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t¿nnemann", "32234890", 0);
+//		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "tï¿½nnemann", "32234890", 0);
 		try{
 			System.out.println(f.createUserModel("heidi", "skjer", "neitakk", 
 					"Heidi", "Englestad", "81549300", 1 ));
