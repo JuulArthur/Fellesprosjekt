@@ -13,6 +13,7 @@ import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
+import com.model.GroupModel;
 
 
 public class Factory {
@@ -553,4 +554,76 @@ public class Factory {
 				nm.getCreator().getUsername(), nm.getAppointment().getId());
 		UpdateDatabase(query);
 	}
+	
+	
+	public GroupModel createGroupModel(GroupModel gm) throws SQLException,
+	ClassNotFoundException {
+	String query = String.format("insert into groupp "
+			+ "(id, name) values "
+			+ "(%d, '%s')", gm.getId(), gm.getName());
+	UpdateDatabase(query);
+	return gm;
+}
+	public void UpdateGroupModel(GroupModel gm) throws SQLException, ClassNotFoundException{
+		String query = String.format(
+				"UPDATE Groupp " +
+				"SET name='%s' WHERE id= %d ",
+				gm.getName(),gm.getId());
+		UpdateDatabase(query);
+		addMemberOf(gm);
+		
+	}
+
+	public void addMemberOf(GroupModel gm) throws SQLException, ClassNotFoundException{
+		ArrayList<UserModel> memberList=gm.getMembers();
+		String query = String.format(
+				"DELETE from MemberOf WHERE groupid=%d",gm.getId());
+		UpdateDatabase(query);
+		System.out.println("deleted");
+		
+		for(int i =0;i<memberList.size();i++){
+		String memberQuery = String.format("insert into MemberOf "
+				+ "(username, groupid) values "
+				+ "('%s', %d)", memberList.get(i).getUsername(), gm.getId());
+		UpdateDatabase(memberQuery);
+
+		}
+		
+	}
+	public GroupModel getGroupModel(int id)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String
+				.format("Select id, name from Groupp where id=%d",
+						id);
+		String MEMBERquery = String
+				.format("Select username from Memberof where groupid=%d",
+						id);
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		ResultSet nrs = db.makeSingleQuery(MEMBERquery);
+		int newId =0;
+		String name = null;
+		ArrayList<UserModel> members = new ArrayList<UserModel>();
+		
+		while (rs.next()) {
+			newId=rs.getInt(1);
+			name = rs.getString(2);	
+		}
+		String username;
+		while(nrs.next()){
+			username= nrs.getString(1);
+			members.add(getUserModel(username));
+		}
+
+		GroupModel gm = new GroupModel(newId, name, members);
+		rs.close();
+		db.close();
+
+		return gm;
+
+	}
+	
+	
+
 }
