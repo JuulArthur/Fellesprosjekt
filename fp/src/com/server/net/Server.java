@@ -127,6 +127,10 @@ public class Server {
 	public void wrapperTo(MSGWrapper wrapper, ArrayList<String> users){
 		
 	}
+	
+	public void removeCLient(ClientHandler clientH){
+		this.clients.remove(clientH);
+	}
 
 	
 	/*

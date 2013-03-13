@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 import com.model.AppointmentModel;
 import com.model.UserModel;
-import com.net.msg.MSGFlag;
+import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
 import com.net.support.ServiceHandler;
@@ -61,7 +61,7 @@ public class ClientHandler  extends ServiceHandler {
 			switch (getState()) {
 			case DISCONNECTED:
 				/* Trying to log in */
-				switch (msgW.getFlag()) {
+				switch (msgW.getFlagVerb()) {
 				case LOGIN:
 					Object o = msgW.getObjects().get(0);
 					if(o instanceof UserModel){
@@ -83,10 +83,10 @@ public class ClientHandler  extends ServiceHandler {
 							al.add(factory.getUserModel(um.getUsername()));
 							
 							/* Send back an acknowledged state*/					
-							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, al));
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, al));
 						}
 						else{
-							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.DECLINE, null));
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.DECLINE, null));
 						}	
 					}
 					break;
@@ -106,7 +106,7 @@ public class ClientHandler  extends ServiceHandler {
 				case REQUEST:
 					
 					Object o;
-					switch (msgW.getFlag()) {
+					switch (msgW.getFlagVerb()) {
 					case GET:
 						o = msgW.getObjects().get(0);
 						if(o instanceof UserModel){
@@ -121,7 +121,7 @@ public class ClientHandler  extends ServiceHandler {
 						else if(o instanceof AppointmentModel){
 							factory.createAppointmentModel((AppointmentModel)o);
 							
-							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlag.ACCEPT, null));
+							writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
 						}
 						break;
 					case UPDATE:
@@ -137,6 +137,10 @@ public class ClientHandler  extends ServiceHandler {
 						}
 						break;
 					case LOGOUT:
+						writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
+						disconnect();
+						server.removeCLient(this);
+						break;
 					default:
 						break;
 					}

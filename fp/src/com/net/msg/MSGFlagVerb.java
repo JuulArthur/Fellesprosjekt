@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public enum MSGFlag {
+public enum MSGFlagVerb {
 	LOGIN,
 	LOGOUT,
 	UPDATE,
