@@ -352,13 +352,16 @@ public class Factory {
 
 		    // Either commit the successfully executed statements or rollback the entire batch
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
 		//UpdateDatabase(query);
 	}
 	
+	/**
+	 * Checks the errors from a batch update
+	 * @param updateCounts
+	 */
 	public static void processUpdateCounts(int[] updateCounts) {
 	    for (int i=0; i<updateCounts.length; i++) {
 	    	if (updateCounts[i] >= 0) {
@@ -371,6 +374,12 @@ public class Factory {
 	    		System.err.println("[Factory] ProcessUpdateCounts: " + i);
 	    	}
 	    }
+	}
+	
+	public void deleteIsSummonedTo(int aid) throws ClassNotFoundException, SQLException{
+		String query = String.format("DELETE FROM IsSummonedTo WHERE appointmentid='%s'",
+				aid);
+		UpdateDatabase(query);
 	}
 	
 	/* APPOINTMENT */
@@ -436,32 +445,79 @@ public class Factory {
 		ArrayList<String> summoned = getIsSummonedTo(am.getId());
 		
 		//2. Empty IsSummonedTo rows for that appointment
-		query = String.format("DELETE FROM IsSummonedTo WHERE appointmentid='%s'",
-				am.getId());
-		UpdateDatabase(query);
+		deleteIsSummonedTo(am.getId());
 		
 		//3. Add all the attends to the appointment
 		if(summoned.size() != 0){
 			createIsSummonedTo(am.getMembers(), am.getId());
 			
 			//4. We need to notify the new guys that they are invited
-			//TODO:
+			ArrayList<String> needNotification = new ArrayList<>();
+			
+			for (int i = 0; i < am.getMembers().size(); i++) {
+				String s = am.getMembers().get(i).getUsername();
+				//Have they been invited?
+				if(!summoned.contains(s))
+					needNotification.add(am.getMembers().get(i).getUsername());
+			}
+			//TODO Skal update ta seg av dette? 
+			//TODO GJøre det batch istedenfor
+			if(needNotification.size() != 0){
+				for (int i = 0; i < needNotification.size(); i++) {
+					createNotificationModel("Du har blitt invitert til: " + am.getTitle(), am.getId(), needNotification.get(i));
+				}
+			}
 			
 		}
-		
-		
-		
 	}
 	//CREATE
 	
-	public void createAppointmentModel(AppointmentModel apModel){
+	public void createAppointmentModel(AppointmentModel am) throws ClassNotFoundException, SQLException{
+		/*Update appointment*/
+		String query = String.format(
+				"UPDATE Appointment " +
+				"SET startTime='%d', EndTime='%d', host='%d', title='%d', text='%d', place='%d', isDeleted='%d', date='%d' " +
+				"WHERE id=%d",
+				am.getStartTime(), am.getEndTime(), am.getHost(), am.getTitle(), am.getText(), am.getPlace(), am.isDeleted(), am.getDate(),
+				am.getId());
+		UpdateDatabase(query);
 		
+		
+		//Add all the attends to the appointment
+		if(am.getMembers().size() != 0){
+			createIsSummonedTo(am.getMembers(), am.getId());
+			
+			//SEND NOTIFICATION
+			//TODO Skal update ta seg av dette? 
+			//TODO GJøre det batch istedenfor
+
+			for (int i = 0; i < am.getMembers().size(); i++) {
+				createNotificationModel("Du har blitt invitert til: " + am.getTitle(), am.getId(), am.getMembers().get(i).getUsername());
+			}
+		}
 	}
+	
 	//DELETE
+	public void deleteAppointmentModel(int aid) throws SQLException, ClassNotFoundException {
+		String query = String.format(
+				"DELETE FROM Appointment WHERE id='%s'",
+				aid);
+		UpdateDatabase(query);
+	}
+	
+	public void createNotificationModel(String text, int aid, String username) throws SQLException, ClassNotFoundException {
+		String query = String
+				.format("insert into Notification "
+						+ "(text, appointmentid, username) values ('%s', %d, '%s')",
+						text, aid, username);
+		UpdateDatabase(query);
+	}
+	
 	public NotificationModel createNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Notification "
 						+ "(text, appointmentid, username) values ('%s', %d, '%s')",
+						//TODO nm.getCreator? brukeren som skal inviteres?
 						nm.getText(), nm.getAppointment().getId(), nm.getCreator().getUsername());
 		UpdateDatabase(query);
 		return nm;
