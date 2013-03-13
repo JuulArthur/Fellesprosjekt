@@ -241,7 +241,7 @@ public class Factory {
 			throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d",
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d",
 				am.getCreator().getUsername(), am.getAppointment().getId());
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
@@ -262,18 +262,17 @@ public class Factory {
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
 		String query = String.format(
-				"UPDATE User SET date='%s',text='%s'appointmentid, username) values "
-						+ "('%s', '%s',%d,'%s')", date, text, ap.getId(),
-				user.getUsername());
+				"UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
+				date, text, ap.getId());
 		UpdateDatabase(query);
 
 	}
 
 	public void updateAlarmModel(AlarmModel am) throws SQLException, ClassNotFoundException {
+		System.out.println(am.getDate());
 		String query = String.format(
-				"UPDATE User SET date='%s',text='%s'appointmentid, username) values "
-						+ "('%s', '%s',%d,'%s')", am.getDate(), am.getText(), am.getAppointment().getId(),
-				am.getCreator().getUsername());
+				"UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
+				am.getDate(), am.getText(), am.getAppointment().getId(), am.getCreator().getUsername());
 		UpdateDatabase(query);
 
 	}
@@ -325,7 +324,7 @@ public class Factory {
 		}
 		
 		/* Get members */
-		members = new ArrayList<>();
+//		members = new ArrayList<>();
 		
 		query=String.format("Select username " +
 				"FROM IsSummonedTo WHERE appointmentid='%s'",pid);
