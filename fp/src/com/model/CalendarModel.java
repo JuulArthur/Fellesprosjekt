@@ -10,12 +10,16 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalendarModel extends AbstractTableModel {
 
+	@XmlElement(name="id")
+	private int id;
 	@XmlElement(name = "appointments")
 	private ArrayList<AppointmentModel> appointments;
 	@XmlElement(name = "owner")
 	private UserModel owner;
 	@XmlElement(name = "followers")
 	private ArrayList<UserModel> followers;
+	@XmlElement(name="name")
+	private String name;
 
 	private String[][] calendar = new String[13][7];
 
@@ -23,11 +27,13 @@ public class CalendarModel extends AbstractTableModel {
 	public CalendarModel() {
 	}
 
-	public CalendarModel(ArrayList<AppointmentModel> appointments,
+	public CalendarModel(int id, String name, ArrayList<AppointmentModel> appointments,
 			UserModel owner, ArrayList<UserModel> followers) {
+		this.id = id;
 		this.appointments = appointments;
 		this.owner = owner;
 		this.followers = followers;
+		this.name = name;
 	}
 
 	public int getColumnCount() {
@@ -99,11 +105,27 @@ public class CalendarModel extends AbstractTableModel {
 		this.calendar = calendar;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "CalendarModel [appointments=" + appointments + ", owner="
-				+ owner + ", followers=" + followers + ", calendar="
-				+ Arrays.toString(calendar) + "]";
+		return "CalendarModel [id=" + id + ", appointments=" + appointments
+				+ ", owner=" + owner + ", followers=" + followers + ", name="
+				+ name + ", calendar=" + Arrays.toString(calendar) + "]";
 	}
 
 }

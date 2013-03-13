@@ -10,7 +10,14 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
+import com.model.AlarmModel;
+import com.model.AppointmentModel;
+import com.model.CalendarModel;
+import com.model.GroupModel;
+import com.model.NotificationModel;
+import com.model.RoomModel;
 import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
@@ -54,7 +61,8 @@ public class MessageReader implements Runnable {
 				int size = this.stream.readInt();
 
 				/* The UnMarshaller */
-				JAXBContext ctx = JAXBContext.newInstance(UserModel.class, MSGFlagVerb.class, MSGType.class, MSGWrapper.class); //alle modeller med komma mellom
+				JAXBContext ctx = JAXBContext.newInstance(MSGFlagVerb.class, MSGFlagSubject.class, MSGType.class, MSGWrapper.class,
+						AlarmModel.class, AppointmentModel.class, CalendarModel.class, GroupModel.class, NotificationModel.class, RoomModel.class, UserModel.class);
 				Unmarshaller um = ctx.createUnmarshaller();
 
 				if(verbose)System.out.printf("Reading %d bytes%n", size);

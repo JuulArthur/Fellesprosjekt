@@ -29,8 +29,8 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	
 	public SavedMeetingPanel () {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 52, 0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 60, 0, 0, 0};
 		
@@ -40,8 +40,9 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		
 		JButton btnAccept = new JButton("Godta");
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
+		gbc_btnAccept.anchor = GridBagConstraints.EAST;
 		gbc_btnAccept.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAccept.gridx = 6;
+		gbc_btnAccept.gridx = 7;
 		gbc_btnAccept.gridy = 4;
 		add(btnAccept, gbc_btnAccept);
 		
@@ -49,34 +50,17 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		GridBagConstraints gbc_btnDecline = new GridBagConstraints();
 		gbc_btnDecline.anchor = GridBagConstraints.WEST;
 		gbc_btnDecline.insets = new Insets(0, 0, 5, 0);
-		gbc_btnDecline.gridx = 7;
+		gbc_btnDecline.gridx = 8;
 		gbc_btnDecline.gridy = 4;
 		add(btnDecline, gbc_btnDecline);
 		
 		lblKommer = new JLabel("Kommer");
 		GridBagConstraints gbc_lblKommer = new GridBagConstraints();
+		gbc_lblKommer.anchor = GridBagConstraints.WEST;
 		gbc_lblKommer.insets = new Insets(0, 0, 5, 5);
-		gbc_lblKommer.gridx = 6;
+		gbc_lblKommer.gridx = 7;
 		gbc_lblKommer.gridy = 5;
 		add(lblKommer, gbc_lblKommer);
-		
-		scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
-		gbc_scrollPane.gridx = 6;
-		gbc_scrollPane.gridy = 6;
-		add(scrollPane, gbc_scrollPane);
-		
-		list = new JList();
-		scrollPane.setViewportView(list);
-		
-		lblKommerIkke = new JLabel("Kommer ikke");
-		GridBagConstraints gbc_lblKommerIkke = new GridBagConstraints();
-		gbc_lblKommerIkke.insets = new Insets(0, 0, 5, 5);
-		gbc_lblKommerIkke.gridx = 6;
-		gbc_lblKommerIkke.gridy = 7;
-		add(lblKommerIkke, gbc_lblKommerIkke);
 		
 		btnSendNotice = new JButton("Send ut m\u00F8teinnkalling");
 		GridBagConstraints gbc_btnSendNotice = new GridBagConstraints();
@@ -85,31 +69,52 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_btnSendNotice.ipadx = 5;
 		gbc_btnSendNotice.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnSendNotice.gridx = 5;
-		gbc_btnSendNotice.gridy = 8;
+		gbc_btnSendNotice.gridy = 7;
 		add(btnSendNotice, gbc_btnSendNotice);
 		
-		scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 6;
-		gbc_scrollPane_1.gridy = 8;
-		add(scrollPane_1, gbc_scrollPane_1);
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 2;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
+		gbc_scrollPane.gridx = 7;
+		gbc_scrollPane.gridy = 6;
+		add(scrollPane, gbc_scrollPane);
 		
-		list_1 = new JList();
-		scrollPane_1.setViewportView(list_1);
+		list = new JList();
+		scrollPane.setViewportView(list);
 		
 		btnEdit = new JButton("Rediger");
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
 		gbc_btnEdit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnEdit.anchor = GridBagConstraints.NORTH;
 		gbc_btnEdit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEdit.ipady = 10;
 		gbc_btnEdit.ipadx = 5;
 		gbc_btnEdit.gridx = 5;
-		gbc_btnEdit.gridy = 9;
+		gbc_btnEdit.gridy = 8;
 		btnEdit.addActionListener(new editMeetingPanel());
 		
 		add(btnEdit, gbc_btnEdit);			
+		
+		lblKommerIkke = new JLabel("Kommer ikke");
+		GridBagConstraints gbc_lblKommerIkke = new GridBagConstraints();
+		gbc_lblKommerIkke.insets = new Insets(0, 0, 5, 5);
+		gbc_lblKommerIkke.gridx = 7;
+		gbc_lblKommerIkke.gridy = 7;
+		add(lblKommerIkke, gbc_lblKommerIkke);
+		
+		scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.gridwidth = 2;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 7;
+		gbc_scrollPane_1.gridy = 8;
+		add(scrollPane_1, gbc_scrollPane_1);
+		
+		list_1 = new JList();
+		scrollPane_1.setRowHeaderView(list_1);
 
 	}
 	public static void main(String[] args) {

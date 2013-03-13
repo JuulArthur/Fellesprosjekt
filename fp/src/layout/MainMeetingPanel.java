@@ -22,9 +22,9 @@ public class MainMeetingPanel extends JPanel {
 
 	
 	protected JTextField startTextField;
-	private JTextField sluttTextField;
+	protected JTextField sluttTextField;
 	protected JTextField stedTextField;
-	private JTextField alarmTextField;
+	protected JTextField alarmTextField;
 	private JLabel lblTittel;
 	protected JTextField titteltextField;
 	private JLabel lblAvtale;
@@ -152,55 +152,34 @@ public class MainMeetingPanel extends JPanel {
 		gbc_alarmTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_alarmTextField.gridx = 5;
 		gbc_alarmTextField.gridy = 5;
-		alarmTextField.setEditable(false);
 		add(alarmTextField, gbc_alarmTextField);
 		alarmTextField.setColumns(15);
-
+		alarmTextField.setEditable(false);
+		
 		lblBeskrivelse = new JLabel("Beskrivelse: ");
 		GridBagConstraints gbc_lblBeskrivelse = new GridBagConstraints();
 		gbc_lblBeskrivelse.anchor = GridBagConstraints.WEST;
 		gbc_lblBeskrivelse.insets = new Insets(0, 0, 5, 5);
-		gbc_lblBeskrivelse.gridwidth = 2;
 		gbc_lblBeskrivelse.gridx = 3;
-		gbc_lblBeskrivelse.gridy = 7;
+		gbc_lblBeskrivelse.gridy = 6;
 		add(lblBeskrivelse, gbc_lblBeskrivelse);
-		
+
 		beskrivelseTextArea = new JTextArea(5, 10);
 		beskrivelseTextArea.setSize(new Dimension(40, 50));
 		GridBagConstraints gbc_beskrivelseTextArea = new GridBagConstraints();
-		gbc_beskrivelseTextArea.gridwidth = 2;
 		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 5, 5);
 		gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
-		gbc_beskrivelseTextArea.gridx = 3;
-		gbc_beskrivelseTextArea.gridy = 8;
+		gbc_beskrivelseTextArea.gridx = 5;
+		gbc_beskrivelseTextArea.gridy = 6;
 		add(beskrivelseTextArea, gbc_beskrivelseTextArea);
 
 	}
-	
-	public JTextField getStartTextField() {
-		return startTextField;
-	}
-
-	public void setStartTextField(JTextField startTextField) {
-		this.startTextField = startTextField;
-	}
-
-	public JTextField getSluttTextField() {
-		return sluttTextField;
-	}
-
-	public void setSluttTextField(JTextField sluttTextField) {
-		this.sluttTextField = sluttTextField;
-	}
-
-	
 	
 	public void setFrame (JFrame frame) {
 		this.meetingFrame = frame;
 	}
 	
 	class returnAction implements ActionListener {
-
 		public void actionPerformed(ActionEvent e) {
 			meetingFrame.dispose();
 		}
