@@ -1,10 +1,19 @@
 package com.model;
 
+import java.beans.PropertyChangeSupport;
+
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RoomModel {
+	
+	public final static String ROOMNUMBER_PROPERTY = "RoomNumber";
+	public final static String ROOMNAME_PROPERTY = "RoomName";
+	public final static String CAPACITY_PROPERTY = "Capacity";
+	public final static String LOCATION_PROPERTY = "Location";
+	
+	private PropertyChangeSupport changeSupport;
 
 	@XmlElement(name="roomnumber")
 	private int roomNumber;
@@ -33,7 +42,9 @@ public class RoomModel {
 	}
 
 	public void setRoomNumber(int roomNumber) {
+		int oldValue = this.roomNumber;
 		this.roomNumber = roomNumber;
+		changeSupport.firePropertyChange(ROOMNUMBER_PROPERTY, oldValue, roomNumber);
 	}
 
 	public String getRoomName() {
@@ -41,7 +52,9 @@ public class RoomModel {
 	}
 
 	public void setRoomName(String roomName) {
+		String oldValue = this.roomName;
 		this.roomName = roomName;
+		changeSupport.firePropertyChange(ROOMNAME_PROPERTY, oldValue, roomName);
 	}
 
 	public int getCapacity() {
@@ -49,7 +62,9 @@ public class RoomModel {
 	}
 
 	public void setCapacity(int capacity) {
+		int oldValue = this.capacity;
 		this.capacity = capacity;
+		changeSupport.firePropertyChange(CAPACITY_PROPERTY, oldValue, capacity);
 	}
 
 	public String getLocation() {
@@ -57,7 +72,9 @@ public class RoomModel {
 	}
 
 	public void setLocation(String location) {
+		String oldValue = this.location;
 		this.location = location;
+		changeSupport.firePropertyChange(LOCATION_PROPERTY, oldValue, location);
 	}
 
 	@Override

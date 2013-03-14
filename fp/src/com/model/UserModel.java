@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.beans.PropertyChangeSupport;
 import java.sql.SQLException;
 
 import javax.xml.bind.annotation.*;
@@ -10,6 +11,20 @@ import com.server.db.Factory;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserModel {
+	
+	public final static String USERNAME_PROPERTY = "Username";
+	public final static String PASSWORD_PROPERTY = "Password";
+	public final static String EMAIL_PROPERTY = "Email";
+	public final static String NAME_PROPERTY = "Name";
+	public final static String SURNAME_PROPERTY = "Surname";
+	public final static String PHONENUMBER_PROPERTY = "PhoneNumber";
+	public final static String ISADMIN_PROPERTY = "Isadmin";
+	public final static String NOTIFICATIONS_PROPERTY = "Notifications";
+	public final static String MYCALENDARS_PROPERTY = "MyCalendars";
+	public final static String SUBSCRIBEDCALENDARS_PROPERTY = "SubscribedCalendars";
+	
+	PropertyChangeSupport changeSupport;
+	
 	@XmlElement(name="username")
 	private String username;
 	@XmlElement(name="password")
@@ -30,7 +45,7 @@ public class UserModel {
 	private ArrayList<CalendarModel> myCalendars;
 	
 	// Skal vi ha med dette?
-	@XmlElement(name="calendars")
+	@XmlElement(name="subscribedCalendars")
 	private ArrayList<CalendarModel> subscribedCalendars;
 	
 	/* JAXB */
@@ -72,7 +87,10 @@ public class UserModel {
 	}
 
 	public void setUsername(String username) {
+		String oldValue = this.username;
 		this.username = username;
+		changeSupport.firePropertyChange(USERNAME_PROPERTY, oldValue, username);
+		
 	}
 
 	public String getPassword() {
@@ -80,7 +98,9 @@ public class UserModel {
 	}
 
 	public void setPassword(String password) {
+		String oldValue = this.password;
 		this.password = password;
+		changeSupport.firePropertyChange(PASSWORD_PROPERTY, oldValue, password);
 	}
 
 	public String getEmail() {
@@ -88,7 +108,9 @@ public class UserModel {
 	}
 
 	public void setEmail(String email) {
+		String oldValue = this.email;
 		this.email = email;
+		changeSupport.firePropertyChange(EMAIL_PROPERTY, oldValue, email);
 	}
 
 	public String getName() {
@@ -96,7 +118,9 @@ public class UserModel {
 	}
 
 	public void setName(String name) {
+		String oldValue = this.name;
 		this.name = name;
+		changeSupport.firePropertyChange(NAME_PROPERTY, oldValue, name);
 	}
 
 	public String getSurname() {
@@ -104,7 +128,10 @@ public class UserModel {
 	}
 
 	public void setSurname(String surname) {
+		String oldValue = this.surname;
 		this.surname = surname;
+		changeSupport.firePropertyChange(SURNAME_PROPERTY, oldValue, surname);
+		
 	}
 
 	public String getPhoneNumber() {
@@ -112,7 +139,9 @@ public class UserModel {
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
+		String oldValue = this.phoneNumber;
 		this.phoneNumber = phoneNumber;
+		changeSupport.firePropertyChange(PHONENUMBER_PROPERTY, oldValue, phoneNumber);
 	}
 
 	public boolean isAdmin() {
@@ -120,7 +149,10 @@ public class UserModel {
 	}
 
 	public void setAdmin(boolean isAdmin) {
+		boolean oldValue = this.isAdmin;
 		this.isAdmin = isAdmin;
+		changeSupport.firePropertyChange(ISADMIN_PROPERTY, oldValue, isAdmin);
+
 	}
 
 	public ArrayList<NotificationModel> getNotifications() {
@@ -128,7 +160,9 @@ public class UserModel {
 	}
 
 	public void setNotifications(ArrayList<NotificationModel> notifications) {
+		ArrayList<NotificationModel> oldValue = this.notifications;
 		this.notifications = notifications;
+		changeSupport.firePropertyChange(NOTIFICATIONS_PROPERTY, oldValue, notifications);
 	}
 	
 	public void addNotification(NotificationModel notification) {
@@ -144,7 +178,9 @@ public class UserModel {
 	}
 
 	public void setCalendars(ArrayList<CalendarModel> calendars) {
+		ArrayList<CalendarModel> oldValue = this.myCalendars;
 		this.myCalendars = calendars;
+		changeSupport.firePropertyChange(MYCALENDARS_PROPERTY, oldValue, calendars);
 	}
 	
 	public void addCalendar(CalendarModel calendar) {
@@ -161,7 +197,9 @@ public class UserModel {
 	}
 
 	public void setSubscribedCalendars(ArrayList<CalendarModel> subscribedCalendars) {
+		ArrayList<CalendarModel> oldValue = this.subscribedCalendars;
 		this.subscribedCalendars = subscribedCalendars;
+		changeSupport.firePropertyChange(SUBSCRIBEDCALENDARS_PROPERTY, oldValue, subscribedCalendars);
 	}
 	
 	public void addSubscribedCalendars(CalendarModel calendar) {

@@ -1,10 +1,19 @@
 package com.model;
 
+import java.beans.PropertyChangeSupport;
+
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NotificationModel {
+	
+	public final static String TEXT_PROPERTY = "Text";
+	public final static String APPOINTMENT_PROPERTY = "Appointment";
+	public final static String CREATOR_PROPERTY = "Creator";
+	
+	private PropertyChangeSupport changeSupport;
+
 	
 	@XmlElement(name="text")
 	private String text;
@@ -27,7 +36,9 @@ public class NotificationModel {
 	}
 
 	public void setText(String text) {
+		String oldValue = this.text;
 		this.text = text;
+		changeSupport.firePropertyChange(TEXT_PROPERTY, oldValue, text);
 	}
 
 	public AppointmentModel getAppointment() {
@@ -35,7 +46,9 @@ public class NotificationModel {
 	}
 
 	public void setAppointment(AppointmentModel appointment) {
+		AppointmentModel oldValue = this.appointment;
 		this.appointment = appointment;
+		changeSupport.firePropertyChange(APPOINTMENT_PROPERTY, oldValue, appointment);
 	}
 
 	public UserModel getCreator() {
@@ -43,7 +56,9 @@ public class NotificationModel {
 	}
 
 	public void setCreator(UserModel creator) {
+		UserModel oldValue = this.creator;
 		this.creator = creator;
+		changeSupport.firePropertyChange(CREATOR_PROPERTY, oldValue, creator);
 	}
 
 	@Override
