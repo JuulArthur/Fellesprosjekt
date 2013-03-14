@@ -361,6 +361,7 @@ public class Factory {
 		return utAm;
 	}
 	
+	@Deprecated
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
 		String query = String
@@ -368,9 +369,7 @@ public class Factory {
 						date, text, ap.getId());
 		updateDatabase(query);
 	}
-
-
-	@Deprecated
+	
 	public void updateAlarmModel(AlarmModel am) throws SQLException, ClassNotFoundException {
 		System.out.println(am.getDate());
 		String query = String
@@ -618,6 +617,7 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
+	@Deprecated
 	public void createNotificationModel(String text, int aid, String username) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Notification "
@@ -626,7 +626,6 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
-	@Deprecated
 	public NotificationModel createNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Notification "
@@ -704,7 +703,7 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
-	@Deprecated
+	
 	public RoomModel createRoomModel(RoomModel rm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Room "
@@ -714,6 +713,7 @@ public class Factory {
 		return rm;
 	}
 	
+	@Deprecated
 	public void createRoomModel(int roomNumber, String roomName, int capacity, String location) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Room "

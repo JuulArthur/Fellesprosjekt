@@ -70,12 +70,12 @@ public class Main {
 				
 				AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
 						new UserModel("perok", "hei", null, null, null, null, 1), 
-						"SEXEHTIME", "best time of the day", "room", new Date(0,0,0), null);
+						"NO SO SEXEHTIME", "best time of the day", "room", new Date(0,0,0), null);
 				ArrayList<Object> aalist = new ArrayList<Object>();
 				aalist.add(am);
 				serverH.setCurrentFlag(MSGFlagVerb.CREATE);
 				serverH.setState(State.CONNECTED_WAITING);
-				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,MSGFlagSubject.APPOINTMENT, aalist));
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,MSGFlagSubject.APPOINTMENT, aalist));
 				break;
 				
 			default:
