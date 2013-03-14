@@ -1,6 +1,7 @@
 package com.client;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +12,6 @@ import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 import com.xml.JAXBMarshaller;
 
 //import com.xml.XML;
@@ -70,7 +70,7 @@ public class Main {
 				
 				AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
 						new UserModel("perok", "hei", null, null, null, null, 1), 
-						"NO SO SEXEHTIME", "best time of the day", "room", new Date(0,0,0), null);
+						"NO SO SEXEHTIME", "best time of the day", "room", new Date(new Timestamp(2013, 3, 14, 8, 55, 0, 0).getTime()), null);
 				ArrayList<Object> aalist = new ArrayList<Object>();
 				aalist.add(am);
 				serverH.setCurrentFlag(MSGFlagVerb.CREATE);

@@ -7,10 +7,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
+import com.model.UserModel;
+import com.net.msg.MSGFlagVerb;
+import com.net.msg.MSGType;
+import com.settings.Global;
+
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class LogginPane extends JPanel {
-	private JPanel pane;
+	public JPanel pane;
 	private JTextField usernameField;
 	private JLabel usernameLabel;
 	private JTextField passwordField;
@@ -63,12 +73,36 @@ public class LogginPane extends JPanel {
 												gbc_passwordField.gridy = 2;
 												pane.add(passwordField, gbc_passwordField);
 								loggin = new JButton("Logg in");
+								loggin.addActionListener(new LoginButtonListener());
 								GridBagConstraints gbc_loggin = new GridBagConstraints();
 								gbc_loggin.anchor = GridBagConstraints.NORTHWEST;
 								gbc_loggin.insets = new Insets(0, 0, 5, 5);
 								gbc_loggin.gridx = 2;
 								gbc_loggin.gridy = 3;
 								pane.add(loggin, gbc_loggin);
+	}
+	
+
+	class LoginButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String username = usernameField.getText();
+			String password = passwordField.getText();
+			
+			if(!(username.length() == 0 || password.length() == 0)){
+				UserModel ums = new UserModel();
+				ums.setPassword(password);
+				ums.setUsername(username);
+				
+				ArrayList<Object> alist = new ArrayList<Object>();
+				alist.add(ums);
+				
+				Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
+				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGIN, alist));
+			}
+		}
+		
 	}
 	
 /*	public static void main (String args[]) {
@@ -79,5 +113,5 @@ public class LogginPane extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    }
-	*/
+*/	
 }
