@@ -68,9 +68,13 @@ public class Main {
 				if(serverH.getState() == State.DISCONNECTED)
 					continue;
 				
+				java.util.Date time = new java.util.Date();
+				System.out.println(time.getTime());
+				
 				AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
 						new UserModel("perok", "hei", null, null, null, null, 1), 
-						"NO SO SEXEHTIME", "best time of the day", "room", new Date(new Timestamp(2013, 3, 14, 8, 55, 0, 0).getTime()), null);
+						
+						"NO SO SEXEHTIME", "best time of the day", "room", new Date(time.getTime()), null);
 				ArrayList<Object> aalist = new ArrayList<Object>();
 				aalist.add(am);
 				serverH.setCurrentFlag(MSGFlagVerb.CREATE);

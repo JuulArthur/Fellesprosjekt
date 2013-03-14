@@ -34,7 +34,6 @@ public class MainGUI {
         
         Global.respondGUI = new ArrayList<IServerResponse>();
         Global.respondGUI.add(panel);
-        
 	}
 	
 

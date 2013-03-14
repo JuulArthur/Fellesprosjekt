@@ -68,14 +68,13 @@ public class ServerHandler extends ServiceHandler {
 						UserModel  userModel = (UserModel)msgW.getObjects().get(0);
 						
 						System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
-						
-						System.out.println(userModel);
-						
+												
 						/**
 						 * Propagating reponses
 						 * if true
 						 * 	propagate
 						 */
+						if(Global.respondGUI != null) //Remove when we are done with CLI client
 						for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
 							boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(msgW.getObjects());
 							
