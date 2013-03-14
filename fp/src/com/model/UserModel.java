@@ -155,11 +155,7 @@ public class UserModel {
 	public void removeCalendar(CalendarModel calendar) {
 		this.myCalendars.remove(calendar);
 	}
-	
-/*
- * Skal vi ha med dette?
- * 
- */
+
 	public ArrayList<CalendarModel> getSubscribedCalendars() {
 		return subscribedCalendars;
 	}

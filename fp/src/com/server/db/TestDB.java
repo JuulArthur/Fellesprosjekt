@@ -138,14 +138,7 @@ public class TestDB {
 			new AppointmentModel()
 		)),
 
-		new UserModel("cristea", "ep", "chris", "tonn", "88888888",
-				"hei123", 1),
-						
-		new ArrayList<UserModel>( Arrays.asList(
-			new UserModel(),
-			new UserModel(),
-			new UserModel()
-		))
+			"cristea"
 		);
 	}
 	

@@ -10,15 +10,13 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalendarModel extends AbstractTableModel {
 
-	@XmlElement(name="id")
+	@XmlElement(name = "id")
 	private int id;
 	@XmlElement(name = "appointments")
 	private ArrayList<AppointmentModel> appointments;
 	@XmlElement(name = "owner")
-	private UserModel owner;
-	@XmlElement(name = "followers")
-	private ArrayList<UserModel> followers;
-	@XmlElement(name="name")
+	private String owner;
+	@XmlElement(name = "name")
 	private String name;
 
 	private String[][] calendar = new String[13][7];
@@ -27,12 +25,11 @@ public class CalendarModel extends AbstractTableModel {
 	public CalendarModel() {
 	}
 
-	public CalendarModel(int id, String name, ArrayList<AppointmentModel> appointments,
-			UserModel owner, ArrayList<UserModel> followers) {
+	public CalendarModel(int id, String name,
+			ArrayList<AppointmentModel> appointments, String owner) {
 		this.id = id;
 		this.appointments = appointments;
 		this.owner = owner;
-		this.followers = followers;
 		this.name = name;
 	}
 
@@ -70,33 +67,14 @@ public class CalendarModel extends AbstractTableModel {
 			this.appointments.remove(appointment);
 	}
 
-	public UserModel getOwner() {
+	public String getOwner() {
 		return owner;
 	}
 
-	public void setOwner(UserModel owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 
-	public ArrayList<UserModel> getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(ArrayList<UserModel> followers) {
-		this.followers = followers;
-	}
-
-	public void addFollower(UserModel follower) {
-		if (!this.followers.contains(follower))
-			this.followers.add(follower);
-	}
-
-	public void removeFollower(UserModel follower) {
-		if (this.followers.contains(follower))
-			this.followers.remove(follower);
-	}
-
-	/* do we really want this? */
 	public String[][] getCalendar() {
 		return calendar;
 	}
@@ -124,8 +102,8 @@ public class CalendarModel extends AbstractTableModel {
 	@Override
 	public String toString() {
 		return "CalendarModel [id=" + id + ", appointments=" + appointments
-				+ ", owner=" + owner + ", followers=" + followers + ", name="
-				+ name + ", calendar=" + Arrays.toString(calendar) + "]";
+				+ ", owner=" + owner + ", name=" + name + ", calendar="
+				+ Arrays.toString(calendar) + "]";
 	}
 
 }
