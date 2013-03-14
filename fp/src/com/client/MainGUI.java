@@ -31,6 +31,7 @@ public class MainGUI {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        panel.setFrame(frame);
         
         Global.respondGUI = new ArrayList<IServerResponse>();
         Global.respondGUI.add(panel);
