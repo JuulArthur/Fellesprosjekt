@@ -1,5 +1,6 @@
 package com.model;
 
+import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -12,6 +13,19 @@ import com.model.support.SqlDateAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AppointmentModel {
 
+	private final static String ID_PROPERTY = "Id";
+	private final static String STARTTIME_PROPERTY = "StartTime";
+	private final static String ENDTIME_PROPERTY = "EndTime";
+	private final static String HOST_PROPERTY = "Host";
+	private final static String TITLE_PROPERTY = "Title";
+	private final static String TEXT_PROPERTY = "Text";
+	private final static String PLACE_PROPERTY = "Place";
+	private final static String ISDELETED_PROPERTY = "IsDeleted";
+	private final static String DATE_PROPERTY = "Date";
+	private final static String MEMBERS_PROPERTY = "Members";
+	
+	public PropertyChangeSupport changeSupport;
+	
 	@XmlElement(name = "id")
 	private int id;
 	@XmlElement(name = "startTime")
@@ -58,7 +72,9 @@ public class AppointmentModel {
 	}
 
 	public void setId(int id) {
+		int oldValue = this.id;
 		this.id = id;
+		changeSupport.firePropertyChange(ID_PROPERTY, oldValue, id);
 	}
 
 	public int getStartTime() {
@@ -66,7 +82,10 @@ public class AppointmentModel {
 	}
 
 	public void setStartTime(int startTime) {
+		int oldValue = this.startTime;
 		this.startTime = startTime;
+		changeSupport.firePropertyChange(STARTTIME_PROPERTY, oldValue, startTime);
+		
 	}
 
 	public int getEndTime() {
@@ -74,7 +93,9 @@ public class AppointmentModel {
 	}
 
 	public void setEndTime(int endTime) {
+		int oldValue = this.endTime;
 		this.endTime = endTime;
+		changeSupport.firePropertyChange(ENDTIME_PROPERTY, oldValue, endTime);
 	}
 
 	public UserModel getHost() {
@@ -82,7 +103,9 @@ public class AppointmentModel {
 	}
 
 	public void setHost(UserModel host) {
+		UserModel oldValue = this.host;
 		this.host = host;
+		changeSupport.firePropertyChange(HOST_PROPERTY, oldValue, host);
 	}
 
 	public String getTitle() {
@@ -90,7 +113,9 @@ public class AppointmentModel {
 	}
 
 	public void setTitle(String title) {
+		String oldValue = this.title;
 		this.title = title;
+		changeSupport.firePropertyChange(TITLE_PROPERTY, oldValue, title);
 	}
 
 	public String getText() {
@@ -98,7 +123,9 @@ public class AppointmentModel {
 	}
 
 	public void setText(String text) {
+		String oldValue = this.text;
 		this.text = text;
+		changeSupport.firePropertyChange(TEXT_PROPERTY, oldValue, text);
 	}
 
 	public String getPlace() {
@@ -106,7 +133,9 @@ public class AppointmentModel {
 	}
 
 	public void setPlace(String place) {
+		String oldValue = this.place;
 		this.place = place;
+		changeSupport.firePropertyChange(PLACE_PROPERTY, oldValue, place);
 	}
 
 	public boolean isDeleted() {
@@ -114,7 +143,9 @@ public class AppointmentModel {
 	}
 
 	public void setDeleted(boolean isDeleted) {
+		boolean oldValue = this.isDeleted;
 		this.isDeleted = isDeleted;
+		changeSupport.firePropertyChange(ISDELETED_PROPERTY, oldValue, isDeleted);
 	}
 
 	public Date getDate() {
@@ -122,7 +153,9 @@ public class AppointmentModel {
 	}
 
 	public void setDate(Date date) {
+		Date oldValue = this.date;
 		this.date = date;
+		changeSupport.firePropertyChange(DATE_PROPERTY, oldValue, date);
 	}
 
 	public ArrayList<UserModel> getMembers() {
@@ -130,7 +163,9 @@ public class AppointmentModel {
 	}
 
 	public void setMembers(ArrayList<UserModel> members) {
+		ArrayList<UserModel> oldValue = this.members;
 		this.members = members;
+		changeSupport.firePropertyChange(MEMBERS_PROPERTY, oldValue, members);
 	}
 
 	public void addMember(UserModel member) {
