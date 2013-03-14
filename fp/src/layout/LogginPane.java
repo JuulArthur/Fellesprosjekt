@@ -109,7 +109,7 @@ public class LogginPane extends JPanel implements IServerResponse {
 
 
 	@Override
-	public boolean recievedObjectRespone(ArrayList<Object> al) {
+	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		if(al.get(0) instanceof UserModel){
 			loginFrame.dispose();
 			CalendarLayout calendarlayout = new CalendarLayout();

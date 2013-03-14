@@ -75,7 +75,6 @@ public class DatabaseConnector {
         String passwd = properties.getProperty("db.passwd");
         
         conn = DriverManager.getConnection(url, user, passwd);
-	
 	}
 	
 	
