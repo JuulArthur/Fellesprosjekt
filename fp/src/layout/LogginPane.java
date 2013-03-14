@@ -1,5 +1,6 @@
 package layout;
 
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
@@ -26,6 +27,7 @@ public class LogginPane extends JPanel implements IServerResponse {
 	private JTextField passwordField;
 	private JLabel passwordLabel;
 	private JButton loggin;
+	private JFrame loginFrame;
 	
 	public LogginPane(){
 		pane= new JPanel();
@@ -120,6 +122,12 @@ public class LogginPane extends JPanel implements IServerResponse {
 			Global.respondGUI.add(calendarlayout);
 		}
 		return false;
+	}
+
+
+	@Override
+	public void setFrame(JFrame frame) {
+		this.loginFrame = frame;
 	}
 	
 /*	public static void main (String args[]) {

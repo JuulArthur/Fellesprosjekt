@@ -22,7 +22,7 @@ public class MainGUI {
 	}
 	
 	public void init() throws Exception{
-        startServer();
+       startServer();
 
 		JFrame frame = new JFrame("Prototype");
         LogginPane panel=new LogginPane();
