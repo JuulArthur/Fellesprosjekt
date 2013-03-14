@@ -1,5 +1,6 @@
 package com.model;
 
+import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 
 import javax.xml.bind.annotation.*;
@@ -7,6 +8,13 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AlarmModel {
+	
+	public final static String DATE_PROPERTY = "Date";
+	public final static String TEXT_PROPERTY = "Text";
+	public final static String APPOINTMENT_PROPERTY = "Appointment";
+	public final static String CREATOR_PROPERTY = "Creator";
+	
+	private PropertyChangeSupport changeSupport;
 	
 	@XmlElement(name="date")
 	private Date date;
@@ -25,6 +33,7 @@ public class AlarmModel {
 		this.text = text;
 		this.appointment = appointment;
 		this.creator = creator;
+		changeSupport = new PropertyChangeSupport(this);
 	}
 
 	public Date getDate() {
@@ -32,7 +41,9 @@ public class AlarmModel {
 	}
 
 	public void setDate(Date date) {
+		Date oldValue = this.date;
 		this.date = date;
+		changeSupport.firePropertyChange(DATE_PROPERTY, oldValue, date);
 	}
 
 	public String getText() {
@@ -40,7 +51,9 @@ public class AlarmModel {
 	}
 
 	public void setText(String text) {
+		String oldValue = this.text;
 		this.text = text;
+		changeSupport.firePropertyChange(TEXT_PROPERTY, oldValue, text);
 	}
 
 	public AppointmentModel getAppointment() {
@@ -48,7 +61,9 @@ public class AlarmModel {
 	}
 
 	public void setAppointment(AppointmentModel appointment) {
+		AppointmentModel oldValue = this.appointment;
 		this.appointment = appointment;
+		changeSupport.firePropertyChange(APPOINTMENT_PROPERTY, oldValue, appointment);
 	}
 
 	public UserModel getCreator() {
@@ -56,7 +71,9 @@ public class AlarmModel {
 	}
 
 	public void setCreator(UserModel creator) {
+		UserModel oldValue = this.creator;
 		this.creator = creator;
+		changeSupport.firePropertyChange(CREATOR_PROPERTY, oldValue, creator);
 	}
 
 	@Override
