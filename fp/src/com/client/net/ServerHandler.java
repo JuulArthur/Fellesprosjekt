@@ -69,18 +69,7 @@ public class ServerHandler extends ServiceHandler {
 						
 						System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
 												
-						/**
-						 * Propagating reponses
-						 * if true
-						 * 	propagate
-						 */
-						if(Global.respondGUI != null) //Remove when we are done with CLI client
-						for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
-							boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(msgW.getObjects());
-							
-							if(!propagate)
-								break;
-						}
+						propagateResponseToGUI(msgW.getObjects());
 						
 						break;
 					case LOGOUT:
@@ -142,6 +131,9 @@ public class ServerHandler extends ServiceHandler {
 						//SEND THE ACCEPT BACK TO SERVER
 						// if msgW.getObjects.get(0) contains something, return it. the context will fix casting
 						
+						
+						propagateResponseToGUI(msgW.getObjects());
+
 						if(subject != null){							
 							//WHAT WE DID HAS BEEN ACCEPTED
 							//TODO respond to UI
@@ -181,6 +173,21 @@ public class ServerHandler extends ServiceHandler {
 		}
 		
 		
+	}
+	
+	/**
+	 * Propagating reponses
+	 * if true
+	 * 	propagate
+	 */
+	public void propagateResponseToGUI(ArrayList<Object> o){
+		if(Global.respondGUI != null) //Remove when we are done with CLI client
+		for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
+			boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(o);
+			
+			if(!propagate)
+				break;
+		}
 	}
 
 }

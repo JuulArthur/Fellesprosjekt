@@ -245,6 +245,7 @@ public class ClientHandler  extends ServiceHandler {
 						case CALENDAR:	
 							//TODO
 							//factory.updateCalendarModel(id, name, appointments, owner, followers)
+							
 							break;
 							
 						case APPOINTMENT: //AppointmentModel
@@ -297,8 +298,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case GROUP:
-							//TODO
-							//factory.
+							factory.deleteGroupModel((Integer)msgW.getObjects().get(0));
 							break;
 							
 						case NOTIFICATION: //STRING username, INTEGER AppointmentID
