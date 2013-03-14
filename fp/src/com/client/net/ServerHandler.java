@@ -125,7 +125,7 @@ public class ServerHandler extends ServiceHandler {
 						break;
 						
 					default:
-						
+						System.out.println("[ServerHandeler] onWrapper: ACCEPTED FROM SERVER");
 						//SEND THE ACCEPT BACK TO SERVER
 						// if msgW.getObjects.get(0) contains something, return it. the context will fix casting
 						if(subject != null){							

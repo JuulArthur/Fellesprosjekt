@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.model.support.SqlDateAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -25,7 +28,7 @@ public class AppointmentModel {
 	private String place; // private RoomModel place
 	@XmlElement(name = "isDeleted")
 	private boolean isDeleted; // should be hidden or not
-	@XmlElement(name = "date")
+	@XmlJavaTypeAdapter(SqlDateAdapter.class)//@XmlElement(name = "date")
 	private Date date;
 	@XmlElement(name = "members")
 	private ArrayList<UserModel> members;

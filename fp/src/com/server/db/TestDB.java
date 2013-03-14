@@ -16,6 +16,7 @@ import java.util.StringTokenizer;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
+import com.model.GroupModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.RoomModel;
@@ -236,6 +237,38 @@ public class TestDB {
 		f.deleteAppointmentModel(am.getId());
 	}
 	
+	
+	public void testGetGroup(int id) throws SQLException, ClassNotFoundException{
+		Factory f = new Factory();
+		
+		
+		
+		ArrayList<UserModel> member = new ArrayList<UserModel>(2);
+		UserModel user = f.getUserModel("jarudiha");
+		UserModel usere =f.getUserModel("perok");
+		member.add(user);
+		member.add(usere);
+		
+		
+		GroupModel gm = new GroupModel(id, "soup", member);
+		f.UpdateGroupModel(gm);
+		System.out.println(gm==f.getGroupModel(id));
+		System.out.println(f.getGroupModel(id));
+		System.out.println(gm);
+	}
+	
+	public void testAddMember(GroupModel gm) throws SQLException, ClassNotFoundException{
+		Factory f= new Factory();
+		f.addMemberOf(gm);
+	}
+	
+	public void testCreategroupp() throws SQLException, ClassNotFoundException{
+		Factory f = new Factory();
+		GroupModel gm = new GroupModel(11, "community", null);
+		
+		f.createGroupModel(gm);
+	}
+	
 	public static void main(String args[]){
 		TestDB t = new TestDB();
 
@@ -243,7 +276,7 @@ public class TestDB {
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
 
 		try{
-			t.testDeleteRoom();
+			t.testGetGroup(0112);
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();

@@ -14,6 +14,7 @@ import com.model.AppointmentModel;
 import com.model.NotificationModel;
 import com.model.RoomModel;
 import com.model.UserModel;
+import com.model.GroupModel;
 import com.model.CalendarModel;
 
 
@@ -406,6 +407,7 @@ public class Factory {
 		return utAm;
 	}
 	
+	@Deprecated
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
 		String query = String
@@ -413,9 +415,7 @@ public class Factory {
 						date, text, ap.getId());
 		updateDatabase(query);
 	}
-
-
-	@Deprecated
+	
 	public void updateAlarmModel(AlarmModel am) throws SQLException, ClassNotFoundException {
 		System.out.println(am.getDate());
 		String query = String
@@ -663,6 +663,7 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
+	@Deprecated
 	public void createNotificationModel(String text, int aid, String username) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Notification "
@@ -671,7 +672,6 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
-	@Deprecated
 	public NotificationModel createNotificationModel(NotificationModel nm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Notification "
@@ -749,7 +749,7 @@ public class Factory {
 		updateDatabase(query);
 	}
 	
-	@Deprecated
+	
 	public RoomModel createRoomModel(RoomModel rm) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Room "
@@ -759,6 +759,7 @@ public class Factory {
 		return rm;
 	}
 	
+	@Deprecated
 	public void createRoomModel(int roomNumber, String roomName, int capacity, String location) throws SQLException, ClassNotFoundException {
 		String query = String
 				.format("insert into Room "
@@ -835,4 +836,76 @@ public class Factory {
 				roomNumber);
 		updateDatabase(query);
 	}
+	
+	
+	public GroupModel createGroupModel(GroupModel gm) throws SQLException,
+	ClassNotFoundException {
+	String query = String.format("insert into groupp "
+			+ "(id, name) values "
+			+ "(%d, '%s')", gm.getId(), gm.getName());
+	updateDatabase(query);
+	return gm;
+}
+	public void UpdateGroupModel(GroupModel gm) throws SQLException, ClassNotFoundException{
+		String query = String.format(
+				"UPDATE Groupp " +
+				"SET name='%s' WHERE id= %d ",
+				gm.getName(),gm.getId());
+		updateDatabase(query);
+		addMemberOf(gm);
+		
+	}
+
+	public void addMemberOf(GroupModel gm) throws SQLException, ClassNotFoundException{
+		ArrayList<UserModel> memberList=gm.getMembers();
+		String query = String.format(
+				"DELETE from MemberOf WHERE groupid=%d",gm.getId());
+		updateDatabase(query);
+		System.out.println("deleted");
+		
+		for(int i =0;i<memberList.size();i++){
+		String memberQuery = String.format("insert into MemberOf "
+				+ "(username, groupid) values "
+				+ "('%s', %d)", memberList.get(i).getUsername(), gm.getId());
+		updateDatabase(memberQuery);
+
+		}
+		
+	}
+	public GroupModel getGroupModel(int id)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String
+				.format("Select id, name from Groupp where id=%d",
+						id);
+		String MEMBERquery = String
+				.format("Select username from Memberof where groupid=%d",
+						id);
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		ResultSet nrs = db.makeSingleQuery(MEMBERquery);
+		int newId =0;
+		String name = null;
+		ArrayList<UserModel> members = new ArrayList<UserModel>();
+		
+		while (rs.next()) {
+			newId=rs.getInt(1);
+			name = rs.getString(2);	
+		}
+		String username;
+		while(nrs.next()){
+			username= nrs.getString(1);
+			members.add(getUserModel(username));
+		}
+
+		GroupModel gm = new GroupModel(newId, name, members);
+		rs.close();
+		db.close();
+
+		return gm;
+
+	}
+	
+	
+
 }

@@ -3,8 +3,6 @@ package com.server.net;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
@@ -36,7 +34,7 @@ public class ClientHandler  extends ServiceHandler {
 	Factory factory;
 	JAXBMarshaller jaxbMarshaller;
 	
-	private static final Executor POOL = Executors.newFixedThreadPool(16);
+	//private static final Executor POOL = Executors.newFixedThreadPool(16);
 
 	public ClientHandler(Socket client, Server server) {
 		super(client);
@@ -137,9 +135,7 @@ public class ClientHandler  extends ServiceHandler {
 					
 					//Was the request a success?
 					boolean success = true;
-					
-					Object o;
-					
+										
 					/* VERB */
 					switch (verb) {
 					case GET:
@@ -153,7 +149,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case CALENDAR:
-							
+							//TODO
 							//CalendarModel cm = factory.getC
 							
 							break;
@@ -162,10 +158,8 @@ public class ClientHandler  extends ServiceHandler {
 							al.add(factory.getAppointmentModel((Integer)msgW.getObjects().get(0)));
 							break;
 							
-						case GROUP:
-							//al.add(factory.getG)
-							//GroupModel gm = factory.get
-							
+						case GROUP: //int groupid
+							al.add(factory.getGroupModel((Integer)msgW.getObjects().get(0)));	
 							break;
 							
 						case NOTIFICATION: //NotificationModel nm
@@ -199,24 +193,22 @@ public class ClientHandler  extends ServiceHandler {
 						/* We put the object in the database and ACCEPT or DECLINE
 						 * 
 						 * */
-						
 						/* SUBJECTT */
 						switch (subject) {
 						case ALARM: //AlarmModel
 							factory.createAlarmModel((AlarmModel)msgW.getObjects().get(0));
 							break;
 			
-						case CALENDAR:							
+						case CALENDAR: //CalendarModel
+							factory.createCalendarModel((CalendarModel)msgW.getObjects().get(0));
 							break;
 							
 						case APPOINTMENT: //AppointmentModel
 							factory.createAppointmentModel((AppointmentModel)msgW.getObjects().get(0));
 							break;
 							
-						case GROUP:
-							
-							//factory.get
-							
+						case GROUP: //GroupeModel
+							factory.createGroupModel((GroupModel)msgW.getObjects().get(0));
 							break;
 							
 						case NOTIFICATION:
@@ -224,6 +216,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ROOM:
+							factory.createRoomModel((RoomModel)msgW.getObjects().get(0));
 							break;
 							
 						case USER:
@@ -251,7 +244,8 @@ public class ClientHandler  extends ServiceHandler {
 							factory.updateAlarmModel((AlarmModel)msgW.getObjects().get(0));
 							break;
 			
-						case CALENDAR:							
+						case CALENDAR:			
+							//TODO
 							break;
 							
 						case APPOINTMENT: //AppointmentModel
@@ -259,8 +253,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case GROUP:
-							//factory.get
-							
+							factory.UpdateGroupModel((GroupModel)msgW.getObjects().get(0));
 							break;
 							
 						case NOTIFICATION:// NotificationModel
@@ -292,11 +285,12 @@ public class ClientHandler  extends ServiceHandler {
 						
 						/* SUBJECTT */
 						switch (subject) {
-						case ALARM: //AlarmModel
-							factory.deleteAlarmModel((AlarmModel)msgW.getObjects().get(0));
+						case ALARM: //Integer AppointmentId, String username
+							factory.deleteAlarmModel((Integer)msgW.getObjects().get(0), (String)msgW.getObjects().get(1));
 							break;
 			
-						case CALENDAR:							
+						case CALENDAR:	
+							//TODO
 							break;
 							
 						case APPOINTMENT: //int aid
@@ -304,8 +298,8 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case GROUP:
-							
-							//factory.get
+							//TODO
+							//factory.
 							
 							break;
 							
@@ -313,11 +307,11 @@ public class ClientHandler  extends ServiceHandler {
 							factory.deleteNotificationModel((String)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1));
 							break;
 							
-						case ROOM:
-							
+						case ROOM: //Integer id
+							factory.deleteRoomModel((Integer)msgW.getObjects().get(0));
 							break;
 							
-						case USER:
+						case USER: //String username
 							factory.deleteUserModel((String)msgW.getObjects().get(0));
 							break;
 
@@ -357,11 +351,9 @@ public class ClientHandler  extends ServiceHandler {
 			}	
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (SQLException e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
@@ -376,10 +368,8 @@ Runnable runnable = new Runnable() {
 		try {
 			login = server.getFactory().checkPassword(um.getUsername(), um.getPassword());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

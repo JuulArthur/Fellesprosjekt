@@ -1,12 +1,17 @@
 package com.client;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.client.net.ServerHandler;
+import com.model.AppointmentModel;
 import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
+import com.net.support.State;
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 import com.xml.JAXBMarshaller;
 
 //import com.xml.XML;
@@ -33,6 +38,7 @@ public class Main {
 			System.out.println( "What do you want to do?" );
 			System.out.println( "1 - Login" );
 			System.out.println( "2 - Exit" );
+			System.out.println( "3 - TEST: Create DB appointment");
 			
 			int command = s.nextInt();
 
@@ -58,6 +64,20 @@ public class Main {
 				//serverH.disconnect();
 				loop = false;
 				break;
+			case 3:
+				if(serverH.getState() == State.DISCONNECTED)
+					continue;
+				
+				AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
+						new UserModel("perok", "hei", null, null, null, null, 1), 
+						"NO SO SEXEHTIME", "best time of the day", "room", new Date(0,0,0), null);
+				ArrayList<Object> aalist = new ArrayList<Object>();
+				aalist.add(am);
+				serverH.setCurrentFlag(MSGFlagVerb.CREATE);
+				serverH.setState(State.CONNECTED_WAITING);
+				serverH.writeMessage(jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,MSGFlagSubject.APPOINTMENT, aalist));
+				break;
+				
 			default:
 				System.out.println("I don't understand you");
 			}
