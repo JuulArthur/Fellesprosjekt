@@ -1,11 +1,8 @@
 package com.model;
 
 import java.util.ArrayList;
-import java.sql.SQLException;
 
 import javax.xml.bind.annotation.*;
-
-import com.server.db.Factory;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

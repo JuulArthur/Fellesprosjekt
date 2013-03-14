@@ -65,9 +65,7 @@ public class ServerHandler extends ServiceHandler {
 						
 						setState(State.CONNECTED);
 						
-						UserModel  userModel = (UserModel)msgW.getObjects().get(0);
-						
-						System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
+						System.out.println("[ServerHandler] User: " +  ((UserModel)msgW.getObjects().get(0)).getUsername() + " is logged in");
 												
 						propagateResponseToGUI(true, msgW.getObjects());
 						

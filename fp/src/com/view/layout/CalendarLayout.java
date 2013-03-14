@@ -1,4 +1,4 @@
-package layout;
+package com.view.layout;
 
 import javax.swing.JPanel;
 

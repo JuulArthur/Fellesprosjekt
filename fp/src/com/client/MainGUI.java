@@ -17,6 +17,7 @@ public class MainGUI {
 	public void startServer() throws Exception{
 		Global.sHandler = new ServerHandler("mel.is", 8078 ); //mel.is
 		Global.jaxbMarshaller = new JAXBMarshaller();
+        Global.respondGUI = new ArrayList<IServerResponse>();
 		
 		System.out.println("[Main] Connected to server");
 	}
@@ -33,7 +34,6 @@ public class MainGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         panel.setFrame(frame);
         
-        Global.respondGUI = new ArrayList<IServerResponse>();
         Global.respondGUI.add(panel);
 	}
 	
