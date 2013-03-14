@@ -30,7 +30,7 @@ public class CalendarLayout extends JPanel implements IServerResponse {
 	private CalendarModel model = new CalendarModel();
 	private JTable table;
 	private String[] time = {"07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
-	
+	private JFrame calendarFrame;
 	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
@@ -276,9 +276,12 @@ public class CalendarLayout extends JPanel implements IServerResponse {
 	public boolean recievedObjectRespone(ArrayList<Object> al) {
 		// TODO Auto-generated method stub
 		
-		return false;
+		return false;	
+	}
 
-		
+	@Override
+	public void setFrame(JFrame frame) {
+		this.calendarFrame = frame;
 	}
 		
 }

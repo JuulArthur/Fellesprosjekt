@@ -17,9 +17,11 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JList;
 
-public class MeetingPanel extends MainMeetingPanel {
+public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 	private JLabel lblKalender;
 	private JLabel lblDeltagere;
 	private JButton btnSlett;
@@ -32,6 +34,7 @@ public class MeetingPanel extends MainMeetingPanel {
 	private JList participantList;
 	private JButton btnChooseRoom;
 	private JComboBox CalendarComboBox;
+	private JFrame meetingFrame;
 
 	public MeetingPanel() {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -226,14 +229,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		}	
 	}
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Avtale");
-		frame.getContentPane().add(new MeetingPanel());
-		frame.pack();
-		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+	
 	
 	class addNewPerson implements ActionListener {
 
@@ -245,7 +241,7 @@ public class MeetingPanel extends MainMeetingPanel {
 			participantFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 			participantFrame.setVisible(true);
 			participantFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			participantPanel.setMyFrame(participantFrame);
+			participantPanel.setFrame(participantFrame);
 			
 		}
 	}
@@ -258,6 +254,17 @@ public class MeetingPanel extends MainMeetingPanel {
 
 			
 		}
+
+	@Override
+	public boolean recievedObjectRespone(ArrayList<Object> al) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setFrame(JFrame frame) {
+			this.meetingFrame = frame;	
+	}
 		
 	
 
