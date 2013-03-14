@@ -2,9 +2,9 @@ package com.settings;
 
 import java.util.ArrayList;
 
-import layout.IServerResponse;
 
 import com.client.net.ServerHandler;
+import com.controller.IServerResponse;
 import com.xml.JAXBMarshaller;
 
 public class Global {

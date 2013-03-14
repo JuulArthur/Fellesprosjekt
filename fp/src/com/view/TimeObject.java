@@ -1,4 +1,4 @@
-package layout;
+package com.view;
 
 public class TimeObject {
 

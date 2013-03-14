@@ -5,40 +5,63 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import layout.IServerResponse;
-import layout.LogginPane;
+import com.view.CalendarJDialog;
+import com.view.CalendarLayout;
+import com.view.LogginPane;
+import com.view.MainMeetingPanel;
 
 import com.client.net.ServerHandler;
+import com.controller.IServerResponse;
+import com.controller.LogginPaneController;
 import com.settings.Global;
 import com.xml.JAXBMarshaller;
 
-public class MainGUI {
+public class MainGUI extends JFrame{
+	
+	LogginPane logginView;
+	LogginPaneController logginController;
+	
+	private MainMeetingPanel mainMeetingPanelView;
+	private CalendarLayout calendarView;
+	
+	CalendarJDialog calendarJDialogView;
 	
 	public void startServer() throws Exception{
-		Global.sHandler = new ServerHandler("mel.is", 8078 ); //mel.is
+		Global.sHandler = new ServerHandler("localhost", 8078 ); //mel.is
 		Global.jaxbMarshaller = new JAXBMarshaller();
         Global.respondGUI = new ArrayList<IServerResponse>();
 		
 		System.out.println("[Main] Connected to server");
 	}
 	
-	public void init() throws Exception{
+	public void initLoggin() throws Exception{
+		
 		startServer();
 
-		JFrame frame = new JFrame("Prototype");
-        LogginPane panel=new LogginPane();
-        frame.getContentPane().add(panel.pane);
-        frame.pack(); 
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true); 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        panel.setFrame(frame);
+        logginView = new LogginPane();
+        mainMeetingPanelView = new MainMeetingPanel();
+        calendarView = new CalendarLayout();
+		
+		this.setTitle("Hei");
+        this.getContentPane().add(logginView.pane);
+        this.pack(); 
+        this.setLocationRelativeTo(null);
+        this.setVisible(true); 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        logginView.setFrame(this);
         
-        Global.respondGUI.add(panel);
+        logginController = new LogginPaneController(logginView, this);
+        
+        Global.respondGUI.add(logginController);
 	}
 	
-
+	public void initCalendar(){
+		this.getContentPane().removeAll();
+		this.getContentPane().add(calendarView);
+		this.pack();
+	}
+	
 	public static void main(String[] args) throws Exception {
-		new MainGUI().init();
+		new MainGUI().initLoggin();
 	}
 }

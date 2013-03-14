@@ -1,4 +1,4 @@
-package layout;
+package com.view;
 
 import javax.swing.JPanel;
 
@@ -25,7 +25,7 @@ import javax.swing.JComboBox;
 
 
 
-public class CalendarLayout extends JPanel implements IServerResponse {
+public class CalendarLayout extends JPanel {
 	private JTextField textField;
 	private CalendarModel model = new CalendarModel();
 	private JTable table;
@@ -264,30 +264,9 @@ public class CalendarLayout extends JPanel implements IServerResponse {
 			meetingFrame.pack();
 			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 			meetingFrame.setVisible(true);
-			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			
-			meetingPanel.setFrame(meetingFrame);
-			
+			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);			
 		}
 		
-	}
-
-	@Override
-	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		if(!success)
-			return false;
-		
-		/* Action was  */
-		if(al == null){
-			
-		}
-		
-		return false;	
-	}
-
-	@Override
-	public void setFrame(JFrame frame) {
-		this.calendarFrame = frame;
 	}
 		
 }

@@ -1,4 +1,4 @@
-package layout;
+package com.controller;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;

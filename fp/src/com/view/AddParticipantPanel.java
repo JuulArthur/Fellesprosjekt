@@ -1,22 +1,22 @@
-package layout;
+package com.view;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+
+import com.controller.IServerResponse;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class AddParticipantPanel extends JPanel implements IServerResponse{
+public class AddParticipantPanel extends JPanel {
 
 	private JFrame participantFrame;
 	
@@ -104,17 +104,6 @@ public class AddParticipantPanel extends JPanel implements IServerResponse{
 		public void actionPerformed(ActionEvent e) {
 			participantFrame.dispose();		
 		}	
-	}
-
-	@Override
-	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setFrame(JFrame frame) {
-		this.participantFrame = frame;
 	}	
 }
 	

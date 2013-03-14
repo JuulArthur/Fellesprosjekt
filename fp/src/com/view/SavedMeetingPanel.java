@@ -1,4 +1,4 @@
-package layout;
+package com.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -17,7 +17,9 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-public class SavedMeetingPanel extends MainMeetingPanel implements IServerResponse {
+import com.controller.IServerResponse;
+
+public class SavedMeetingPanel extends MainMeetingPanel {
 
 	private JButton btnSendNotice;
 	private JButton btnEdit;
@@ -137,20 +139,9 @@ public class SavedMeetingPanel extends MainMeetingPanel implements IServerRespon
 			meetingFrame.pack();
 			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 			meetingFrame.setVisible(true);
-			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			meetingPanel.setFrame(meetingFrame);
-		
+			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
 		}
 	}
 
-	@Override
-	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void setFrame(JFrame frame) {
-		this.savedMeeting = frame;
-	}
 	
 }

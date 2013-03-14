@@ -1,4 +1,4 @@
-package layout;
+package com.view;
 
 import javax.swing.JDialog;
 import javax.swing.JList;
@@ -150,7 +150,7 @@ public class CalendarJDialog extends JDialog {
 	
 	class CalendarModel extends AbstractTableModel {
 
-		private String [] days = { "Søn", "Man", "Tir", "Ons", "Tor", "Fri", "Lør" };
+		private String [] days = { "Sï¿½n", "Man", "Tir", "Ons", "Tor", "Fri", "Lï¿½r" };
 		
 		private int [] daysInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 		

@@ -1,4 +1,4 @@
-package layout;
+package com.view;
 
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class LogginPane extends JPanel implements IServerResponse {
+public class LogginPane extends JPanel {
 	public JPanel pane;
 	private JTextField usernameField;
 	private JLabel usernameLabel;
@@ -75,7 +75,6 @@ public class LogginPane extends JPanel implements IServerResponse {
 		gbc_passwordField.gridy = 2;
 		pane.add(passwordField, gbc_passwordField);
 		loggin = new JButton("Logg in");
-		loggin.addActionListener(new LoginButtonListener());
 		GridBagConstraints gbc_loggin = new GridBagConstraints();
 		gbc_loggin.anchor = GridBagConstraints.NORTHWEST;
 		gbc_loggin.insets = new Insets(0, 0, 5, 5);
@@ -84,60 +83,45 @@ public class LogginPane extends JPanel implements IServerResponse {
 		pane.add(loggin, gbc_loggin);
 	}
 
-
-	class LoginButtonListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String username = usernameField.getText();
-			String password = passwordField.getText();
-			
-			if(!(username.length() == 0 || password.length() == 0)){
-				UserModel ums = new UserModel();
-				ums.setPassword(password);
-				ums.setUsername(username);
-				
-				ArrayList<Object> alist = new ArrayList<Object>();
-				alist.add(ums);
-				
-				Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
-				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGIN, alist));
-			}
-		}
-		
+	
+	public void addLogginButtonListener(ActionListener a){
+		loggin.addActionListener(a);
 	}
 
 
-	@Override
-	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		if(al.get(0) instanceof UserModel){
-			loginFrame.dispose();
-			CalendarLayout calendarlayout = new CalendarLayout();
-			JFrame frame = new JFrame("Kalender");
-			frame.getContentPane().add(calendarlayout);
-			frame.pack();
-			frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			frame.setVisible(true);
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			
-			Global.respondGUI.add(calendarlayout);
-		}
-		return false;
+	public JTextField getUsernameField() {
+		return usernameField;
 	}
 
 
-	@Override
+	public void setUsernameField(JTextField usernameField) {
+		this.usernameField = usernameField;
+	}
+
+
+	public JTextField getPasswordField() {
+		return passwordField;
+	}
+
+
+	public void setPasswordField(JTextField passwordField) {
+		this.passwordField = passwordField;
+	}
+
+
+	//@Override
 	public void setFrame(JFrame frame) {
 		this.loginFrame = frame;
 	}
 	
-/*	public static void main (String args[]) {
+	public static void main (String args[]) {
         JFrame frame = new JFrame("Prototype");
         LogginPane panel=new LogginPane();
         frame.getContentPane().add(panel.pane);
         frame.pack(); 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);  
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    }
-*/	
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
+     }
+
 }

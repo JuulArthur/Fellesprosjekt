@@ -1,4 +1,4 @@
-package layout;
+package com.view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,7 +21,9 @@ import java.util.ArrayList;
 
 import javax.swing.JList;
 
-public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
+import com.controller.IServerResponse;
+
+public class MeetingPanel extends MainMeetingPanel {
 	private JLabel lblKalender;
 	private JLabel lblDeltagere;
 	private JButton btnSlett;
@@ -207,7 +209,6 @@ public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 			savedMeetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 			savedMeetingFrame.setVisible(true);
 			savedMeetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			savedMeetingPanel.setFrame(savedMeetingFrame);
 		}
 		
 	}
@@ -240,9 +241,7 @@ public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 			participantFrame.pack();
 			participantFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 			participantFrame.setVisible(true);
-			participantFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			participantPanel.setFrame(participantFrame);
-			
+			participantFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);			
 		}
 	}
 	class backAction implements ActionListener {
@@ -254,18 +253,4 @@ public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 
 			
 		}
-
-	@Override
-	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setFrame(JFrame frame) {
-			this.meetingFrame = frame;	
-	}
-		
-	
-
 }
