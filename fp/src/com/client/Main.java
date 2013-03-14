@@ -1,7 +1,6 @@
 package com.client;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 

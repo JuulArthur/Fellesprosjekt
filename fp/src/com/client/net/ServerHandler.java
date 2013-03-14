@@ -69,7 +69,7 @@ public class ServerHandler extends ServiceHandler {
 						
 						System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
 												
-						propagateResponseToGUI(msgW.getObjects());
+						propagateResponseToGUI(true, msgW.getObjects());
 						
 						break;
 					case LOGOUT:
@@ -132,7 +132,7 @@ public class ServerHandler extends ServiceHandler {
 						// if msgW.getObjects.get(0) contains something, return it. the context will fix casting
 						
 						
-						propagateResponseToGUI(msgW.getObjects());
+						propagateResponseToGUI(true, msgW.getObjects());
 
 						if(subject != null){							
 							//WHAT WE DID HAS BEEN ACCEPTED
@@ -180,10 +180,10 @@ public class ServerHandler extends ServiceHandler {
 	 * if true
 	 * 	propagate
 	 */
-	public void propagateResponseToGUI(ArrayList<Object> o){
+	private void propagateResponseToGUI(boolean success, ArrayList<Object> o){
 		if(Global.respondGUI != null) //Remove when we are done with CLI client
 		for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
-			boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(o);
+			boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(success, o);
 			
 			if(!propagate)
 				break;

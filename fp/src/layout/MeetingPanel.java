@@ -41,7 +41,7 @@ public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0};
 
 		/* 
-		 * TODO: Se på Kalenderknappene
+		 * TODO: Se pï¿½ Kalenderknappene
 		 */
 		
 		btnopenStartCalendar = new JButton("\u00C5pne kalender");
@@ -160,8 +160,8 @@ public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 		textField.setText(day + " Klokken: " + clockTime);
 	}
 /*
- * Oppretter en instans av CalendarJDialog, og legger til en knapp du kan trykke på når du er ferdig.
- * Når du trykker den knappen vil riktig textfield bli oppdatert.
+ * Oppretter en instans av CalendarJDialog, og legger til en knapp du kan trykke pï¿½ nï¿½r du er ferdig.
+ * Nï¿½r du trykker den knappen vil riktig textfield bli oppdatert.
  */
 	
 	
@@ -256,7 +256,7 @@ public class MeetingPanel extends MainMeetingPanel implements IServerResponse {
 		}
 
 	@Override
-	public boolean recievedObjectRespone(ArrayList<Object> al) {
+	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
 		return false;
 	}

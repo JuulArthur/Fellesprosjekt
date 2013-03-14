@@ -1,5 +1,6 @@
 package com.model;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,6 +10,14 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalendarModel extends AbstractTableModel {
+	
+	public final static String ID_PROPERTY = "Id";
+	public final static String APPOINTMENTS_PROPERTY = "Appointments";
+	public final static String OWNER_PROPERTY = "Owner";
+	public final static String NAME_PROPERTY = "Name";
+	public final static String CALENDAR_PROPERTY = "Calendar";
+	
+	private PropertyChangeSupport changeSupport;
 
 	@XmlElement(name = "id")
 	private int id;
@@ -54,7 +63,9 @@ public class CalendarModel extends AbstractTableModel {
 	}
 
 	public void setAppointments(ArrayList<AppointmentModel> appointments) {
+		ArrayList<AppointmentModel> oldValue = this.appointments;
 		this.appointments = appointments;
+		changeSupport.firePropertyChange(APPOINTMENTS_PROPERTY, oldValue, appointments);
 	}
 
 	public void addAppointment(AppointmentModel appointment) {
@@ -72,7 +83,9 @@ public class CalendarModel extends AbstractTableModel {
 	}
 
 	public void setOwner(String owner) {
+		String oldValue = this.owner;
 		this.owner = owner;
+		changeSupport.firePropertyChange(OWNER_PROPERTY, oldValue, owner);
 	}
 
 	public String[][] getCalendar() {
@@ -80,7 +93,9 @@ public class CalendarModel extends AbstractTableModel {
 	}
 
 	public void setCalendar(String[][] calendar) {
+		String[][] oldValue = this.calendar;
 		this.calendar = calendar;
+		changeSupport.firePropertyChange(CALENDAR_PROPERTY, oldValue, calendar);
 	}
 
 	public int getId() {
@@ -88,7 +103,9 @@ public class CalendarModel extends AbstractTableModel {
 	}
 
 	public void setId(int id) {
+		int oldValue = this.id;
 		this.id = id;
+		changeSupport.firePropertyChange(ID_PROPERTY, oldValue, id);
 	}
 
 	public String getName() {
@@ -96,7 +113,9 @@ public class CalendarModel extends AbstractTableModel {
 	}
 
 	public void setName(String name) {
+		String oldValue = this.name;
 		this.name = name;
+		changeSupport.firePropertyChange(NAME_PROPERTY, oldValue, name);
 	}
 
 	@Override

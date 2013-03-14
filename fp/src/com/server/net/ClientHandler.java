@@ -242,10 +242,8 @@ public class ClientHandler  extends ServiceHandler {
 							factory.updateAlarmModel((AlarmModel)msgW.getObjects().get(0));
 							break;
 			
-						case CALENDAR:	
-							//TODO
-							//factory.updateCalendarModel(id, name, appointments, owner, followers)
-							
+						case CALENDAR: //CalendarModel
+							factory.updateCalendarModel((CalendarModel)msgW.getObjects().get(0));
 							break;
 							
 						case APPOINTMENT: //AppointmentModel

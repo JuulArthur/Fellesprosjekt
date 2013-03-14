@@ -144,7 +144,7 @@ public class SavedMeetingPanel extends MainMeetingPanel implements IServerRespon
 	}
 
 	@Override
-	public boolean recievedObjectRespone(ArrayList<Object> al) {
+	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
 		return false;
 	}

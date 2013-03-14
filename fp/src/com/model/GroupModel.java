@@ -1,5 +1,6 @@
 package com.model;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.*;
@@ -7,6 +8,12 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GroupModel {
+	public final static String ID_PROPERTY = "Id";
+	public final static String NAME_PROPERTY = "Name";
+	public final static String MEMBERS_PROPERTY = "Members";
+	
+	private PropertyChangeSupport changeSupport;
+	
 
 	@XmlElement(name = "id")
 	private int id;
@@ -30,7 +37,9 @@ public class GroupModel {
 	}
 
 	public void setId(int id) {
+		int oldValue = this.id;
 		this.id = id;
+		changeSupport.firePropertyChange(ID_PROPERTY, oldValue, id);
 	}
 
 	public String getName() {
@@ -38,7 +47,9 @@ public class GroupModel {
 	}
 
 	public void setName(String name) {
+		String oldValue = this.name;
 		this.name = name;
+		changeSupport.firePropertyChange(NAME_PROPERTY, oldValue, name);
 	}
 
 	public ArrayList<UserModel> getMembers() {
@@ -46,7 +57,9 @@ public class GroupModel {
 	}
 
 	public void setMembers(ArrayList<UserModel> members) {
+		ArrayList<UserModel> oldValue = this.members;
 		this.members = members;
+		changeSupport.firePropertyChange(MEMBERS_PROPERTY, oldValue, members);
 	}
 
 	public void addMember(UserModel member) {

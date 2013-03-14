@@ -2,13 +2,11 @@ package com.xml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.transform.stream.StreamSource;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
@@ -21,7 +19,6 @@ import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.msg.MSGWrapper;
-import com.settings.Global;
 /**
  * XML creator for the models
  * @author perok
