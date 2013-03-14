@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RoomModel {
 
+	//fjerne romnummer og gjoere romnavn til primary key i databasen
 	@XmlElement(name="roomnumber")
 	private int roomNumber;
 	@XmlElement(name="roomname")
