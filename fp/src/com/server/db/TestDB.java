@@ -233,10 +233,7 @@ public class TestDB {
 	
 	public void testGetGroup(int id) throws SQLException, ClassNotFoundException{
 		Factory f = new Factory();
-		
-		
-		
-		ArrayList<UserModel> member = new ArrayList<UserModel>(2);
+		ArrayList<UserModel> member = new ArrayList<UserModel>();
 		UserModel user = f.getUserModel("jarudiha");
 		UserModel usere =f.getUserModel("perok");
 		member.add(user);
@@ -255,6 +252,12 @@ public class TestDB {
 		f.addMemberOf(gm);
 	}
 	
+	public void testDeleteGroup(int id) throws SQLException, ClassNotFoundException{
+		Factory f= new Factory();
+		f.deleteGroupModel(id);
+		f.getGroupModel(id);
+	}
+	
 	public void testCreategroupp() throws SQLException, ClassNotFoundException{
 		Factory f = new Factory();
 		GroupModel gm = new GroupModel(11, "community", null);
@@ -269,7 +272,13 @@ public class TestDB {
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
 
 		try{
-			t.testGetGroup(0112);
+			t.testDeleteGroup(12);
+
+
+
+
+
+
 //		}
 //		catch(FileNotFoundException e){
 //			e.getStackTrace();

@@ -888,9 +888,16 @@ public class Factory {
 				.format("insert into groupp " + "(id, name) values "
 						+ "(%d, '%s')", gm.getId(), gm.getName());
 		updateDatabase(query);
+		addMemberOf(gm);
 		return gm;
 	}
 
+	public void deleteGroupModel(int id) throws SQLException, ClassNotFoundException{
+			String query = String.format("DELETE from groupp WHERE id=%d",
+					id);
+			updateDatabase(query);
+	}
+	
 	public void UpdateGroupModel(GroupModel gm) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format("UPDATE Groupp "

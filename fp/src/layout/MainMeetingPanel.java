@@ -174,11 +174,7 @@ public class MainMeetingPanel extends JPanel {
 		add(beskrivelseTextArea, gbc_beskrivelseTextArea);
 
 	}
-	
-	public void setFrame (JFrame frame) {
-		this.meetingFrame = frame;
-	}
-	
+		
 	class returnAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			meetingFrame.dispose();

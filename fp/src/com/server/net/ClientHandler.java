@@ -149,9 +149,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case CALENDAR:
-							//TODO
-							//CalendarModel cm = factory.getC
-							
+							al.add(factory.getCalendarModel((Integer)msgW.getObjects().get(0)));			
 							break;
 							
 						case APPOINTMENT: //int appointmentid
@@ -162,7 +160,7 @@ public class ClientHandler  extends ServiceHandler {
 							al.add(factory.getGroupModel((Integer)msgW.getObjects().get(0)));	
 							break;
 							
-						case NOTIFICATION: //NotificationModel nm
+						case NOTIFICATION: //NotificationModel nm //TODO Deprecated
 							al.add(factory.getNotificationModel((NotificationModel)msgW.getObjects().get(0)));
 							break;
 							
@@ -244,8 +242,9 @@ public class ClientHandler  extends ServiceHandler {
 							factory.updateAlarmModel((AlarmModel)msgW.getObjects().get(0));
 							break;
 			
-						case CALENDAR:			
+						case CALENDAR:	
 							//TODO
+							//factory.updateCalendarModel(id, name, appointments, owner, followers)
 							break;
 							
 						case APPOINTMENT: //AppointmentModel
@@ -290,7 +289,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 			
 						case CALENDAR:	
-							//TODO
+							factory.deleteCalendarModel((Integer)msgW.getObjects().get(0));
 							break;
 							
 						case APPOINTMENT: //int aid
@@ -300,7 +299,6 @@ public class ClientHandler  extends ServiceHandler {
 						case GROUP:
 							//TODO
 							//factory.
-							
 							break;
 							
 						case NOTIFICATION: //STRING username, INTEGER AppointmentID

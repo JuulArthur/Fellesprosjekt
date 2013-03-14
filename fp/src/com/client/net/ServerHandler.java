@@ -69,6 +69,20 @@ public class ServerHandler extends ServiceHandler {
 						
 						System.out.println("User: " + userModel.getName() + " " + userModel.getSurname() + " is logged in.");
 						
+						System.out.println(userModel);
+						
+						/**
+						 * Propagating reponses
+						 * if true
+						 * 	propagate
+						 */
+						for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
+							boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(msgW.getObjects());
+							
+							if(!propagate)
+								break;
+						}
+						
 						break;
 					case LOGOUT:
 						disconnect();
@@ -128,6 +142,7 @@ public class ServerHandler extends ServiceHandler {
 						System.out.println("[ServerHandeler] onWrapper: ACCEPTED FROM SERVER");
 						//SEND THE ACCEPT BACK TO SERVER
 						// if msgW.getObjects.get(0) contains something, return it. the context will fix casting
+						
 						if(subject != null){							
 							//WHAT WE DID HAS BEEN ACCEPTED
 							//TODO respond to UI

@@ -11,11 +11,13 @@ import javax.swing.WindowConstants;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-public class SavedMeetingPanel extends MainMeetingPanel {
+public class SavedMeetingPanel extends MainMeetingPanel implements IServerResponse {
 
 	private JButton btnSendNotice;
 	private JButton btnEdit;
@@ -25,7 +27,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JScrollPane scrollPane_1;
 	private JList list;
 	private JList list_1;
-	
+	private JFrame savedMeeting;
 	
 	public SavedMeetingPanel () {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -137,9 +139,18 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 			meetingFrame.setVisible(true);
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			meetingPanel.setFrame(meetingFrame);
-
-			
+		
 		}
+	}
+
+	@Override
+	public boolean recievedObjectRespone(ArrayList<Object> al) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setFrame(JFrame frame) {
+		this.savedMeeting = frame;
 	}
 	
 }

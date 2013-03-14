@@ -14,10 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
-public class AddParticipantPanel extends JPanel{
+public class AddParticipantPanel extends JPanel implements IServerResponse{
 
-	private JFrame myFrame;
+	private JFrame participantFrame;
 	
 	public AddParticipantPanel () {
 		/*
@@ -97,16 +98,23 @@ public class AddParticipantPanel extends JPanel{
 		add(btnaddGroup, gbc_btnaddGroup);
 		
 	}
-	
-	public void setMyFrame (JFrame frame) {
-		this.myFrame = frame;
-	}
-	
+
 	class goBackAction implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			myFrame.dispose();		
+			participantFrame.dispose();		
 		}	
+	}
+
+	@Override
+	public boolean recievedObjectRespone(ArrayList<Object> al) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setFrame(JFrame frame) {
+		this.participantFrame = frame;
 	}	
 }
 	
