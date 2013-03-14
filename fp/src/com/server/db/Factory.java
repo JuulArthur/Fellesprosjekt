@@ -42,15 +42,14 @@ public class Factory {
 			throws SQLException, ClassNotFoundException {
 		PreparedStatement ps;
 		if (appointments == null)
-			appointments = new ArrayList<AppointmentModel>() {
-			};
+			appointments = new ArrayList<AppointmentModel>();
 		CalendarModel cm = new CalendarModel(id, name, appointments, owner);
 		String query = String.format("insert into Calendar "
 				+ "(id, name) values ('%s', '%s')", id, name);
 		updateDatabase(query);
 		query = String.format("insert into Follows "
 				+ "(isOwner, username, calendarid) values ('%s', '%s', '%s')",
-				1, owner ,id);
+				1, owner, id);
 		updateDatabase(query);
 		if (appointments.size() > 0) {
 			db.initialize();
@@ -66,6 +65,47 @@ public class Factory {
 			db.close();
 		}
 		return cm;
+	}
+	
+	public void updateCalendarModel(CalendarModel cm) throws SQLException, ClassNotFoundException {
+		updateCalendarModel(cm.getId(), cm.getName(), cm.getAppointments(), cm.getOwner());
+	}
+
+	public void updateCalendarModel(int id, String name,
+			ArrayList<AppointmentModel> appointments, String owner)
+			throws SQLException, ClassNotFoundException {
+		PreparedStatement ps;
+		String query = String.format(
+				"update calendar set name='%s' where id = '%d'", name, id);
+		updateDatabase(query);
+
+		query = String
+				.format("delete from follows where isOwner = 1 and calendarid = '%d' and username <> '%s'",
+						id, owner);
+		updateDatabase(query);
+
+		query = String
+				.format("insert into follows (isOwner, username, calendarid) values ('%s', '%s', '%s')",
+						1, owner, id);
+		updateDatabase(query);
+
+		if (appointments.size() > 0) {
+			query = String.format(
+					"delete from belongto where calendarid = '%d'", id);
+			updateDatabase(query);
+			db.initialize();
+			ps = db.makeBatchUpdate(String.format("insert into BelongTo "
+					+ "(appointmentid, calendarid) values (?, '%s')", name));
+			for (int i = 0; i < appointments.size(); i++) {
+				ps.setInt(1, appointments.get(i).getId());
+				ps.addBatch();
+			}
+			System.out.println(ps.toString());
+			ps.executeBatch();
+			ps.close();
+			db.close();
+		}
+
 	}
 
 	public CalendarModel getCalendarModel(int idIn) throws SQLException,
@@ -102,12 +142,6 @@ public class Factory {
 
 		return cm;
 
-	}
-
-	public void updateCalendarModel(int id, String name,
-			ArrayList<AppointmentModel> appointments, UserModel owner,
-			ArrayList<UserModel> followers) {
-		String query = String.format("update calendar set ");
 	}
 
 	public void deleteCalendarModel(CalendarModel cm) throws SQLException,
