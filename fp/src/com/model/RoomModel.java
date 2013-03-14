@@ -15,6 +15,7 @@ public class RoomModel {
 	
 	private PropertyChangeSupport changeSupport;
 
+	//fjerne romnummer og gjoere romnavn til primary key i databasen
 	@XmlElement(name="roomnumber")
 	private int roomNumber;
 	@XmlElement(name="roomname")
