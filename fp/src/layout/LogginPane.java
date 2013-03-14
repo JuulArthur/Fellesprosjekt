@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class LogginPane extends JPanel {
+public class LogginPane extends JPanel implements IServerResponse {
 	public JPanel pane;
 	private JTextField usernameField;
 	private JLabel usernameLabel;
@@ -103,6 +103,25 @@ public class LogginPane extends JPanel {
 			}
 		}
 		
+	}
+
+
+	@Override
+	public void recievedObjectRespone(ArrayList<Object> al) {
+		if(al.get(0) instanceof UserModel){
+			CalendarLayout calendarlayout = new CalendarLayout();
+			JFrame frame = new JFrame("Kalender");
+			frame.getContentPane().add(calendarlayout);
+			frame.pack();
+			frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			
+			
+			
+			
+			Global.respondGUI = calendarlayout;
+		}
 	}
 	
 /*	public static void main (String args[]) {
