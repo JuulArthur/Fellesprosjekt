@@ -251,6 +251,7 @@ public class CalendarLayout extends JPanel implements IServerResponse {
 		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
 	}
 
 	class NewMeetingAction implements ActionListener{
@@ -266,13 +267,17 @@ public class CalendarLayout extends JPanel implements IServerResponse {
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			
 			meetingPanel.setFrame(meetingFrame);
+			
 		}
 		
 	}
 
 	@Override
-	public void recievedObjectRespone(ArrayList<Object> al) {
+	public boolean recievedObjectRespone(ArrayList<Object> al) {
 		// TODO Auto-generated method stub
+		
+		return false;
+
 		
 	}
 		

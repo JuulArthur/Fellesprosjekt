@@ -71,7 +71,17 @@ public class ServerHandler extends ServiceHandler {
 						
 						System.out.println(userModel);
 						
-						Global.respondGUI.recievedObjectRespone(msgW.getObjects());
+						/**
+						 * Propagating reponses
+						 * if true
+						 * 	propagate
+						 */
+						for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
+							boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(msgW.getObjects());
+							
+							if(!propagate)
+								break;
+						}
 						
 						break;
 					case LOGOUT:

@@ -1,5 +1,7 @@
 package com.settings;
 
+import java.util.ArrayList;
+
 import layout.IServerResponse;
 
 import com.client.net.ServerHandler;
@@ -9,5 +11,5 @@ public class Global {
 	public static final boolean verbose = true;
 	public static ServerHandler sHandler;
 	public static JAXBMarshaller jaxbMarshaller;
-	public static IServerResponse respondGUI;
+	public static ArrayList<IServerResponse> respondGUI;
 }

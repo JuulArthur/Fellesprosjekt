@@ -107,7 +107,7 @@ public class LogginPane extends JPanel implements IServerResponse {
 
 
 	@Override
-	public void recievedObjectRespone(ArrayList<Object> al) {
+	public boolean recievedObjectRespone(ArrayList<Object> al) {
 		if(al.get(0) instanceof UserModel){
 			CalendarLayout calendarlayout = new CalendarLayout();
 			JFrame frame = new JFrame("Kalender");
@@ -117,11 +117,9 @@ public class LogginPane extends JPanel implements IServerResponse {
 			frame.setVisible(true);
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			
-			
-			
-			
-			Global.respondGUI = calendarlayout;
+			Global.respondGUI.add(calendarlayout);
 		}
+		return false;
 	}
 	
 /*	public static void main (String args[]) {

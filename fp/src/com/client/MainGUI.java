@@ -1,8 +1,11 @@
 package com.client;
 
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
+import layout.IServerResponse;
 import layout.LogginPane;
 
 import com.client.net.ServerHandler;
@@ -29,7 +32,8 @@ public class MainGUI {
         frame.setVisible(true);  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
-        Global.respondGUI = panel;
+        Global.respondGUI = new ArrayList<IServerResponse>();
+        Global.respondGUI.add(panel);
         
 	}
 	
