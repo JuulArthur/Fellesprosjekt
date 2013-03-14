@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -24,7 +25,7 @@ import javax.swing.JComboBox;
 
 
 
-public class CalendarLayout extends JPanel {
+public class CalendarLayout extends JPanel implements IServerResponse {
 	private JTextField textField;
 	private CalendarModel model = new CalendarModel();
 	private JTable table;
@@ -250,6 +251,7 @@ public class CalendarLayout extends JPanel {
 		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
 	}
 
 	class NewMeetingAction implements ActionListener{
@@ -257,7 +259,7 @@ public class CalendarLayout extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MeetingPanel meetingPanel = new MeetingPanel();
-			JFrame meetingFrame = new JFrame("Avtale/M¿te");
+			JFrame meetingFrame = new JFrame("Avtale/MÃ¸te");
 			meetingFrame.getContentPane().add(meetingPanel);
 			meetingFrame.pack();
 			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
@@ -265,7 +267,17 @@ public class CalendarLayout extends JPanel {
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			
 			meetingPanel.setFrame(meetingFrame);
+			
 		}
+		
+	}
+
+	@Override
+	public boolean recievedObjectRespone(ArrayList<Object> al) {
+		// TODO Auto-generated method stub
+		
+		return false;
+
 		
 	}
 		
