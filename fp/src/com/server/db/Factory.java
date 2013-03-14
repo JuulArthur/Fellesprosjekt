@@ -107,6 +107,10 @@ public class Factory {
 		}
 
 	}
+	
+	public CalendarModel getCalendarModel(CalendarModel cm) throws SQLException, ClassNotFoundException {
+		return getCalendarModel(cm.getId());
+	}
 
 	public CalendarModel getCalendarModel(int idIn) throws SQLException,
 			ClassNotFoundException {
@@ -115,7 +119,8 @@ public class Factory {
 		ResultSet rs = db.makeSingleQuery(query);
 		int id = -1;
 		String name = null;
-		UserModel owner = null;
+		String owner = null;
+		ArrayList<AppointmentModel> appointments = new ArrayList<AppointmentModel>();
 		while (rs.next()) {
 			id = rs.getInt(1);
 			name = rs.getString(2);
@@ -126,17 +131,16 @@ public class Factory {
 						idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
-			owner = getUserModel(rs.getString(1));
+			owner = rs.getString(1);
+		}
+		
+		query = String.format("select appointmentid from belongto where calendarid = '%d'", id);
+		rs = db.makeSingleQuery(query);
+		while(rs.next()) {
+			appointments.add(getAppointmentModel(rs.getInt(1)));
 		}
 
-		/*
-		 * to do:
-		 * 
-		 * - get all followers, and put them in arraylist - get all
-		 * appointments, and put them in arralist
-		 */
-
-		CalendarModel cm = new CalendarModel();
+		CalendarModel cm = new CalendarModel(id, name, appointments, owner);
 		rs.close();
 		db.close();
 
