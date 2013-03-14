@@ -121,7 +121,16 @@ public class Factory {
 
 	}
 	
-	//TODO UPDATE & DELETE CALENDAR
+	//TODO UPDATE & CALENDAR
+	
+	public void deleteCalendarModel(CalendarModel cm) throws SQLException, ClassNotFoundException {
+		deleteCalendarModel(cm.getId());
+	}
+	
+	public void deleteCalendarModel(int id) throws SQLException, ClassNotFoundException {
+		String query = String.format("delete from calendar where id = '%d'", id);
+		updateDatabase(query);
+	}
 	
 	public ResultSet makeQuery(String query) throws SQLException, ClassNotFoundException{
 		db.initialize();
