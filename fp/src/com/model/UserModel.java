@@ -20,6 +20,7 @@ public class UserModel {
 	public final static String MYCALENDARS_PROPERTY = "MyCalendars";
 	public final static String SUBSCRIBEDCALENDARS_PROPERTY = "SubscribedCalendars";
 	
+	@XmlTransient
 	PropertyChangeSupport changeSupport;
 	
 	@XmlElement(name="username")
@@ -47,11 +48,14 @@ public class UserModel {
 	
 	/* JAXB */
 	public UserModel(){
-		
+		changeSupport = new PropertyChangeSupport(this);
 	}
 	
 	public UserModel(String username, String password, String email,
 			String name, String surname, String phoneNumber, int isAdmin) {
+		
+		changeSupport = new PropertyChangeSupport(this);
+		
 		this.username = username;
 		this.password = password;
 		this.email = email;

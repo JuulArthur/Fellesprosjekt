@@ -121,6 +121,7 @@ public class ServerHandler extends ServiceHandler {
 					switch (currentVerbFlag) {
 					case LOGOUT:
 						//We can now terminate
+						System.out.println("[ServerHandeler] onWrapper: ACCEPTED LOGOUT FROM SERVER");
 						disconnect();
 						break;
 						

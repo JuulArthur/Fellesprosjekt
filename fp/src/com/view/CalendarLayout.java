@@ -9,18 +9,16 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import com.model.*;
+
 import javax.swing.JComboBox;
 
 
@@ -31,6 +29,9 @@ public class CalendarLayout extends JPanel {
 	private JTable table;
 	private String[] time = {"07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
 	private JFrame calendarFrame;
+	private JButton btnLoggUt;
+
+	private JButton btnLeggTilAvtale;
 	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
@@ -42,13 +43,12 @@ public class CalendarLayout extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton btnLeggTilAvtale = new JButton("Legg til avtale");
+		btnLeggTilAvtale = new JButton("Legg til avtale");
 		GridBagConstraints gbc_btnLeggTilAvtale = new GridBagConstraints();
 		gbc_btnLeggTilAvtale.anchor = GridBagConstraints.WEST;
 		gbc_btnLeggTilAvtale.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLeggTilAvtale.gridx = 0;
 		gbc_btnLeggTilAvtale.gridy = 1;
-		btnLeggTilAvtale.addActionListener(new NewMeetingAction());
 		add(btnLeggTilAvtale, gbc_btnLeggTilAvtale);
 		
 		
@@ -76,7 +76,7 @@ public class CalendarLayout extends JPanel {
 		gbc_button_1.gridy = 1;
 		add(button_1, gbc_button_1);
 		
-		JButton btnLoggUt = new JButton("logg ut");
+		btnLoggUt = new JButton("logg ut");
 		GridBagConstraints gbc_btnLoggUt = new GridBagConstraints();
 		gbc_btnLoggUt.anchor = GridBagConstraints.WEST;
 		gbc_btnLoggUt.insets = new Insets(0, 0, 5, 5);
@@ -253,20 +253,30 @@ public class CalendarLayout extends JPanel {
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 	}
-
-	class NewMeetingAction implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			MeetingPanel meetingPanel = new MeetingPanel();
-			JFrame meetingFrame = new JFrame("Avtale/Møte");
-			meetingFrame.getContentPane().add(meetingPanel);
-			meetingFrame.pack();
-			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			meetingFrame.setVisible(true);
-			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);			
-		}
-		
+	
+	public void addButtonMeetingAddListener(ActionListener al){
+		btnLeggTilAvtale.addActionListener(al);
 	}
-		
+	
+	public void addButtonLogoutAddListener(ActionListener al){
+		btnLoggUt.addActionListener(al);
+	}
+
+	public JButton getBtnLeggTilAvtale() {
+		return btnLeggTilAvtale;
+	}
+
+	public void setBtnLeggTilAvtale(JButton btnLeggTilAvtale) {
+		this.btnLeggTilAvtale = btnLeggTilAvtale;
+	}
+	
+	public JButton getBtnLoggUt() {
+		return btnLoggUt;
+	}
+
+	public void setBtnLoggUt(JButton btnLoggUt) {
+		this.btnLoggUt = btnLoggUt;
+	}
+	
+	
 }

@@ -11,8 +11,10 @@ import com.view.LogginPane;
 import com.view.MainMeetingPanel;
 
 import com.client.net.ServerHandler;
+import com.controller.CalendarController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.model.UserModel;
 import com.settings.Global;
 import com.xml.JAXBMarshaller;
 
@@ -20,11 +22,13 @@ public class MainGUI extends JFrame{
 	
 	LogginPane logginView;
 	LogginPaneController logginController;
+	CalendarController calendarController;
 	
-	private MainMeetingPanel mainMeetingPanelView;
 	private CalendarLayout calendarView;
 	
 	CalendarJDialog calendarJDialogView;
+	
+	private UserModel userModel;
 	
 	public void startServer() throws Exception{
 		Global.sHandler = new ServerHandler("localhost", 8078 ); //mel.is
@@ -39,7 +43,6 @@ public class MainGUI extends JFrame{
 		startServer();
 
         logginView = new LogginPane();
-        mainMeetingPanelView = new MainMeetingPanel();
         calendarView = new CalendarLayout();
 		
 		this.setTitle("Hei");
@@ -48,9 +51,8 @@ public class MainGUI extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        logginView.setFrame(this);
-        
-        logginController = new LogginPaneController(logginView, this);
+               
+        logginController = new LogginPaneController(logginView, userModel, this);
         
         Global.respondGUI.add(logginController);
 	}
@@ -59,6 +61,10 @@ public class MainGUI extends JFrame{
 		this.getContentPane().removeAll();
 		this.getContentPane().add(calendarView);
 		this.pack();
+		
+		calendarController = new CalendarController(this, calendarView);
+		
+		
 	}
 	
 	public static void main(String[] args) throws Exception {

@@ -15,12 +15,13 @@ import com.view.LogginPane;
 
 public class LogginPaneController  implements ActionListener, IServerResponse{
 	
-	MainGUI gui;
-	
+	private MainGUI gui;
+	private UserModel userModel;
 	private LogginPane l_liew;
 	
-	public LogginPaneController(LogginPane l_view, MainGUI gui){
+	public LogginPaneController(LogginPane l_view, UserModel userModel, MainGUI gui){
 		this.gui = gui;
+		this.userModel = userModel;
 		this.l_liew = l_view;
 		this.l_liew.addLogginButtonListener(this);
 	}
@@ -41,36 +42,19 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 				
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGIN, alist));
-			}
-		
-		
+			}		
 	}
 
 
 		@Override
 		public boolean recievedObjectRespone(boolean success,
-				ArrayList<Object> al) {				/*
-			//loginFrame.dispose();
-			CalendarLayout calendarlayout = new CalendarLayout();
-			JFrame frame = new JFrame("Kalender");
-			frame.getContentPane().add(calendarlayout);
-			frame.pack();
-			frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			frame.setVisible(true);
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			*/
+				ArrayList<Object> al) {				
+
 			if(al.get(0) instanceof UserModel){
-				//Fill up the UserModel model
+				this.userModel = (UserModel)al.get(0);
 				gui.initCalendar();
-				//Global.respondGUI.add(calendarlayout);
+				Global.respondGUI.remove(this);
 			}
 			return false;
-		}
-
-
-		@Override
-		public void setFrame(JFrame frame) {
-			// TODO Auto-generated method stub
-			
 		}
 }

@@ -107,12 +107,6 @@ public class LogginPane extends JPanel {
 	public void setPasswordField(JTextField passwordField) {
 		this.passwordField = passwordField;
 	}
-
-
-	//@Override
-	public void setFrame(JFrame frame) {
-		this.loginFrame = frame;
-	}
 	
 	public static void main (String args[]) {
         JFrame frame = new JFrame("Prototype");
