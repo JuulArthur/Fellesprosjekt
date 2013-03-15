@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import com.model.*;
 
 import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
 
 
 
@@ -30,6 +31,7 @@ public class CalendarLayout extends JPanel {
 	private String[] time = {"07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
 	private JFrame calendarFrame;
 	private JButton btnLoggUt;
+	private JButton btnManageCalendar;
 
 	private JButton btnLeggTilAvtale;
 	
@@ -200,14 +202,14 @@ public class CalendarLayout extends JPanel {
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JButton button = new JButton("+");
+		JButton btnManageCalendar = new JButton("+");	
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.anchor = GridBagConstraints.WEST;
 		gbc_button.insets = new Insets(0, 0, 5, 5);
-		button.setPreferredSize(new Dimension(22, 20));
+		btnManageCalendar.setPreferredSize(new Dimension(22, 20));
 		gbc_button.gridx = 1;
 		gbc_button.gridy = 6;
-		add(button, gbc_button);
+		add(btnManageCalendar, gbc_button);
 		
 		JList list_1 = new JList();
 		GridBagConstraints gbc_list_1 = new GridBagConstraints();
@@ -254,12 +256,24 @@ public class CalendarLayout extends JPanel {
 		
 	}
 	
+	public void addButtonManageCalendarAddListener(ActionListener al) {
+		btnManageCalendar.addActionListener(al);
+	}
+	
 	public void addButtonMeetingAddListener(ActionListener al){
 		btnLeggTilAvtale.addActionListener(al);
 	}
 	
 	public void addButtonLogoutAddListener(ActionListener al){
 		btnLoggUt.addActionListener(al);
+	}
+
+	public JButton getbtnManageCalendar() {
+		return btnManageCalendar;
+	}
+
+	public void setbtnManageCalendar(JButton btnManageCalendar) {
+		this.btnManageCalendar = btnManageCalendar;
 	}
 
 	public JButton getBtnLeggTilAvtale() {

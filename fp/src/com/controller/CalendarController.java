@@ -12,6 +12,7 @@ import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
 import com.settings.Global;
+import com.view.CalendarJDialog;
 import com.view.CalendarLayout;
 import com.view.MeetingPanel;
 
@@ -27,6 +28,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 		
 		this.calendarView.addButtonMeetingAddListener(this);
 		this.calendarView.addButtonLogoutAddListener(this);
+		this.calendarView.addButtonManageCalendarAddListener(this);
 	}
 
 	@Override
@@ -41,6 +43,13 @@ public class CalendarController implements ActionListener, IServerResponse{
 			meetingFrame.setVisible(true);
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
 		}
+		else if (e.getSource() == calendarView.getbtnManageCalendar()) {
+			CalendarJDialog calendarDialog = new CalendarJDialog();
+			calendarDialog.setVisible(true);
+			calendarDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+		}
+		
+		
 		else if (e.getSource() == calendarView.getBtnLoggUt()){
 			System.out.println("[CalendarControll] actionPerformed: Sent logout");
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGOUT);

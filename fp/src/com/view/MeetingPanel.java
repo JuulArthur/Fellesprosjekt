@@ -185,6 +185,17 @@ public class MeetingPanel extends MainMeetingPanel {
 			}
 		});			
 	}	
+	public static void main(String[] args) {
+		MeetingPanel meetingPanel = new MeetingPanel();
+		JFrame frame = new JFrame("Avtale/Møte");
+		frame.getContentPane().add(meetingPanel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
+	}
+	
 	
 	class chooseRoomAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
