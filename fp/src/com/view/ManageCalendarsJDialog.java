@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class ManageCalendarsJDialog extends JDialog {
+	
 	public ManageCalendarsJDialog() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};

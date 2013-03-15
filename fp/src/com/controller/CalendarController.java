@@ -12,8 +12,9 @@ import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
 import com.settings.Global;
-import com.view.CalendarJDialog;
+import com.view.AddOtherCalendarsJDialog;
 import com.view.CalendarLayout;
+import com.view.ManageCalendarsJDialog;
 import com.view.MeetingPanel;
 
 public class CalendarController implements ActionListener, IServerResponse{
@@ -29,6 +30,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 		this.calendarView.addButtonMeetingAddListener(this);
 		this.calendarView.addButtonLogoutAddListener(this);
 		this.calendarView.addButtonManageCalendarAddListener(this);
+		this.calendarView.addButtonShowOtherCalendarsAddListener(this);
 	}
 
 	@Override
@@ -44,11 +46,15 @@ public class CalendarController implements ActionListener, IServerResponse{
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
 		}
 		else if (e.getSource() == calendarView.getbtnManageCalendar()) {
-			CalendarJDialog calendarDialog = new CalendarJDialog();
-			calendarDialog.setVisible(true);
-			calendarDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+			ManageCalendarsJDialog manageCalendars = new ManageCalendarsJDialog();
+			manageCalendars.setVisible(true);
+			manageCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
 		}
-		
+		else if (e.getSource() == calendarView.getBtnShowOtherCalendars()) {
+			AddOtherCalendarsJDialog  addOtherCalendars = new AddOtherCalendarsJDialog();
+			addOtherCalendars.setVisible(true);
+			addOtherCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+		}
 		
 		else if (e.getSource() == calendarView.getBtnLoggUt()){
 			System.out.println("[CalendarControll] actionPerformed: Sent logout");

@@ -32,7 +32,7 @@ public class CalendarLayout extends JPanel {
 	private JFrame calendarFrame;
 	private JButton btnLoggUt;
 	private JButton btnManageCalendar;
-
+	private JButton btnShowOtherCalendars;
 	private JButton btnLeggTilAvtale;
 	
 	public CalendarLayout() {
@@ -203,13 +203,13 @@ public class CalendarLayout extends JPanel {
 		textField.setColumns(10);
 		
 		JButton btnManageCalendar = new JButton("+");	
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.anchor = GridBagConstraints.WEST;
-		gbc_button.insets = new Insets(0, 0, 5, 5);
+		GridBagConstraints gbc_btnManageCalendar = new GridBagConstraints();
+		gbc_btnManageCalendar.anchor = GridBagConstraints.WEST;
+		gbc_btnManageCalendar.insets = new Insets(0, 0, 5, 5);
 		btnManageCalendar.setPreferredSize(new Dimension(22, 20));
-		gbc_button.gridx = 1;
-		gbc_button.gridy = 6;
-		add(btnManageCalendar, gbc_button);
+		gbc_btnManageCalendar.gridx = 1;
+		gbc_btnManageCalendar.gridy = 6;
+		add(btnManageCalendar, gbc_btnManageCalendar);
 		
 		JList list_1 = new JList();
 		GridBagConstraints gbc_list_1 = new GridBagConstraints();
@@ -226,6 +226,13 @@ public class CalendarLayout extends JPanel {
 		gbc_lblNewLabel_2.gridx = 0;
 		gbc_lblNewLabel_2.gridy = 8;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
+		
+		JButton btnShowOtherCalendars = new JButton("Vis andre kalendere");		
+		GridBagConstraints gbc_btnShowOtherCalendars = new GridBagConstraints();
+		gbc_btnShowOtherCalendars.insets = new Insets(0, 0, 5, 5);
+		gbc_btnShowOtherCalendars.gridx = 0;
+		gbc_btnShowOtherCalendars.gridy = 9;
+		add(btnShowOtherCalendars, gbc_btnShowOtherCalendars);
 		
 		JList list_3 = new JList();
 		GridBagConstraints gbc_list_3 = new GridBagConstraints();
@@ -252,12 +259,24 @@ public class CalendarLayout extends JPanel {
 		btnManageCalendar.addActionListener(al);
 	}
 	
+	public void addButtonShowOtherCalendarsAddListener(ActionListener al) {
+		btnShowOtherCalendars.addActionListener(al);
+	}
+	
 	public void addButtonMeetingAddListener(ActionListener al){
 		btnLeggTilAvtale.addActionListener(al);
 	}
 	
 	public void addButtonLogoutAddListener(ActionListener al){
 		btnLoggUt.addActionListener(al);
+	}
+
+	public JButton getBtnShowOtherCalendars() {
+		return btnShowOtherCalendars;
+	}
+
+	public void setBtnShowOtherCalendars(JButton btnShowOtherCalendars) {
+		this.btnShowOtherCalendars = btnShowOtherCalendars;
 	}
 
 	public JButton getbtnManageCalendar() {
@@ -283,6 +302,4 @@ public class CalendarLayout extends JPanel {
 	public void setBtnLoggUt(JButton btnLoggUt) {
 		this.btnLoggUt = btnLoggUt;
 	}
-	
-	
 }
