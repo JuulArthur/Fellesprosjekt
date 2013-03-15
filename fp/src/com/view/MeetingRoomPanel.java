@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
 public class MeetingRoomPanel extends JPanel {
 
@@ -29,9 +30,9 @@ public class MeetingRoomPanel extends JPanel {
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 62, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 62, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblMterom = new JLabel("M\u00F8terom");
@@ -65,12 +66,42 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_spinner.gridy = 1;
 		add(spinner, gbc_spinner);
 		
+		JLabel lblStart = new JLabel("Start");
+		GridBagConstraints gbc_lblStart = new GridBagConstraints();
+		gbc_lblStart.anchor = GridBagConstraints.WEST;
+		gbc_lblStart.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStart.gridx = 0;
+		gbc_lblStart.gridy = 2;
+		add(lblStart, gbc_lblStart);
+		
+		JSpinner spinner_1 = new JSpinner();
+		GridBagConstraints gbc_spinner_1 = new GridBagConstraints();
+		gbc_spinner_1.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_1.gridx = 2;
+		gbc_spinner_1.gridy = 2;
+		add(spinner_1, gbc_spinner_1);
+		
+		JLabel lblNewLabel = new JLabel("Slutt");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 3;
+		add(lblNewLabel, gbc_lblNewLabel);
+		
+		JSpinner spinner_2 = new JSpinner();
+		GridBagConstraints gbc_spinner_2 = new GridBagConstraints();
+		gbc_spinner_2.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_2.gridx = 2;
+		gbc_spinner_2.gridy = 3;
+		add(spinner_2, gbc_spinner_2);
+		
 		JLabel lblLedigeRom = new JLabel("Ledige rom");
 		GridBagConstraints gbc_lblLedigeRom = new GridBagConstraints();
 		gbc_lblLedigeRom.anchor = GridBagConstraints.WEST;
 		gbc_lblLedigeRom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblLedigeRom.gridx = 0;
-		gbc_lblLedigeRom.gridy = 2;
+		gbc_lblLedigeRom.gridy = 4;
 		add(lblLedigeRom, gbc_lblLedigeRom);
 		
 		JList list = new JList();
@@ -79,7 +110,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		gbc_list.fill = GridBagConstraints.BOTH;
 		gbc_list.gridx = 0;
-		gbc_list.gridy = 3;
+		gbc_list.gridy = 5;
 		add(list, gbc_list);
 		
 		JButton btnChooseRoom = new JButton("Velg rom");
@@ -87,7 +118,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_btnChooseRoom.anchor = GridBagConstraints.SOUTH;
 		gbc_btnChooseRoom.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChooseRoom.gridx = 2;
-		gbc_btnChooseRoom.gridy = 3;
+		gbc_btnChooseRoom.gridy = 5;
 		add(btnChooseRoom, gbc_btnChooseRoom);
 		
 	}
