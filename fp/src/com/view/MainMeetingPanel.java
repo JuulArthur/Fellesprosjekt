@@ -180,5 +180,9 @@ public class MainMeetingPanel extends JPanel {
 			meetingFrame.dispose();
 		}
 	}
+	public static void main(String args[]){
+		JFrame frame = new JFrame();
+		MainMeetingPanel panel = new MainMeetingPanel();
+	}
 	
 }

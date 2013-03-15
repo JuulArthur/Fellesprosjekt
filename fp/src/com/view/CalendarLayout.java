@@ -40,9 +40,9 @@ public class CalendarLayout extends JPanel {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{202, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		btnLeggTilAvtale = new JButton("Legg til avtale");
@@ -165,7 +165,7 @@ public class CalendarLayout extends JPanel {
 		JList list_2 = new JList(time);
 		list_2.enable(false);
 		GridBagConstraints gbc_list_2 = new GridBagConstraints();
-		gbc_list_2.gridheight = 7;
+		gbc_list_2.gridheight = 8;
 		gbc_list_2.insets = new Insets(0, 0, 5, 5);
 		gbc_list_2.fill = GridBagConstraints.BOTH;
 		gbc_list_2.gridx = 2;
@@ -177,7 +177,7 @@ public class CalendarLayout extends JPanel {
 		table.setRowSelectionAllowed(false);
 		table.setRowHeight(17);
 		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridheight = 7;
+		gbc_table.gridheight = 8;
 		gbc_table.gridwidth = 7;
 		gbc_table.insets = new Insets(0, 0, 5, 5);
 		gbc_table.fill = GridBagConstraints.BOTH;
@@ -227,20 +227,12 @@ public class CalendarLayout extends JPanel {
 		gbc_lblNewLabel_2.gridy = 8;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 9;
-		add(comboBox, gbc_comboBox);
-		
 		JList list_3 = new JList();
 		GridBagConstraints gbc_list_3 = new GridBagConstraints();
 		gbc_list_3.insets = new Insets(0, 0, 5, 5);
 		gbc_list_3.fill = GridBagConstraints.BOTH;
 		gbc_list_3.gridx = 0;
-		gbc_list_3.gridy = 10;
+		gbc_list_3.gridy = 11;
 		add(list_3, gbc_list_3);
 		
 	}
