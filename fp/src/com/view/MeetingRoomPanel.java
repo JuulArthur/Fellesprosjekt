@@ -102,9 +102,4 @@ public class MeetingRoomPanel extends JPanel {
 		this.meetingRoomFrame = frame;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
