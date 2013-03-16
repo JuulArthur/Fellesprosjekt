@@ -46,7 +46,11 @@ public class ConnectionImpl extends AbstractConnection {
      *            - the local port to associate with this connection
      */
     public ConnectionImpl(int myPort) {
-        throw new NotImplementedException();
+    	super();
+    	usedPorts.put(myPort, true);
+    	//setter myport og myadress, resten er i abstractconnection
+    	this.myPort = myPort;
+    	this.myAddress = getIPv4Address();
     }
 
     private String getIPv4Address() {
@@ -73,7 +77,18 @@ public class ConnectionImpl extends AbstractConnection {
      */
     public void connect(InetAddress remoteAddress, int remotePort) throws IOException,
             SocketTimeoutException {
-        throw new NotImplementedException();
+    	if(state != State.CLOSED) {
+    		throw new ConnectException("socket is not closed");
+    	}
+    	this.remotePort = remotePort;
+    	this.remoteAddress = remoteAddress.getHostAddress();
+    	try {
+    		state = State.SYN_SENT;
+    		// TODO: get more stuff done..! =P
+    	} catch (Exception e) {
+    		state = State.CLOSED;
+    		throw new IOException("error contacting host " + e);
+    	}
     }
 
     /**
@@ -132,6 +147,23 @@ public class ConnectionImpl extends AbstractConnection {
      * @return true if packet is free of errors, false otherwise.
      */
     protected boolean isValid(KtnDatagram packet) {
-        throw new NotImplementedException();
+    	if(packet != null && packet.calculateChecksum() == packet.getChecksum() &&
+    			isValidState(packet)) return true;
+    	return false;
+    }
+    
+    /**
+     * Check if current state is valid for packet
+     * @param packet
+     * @return true if valid state
+     */
+    private boolean isValidState(KtnDatagram packet) {
+    	// check if packet acks last packet
+    	if(packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK &&
+    			packet.getAck() != lastDataPacketSent.getSeq_nr())
+    		return false;
+    	
+    	//need to check the rest, if not return true
+    	return true;
     }
 }
