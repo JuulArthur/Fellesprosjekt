@@ -154,6 +154,14 @@ public class ConnectionImpl extends AbstractConnection {
     
     /**
      * Check if current state is valid for packet
+     * 
+     * All in all check:
+     * 		- null-packets
+     * 		- checksum
+     * 		- retmoteaddress
+     * 		- retmoreport
+     * 		- seqno
+     * 
      * @param packet
      * @return true if valid state
      */
@@ -162,7 +170,27 @@ public class ConnectionImpl extends AbstractConnection {
     	if(packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK &&
     			packet.getAck() != lastDataPacketSent.getSeq_nr())
     		return false;
-    	
+    	//if package is fin, data has to be null
+    	if(packet.getFlag() == Flag.FIN && packet.getPayload() != null)
+    		return false;
+    	//if state is syn_sent package should be syn_ack and from right host
+    	if(state == State.SYN_SENT) {
+    		remotePort = packet.getSrc_port();
+    		return (packet.getFlag() == Flag.SYN_ACK && remoteAddress.equals(packet.getSrc_addr()));
+    	} else if (state == State.LISTEN)
+    		return (packet.getFlag() == Flag.SYN);
+    	//other packets port and source should be set, checking that
+    	else if(packet.getSrc_addr() != remoteAddress && packet.getSrc_port() != remotePort)
+    		return false;
+    	//have to be ack
+    	else if (state == State.SYN_RCVD)
+    		return (packet.getFlag() == Flag.ACK);
+    	//want ack or fin back
+    	else if(state == State.FIN_WAIT_1 || state == State.FIN_WAIT_2)
+    		return (packet.getFlag() == Flag.FIN || packet.getFlag() == Flag.ACK);
+    	//has to be fin
+    	else if (state == State.CLOSE_WAIT)
+    		return (packet.getFlag() == Flag.FIN);
     	//need to check the rest, if not return true
     	return true;
     }
