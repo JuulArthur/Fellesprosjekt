@@ -223,6 +223,10 @@ public class MeetingPanel extends MainMeetingPanel {
 		}
 		
 	}
+	
+	public void saveBtnAddListener(ActionListener al) {
+		btnLagre_1.addActionListener(al);
+	}
 
 	class openAlarmCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -254,6 +258,10 @@ public class MeetingPanel extends MainMeetingPanel {
 			participantFrame.setVisible(true);
 			participantFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);			
 		}
+	}
+	
+	public JButton getSaveButton(){
+		return btnLagre_1;
 	}
 	class backAction implements ActionListener {
 

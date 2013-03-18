@@ -186,4 +186,20 @@ public class MainMeetingPanel extends JPanel {
 		MainMeetingPanel panel = new MainMeetingPanel();
 	}
 	
+	public String getStartText(){
+		return startTextField.getText();
+	}
+	
+	public String getEndText(){
+		return sluttTextField.getText();
+	}
+	
+	public String getPlaceText(){
+		return stedTextField.getText();
+	}
+	
+	public String getAlarmText(){
+		return alarmTextField.getText();
+	}
+	
 }

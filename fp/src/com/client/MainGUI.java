@@ -9,12 +9,14 @@ import com.view.CalendarJDialog;
 import com.view.CalendarLayout;
 import com.view.LogginPane;
 import com.view.MainMeetingPanel;
+import com.view.MeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.model.AppointmentModel;
 import com.model.UserModel;
 import com.settings.Global;
 import com.xml.JAXBMarshaller;
@@ -27,7 +29,7 @@ public class MainGUI extends JFrame{
 	CreateAppointmentController createAppointmentController;
 	
 	private CalendarLayout calendarView;
-	private 
+	private MeetingPanel createAppointmentView;
 	
 	CalendarJDialog calendarJDialogView;
 	
@@ -75,7 +77,7 @@ public class MainGUI extends JFrame{
 		this.getContentPane().add(calendarView);
 		this.pack();
 		
-		createAppointmentController = new CreateAppointmentController();
+		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
 		
 		
 	}
