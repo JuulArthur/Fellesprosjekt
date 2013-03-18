@@ -12,9 +12,9 @@ public class GroupModel {
 	public final static String NAME_PROPERTY = "Name";
 	public final static String MEMBERS_PROPERTY = "Members";
 	
+	@XmlTransient
 	private PropertyChangeSupport changeSupport;
 	
-
 	@XmlElement(name = "id")
 	private int id;
 	@XmlElement(name = "name")

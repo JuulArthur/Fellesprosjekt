@@ -17,6 +17,7 @@ public class CalendarModel extends AbstractTableModel {
 	public final static String NAME_PROPERTY = "Name";
 	public final static String CALENDAR_PROPERTY = "Calendar";
 	
+	@XmlTransient
 	private PropertyChangeSupport changeSupport;
 
 	@XmlElement(name = "id")

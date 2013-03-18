@@ -13,6 +13,7 @@ public class RoomModel {
 	public final static String CAPACITY_PROPERTY = "Capacity";
 	public final static String LOCATION_PROPERTY = "Location";
 	
+	@XmlTransient
 	private PropertyChangeSupport changeSupport;
 
 	//fjerne romnummer og gjoere romnavn til primary key i databasen

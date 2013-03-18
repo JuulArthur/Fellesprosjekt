@@ -12,8 +12,8 @@ public class NotificationModel {
 	public final static String APPOINTMENT_PROPERTY = "Appointment";
 	public final static String CREATOR_PROPERTY = "Creator";
 	
+	@XmlTransient
 	private PropertyChangeSupport changeSupport;
-
 	
 	@XmlElement(name="text")
 	private String text;

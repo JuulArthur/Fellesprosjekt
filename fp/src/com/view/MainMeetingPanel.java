@@ -38,9 +38,9 @@ public class MainMeetingPanel extends JPanel {
 		setBorder(new EmptyBorder(10,10,10,10));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 2, 65, 72, 43, 90, 159, 0};
-		gridBagLayout.rowHeights = new int[]{23, 33, 7, 20, 20, 20, 30, 35, 77, 32};
+		gridBagLayout.rowHeights = new int[]{23, 33, 7, 20, 20, 20, 30, 35, 77, 0, 0, 0, 0, 32};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 
 		lblAvtale = new JLabel("Avtale/M\u00F8te");
@@ -167,7 +167,8 @@ public class MainMeetingPanel extends JPanel {
 		beskrivelseTextArea = new JTextArea(5, 10);
 		beskrivelseTextArea.setSize(new Dimension(40, 50));
 		GridBagConstraints gbc_beskrivelseTextArea = new GridBagConstraints();
-		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 5, 5);
+		gbc_beskrivelseTextArea.gridheight = 8;
+		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 0, 5);
 		gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
 		gbc_beskrivelseTextArea.gridx = 5;
 		gbc_beskrivelseTextArea.gridy = 6;
