@@ -33,10 +33,8 @@ public class FactoryTest {
 	static String rootPassword = "hei123";
 	static Factory f;
 	UserModel cm;
-	
-	/**
-	 * start init & close
-	 */
+
+	//start init and close
 	@BeforeClass
 	public static void init() throws SQLException {
 		
@@ -49,10 +47,9 @@ public class FactoryTest {
 		conn.createStatement().executeUpdate("drop database factorytest;");
 		conn.close();
 	}
-	/**
-	 * end init & close
-	 */
+	//en init and close
 
+	//start user model test
 	@Test
 	public void testCreateUserModelUserModel() throws SQLException, ClassNotFoundException {
 		UserModel dummy = new UserModel ("cristea", "hei123", "c@t.no", "chris", "tonnessen", "88888888", 1);
@@ -85,17 +82,30 @@ public class FactoryTest {
 		cm = f.getUserModel(dummy);
 		assertNull("deleteUserModel didn't delete user", cm);
 	}
-
+	//end user model test
+		
+	//start room model test
 	@Test
-	public void testFactory() {
+	public void testCreateRoomModelRoomModel() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testUpdateDatabase() {
+	public void testGetRoomModelRoomModel() {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	public void testUpdateRoomModel() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDeleteRoomModelRoomModel() {
+		fail("Not yet implemented");
+	}
+	//end room model test
+	
 	@Test
 	public void testCreateCalendarModelCalendarModel() {
 		fail("Not yet implemented");
@@ -268,41 +278,6 @@ public class FactoryTest {
 
 	@Test
 	public void testDeleteNotificationModelStringInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateRoomModelRoomModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateRoomModelIntStringIntString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRoomModelRoomModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRoomModelInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateRoomModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteRoomModelRoomModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteRoomModelInt() {
 		fail("Not yet implemented");
 	}
 
