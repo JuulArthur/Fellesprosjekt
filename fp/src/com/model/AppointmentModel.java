@@ -24,6 +24,7 @@ public class AppointmentModel {
 	private final static String DATE_PROPERTY = "Date";
 	private final static String MEMBERS_PROPERTY = "Members";
 	
+	@XmlTransient
 	public PropertyChangeSupport changeSupport;
 	
 	@XmlElement(name = "id")
