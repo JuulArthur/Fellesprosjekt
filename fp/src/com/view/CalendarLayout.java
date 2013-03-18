@@ -34,6 +34,9 @@ public class CalendarLayout extends JPanel {
 	private JButton btnManageCalendar;
 	private JButton btnShowOtherCalendars;
 	private JButton btnLeggTilAvtale;
+	private JList listNotification;
+	private JList listCalendar;
+	private JList listOtherCalendars;
 	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
@@ -154,23 +157,23 @@ public class CalendarLayout extends JPanel {
 		gbc_lblSndag.gridy = 3;
 		add(lblSndag, gbc_lblSndag);
 		
-		JList list = new JList();
+		listNotification = new JList();
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		gbc_list.fill = GridBagConstraints.BOTH;
 		gbc_list.gridx = 0;
 		gbc_list.gridy = 4;
-		add(list, gbc_list);
+		add(listNotification, gbc_list);
 		
-		JList list_2 = new JList(time);
-		list_2.enable(false);
+		JList listTime = new JList(time);
+		listTime.enable(false);
 		GridBagConstraints gbc_list_2 = new GridBagConstraints();
 		gbc_list_2.gridheight = 8;
 		gbc_list_2.insets = new Insets(0, 0, 5, 5);
 		gbc_list_2.fill = GridBagConstraints.BOTH;
 		gbc_list_2.gridx = 2;
 		gbc_list_2.gridy = 4;
-		add(list_2, gbc_list_2);
+		add(listTime, gbc_list_2);
 	
 		
 		table = new JTable(model);
@@ -211,13 +214,13 @@ public class CalendarLayout extends JPanel {
 		gbc_btnManageCalendar.gridy = 6;
 		add(btnManageCalendar, gbc_btnManageCalendar);
 		
-		JList list_1 = new JList();
+		listCalendar = new JList();
 		GridBagConstraints gbc_list_1 = new GridBagConstraints();
 		gbc_list_1.insets = new Insets(0, 0, 5, 5);
 		gbc_list_1.fill = GridBagConstraints.BOTH;
 		gbc_list_1.gridx = 0;
 		gbc_list_1.gridy = 7;
-		add(list_1, gbc_list_1);
+		add(listCalendar, gbc_list_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Andre kalender");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -234,13 +237,13 @@ public class CalendarLayout extends JPanel {
 		gbc_btnShowOtherCalendars.gridy = 9;
 		add(btnShowOtherCalendars, gbc_btnShowOtherCalendars);
 		
-		JList list_3 = new JList();
+		listOtherCalendars = new JList();
 		GridBagConstraints gbc_list_3 = new GridBagConstraints();
 		gbc_list_3.insets = new Insets(0, 0, 5, 5);
 		gbc_list_3.fill = GridBagConstraints.BOTH;
 		gbc_list_3.gridx = 0;
 		gbc_list_3.gridy = 11;
-		add(list_3, gbc_list_3);
+		add(listOtherCalendars, gbc_list_3);
 		
 	}
 	
@@ -310,4 +313,30 @@ public class CalendarLayout extends JPanel {
 	public void setBtnLoggUt(JButton btnLoggUt) {
 		this.btnLoggUt = btnLoggUt;
 	}
+
+	public JList getListNotification() {
+		return listNotification;
+	}
+
+	public void setListNotification(JList listNotification) {
+		this.listNotification = listNotification;
+	}
+
+	public JList getListCalendar() {
+		return listCalendar;
+	}
+
+	public void setListCalendar(JList listCalendar) {
+		this.listCalendar = listCalendar;
+	}
+
+	public JList getListOtherCalendars() {
+		return listOtherCalendars;
+	}
+
+	public void setListOtherCalendars(JList listOtherCalendars) {
+		this.listOtherCalendars = listOtherCalendars;
+	}
+	
+	
 }

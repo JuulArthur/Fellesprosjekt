@@ -76,6 +76,8 @@ public class MainGUI extends JFrame{
 		this.pack();
 		
 		calendarController = new CalendarController(this, calendarView);
+		
+        Global.respondGUI.add(calendarController);
 	}
 	
 	public void initCreateAppointment(){

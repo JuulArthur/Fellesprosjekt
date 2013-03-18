@@ -76,22 +76,22 @@ public class Factory {
 			throws SQLException, ClassNotFoundException {
 		PreparedStatement ps;
 		String query = String.format(
-				"update calendar set name='%s' where id = '%d'", name, id);
+				"update Calendar set name='%s' where id = '%d'", name, id);
 		updateDatabase(query);
 
 		query = String
-				.format("delete from follows where isOwner = 1 and calendarid = '%d' and username <> '%s'",
+				.format("delete from Follows where isOwner = 1 and calendarid = '%d' and username <> '%s'",
 						id, owner);
 		updateDatabase(query);
 
 		query = String
-				.format("insert into follows (isOwner, username, calendarid) values ('%s', '%s', '%s')",
+				.format("insert into Follows (isOwner, username, calendarid) values ('%s', '%s', '%s')",
 						1, owner, id);
 		updateDatabase(query);
 
 		if (appointments.size() > 0) {
 			query = String.format(
-					"delete from belongto where calendarid = '%d'", id);
+					"delete from BelongTo where calendarid = '%d'", id);
 			updateDatabase(query);
 			db.initialize();
 			ps = db.makeBatchUpdate(String.format("insert into BelongTo "
@@ -115,7 +115,7 @@ public class Factory {
 	public CalendarModel getCalendarModel(long idIn) throws SQLException,
 			ClassNotFoundException {
 		db.initialize();
-		String query = String.format("Select '%s',name from calendar", idIn);
+		String query = String.format("Select '%s',name from Calendar", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
 		long id = -1L;
 		String name = null;
@@ -156,7 +156,7 @@ public class Factory {
 	public void deleteCalendarModel(long id) throws SQLException,
 			ClassNotFoundException {
 		String query = String
-				.format("delete from calendar where id = '%d'", id);
+				.format("delete from Calendar where id = '%d'", id);
 		updateDatabase(query);
 	}
 
