@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
@@ -265,14 +268,22 @@ public class TestDB {
 		f.createGroupModel(gm);
 	}
 	
+	public void testCreateTestDatabase() throws SQLException, ClassNotFoundException {
+		Connection conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:306/?user=root&password=hei123"
+				);
+		Statement s = conn.createStatement();
+		s.executeUpdate("create databse factorytest;");
+		s.executeUpdate("use databse factorytest;");
+	}
+	
 	public static void main(String args[]){
 		TestDB t = new TestDB();
 
-		Factory f = new Factory();
 //		t.testCreateUser("christea", "enkelt", "jada", "chrisboy", "t�nnemann", "32234890", 0);
 
 		try{
-			t.testDeleteGroup(12);
+			t.testCreateTestDatabase();
 
 
 

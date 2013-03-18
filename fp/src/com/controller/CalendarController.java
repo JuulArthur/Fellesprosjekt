@@ -8,6 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
+import com.model.CalendarModel;
+import com.model.NotificationModel;
+import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
@@ -21,11 +25,20 @@ public class CalendarController implements ActionListener, IServerResponse{
 	
 	private MainGUI main;
 	
-	CalendarLayout calendarView;
+	private CalendarLayout calendarView;
+	
+	private ArrayList<CalendarModel> calendarModels;
+	private ArrayList<NotificationModel> notificationsModels;
+	
+	private UserModel userModel;
+	
 	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
 		this.main = main;
 		this.calendarView = calendarView;
+		
+		this.calendarModels = main.getCalendarModels();
+		this.userModel = main.getUserModel();
 		
 		this.calendarView.addButtonMeetingAddListener(this);
 		this.calendarView.addButtonLogoutAddListener(this);
@@ -45,15 +58,61 @@ public class CalendarController implements ActionListener, IServerResponse{
 			meetingFrame.setVisible(true);
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
 		}
+		/* Pluss sign popup on calendars*/
 		else if (e.getSource() == calendarView.getbtnManageCalendar()) {
-			ManageCalendarsJDialog manageCalendars = new ManageCalendarsJDialog();
-			manageCalendars.setVisible(true);
-			manageCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+			if(calendarView.getTextFieldManageCalendar().getText().length() > 0){
+
+				/* Is it a new calendar? */
+				String c_name = calendarView.getTextFieldManageCalendar().getText();
+				CalendarModel newCalendar = null;
+				boolean newCal = true;
+				
+				if(calendarModels != null)
+					for(CalendarModel cm : calendarModels){
+						if(cm.getName().equals(c_name)){
+							newCalendar = cm;
+							newCal = false;
+							break;
+						}
+					}
+				
+				if(newCal == true){
+					newCalendar = new CalendarModel();
+					newCalendar.setName(c_name);
+					long unixTime = System.currentTimeMillis() / 1000L;
+					newCalendar.setId(unixTime);
+					newCalendar.setOwner(userModel.getUsername());
+				}
+				
+				/*Edit that shiiit*/
+				ManageCalendarsJDialog manageCalendars = new ManageCalendarsJDialog(newCalendar);
+				manageCalendars.setModal(true);
+				manageCalendars.setVisible(true);
+				manageCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+				
+				
+				
+				ArrayList<Object> al = new ArrayList<>();
+				al.add(newCalendar);				
+				
+				/* Send that shiit to server*/
+				if(newCal == true){
+					Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+					Global.sHandler.setState(State.CONNECTED_WAITING);
+					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, al));
+				}
+				else{
+					Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
+					Global.sHandler.setState(State.CONNECTED_WAITING);
+					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE, MSGFlagSubject.CALENDAR, al));
+				}
+			}
 		}
 		else if (e.getSource() == calendarView.getBtnShowOtherCalendars()) {
 			AddOtherCalendarsJDialog  addOtherCalendars = new AddOtherCalendarsJDialog();
 			addOtherCalendars.setVisible(true);
 			addOtherCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+			
 		}
 		
 		else if (e.getSource() == calendarView.getBtnLoggUt()){
@@ -67,8 +126,15 @@ public class CalendarController implements ActionListener, IServerResponse{
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		// TODO Auto-generated method stub
-		return false;
+		if(al.get(0) instanceof UserModel){
+			//this.userModel = (UserModel)al.get(0);
+			//gui.initCalendar();
+			Global.respondGUI.remove(this);
+			//Do not propagate
+			return false;
+		}
+		
+		return true;		
 	}
 
 }

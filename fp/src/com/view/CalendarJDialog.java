@@ -92,6 +92,9 @@ public class CalendarJDialog extends JDialog {
 		setVisible(true);
 		setSize(450,300);
 		setLocationRelativeTo(null);
+		
+		model.setMonth(list.getSelectedIndex());
+		table.repaint();
 	}
 	
 	class ListSelected implements ListSelectionListener {
@@ -150,7 +153,7 @@ public class CalendarJDialog extends JDialog {
 	
 	class CalendarModel extends AbstractTableModel {
 
-		private String [] days = { "Sï¿½n", "Man", "Tir", "Ons", "Tor", "Fri", "Lï¿½r" };
+		private String [] days = { "Søn", "Man", "Tir", "Ons", "Tor", "Fri", "Lør" };
 		
 		private int [] daysInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 		

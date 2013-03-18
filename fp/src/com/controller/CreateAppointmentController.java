@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.swing.JList;
+
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.UserModel;
@@ -16,12 +18,14 @@ import com.view.MeetingPanel;
 
 public class CreateAppointmentController implements ActionListener, IServerResponse{
 	
-	private MainGUI main;
+	private MainGUI gui;
 	private MeetingPanel view;
+	private UserModel user;
 	
 	public CreateAppointmentController(MainGUI gui, MeetingPanel view){
-		this.main = main;
+		this.gui = gui;
 		this.view = view;
+		this.user = gui.getUserModel();
 		
 		this.view.saveBtnAddListener(this);
 //		this.calendarView.addButtonMeetingAddListener(this);
@@ -42,9 +46,14 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			int endTimeHours = Integer.parseInt(view.getEndText().substring(0,2));
 			int endTimeMinutes = Integer.parseInt(view.getEndText().substring(3,5));
 			int endTime = endTimeHours*60 + endTimeMinutes;
-			AppointmentModel am = new AppointmentModel(System.currentTimeMillis(), startTime, endTime, UserModel host,
-					String title, String text, String place, Date date,
-					ArrayList<UserModel> members);
+			JList participantList = view.getParticipantList();
+			ArrayList<UserModel> participants = new ArrayList<UserModel>();
+			for (int i = 0;i<participantList.getModel().getSize();i++){
+				participants.add((UserModel) participantList.getModel().getElementAt(i));
+			}
+			AppointmentModel am = new AppointmentModel(System.currentTimeMillis(), startTime, endTime, user,
+					view.getTittelText(), view.getDescriptionText(), view.getPlaceText(), Date date,
+					participants);
 			
 			ArrayList<Object> alist = new ArrayList<Object>();
 			alist.add(am);

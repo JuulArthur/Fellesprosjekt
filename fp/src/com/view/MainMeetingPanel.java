@@ -201,5 +201,25 @@ public class MainMeetingPanel extends JPanel {
 	public String getAlarmText(){
 		return alarmTextField.getText();
 	}
+
+	public void setAlarmText(JTextField alarmTextField) {
+		this.alarmTextField = alarmTextField;
+	}
+
+	public String getTittelText() {
+		return titteltextField.getText();
+	}
+
+	public void setTitteltextField(JTextField titteltextField) {
+		this.titteltextField = titteltextField;
+	}
+
+	public String getDescriptionText() {
+		return beskrivelseTextArea.getText();
+	}
+
+	public void setBeskrivelseTextArea(JTextArea beskrivelseTextArea) {
+		this.beskrivelseTextArea = beskrivelseTextArea;
+	}
 	
 }

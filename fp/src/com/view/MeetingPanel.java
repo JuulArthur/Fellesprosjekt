@@ -263,6 +263,15 @@ public class MeetingPanel extends MainMeetingPanel {
 	public JButton getSaveButton(){
 		return btnLagre_1;
 	}
+	
+	public JList getParticipantList() {
+		return participantList;
+	}
+
+	public void setParticipantList(JList participantList) {
+		this.participantList = participantList;
+	}
+	
 	class backAction implements ActionListener {
 
 		@Override

@@ -17,23 +17,32 @@ import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
 import com.model.AppointmentModel;
+import com.model.AlarmModel;
+import com.model.CalendarModel;
+import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
 	
-	LogginPane logginView;
+	/* Views */
+	private LogginPane logginView;
+	private CalendarLayout calendarView;	
+	private CalendarJDialog calendarJDialogView;
+	private MeetingPanel createAppointmentView;
+	
+	/* Controllers*/
 	LogginPaneController logginController;
 	CalendarController calendarController;
 	CreateAppointmentController createAppointmentController;
 	
-	private CalendarLayout calendarView;
-	private MeetingPanel createAppointmentView;
 	
-	CalendarJDialog calendarJDialogView;
-	
-	private UserModel userModel;
+	/* Models */
+	private UserModel userModel = null;
+	private ArrayList<CalendarModel> calendarModels;
+	private ArrayList<NotificationModel> notificationsModels;
+	private AlarmModel alarmModel;
 	
 	public void startServer() throws Exception{
 		Global.sHandler = new ServerHandler("localhost", 8078 ); //mel.is
@@ -43,6 +52,10 @@ public class MainGUI extends JFrame{
 		System.out.println("[Main] Connected to server");
 	}
 	
+	/*
+	 *  INITS
+	 * 
+	 */
 	public void initLoggin() throws Exception{
 		
 		startServer();
@@ -50,14 +63,14 @@ public class MainGUI extends JFrame{
         logginView = new LogginPane();
         calendarView = new CalendarLayout();
 		
-		this.setTitle("Hei");
+		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
         this.pack(); 
         this.setLocationRelativeTo(null);
         this.setVisible(true); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                
-        logginController = new LogginPaneController(logginView, userModel, this);
+        logginController = new LogginPaneController(logginView, this);
         
         Global.respondGUI.add(logginController);
 	}
@@ -68,8 +81,6 @@ public class MainGUI extends JFrame{
 		this.pack();
 		
 		calendarController = new CalendarController(this, calendarView);
-		
-		
 	}
 	
 	public void initCreateAppointment(){
@@ -78,11 +89,39 @@ public class MainGUI extends JFrame{
 		this.pack();
 		
 		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
-		
-		
 	}
 	
 	public static void main(String[] args) throws Exception {
 		new MainGUI().initLoggin();
 	}
+	
+	/*
+	 * GETTERS AND SETTERS
+	 */
+
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
+	public ArrayList<CalendarModel> getCalendarModels() {
+		return calendarModels;
+	}
+
+	public void setCalendarModels(ArrayList<CalendarModel> calendarModels) {
+		this.calendarModels = calendarModels;
+	}
+
+	public AlarmModel getAlarmModel() {
+		return alarmModel;
+	}
+
+	public void setAlarmModel(AlarmModel alarmModel) {
+		this.alarmModel = alarmModel;
+	}
+	
+	
 }
