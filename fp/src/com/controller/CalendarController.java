@@ -32,6 +32,8 @@ public class CalendarController implements ActionListener, IServerResponse{
 	
 	private UserModel userModel;
 	
+	private ToDo toDo;
+	private Object tempO;
 	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
 		this.main = main;
@@ -44,6 +46,10 @@ public class CalendarController implements ActionListener, IServerResponse{
 		this.calendarView.addButtonLogoutAddListener(this);
 		this.calendarView.addButtonManageCalendarAddListener(this);
 		this.calendarView.addButtonShowOtherCalendarsAddListener(this);
+		
+		toDo = toDo.NOTHING;
+		
+		
 	}
 
 	@Override
@@ -92,14 +98,17 @@ public class CalendarController implements ActionListener, IServerResponse{
 				
 				
 				
-				ArrayList<Object> al = new ArrayList<>();
-				al.add(newCalendar);				
+				ArrayList<Object> al = new ArrayList<Object>();
+				al.add(newCalendar);		
+				
+				tempO = newCal;
 				
 				/* Send that shiit to server*/
 				if(newCal == true){
 					Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 					Global.sHandler.setState(State.CONNECTED_WAITING);
 					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, al));
+					toDo = ToDo.NEW_CALENDAR;
 				}
 				else{
 					Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
@@ -125,16 +134,50 @@ public class CalendarController implements ActionListener, IServerResponse{
 	}
 
 	@Override
-	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		if(al.get(0) instanceof UserModel){
-			//this.userModel = (UserModel)al.get(0);
-			//gui.initCalendar();
-			Global.respondGUI.remove(this);
-			//Do not propagate
-			return false;
+	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {		
+		
+		if(success){
+		
+
+			
+			/* Response objects */
+			if(al != null){
+				if(al.get(0) instanceof UserModel){
+					//this.userModel = (UserModel)al.get(0);
+					//gui.initCalendar();
+					Global.respondGUI.remove(this);
+					//Do not propagate
+					return false;
+				}
+			}
+			else{
+				switch (toDo) {
+				case NEW_CALENDAR:
+					//TODO
+					//calendarView.getListCalendar().add(tempO);
+					tempO = null;
+					
+					break;
+
+				default:
+					break;
+				}
+				
+				toDo = ToDo.NOTHING;
+				tempO = null;
+			}
+		}
+		else { //Dårlig stemning
+
 		}
 		
 		return true;		
 	}
 
+}
+
+enum ToDo {
+	NEW_CALENDAR,
+	UPDATECALENDAR,
+	NOTHING
 }

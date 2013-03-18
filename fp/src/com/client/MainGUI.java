@@ -8,12 +8,15 @@ import javax.swing.JFrame;
 import com.view.CalendarJDialog;
 import com.view.CalendarLayout;
 import com.view.LogginPane;
+import com.view.MainMeetingPanel;
+import com.view.MeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.model.AppointmentModel;
 import com.model.AlarmModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
@@ -27,11 +30,13 @@ public class MainGUI extends JFrame{
 	private LogginPane logginView;
 	private CalendarLayout calendarView;	
 	private CalendarJDialog calendarJDialogView;
+	private MeetingPanel createAppointmentView;
 	
 	/* Controllers*/
 	LogginPaneController logginController;
 	CalendarController calendarController;
 	CreateAppointmentController createAppointmentController;
+	
 	
 	/* Models */
 	private UserModel userModel = null;
@@ -76,6 +81,8 @@ public class MainGUI extends JFrame{
 		this.pack();
 		
 		calendarController = new CalendarController(this, calendarView);
+		
+        Global.respondGUI.add(calendarController);
 	}
 	
 	public void initCreateAppointment(){
@@ -83,7 +90,7 @@ public class MainGUI extends JFrame{
 		this.getContentPane().add(calendarView);
 		this.pack();
 		
-		createAppointmentController = new CreateAppointmentController();
+		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
 	}
 	
 	public static void main(String[] args) throws Exception {

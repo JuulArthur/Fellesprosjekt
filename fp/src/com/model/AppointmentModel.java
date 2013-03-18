@@ -28,7 +28,7 @@ public class AppointmentModel {
 	public PropertyChangeSupport changeSupport;
 	
 	@XmlElement(name = "id")
-	private int id;
+	private long id;
 	@XmlElement(name = "startTime")
 	private int startTime;
 	@XmlElement(name = "endTime")
@@ -51,7 +51,7 @@ public class AppointmentModel {
 	public AppointmentModel() {
 	} /* for jaxb */
 
-	public AppointmentModel(int id, int startTime, int endTime, UserModel host,
+	public AppointmentModel(long id, int startTime, int endTime, UserModel host,
 			String title, String text, String place, Date date,
 			ArrayList<UserModel> members) {
 		this.id = id;
@@ -68,12 +68,12 @@ public class AppointmentModel {
 		this.isDeleted = false;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		int oldValue = this.id;
+	public void setId(long id) {
+		long oldValue = this.id;
 		this.id = id;
 		changeSupport.firePropertyChange(ID_PROPERTY, oldValue, id);
 	}

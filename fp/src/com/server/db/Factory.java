@@ -20,8 +20,8 @@ public class Factory {
 
 	DatabaseConnector db;
 
-	public Factory() {
-		db = new DatabaseConnector();
+	public Factory(String databaseProperties) {
+		db = new DatabaseConnector(databaseProperties);
 	}
 
 	public void updateDatabase(String query) throws SQLException,
@@ -56,7 +56,7 @@ public class Factory {
 			ps = db.makeBatchUpdate(String.format("insert into BelongTo "
 					+ "(appointmentid, calendarid) values (?, '%s')", name));
 			for (int i = 0; i < appointments.size(); i++) {
-				ps.setInt(1, appointments.get(i).getId());
+				ps.setLong(1, appointments.get(i).getId());
 				ps.addBatch();
 			}
 			System.out.println(ps.toString());
@@ -76,28 +76,28 @@ public class Factory {
 			throws SQLException, ClassNotFoundException {
 		PreparedStatement ps;
 		String query = String.format(
-				"update calendar set name='%s' where id = '%d'", name, id);
+				"update Calendar set name='%s' where id = '%d'", name, id);
 		updateDatabase(query);
 
 		query = String
-				.format("delete from follows where isOwner = 1 and calendarid = '%d' and username <> '%s'",
+				.format("delete from Follows where isOwner = 1 and calendarid = '%d' and username <> '%s'",
 						id, owner);
 		updateDatabase(query);
 
 		query = String
-				.format("insert into follows (isOwner, username, calendarid) values ('%s', '%s', '%s')",
+				.format("insert into Follows (isOwner, username, calendarid) values ('%s', '%s', '%s')",
 						1, owner, id);
 		updateDatabase(query);
 
 		if (appointments.size() > 0) {
 			query = String.format(
-					"delete from belongto where calendarid = '%d'", id);
+					"delete from BelongTo where calendarid = '%d'", id);
 			updateDatabase(query);
 			db.initialize();
 			ps = db.makeBatchUpdate(String.format("insert into BelongTo "
 					+ "(appointmentid, calendarid) values (?, '%s')", name));
 			for (int i = 0; i < appointments.size(); i++) {
-				ps.setInt(1, appointments.get(i).getId());
+				ps.setLong(1, appointments.get(i).getId());
 				ps.addBatch();
 			}
 			System.out.println(ps.toString());
@@ -115,7 +115,7 @@ public class Factory {
 	public CalendarModel getCalendarModel(long idIn) throws SQLException,
 			ClassNotFoundException {
 		db.initialize();
-		String query = String.format("Select '%s',name from calendar", idIn);
+		String query = String.format("Select '%s',name from Calendar", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
 		long id = -1L;
 		String name = null;
@@ -156,7 +156,7 @@ public class Factory {
 	public void deleteCalendarModel(long id) throws SQLException,
 			ClassNotFoundException {
 		String query = String
-				.format("delete from calendar where id = '%d'", id);
+				.format("delete from Calendar where id = '%d'", id);
 		updateDatabase(query);
 	}
 
@@ -268,6 +268,10 @@ public class Factory {
 
 		UserModel utUm = new UserModel(um.getUsername(), password, email, name,
 				surname, phoneNumber, isAdmin);
+		
+		if(utUm.getPassword().equals(null));
+			utUm = null;
+			
 		rs.close();
 		db.close();
 
@@ -506,7 +510,7 @@ public class Factory {
 		return summoned;
 	}
 
-	public void createIsSummonedTo(ArrayList<UserModel> users, int aid)
+	public void createIsSummonedTo(ArrayList<UserModel> users, long l)
 			throws ClassNotFoundException {
 		String query = "INSERT INTO IsSummonedTo "
 				+ "(appointmentid, username) VALUES " + "(?, ?)";
@@ -518,7 +522,7 @@ public class Factory {
 
 			/* insert data */
 			for (int i = 0; i < users.size(); i++) {
-				pst.setInt(1, aid);
+				pst.setLong(1, l);
 				pst.setString(2, users.get(i).getUsername());
 				pst.addBatch();
 			}
@@ -569,20 +573,20 @@ public class Factory {
 		}
 	}
 
-	public void deleteIsSummonedTo(int aid) throws ClassNotFoundException,
+	public void deleteIsSummonedTo(long l) throws ClassNotFoundException,
 			SQLException {
 		String query = String.format(
-				"DELETE FROM IsSummonedTo WHERE appointmentid='%s'", aid);
+				"DELETE FROM IsSummonedTo WHERE appointmentid='%s'", l);
 		updateDatabase(query);
 	}
 
 	/* APPOINTMENT */
 	// GET
-	public AppointmentModel getAppointmentModel(int pid) throws SQLException,
+	public AppointmentModel getAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format(
 				"Select startTime, EndTime, host, title, text, place, isDeleted, date "
-						+ "FROM Appointment WHERE id='%s'", pid);
+						+ "FROM Appointment WHERE id='%s'", l);
 
 		ResultSet rs = makeQuery(query);
 
@@ -611,7 +615,7 @@ public class Factory {
 		// members = new ArrayList<>();
 
 		query = String.format("Select username"
-				+ "from IsSummonedTo WHERE appointmentid='%s'", pid);
+				+ "from IsSummonedTo WHERE appointmentid='%s'", l);
 		rs = db.makeSingleQuery(query);
 
 		while (rs.next()) {
@@ -624,7 +628,7 @@ public class Factory {
 		rs.close();
 		db.close();
 
-		return new AppointmentModel(pid, startTime, endTime, host, title, text,
+		return new AppointmentModel(l, startTime, endTime, host, title, text,
 				place, date, members);
 	}
 
@@ -697,10 +701,10 @@ public class Factory {
 	}
 
 	// DELETE
-	public void deleteAppointmentModel(int aid) throws SQLException,
+	public void deleteAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format("DELETE FROM Appointment WHERE id='%s'",
-				aid);
+				l);
 		updateDatabase(query);
 	}
 

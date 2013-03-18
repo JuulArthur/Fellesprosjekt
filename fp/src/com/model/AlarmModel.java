@@ -4,6 +4,9 @@ import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.model.support.SqlDateAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -17,7 +20,7 @@ public class AlarmModel {
 	@XmlTransient
 	private PropertyChangeSupport changeSupport;
 	
-	@XmlElement(name="date")
+	@XmlJavaTypeAdapter(SqlDateAdapter.class)//@XmlElement(name = "date")
 	private Date date;
 	@XmlElement(name="text")
 	private String text;
