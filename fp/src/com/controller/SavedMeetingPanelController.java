@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
+import com.view.MainMeetingPanel;
 import com.view.SavedMeetingPanel;
 
 public class SavedMeetingPanelController  implements ActionListener {
@@ -13,13 +14,17 @@ public class SavedMeetingPanelController  implements ActionListener {
 	private SavedMeetingPanel meetingPanel;
 
 	
-	public SavedMeetingPanelController(SavedMeetingPanel meetingPanel,AppointmentModel appointment, MainGUI gui){
+	public SavedMeetingPanelController(MainMeetingPanel mainPanel, MainGUI gui){
 		this.gui=gui;
-		this.meetingPanel=meetingPanel;
-		
-		
+		this.meetingPanel=new SavedMeetingPanel();
+		meetingPanel.setStede(mainPanel.getPlaceText());
+		meetingPanel.setTitteltextField(mainPanel.getTittelText());
+		meetingPanel.setStartText(mainPanel.getStartText());
+		meetingPanel.setEndText(mainPanel.getEndText());
+		meetingPanel.setBeskrivelseTextArea(mainPanel.getDescriptionText());
 	}
-
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
