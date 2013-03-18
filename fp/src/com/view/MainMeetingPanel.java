@@ -86,7 +86,7 @@ public class MainMeetingPanel extends JPanel {
 		gbc_lblStart.gridwidth = 2;
 		gbc_lblStart.insets = new Insets(0, 0, 5, 5);
 		gbc_lblStart.gridx = 3;
-		gbc_lblStart.gridy = 2;
+		gbc_lblStart.gridy = 3;
 		add(lblStart, gbc_lblStart);
 
 		startTextField = new JTextField();
@@ -95,9 +95,9 @@ public class MainMeetingPanel extends JPanel {
 		gbc_startTextField.fill = GridBagConstraints.VERTICAL;
 		gbc_startTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_startTextField.gridx = 5;
-		gbc_startTextField.gridy = 2;
+		gbc_startTextField.gridy = 3;
 		startTextField.setColumns(15);
-		startTextField.setEditable(false);
+		startTextField.setEditable(true);
 		add(startTextField, gbc_startTextField);
 
 		JLabel lblSlutt = new JLabel("Slutt:");
@@ -106,7 +106,7 @@ public class MainMeetingPanel extends JPanel {
 		gbc_lblSlutt.gridwidth = 2;
 		gbc_lblSlutt.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSlutt.gridx = 3;
-		gbc_lblSlutt.gridy = 3;
+		gbc_lblSlutt.gridy = 4;
 		add(lblSlutt, gbc_lblSlutt);
 
 		sluttTextField = new JTextField();
@@ -114,9 +114,9 @@ public class MainMeetingPanel extends JPanel {
 		gbc_sluttTextField.anchor = GridBagConstraints.WEST;
 		gbc_sluttTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_sluttTextField.gridx = 5;
-		gbc_sluttTextField.gridy = 3;
+		gbc_sluttTextField.gridy = 4;
 		sluttTextField.setColumns(15);
-		sluttTextField.setEditable(false);
+		sluttTextField.setEditable(true);
 		add(sluttTextField, gbc_sluttTextField);
 
 		JLabel lblSted = new JLabel("Sted:");
@@ -125,7 +125,7 @@ public class MainMeetingPanel extends JPanel {
 		gbc_lblSted.gridwidth = 2;
 		gbc_lblSted.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSted.gridx = 3;
-		gbc_lblSted.gridy = 4;
+		gbc_lblSted.gridy = 5;
 		add(lblSted, gbc_lblSted);
 
 		stedTextField = new JTextField();
@@ -133,7 +133,7 @@ public class MainMeetingPanel extends JPanel {
 		gbc_stedTextField.anchor = GridBagConstraints.WEST;
 		gbc_stedTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_stedTextField.gridx = 5;
-		gbc_stedTextField.gridy = 4;
+		gbc_stedTextField.gridy = 5;
 		add(stedTextField, gbc_stedTextField);
 		stedTextField.setColumns(15);
 
@@ -143,7 +143,7 @@ public class MainMeetingPanel extends JPanel {
 		gbc_lblAlarm.gridwidth = 2;
 		gbc_lblAlarm.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAlarm.gridx = 3;
-		gbc_lblAlarm.gridy = 5;
+		gbc_lblAlarm.gridy = 6;
 		add(lblAlarm, gbc_lblAlarm);
 
 		alarmTextField = new JTextField();
@@ -151,17 +151,17 @@ public class MainMeetingPanel extends JPanel {
 		gbc_alarmTextField.anchor = GridBagConstraints.WEST;
 		gbc_alarmTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_alarmTextField.gridx = 5;
-		gbc_alarmTextField.gridy = 5;
+		gbc_alarmTextField.gridy = 6;
 		add(alarmTextField, gbc_alarmTextField);
 		alarmTextField.setColumns(15);
-		alarmTextField.setEditable(false);
+		alarmTextField.setEditable(true);
 		
 		lblBeskrivelse = new JLabel("Beskrivelse: ");
 		GridBagConstraints gbc_lblBeskrivelse = new GridBagConstraints();
 		gbc_lblBeskrivelse.anchor = GridBagConstraints.WEST;
 		gbc_lblBeskrivelse.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBeskrivelse.gridx = 3;
-		gbc_lblBeskrivelse.gridy = 6;
+		gbc_lblBeskrivelse.gridy = 7;
 		add(lblBeskrivelse, gbc_lblBeskrivelse);
 
 		beskrivelseTextArea = new JTextArea(5, 10);
@@ -171,7 +171,7 @@ public class MainMeetingPanel extends JPanel {
 		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 0, 5);
 		gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
 		gbc_beskrivelseTextArea.gridx = 5;
-		gbc_beskrivelseTextArea.gridy = 6;
+		gbc_beskrivelseTextArea.gridy = 7;
 		add(beskrivelseTextArea, gbc_beskrivelseTextArea);
 
 	}

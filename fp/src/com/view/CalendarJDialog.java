@@ -33,13 +33,8 @@ public class CalendarJDialog extends JDialog {
 	JScrollPane scrollPane;
 	CalendarModel model = new CalendarModel();
 	JTable table = new JTable(model);
-	
 	private final int thisYear = 2013;
 	private String dayChosen = "";
-	//private final JButton btnExit = new JButton("Exit");
-	private boolean dateSet = false;
-	private JTextField txtClockTime = new JTextField();
-	private final JLabel lblSkrivInnKlokkeslett = new JLabel("Skriv inn klokkeslett");
 	
 	public CalendarJDialog() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -73,22 +68,6 @@ public class CalendarJDialog extends JDialog {
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		GridBagConstraints gbc_lblSkrivInnKlokkeslett = new GridBagConstraints();
-		gbc_lblSkrivInnKlokkeslett.gridwidth = 3;
-		gbc_lblSkrivInnKlokkeslett.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSkrivInnKlokkeslett.gridx = 0;
-		gbc_lblSkrivInnKlokkeslett.gridy = 3;
-		getContentPane().add(lblSkrivInnKlokkeslett, gbc_lblSkrivInnKlokkeslett);
-		
-		GridBagConstraints gbc_txtClockTime = new GridBagConstraints();
-		gbc_txtClockTime.gridwidth = 3;
-		gbc_txtClockTime.insets = new Insets(0, 0, 0, 5);
-		gbc_txtClockTime.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtClockTime.gridx = 0;
-		gbc_txtClockTime.gridy = 4;
-		txtClockTime.setColumns(15);		
-		getContentPane().add(txtClockTime, gbc_txtClockTime);
-		
 		setVisible(true);
 		setSize(450,300);
 		setLocationRelativeTo(null);
@@ -110,17 +89,12 @@ public class CalendarJDialog extends JDialog {
 		return dayChosen;
 	}
 	
-	public String getclockTime () {
-		return txtClockTime.getText();
-	}
 	
 	 class MouseclickedClass implements MouseListener {
 		  public void mouseClicked(MouseEvent e) {
 	  		if (e.getClickCount() >= 1) {
 	  			int row = table.getSelectedRow();
 	  			int column = table.getSelectedColumn();
-	  			System.out.println("Row" + row +"Column" + column);
-	  			System.out.println(model.getValueAt(row, column));
 	  			dayChosen = model.getValueAt(row, column);
 	  			dayChosen += "." + months[list.getSelectedIndex()];
 	  		}
