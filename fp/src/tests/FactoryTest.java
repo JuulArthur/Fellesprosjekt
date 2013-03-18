@@ -2,9 +2,15 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 public class FactoryTest {
 	
@@ -14,21 +20,25 @@ public class FactoryTest {
 	 * - move tests so that dependencies doesn't break them
 	 * - write tests
 	 */
+
+	static Connection conn;
+	static String rootPassword = "hei123";
 	
 	@BeforeClass
-	public static void init() {
-		fail("not yet implemented");
-		/**
-		 * TODO: connect to db and so on here
-		 */
+	public static void init() throws SQLException {
+		
+		conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:306/?user=root&password=" + rootPassword
+				);
+		Statement s = conn.createStatement();
+		s.executeUpdate("create databse factorytest;");
+		s.executeUpdate("use databse factorytest;");
 	}
 	
 	@AfterClass
-	public static void out() {
-		fail("not yet implemented");
-		/**
-		 * TODO: close connections and so on
-		 */
+	public static void out() throws SQLException {
+		conn.createStatement().executeUpdate("drop database factorytest;");
+		conn.close();
 	}
 
 	@Test
