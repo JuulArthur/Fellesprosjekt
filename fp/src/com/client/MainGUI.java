@@ -48,6 +48,10 @@ public class MainGUI extends JFrame{
 		System.out.println("[Main] Connected to server");
 	}
 	
+	/*
+	 *  INITS
+	 * 
+	 */
 	public void initLoggin() throws Exception{
 		
 		startServer();
@@ -83,8 +87,6 @@ public class MainGUI extends JFrame{
 		this.pack();
 		
 		createAppointmentController = new CreateAppointmentController();
-		
-		
 	}
 	
 	public static void main(String[] args) throws Exception {
