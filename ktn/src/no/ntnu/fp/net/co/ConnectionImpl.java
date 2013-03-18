@@ -46,7 +46,11 @@ public class ConnectionImpl extends AbstractConnection {
      *            - the local port to associate with this connection
      */
     public ConnectionImpl(int myPort) {
-        throw new NotImplementedException();
+    	super();
+    	usedPorts.put(myPort, true);
+    	//setter myport og myadress, resten er i abstractconnection
+    	this.myPort = myPort;
+    	this.myAddress = getIPv4Address();
     }
 
     private String getIPv4Address() {
@@ -73,7 +77,18 @@ public class ConnectionImpl extends AbstractConnection {
      */
     public void connect(InetAddress remoteAddress, int remotePort) throws IOException,
             SocketTimeoutException {
-        throw new NotImplementedException();
+    	if(state != State.CLOSED) {
+    		throw new ConnectException("socket is not closed");
+    	}
+    	this.remotePort = remotePort;
+    	this.remoteAddress = remoteAddress.getHostAddress();
+    	try {
+    		state = State.SYN_SENT;
+    		// TODO: get more stuff done..! =P
+    	} catch (Exception e) {
+    		state = State.CLOSED;
+    		throw new IOException("error contacting host " + e);
+    	}
     }
 
     /**
@@ -132,6 +147,51 @@ public class ConnectionImpl extends AbstractConnection {
      * @return true if packet is free of errors, false otherwise.
      */
     protected boolean isValid(KtnDatagram packet) {
-        throw new NotImplementedException();
+    	if(packet != null && packet.calculateChecksum() == packet.getChecksum() &&
+    			isValidState(packet)) return true;
+    	return false;
+    }
+    
+    /**
+     * Check if current state is valid for packet
+     * 
+     * All in all check:
+     * 		- null-packets
+     * 		- checksum
+     * 		- retmoteaddress
+     * 		- retmoreport
+     * 		- seqno
+     * 
+     * @param packet
+     * @return true if valid state
+     */
+    private boolean isValidState(KtnDatagram packet) {
+    	// check if packet acks last packet
+    	if(packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK &&
+    			packet.getAck() != lastDataPacketSent.getSeq_nr())
+    		return false;
+    	//if package is fin, data has to be null
+    	if(packet.getFlag() == Flag.FIN && packet.getPayload() != null)
+    		return false;
+    	//if state is syn_sent package should be syn_ack and from right host
+    	if(state == State.SYN_SENT) {
+    		remotePort = packet.getSrc_port();
+    		return (packet.getFlag() == Flag.SYN_ACK && remoteAddress.equals(packet.getSrc_addr()));
+    	} else if (state == State.LISTEN)
+    		return (packet.getFlag() == Flag.SYN);
+    	//other packets port and source should be set, checking that
+    	else if(packet.getSrc_addr() != remoteAddress && packet.getSrc_port() != remotePort)
+    		return false;
+    	//have to be ack
+    	else if (state == State.SYN_RCVD)
+    		return (packet.getFlag() == Flag.ACK);
+    	//want ack or fin back
+    	else if(state == State.FIN_WAIT_1 || state == State.FIN_WAIT_2)
+    		return (packet.getFlag() == Flag.FIN || packet.getFlag() == Flag.ACK);
+    	//has to be fin
+    	else if (state == State.CLOSE_WAIT)
+    		return (packet.getFlag() == Flag.FIN);
+    	//need to check the rest, if not return true
+    	return true;
     }
 }

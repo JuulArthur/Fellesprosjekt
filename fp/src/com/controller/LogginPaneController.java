@@ -10,6 +10,7 @@ import com.client.MainGUI;
 import com.model.UserModel;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
+import com.net.support.State;
 import com.settings.Global;
 import com.view.LogginPane;
 
@@ -41,6 +42,7 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 				alist.add(ums);
 				
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
+				Global.sHandler.setState(State.CONNECTED_WAITING);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGIN, alist));
 			}		
 	}

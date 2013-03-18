@@ -202,7 +202,7 @@ public class CalendarLayout extends JPanel {
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JButton btnManageCalendar = new JButton("+");	
+		btnManageCalendar = new JButton("+");	
 		GridBagConstraints gbc_btnManageCalendar = new GridBagConstraints();
 		gbc_btnManageCalendar.anchor = GridBagConstraints.WEST;
 		gbc_btnManageCalendar.insets = new Insets(0, 0, 5, 5);
@@ -227,7 +227,7 @@ public class CalendarLayout extends JPanel {
 		gbc_lblNewLabel_2.gridy = 8;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JButton btnShowOtherCalendars = new JButton("Vis andre kalendere");		
+		btnShowOtherCalendars = new JButton("Vis andre kalendere");		
 		GridBagConstraints gbc_btnShowOtherCalendars = new GridBagConstraints();
 		gbc_btnShowOtherCalendars.insets = new Insets(0, 0, 5, 5);
 		gbc_btnShowOtherCalendars.gridx = 0;
