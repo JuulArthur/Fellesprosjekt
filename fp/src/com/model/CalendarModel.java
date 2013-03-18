@@ -21,7 +21,7 @@ public class CalendarModel extends AbstractTableModel {
 	private PropertyChangeSupport changeSupport;
 
 	@XmlElement(name = "id")
-	private int id;
+	private long id;
 	@XmlElement(name = "appointments")
 	private ArrayList<AppointmentModel> appointments;
 	@XmlElement(name = "owner")
@@ -33,10 +33,12 @@ public class CalendarModel extends AbstractTableModel {
 
 	/* for jabx */
 	public CalendarModel() {
+		changeSupport = new PropertyChangeSupport(this);
 	}
 
-	public CalendarModel(int id, String name,
+	public CalendarModel(long id, String name,
 			ArrayList<AppointmentModel> appointments, String owner) {
+
 		this.id = id;
 		this.appointments = appointments;
 		this.owner = owner;
@@ -99,12 +101,12 @@ public class CalendarModel extends AbstractTableModel {
 		changeSupport.firePropertyChange(CALENDAR_PROPERTY, oldValue, calendar);
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		int oldValue = this.id;
+	public void setId(long id) {
+		long oldValue = this.id;
 		this.id = id;
 		changeSupport.firePropertyChange(ID_PROPERTY, oldValue, id);
 	}
