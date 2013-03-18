@@ -17,13 +17,12 @@ import com.view.LogginPane;
 public class LogginPaneController  implements ActionListener, IServerResponse{
 	
 	private MainGUI gui;
-	private UserModel userModel;
 	private LogginPane l_liew;
 	
-	public LogginPaneController(LogginPane l_view, UserModel userModel, MainGUI gui){
+	public LogginPaneController(LogginPane l_view, MainGUI gui){
 		this.gui = gui;
-		this.userModel = userModel;
 		this.l_liew = l_view;
+		
 		this.l_liew.addLogginButtonListener(this);
 	}
 	
@@ -53,10 +52,12 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 				ArrayList<Object> al) {				
 
 			if(al.get(0) instanceof UserModel){
-				this.userModel = (UserModel)al.get(0);
+				gui.setUserModel((UserModel)al.get(0));
 				gui.initCalendar();
 				Global.respondGUI.remove(this);
+				//Do not propagate
+				return false;
 			}
-			return false;
+			return true;
 		}
 }

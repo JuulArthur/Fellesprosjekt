@@ -2,33 +2,88 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.model.UserModel;
+import com.server.db.Factory;
+
+/**
+ * Follow description from DatabaseConnector.java, and make a database named testdatabase for this test
+ * @author cristea
+ *
+ */
+
 
 public class FactoryTest {
 	
 	/**
 	 * Overall TODO:
-	 * - implement init() and out() methods
 	 * - move tests so that dependencies doesn't break them
 	 * - write tests
 	 */
+
+	static Connection conn;
+	static String rootPassword = "hei123";
+	static Factory f;
+	UserModel cm;
 	
+	/**
+	 * start init & close
+	 */
 	@BeforeClass
-	public static void init() {
-		fail("not yet implemented");
-		/**
-		 * TODO: connect to db and so on here
-		 */
+	public static void init() throws SQLException {
+		
+		f = new Factory("testdatabase.properties");
+
 	}
 	
 	@AfterClass
-	public static void out() {
-		fail("not yet implemented");
-		/**
-		 * TODO: close connections and so on
-		 */
+	public static void out() throws SQLException {
+		conn.createStatement().executeUpdate("drop database factorytest;");
+		conn.close();
+	}
+	/**
+	 * end init & close
+	 */
+
+	@Test
+	public void testCreateUserModelUserModel() throws SQLException, ClassNotFoundException {
+		UserModel dummy = new UserModel ("cristea", "hei123", "c@t.no", "chris", "tonnessen", "88888888", 1);
+		cm = f.createUserModel(dummy);
+		assertNotNull("createUserModel didn't return any object", cm);
+		assertEquals("created object not equal to dummy", cm, dummy);
+		
+	}
+
+	@Test
+	public void testGetUserModelUserModel() throws ClassNotFoundException, SQLException {
+		UserModel dummy = new UserModel("cristea", "hei123", "c@t.no", "chris", "tonnessen", "88888888", 1);
+		cm = f.getUserModel(dummy);
+		assertNotNull("getUsermodel didn't return any object", cm);
+		assertEquals("fetched object didn't equal dummy", cm, dummy);
+	}
+
+	@Test
+	public void testUpdateUserModelUserModel() throws SQLException, ClassNotFoundException {
+		UserModel dummy = new UserModel("cristea", "hei123", "c@t.no", "cristea", "tonnessen", "88888888", 1);
+		f.updateUserModel(dummy);
+		cm = f.getUserModel(dummy);
+		assertEquals("updateUserModel didn't update properly", cm, dummy);
+	}
+
+	@Test
+	public void testDeleteUserModelUserModel() throws SQLException, ClassNotFoundException {
+		UserModel dummy = new UserModel("cristea", "hei123", "c@t.no", "cristea", "tonnessen", "88888888", 1);
+		f.deleteUserModel(dummy);
+		cm = f.getUserModel(dummy);
+		assertNull("deleteUserModel didn't delete user", cm);
 	}
 
 	@Test
@@ -83,46 +138,6 @@ public class FactoryTest {
 
 	@Test
 	public void testMakeQuery() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateUserModelStringStringStringStringStringStringInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateUserModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetUserModelString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetUserModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateUserModelStringStringStringStringStringStringInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateUserModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteUserModelString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteUserModelUserModel() {
 		fail("Not yet implemented");
 	}
 

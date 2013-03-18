@@ -23,7 +23,7 @@ public class Server {
 	
 	private JAXBMarshaller jaxbMarshaller;
 	
-	Factory factory = new Factory();
+	Factory factory = new Factory("database.properties");
 
 	private volatile boolean connected = true;
 	

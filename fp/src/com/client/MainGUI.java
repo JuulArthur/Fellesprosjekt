@@ -9,12 +9,14 @@ import com.view.CalendarJDialog;
 import com.view.CalendarLayout;
 import com.view.LogginPane;
 import com.view.MainMeetingPanel;
+import com.view.MeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.model.AppointmentModel;
 import com.model.AlarmModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
@@ -28,15 +30,17 @@ public class MainGUI extends JFrame{
 	private LogginPane logginView;
 	private CalendarLayout calendarView;	
 	private CalendarJDialog calendarJDialogView;
+	private MeetingPanel createAppointmentView;
 	
 	/* Controllers*/
 	LogginPaneController logginController;
 	CalendarController calendarController;
 	CreateAppointmentController createAppointmentController;
 	
+	
 	/* Models */
-	private UserModel userModel;
-	private CalendarModel calendarModel;
+	private UserModel userModel = null;
+	private ArrayList<CalendarModel> calendarModels;
 	private ArrayList<NotificationModel> notificationsModels;
 	private AlarmModel alarmModel;
 	
@@ -66,7 +70,7 @@ public class MainGUI extends JFrame{
         this.setVisible(true); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                
-        logginController = new LogginPaneController(logginView, userModel, this);
+        logginController = new LogginPaneController(logginView, this);
         
         Global.respondGUI.add(logginController);
 	}
@@ -78,7 +82,7 @@ public class MainGUI extends JFrame{
 		
 		calendarController = new CalendarController(this, calendarView);
 		
-		
+        Global.respondGUI.add(calendarController);
 	}
 	
 	public void initCreateAppointment(){
@@ -86,10 +90,40 @@ public class MainGUI extends JFrame{
 		this.getContentPane().add(calendarView);
 		this.pack();
 		
-		createAppointmentController = new CreateAppointmentController();
+		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
 	}
 	
 	public static void main(String[] args) throws Exception {
 		new MainGUI().initLoggin();
 	}
+	
+	/*
+	 * GETTERS AND SETTERS
+	 */
+
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
+	public ArrayList<CalendarModel> getCalendarModels() {
+		return calendarModels;
+	}
+
+	public void setCalendarModels(ArrayList<CalendarModel> calendarModels) {
+		this.calendarModels = calendarModels;
+	}
+
+	public AlarmModel getAlarmModel() {
+		return alarmModel;
+	}
+
+	public void setAlarmModel(AlarmModel alarmModel) {
+		this.alarmModel = alarmModel;
+	}
+	
+	
 }

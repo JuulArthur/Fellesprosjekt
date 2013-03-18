@@ -31,11 +31,11 @@ public class DatabaseConnector {
 	private Connection conn;
 	private Properties properties = new Properties();
 	
-	public DatabaseConnector(){		
+	public DatabaseConnector(String propertiesFile){		
 		InputStream in = null;
 		
 		try{
-			in = new FileInputStream("database.properties");
+			in = new FileInputStream(propertiesFile);
 			properties.load(in);
 		}
 		catch(FileNotFoundException e){
@@ -82,7 +82,7 @@ public class DatabaseConnector {
 	public static void main(String args[]){
 		Properties p = new Properties();
 		try{
-			DatabaseConnector db = new DatabaseConnector();
+			DatabaseConnector db = new DatabaseConnector("database.properties");
 			db.initialize();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
