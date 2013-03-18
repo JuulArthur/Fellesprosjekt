@@ -92,7 +92,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 				
 				
 				
-				ArrayList<Object> al = new ArrayList<>();
+				ArrayList<Object> al = new ArrayList<Object>();
 				al.add(newCalendar);				
 				
 				/* Send that shiit to server*/
