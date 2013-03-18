@@ -14,6 +14,12 @@ import org.junit.Test;
 import com.model.UserModel;
 import com.server.db.Factory;
 
+/**
+ * Follow description from DatabaseConnector.java, and make a database named testdatabase for this test
+ * @author cristea
+ *
+ */
+
 
 public class FactoryTest {
 	
@@ -34,13 +40,8 @@ public class FactoryTest {
 	@BeforeClass
 	public static void init() throws SQLException {
 		
-		f = new Factory();
-		conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost:306/?user=root&password=" + rootPassword
-				);
-		Statement s = conn.createStatement();
-		s.executeUpdate("create databse factorytest;");
-		s.executeUpdate("use databse factorytest;");
+		f = new Factory("testdatabase.properties");
+
 	}
 	
 	@AfterClass

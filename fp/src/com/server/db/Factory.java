@@ -20,8 +20,8 @@ public class Factory {
 
 	DatabaseConnector db;
 
-	public Factory() {
-		db = new DatabaseConnector();
+	public Factory(String databaseProperties) {
+		db = new DatabaseConnector(databaseProperties);
 	}
 
 	public void updateDatabase(String query) throws SQLException,
