@@ -61,10 +61,7 @@ public class ServerHandler extends ServiceHandler {
 				case ACCEPT:
 					
 					switch (currentVerbFlag) {
-					case LOGIN:
-						
-						setState(State.CONNECTED);
-						
+					case LOGIN:						
 						System.out.println("[ServerHandler] User: " +  ((UserModel)msgW.getObjects().get(0)).getUsername() + " is logged in");
 												
 						propagateResponseToGUI(true, msgW.getObjects());
@@ -180,6 +177,9 @@ public class ServerHandler extends ServiceHandler {
 	 * 	propagate
 	 */
 	private void propagateResponseToGUI(boolean success, ArrayList<Object> o){
+		//Message have been recieved and we need to be in a connected state again
+		setState(State.CONNECTED);
+
 		if(Global.respondGUI != null) //Remove when we are done with CLI client
 		for(int i = Global.respondGUI.size() - 1; i >= 0; i--){
 			boolean propagate = Global.respondGUI.get(i).recievedObjectRespone(success, o);

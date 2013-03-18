@@ -12,23 +12,33 @@ import com.view.MainMeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
+import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.model.AlarmModel;
+import com.model.CalendarModel;
+import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
 	
-	LogginPane logginView;
+	/* Views */
+	private LogginPane logginView;
+	private CalendarLayout calendarView;	
+	private CalendarJDialog calendarJDialogView;
+	
+	/* Controllers*/
 	LogginPaneController logginController;
 	CalendarController calendarController;
+	CreateAppointmentController createAppointmentController;
 	
-	private CalendarLayout calendarView;
-	
-	CalendarJDialog calendarJDialogView;
-	
+	/* Models */
 	private UserModel userModel;
+	private CalendarModel calendarModel;
+	private ArrayList<NotificationModel> notificationsModels;
+	private AlarmModel alarmModel;
 	
 	public void startServer() throws Exception{
 		Global.sHandler = new ServerHandler("localhost", 8078 ); //mel.is
@@ -38,6 +48,10 @@ public class MainGUI extends JFrame{
 		System.out.println("[Main] Connected to server");
 	}
 	
+	/*
+	 *  INITS
+	 * 
+	 */
 	public void initLoggin() throws Exception{
 		
 		startServer();
@@ -45,7 +59,7 @@ public class MainGUI extends JFrame{
         logginView = new LogginPane();
         calendarView = new CalendarLayout();
 		
-		this.setTitle("Hei");
+		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
         this.pack(); 
         this.setLocationRelativeTo(null);
@@ -65,6 +79,14 @@ public class MainGUI extends JFrame{
 		calendarController = new CalendarController(this, calendarView);
 		
 		
+	}
+	
+	public void initCreateAppointment(){
+		this.getContentPane().removeAll();
+		this.getContentPane().add(calendarView);
+		this.pack();
+		
+		createAppointmentController = new CreateAppointmentController();
 	}
 	
 	public static void main(String[] args) throws Exception {

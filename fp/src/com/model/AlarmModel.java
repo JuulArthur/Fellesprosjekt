@@ -14,6 +14,7 @@ public class AlarmModel {
 	public final static String APPOINTMENT_PROPERTY = "Appointment";
 	public final static String CREATOR_PROPERTY = "Creator";
 	
+	@XmlTransient
 	private PropertyChangeSupport changeSupport;
 	
 	@XmlElement(name="date")
