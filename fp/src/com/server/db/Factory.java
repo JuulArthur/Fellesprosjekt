@@ -20,8 +20,8 @@ public class Factory {
 
 	DatabaseConnector db;
 
-	public Factory() {
-		db = new DatabaseConnector();
+	public Factory(String databaseProperties) {
+		db = new DatabaseConnector(databaseProperties);
 	}
 
 	public void updateDatabase(String query) throws SQLException,
@@ -268,6 +268,10 @@ public class Factory {
 
 		UserModel utUm = new UserModel(um.getUsername(), password, email, name,
 				surname, phoneNumber, isAdmin);
+		
+		if(utUm.getPassword().equals(null));
+			utUm = null;
+			
 		rs.close();
 		db.close();
 
