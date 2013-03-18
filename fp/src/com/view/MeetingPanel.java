@@ -43,12 +43,11 @@ public class MeetingPanel extends MainMeetingPanel {
 
 	public MeetingPanel() {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
 		/* 
 		 * TODO: Se p� Kalenderknappene
 		 */
-	
 		posY = 3;
 		setFormatLabel(posY);
 		posY = 4;

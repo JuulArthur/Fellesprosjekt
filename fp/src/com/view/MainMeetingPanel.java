@@ -164,12 +164,11 @@ public class MainMeetingPanel extends JPanel {
 		gbc_lblBeskrivelse.gridy = 7;
 		add(lblBeskrivelse, gbc_lblBeskrivelse);
 
-		beskrivelseTextArea = new JTextArea(5, 10);
-		beskrivelseTextArea.setSize(new Dimension(40, 50));
+		beskrivelseTextArea = new JTextArea(5, 30);
 		GridBagConstraints gbc_beskrivelseTextArea = new GridBagConstraints();
 		gbc_beskrivelseTextArea.gridheight = 8;
 		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 0, 5);
-		gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
+	//	gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
 		gbc_beskrivelseTextArea.gridx = 5;
 		gbc_beskrivelseTextArea.gridy = 7;
 		add(beskrivelseTextArea, gbc_beskrivelseTextArea);
