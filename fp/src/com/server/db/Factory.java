@@ -268,6 +268,10 @@ public class Factory {
 
 		UserModel utUm = new UserModel(um.getUsername(), password, email, name,
 				surname, phoneNumber, isAdmin);
+		
+		if(utUm.getPassword().equals(null));
+			utUm = null;
+			
 		rs.close();
 		db.close();
 
