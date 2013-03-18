@@ -14,21 +14,29 @@ import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.model.AlarmModel;
+import com.model.CalendarModel;
+import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
 	
-	LogginPane logginView;
+	/* Views */
+	private LogginPane logginView;
+	private CalendarLayout calendarView;	
+	private CalendarJDialog calendarJDialogView;
+	
+	/* Controllers*/
 	LogginPaneController logginController;
 	CalendarController calendarController;
 	
-	private CalendarLayout calendarView;
-	
-	CalendarJDialog calendarJDialogView;
-	
+	/* Models */
 	private UserModel userModel;
+	private CalendarModel calendarModel;
+	private ArrayList<NotificationModel> notificationsModels;
+	private AlarmModel alarmModel;
 	
 	public void startServer() throws Exception{
 		Global.sHandler = new ServerHandler("localhost", 8078 ); //mel.is
@@ -45,7 +53,7 @@ public class MainGUI extends JFrame{
         logginView = new LogginPane();
         calendarView = new CalendarLayout();
 		
-		this.setTitle("Hei");
+		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
         this.pack(); 
         this.setLocationRelativeTo(null);

@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
+import com.model.CalendarModel;
+import com.model.NotificationModel;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
@@ -21,7 +23,11 @@ public class CalendarController implements ActionListener, IServerResponse{
 	
 	private MainGUI main;
 	
-	CalendarLayout calendarView;
+	private CalendarLayout calendarView;
+	
+	private CalendarModel calendarModel;
+	private ArrayList<NotificationModel> notificationsModels;
+	
 	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
 		this.main = main;
