@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import com.view.CalendarJDialog;
 import com.view.CalendarLayout;
 import com.view.LogginPane;
-import com.view.MainMeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
@@ -35,8 +34,8 @@ public class MainGUI extends JFrame{
 	CreateAppointmentController createAppointmentController;
 	
 	/* Models */
-	private UserModel userModel;
-	private CalendarModel calendarModel;
+	private UserModel userModel = null;
+	private ArrayList<CalendarModel> calendarModels;
 	private ArrayList<NotificationModel> notificationsModels;
 	private AlarmModel alarmModel;
 	
@@ -66,7 +65,7 @@ public class MainGUI extends JFrame{
         this.setVisible(true); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                
-        logginController = new LogginPaneController(logginView, userModel, this);
+        logginController = new LogginPaneController(logginView, this);
         
         Global.respondGUI.add(logginController);
 	}
@@ -77,8 +76,6 @@ public class MainGUI extends JFrame{
 		this.pack();
 		
 		calendarController = new CalendarController(this, calendarView);
-		
-		
 	}
 	
 	public void initCreateAppointment(){
@@ -92,4 +89,34 @@ public class MainGUI extends JFrame{
 	public static void main(String[] args) throws Exception {
 		new MainGUI().initLoggin();
 	}
+	
+	/*
+	 * GETTERS AND SETTERS
+	 */
+
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
+	public ArrayList<CalendarModel> getCalendarModels() {
+		return calendarModels;
+	}
+
+	public void setCalendarModels(ArrayList<CalendarModel> calendarModels) {
+		this.calendarModels = calendarModels;
+	}
+
+	public AlarmModel getAlarmModel() {
+		return alarmModel;
+	}
+
+	public void setAlarmModel(AlarmModel alarmModel) {
+		this.alarmModel = alarmModel;
+	}
+	
+	
 }

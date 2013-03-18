@@ -37,7 +37,7 @@ public class Factory {
 				cm.getAppointments(), cm.getOwner());
 	}
 
-	public CalendarModel createCalendarModel(int id, String name,
+	public CalendarModel createCalendarModel(long id, String name,
 			ArrayList<AppointmentModel> appointments, String owner)
 			throws SQLException, ClassNotFoundException {
 		PreparedStatement ps;
@@ -71,7 +71,7 @@ public class Factory {
 		updateCalendarModel(cm.getId(), cm.getName(), cm.getAppointments(), cm.getOwner());
 	}
 
-	public void updateCalendarModel(int id, String name,
+	public void updateCalendarModel(long id, String name,
 			ArrayList<AppointmentModel> appointments, String owner)
 			throws SQLException, ClassNotFoundException {
 		PreparedStatement ps;
@@ -112,29 +112,29 @@ public class Factory {
 		return getCalendarModel(cm.getId());
 	}
 
-	public CalendarModel getCalendarModel(int idIn) throws SQLException,
+	public CalendarModel getCalendarModel(long idIn) throws SQLException,
 			ClassNotFoundException {
 		db.initialize();
 		String query = String.format("Select '%s',name from calendar", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
-		int id = -1;
+		long id = -1L;
 		String name = null;
 		String owner = null;
 		ArrayList<AppointmentModel> appointments = new ArrayList<AppointmentModel>();
 		while (rs.next()) {
-			id = rs.getInt(1);
+			id = rs.getLong(1);
 			name = rs.getString(2);
 		}
 
 		query = String
-				.format("select username from follows where isOwner=1 and calendarid='%s'",
+				.format("select username from Follows where isOwner=1 and calendarid='%s'",
 						idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
 			owner = rs.getString(1);
 		}
 		
-		query = String.format("select appointmentid from belongto where calendarid = '%d'", id);
+		query = String.format("select appointmentid from BelongTo where calendarid = '%d'", id);
 		rs = db.makeSingleQuery(query);
 		while(rs.next()) {
 			appointments.add(getAppointmentModel(rs.getInt(1)));
@@ -153,7 +153,7 @@ public class Factory {
 		deleteCalendarModel(cm.getId());
 	}
 
-	public void deleteCalendarModel(int id) throws SQLException,
+	public void deleteCalendarModel(long id) throws SQLException,
 			ClassNotFoundException {
 		String query = String
 				.format("delete from calendar where id = '%d'", id);

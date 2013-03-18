@@ -8,10 +8,13 @@ import javax.swing.JComboBox;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
+
+import com.model.CalendarModel;
 
 public class ManageCalendarsJDialog extends JDialog {
 	
-	public ManageCalendarsJDialog() {
+	public ManageCalendarsJDialog(CalendarModel model) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
@@ -56,14 +59,17 @@ public class ManageCalendarsJDialog extends JDialog {
 		gbc_btnLagre.gridx = 1;
 		gbc_btnLagre.gridy = 3;
 		getContentPane().add(btnLagre, gbc_btnLagre);
+		
+		this.pack();
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		ManageCalendarsJDialog manageCalendars = new ManageCalendarsJDialog(null);
+		manageCalendars.setVisible(true);
+		manageCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
 	}
 
 }

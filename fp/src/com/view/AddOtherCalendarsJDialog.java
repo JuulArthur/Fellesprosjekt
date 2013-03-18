@@ -13,10 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JButton;
 
+import com.model.CalendarModel;
+
 public class AddOtherCalendarsJDialog extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
 	public AddOtherCalendarsJDialog() {
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{149, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
@@ -86,14 +89,14 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
 		
 		setVisible(true);
-		setSize(601, 317);
+		this.pack();
 	}
 
 	public static void main (String args[]) {
     //    JFrame frame = new JFrame("Prototype");
-        AddOtherCalendarsJDialog other=new AddOtherCalendarsJDialog();
+        AddOtherCalendarsJDialog other= new AddOtherCalendarsJDialog();
         other.setLocationRelativeTo(null);
         other.setDefaultCloseOperation(other.DISPOSE_ON_CLOSE);
-         }
+    }
 
 }

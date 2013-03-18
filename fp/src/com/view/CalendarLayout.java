@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 
 
 public class CalendarLayout extends JPanel {
-	private JTextField textField;
+	private JTextField textFieldManageCalendar;
 	private CalendarModel model = new CalendarModel();
 	private JTable table;
 	private String[] time = {"07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
@@ -193,14 +193,14 @@ public class CalendarLayout extends JPanel {
 		gbc_lblMyCalendars.gridy = 5;
 		add(lblMyCalendars, gbc_lblMyCalendars);
 	
-		textField = new JTextField();
+		textFieldManageCalendar = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 6;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		add(textFieldManageCalendar, gbc_textField);
+		textFieldManageCalendar.setColumns(10);
 		
 		btnManageCalendar = new JButton("+");	
 		GridBagConstraints gbc_btnManageCalendar = new GridBagConstraints();
@@ -297,6 +297,14 @@ public class CalendarLayout extends JPanel {
 	
 	public JButton getBtnLoggUt() {
 		return btnLoggUt;
+	}
+	
+	public JTextField getTextFieldManageCalendar() {
+		return textFieldManageCalendar;
+	}
+
+	public void setTextFieldManageCalendar(JTextField textFieldManageCalendar) {
+		this.textFieldManageCalendar = textFieldManageCalendar;
 	}
 
 	public void setBtnLoggUt(JButton btnLoggUt) {
