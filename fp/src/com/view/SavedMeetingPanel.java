@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JList list2;
 	private JFrame savedMeeting;
 	private JLabel lblNewLabel;
+	private ButtonGroup buttongrp;
 	
 	public SavedMeetingPanel () {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -44,7 +46,10 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		stedTextField.setEditable(false);
 		beskrivelseTextArea.setEditable(false);
 		
+		buttongrp = new ButtonGroup();
+		
 		JButton btnAccept = new JButton("Godta");
+		buttongrp.add(btnAccept);
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
 		gbc_btnAccept.anchor = GridBagConstraints.EAST;
 		gbc_btnAccept.insets = new Insets(0, 0, 5, 5);
@@ -53,12 +58,16 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		add(btnAccept, gbc_btnAccept);
 		
 		JButton btnDecline = new JButton("Avsl\u00E5");
+		buttongrp.add(btnDecline);
 		GridBagConstraints gbc_btnDecline = new GridBagConstraints();
 		gbc_btnDecline.anchor = GridBagConstraints.WEST;
 		gbc_btnDecline.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDecline.gridx = 8;
 		gbc_btnDecline.gridy = 2;
+		
 		add(btnDecline, gbc_btnDecline);
+		
+	
 		
 		lblKommer = new JLabel("Kommer");
 		GridBagConstraints gbc_lblKommer = new GridBagConstraints();
