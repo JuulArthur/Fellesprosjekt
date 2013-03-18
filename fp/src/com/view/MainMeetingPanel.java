@@ -186,4 +186,40 @@ public class MainMeetingPanel extends JPanel {
 		MainMeetingPanel panel = new MainMeetingPanel();
 	}
 	
+	public String getStartText(){
+		return startTextField.getText();
+	}
+	
+	public String getEndText(){
+		return sluttTextField.getText();
+	}
+	
+	public String getPlaceText(){
+		return stedTextField.getText();
+	}
+	
+	public String getAlarmText(){
+		return alarmTextField.getText();
+	}
+
+	public void setAlarmText(JTextField alarmTextField) {
+		this.alarmTextField = alarmTextField;
+	}
+
+	public String getTittelText() {
+		return titteltextField.getText();
+	}
+
+	public void setTitteltextField(JTextField titteltextField) {
+		this.titteltextField = titteltextField;
+	}
+
+	public String getDescriptionText() {
+		return beskrivelseTextArea.getText();
+	}
+
+	public void setBeskrivelseTextArea(JTextArea beskrivelseTextArea) {
+		this.beskrivelseTextArea = beskrivelseTextArea;
+	}
+	
 }
