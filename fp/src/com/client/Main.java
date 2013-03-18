@@ -73,7 +73,7 @@ public class Main {
 				AppointmentModel am = new AppointmentModel(1337, 2343, 23432, 
 						new UserModel("perok", "hei", null, null, null, null, 1), 
 						
-						"NO SO SEXEHTIME", "best time of the day", "room", new Date(time.getTime()), null);
+						"VERY SEXEHTIME", "best time of the day", "room", new Date(time.getTime()), null);
 				ArrayList<Object> aalist = new ArrayList<Object>();
 				aalist.add(am);
 				serverH.setCurrentFlag(MSGFlagVerb.CREATE);
