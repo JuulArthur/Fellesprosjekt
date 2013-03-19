@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextPane;
 
 
 public class MainMeetingPanel extends JPanel {
@@ -32,15 +33,16 @@ public class MainMeetingPanel extends JPanel {
 	private JLabel lblBeskrivelse;
 
 	private JFrame meetingFrame;
-	protected JTextArea beskrivelseTextArea;
+	protected JScrollPane scrollPane;
+	protected JTextPane beskrivelseTextArea;
 	
 	public MainMeetingPanel () {
 		setBorder(new EmptyBorder(10,10,10,10));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 2, 65, 72, 43, 90, 159, 0};
-		gridBagLayout.rowHeights = new int[]{23, 33, 7, 20, 20, 20, 30, 35, 77, 0, 0, 0, 0, 32};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.rowHeights = new int[]{23, 33, 7, 20, 20, 20, 30, 35, 30, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 
 		lblAvtale = new JLabel("Avtale/M\u00F8te");
@@ -158,20 +160,24 @@ public class MainMeetingPanel extends JPanel {
 		
 		lblBeskrivelse = new JLabel("Beskrivelse: ");
 		GridBagConstraints gbc_lblBeskrivelse = new GridBagConstraints();
+		gbc_lblBeskrivelse.fill = GridBagConstraints.VERTICAL;
 		gbc_lblBeskrivelse.anchor = GridBagConstraints.WEST;
 		gbc_lblBeskrivelse.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBeskrivelse.gridx = 3;
-		gbc_lblBeskrivelse.gridy = 7;
+		gbc_lblBeskrivelse.gridy = 8;
 		add(lblBeskrivelse, gbc_lblBeskrivelse);
-
-		beskrivelseTextArea = new JTextArea(5, 30);
-		GridBagConstraints gbc_beskrivelseTextArea = new GridBagConstraints();
-		gbc_beskrivelseTextArea.gridheight = 8;
-		gbc_beskrivelseTextArea.insets = new Insets(0, 0, 0, 5);
-	//	gbc_beskrivelseTextArea.fill = GridBagConstraints.BOTH;
-		gbc_beskrivelseTextArea.gridx = 5;
-		gbc_beskrivelseTextArea.gridy = 7;
-		add(beskrivelseTextArea, gbc_beskrivelseTextArea);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 5;
+		gbc_scrollPane.gridy = 8;
+		add(scrollPane, gbc_scrollPane);
+		
+		beskrivelseTextArea = new JTextPane();
+		scrollPane.setViewportView(beskrivelseTextArea);
 
 	}
 		

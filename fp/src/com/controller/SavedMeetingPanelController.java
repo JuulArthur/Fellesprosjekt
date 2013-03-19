@@ -23,7 +23,7 @@ public class SavedMeetingPanelController  implements ActionListener {
 		meetingPanel.setEndText(mainPanel.getEndText());
 		meetingPanel.setBeskrivelseTextArea(mainPanel.getDescriptionText());
 	}
-	
+
 	
 
 	@Override
