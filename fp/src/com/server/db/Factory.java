@@ -66,9 +66,11 @@ public class Factory {
 		}
 		return cm;
 	}
-	
-	public void updateCalendarModel(CalendarModel cm) throws SQLException, ClassNotFoundException {
-		updateCalendarModel(cm.getId(), cm.getName(), cm.getAppointments(), cm.getOwner());
+
+	public void updateCalendarModel(CalendarModel cm) throws SQLException,
+			ClassNotFoundException {
+		updateCalendarModel(cm.getId(), cm.getName(), cm.getAppointments(),
+				cm.getOwner());
 	}
 
 	public void updateCalendarModel(long id, String name,
@@ -107,13 +109,13 @@ public class Factory {
 		}
 
 	}
-	
-	public CalendarModel getCalendarModel(CalendarModel cm) throws SQLException, ClassNotFoundException {
+
+	public CalendarModel getCalendarModel(CalendarModel cm)
+			throws SQLException, ClassNotFoundException {
 		return getCalendarModel(cm.getId());
 	}
 
-	public CalendarModel getCalendarModel(long idIn) throws SQLException,
-			ClassNotFoundException {
+	public CalendarModel getCalendarModel(long idIn) throws SQLException, ClassNotFoundException {
 		db.initialize();
 		String query = String.format("Select '%s',name from Calendar", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
@@ -133,10 +135,12 @@ public class Factory {
 		while (rs.next()) {
 			owner = rs.getString(1);
 		}
-		
-		query = String.format("select appointmentid from BelongTo where calendarid = '%d'", id);
+
+		query = String.format(
+				"select appointmentid from BelongTo where calendarid = '%d'",
+				id);
 		rs = db.makeSingleQuery(query);
-		while(rs.next()) {
+		while (rs.next()) {
 			appointments.add(getAppointmentModel(rs.getInt(1)));
 		}
 
@@ -182,21 +186,16 @@ public class Factory {
 
 	public UserModel createUserModel(UserModel um) throws SQLException,
 			ClassNotFoundException {
-		String query = String
-				.format("insert into User "
-						+ "(userName, password, email, name, surName, phoneNumber, isAdmin) values ('%s', '%s','%s','%s','%s','%s',%d)",
-						um.getUsername(), um.getPassword(), um.getEmail(),
-						um.getEmail(), um.getSurname(), um.getPhoneNumber(),
-						um.isAdmin());
-		updateDatabase(query);
-		return um;
+		return createUserModel(um.getUsername(), um.getPassword(),
+				um.getEmail(), um.getName(), um.getSurname(),
+				um.getPhoneNumber(), (um.isAdmin() ? 1 : 0));
 	}
 
 	public UserModel getUserModel(String username)
 			throws ClassNotFoundException, SQLException {
 
 		String query = String
-				.format("Select username,email,name,surname,phonenumber,password,isadmin from User where username='%s'",
+				.format("Select email,name,surname,phonenumber,password,isadmin from User where username='%s'",
 						username);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
@@ -206,77 +205,57 @@ public class Factory {
 		String surname = null;
 		String phoneNumber = null;
 		int isAdmin = 0;
+		
+		//Fetch dat data
 		while (rs.next()) {
-			email = rs.getString(2);
-			name = rs.getString(3);
-			surname = rs.getString(4);
-			phoneNumber = rs.getString(5);
-			password = rs.getString(6);
-			isAdmin = rs.getInt(7);
+			email = rs.getString(1);
+			name = rs.getString(2);
+			surname = rs.getString(3);
+			phoneNumber = rs.getString(4);
+			password = rs.getString(5);
+			isAdmin = rs.getInt(6);
 		}
 
+		//Create the model
 		UserModel um = new UserModel(username, password, email, name, surname,
 				phoneNumber, isAdmin);
 
-		query = String.format(
-				"Select calendarid, isOwner from Follows Where username='%s'",
-				username);
+		if (um.getPassword().equals(null))
+			um = null;
+		else {
+
+		//Get the calendars
+		query = String.format("Select calendarid, isOwner from Follows Where username='%s'",username);
 		ResultSet crs = db.makeSingleQuery(query);
-		int calendarId = 0;
+		
+		long calendarId = 0;
 		boolean isOwner = false;
 		while (crs.next()) {
-			calendarId = crs.getInt(1);
+			calendarId = crs.getLong(1);
 			isOwner = crs.getBoolean(2);
+			
 			CalendarModel tempCal = getCalendarModel(calendarId);
+			
 			if (isOwner) {
 				um.addCalendar(tempCal);
 			} else {
 				um.addSubscribedCalendars(tempCal);
 			}
 
+			}
+			crs.close();
 		}
 		rs.close();
-		crs.close();
 		db.close();
 
 		return um;
 
 	}
 
+	@Deprecated
 	public UserModel getUserModel(UserModel um) throws ClassNotFoundException,
 			SQLException {
-
-		String query = String
-				.format("Select username,email,name,surname,phonenumber,password,isadmin from User where username='%s'",
-						um.getUsername());
-		db.initialize();
-		ResultSet rs = db.makeSingleQuery(query);
-		String password = null;
-		String email = null;
-		String name = null;
-		String surname = null;
-		String phoneNumber = null;
-		int isAdmin = 0;
-		while (rs.next()) {
-			email = rs.getString(2);
-			name = rs.getString(3);
-			surname = rs.getString(4);
-			phoneNumber = rs.getString(5);
-			password = rs.getString(6);
-			isAdmin = rs.getInt(7);
-		}
-
-		UserModel utUm = new UserModel(um.getUsername(), password, email, name,
-				surname, phoneNumber, isAdmin);
-		
-		if(utUm.getPassword().equals(null));
-			utUm = null;
-			
-		rs.close();
-		db.close();
-
-		return utUm;
-
+		return getUserModel(um.getUsername());
 	}
 
 	public void updateUserModel(String username, String password, String email,
@@ -291,13 +270,8 @@ public class Factory {
 
 	public void updateUserModel(UserModel um) throws SQLException,
 			ClassNotFoundException {
-		String query = String.format(
-				"UPDATE User SET email='%s',name='%s',surname='%s',phonenumber='%s'"
-						+ ",password='%s',isAdmin=%d WHERE username='%s'",
-				um.getEmail(), um.getName(), um.getSurname(),
-				um.getPhoneNumber(), um.getPassword(), um.isAdmin(),
-				um.getUsername());
-		updateDatabase(query);
+		updateUserModel(um.getUsername(), um.getPassword(), um.getEmail(), um.getName(),
+				um.getSurname(), um.getPhoneNumber(), (um.isAdmin()?1:0));
 	}
 
 	public void deleteUserModel(String username) throws SQLException,
@@ -309,9 +283,7 @@ public class Factory {
 
 	public void deleteUserModel(UserModel um) throws SQLException,
 			ClassNotFoundException {
-		String query = String.format("DELETE from User WHERE username='%s'",
-				um.getUsername());
-		updateDatabase(query);
+		deleteUserModel(um.getUsername());
 	}
 
 	public boolean checkPassword(String username, String password)
@@ -333,21 +305,7 @@ public class Factory {
 
 	public boolean checkPassword(UserModel um) throws SQLException,
 			ClassNotFoundException {
-		String returnPassword = "";
-		String query = String.format(
-				"SELECT password FROM User WHERE username='%s'",
-				um.getUsername());
-		db.initialize();
-		ResultSet rs = db.makeSingleQuery(query);
-		rs.beforeFirst();
-		if (rs.next()) {
-			returnPassword = rs.getString(1);
-		}
-		rs.close();
-		db.close();
-
-		return returnPassword.equals(um.getPassword())
-				&& !returnPassword.equals("");
+		return checkPassword(um.getUsername(), um.getPassword());
 	}
 
 	public AlarmModel createAlarmModel(Date date, String text,
@@ -364,15 +322,10 @@ public class Factory {
 
 	public AlarmModel createAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
-		String query = String.format("insert into Alarm "
-				+ "(date, text, appointmentid, username) values "
-				+ "('%s', '%s',%d,'%s')", am.getDate(), am.getText(), am
-				.getAppointment().getId(), am.getCreator().getUsername());
-		updateDatabase(query);
-		return am;
+		return createAlarmModel(am.getDate(), am.getText(), am.getAppointment(), am.getCreator());
 	}
 
-	public AlarmModel getAlarmModel(String user, int aid)
+	public AlarmModel getAlarmModel(String user, long aid, AppointmentModel ap, UserModel creator)
 			throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
@@ -387,30 +340,7 @@ public class Factory {
 			text = rs.getString(2);
 		}
 
-		AlarmModel am = new AlarmModel(date, text, null, null);
-		rs.close();
-		db.close();
-
-		return am;
-	}
-
-	@Deprecated
-	public AlarmModel getAlarmModel(AppointmentModel ap, UserModel user)
-			throws ClassNotFoundException, SQLException {
-
-		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d",
-				user.getUsername(), ap.getId());
-		db.initialize();
-		ResultSet rs = db.makeSingleQuery(query);
-		Date date = null;
-		String text = null;
-		while (rs.next()) {
-			date = rs.getDate(1);
-			text = rs.getString(2);
-		}
-
-		AlarmModel am = new AlarmModel(date, text, ap, user);
+		AlarmModel am = new AlarmModel(date, text, ap, creator);
 		rs.close();
 		db.close();
 
@@ -419,34 +349,13 @@ public class Factory {
 
 	public AlarmModel getAlarmModel(AlarmModel am)
 			throws ClassNotFoundException, SQLException {
-
-		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmentid=%d", am
-				.getCreator().getUsername(), am.getAppointment().getId());
-		db.initialize();
-		ResultSet rs = db.makeSingleQuery(query);
-		Date date = null;
-		String text = null;
-		while (rs.next()) {
-			date = rs.getDate(1);
-			text = rs.getString(2);
-		}
-
-		AlarmModel utAm = new AlarmModel(date, text, am.getAppointment(),
-				am.getCreator());
-		rs.close();
-		db.close();
-
-		return utAm;
+		return getAlarmModel(am.getCreator().getUsername(), am.getAppointment().getId(),
+				am.getAppointment(), am.getCreator());
 	}
 
-	@Deprecated
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
-		String query = String
-				.format("UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
-						date, text, ap.getId());
-		updateDatabase(query);
+		updateAlarmModel(new AlarmModel(date, text, ap, user));
 	}
 
 	public void updateAlarmModel(AlarmModel am) throws SQLException,
@@ -462,29 +371,17 @@ public class Factory {
 
 	public void deleteAlarmModel(AppointmentModel ap, UserModel user)
 			throws SQLException, ClassNotFoundException {
-		String query = String.format(
-				"DELETE from Alarm WHERE username='%s' AND appointmentid=%d",
-				user.getUsername(), ap.getId());
-		updateDatabase(query);
+		deleteAlarmModel(ap.getId(), user.getUsername());
 	}
 
-	public void deleteAlarmModel(int id, String userName) throws SQLException,
+	public void deleteAlarmModel(long id, String userName) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format(
 				"DELETE from Alarm WHERE username='%s' AND appointmentid=%d",
 				userName, id);
 		updateDatabase(query);
 	}
-
-	@Deprecated
-	public void deleteAlarmModel(AlarmModel am) throws SQLException,
-			ClassNotFoundException {
-		String query = String.format(
-				"DELETE from Alarm WHERE username='%s' AND appointmentid=%d",
-				am.getCreator().getUsername(), am.getAppointment().getId());
-		updateDatabase(query);
-	}
-
+	
 	/**
 	 * Gets all the usernames for the attending people of an appointment
 	 * 
@@ -656,26 +553,6 @@ public class Factory {
 		if (am.getMembers() != null)
 			createIsSummonedTo(am.getMembers(), am.getId());
 
-		// 3. Add all the attends to the appointment
-		/*
-		 * if(summoned.size() != 0){ createIsSummonedTo(am.getMembers(),
-		 * am.getId());
-		 * 
-		 * //4. We need to notify the new guys that they are invited
-		 * ArrayList<String> needNotification = new ArrayList<>();
-		 * 
-		 * for (int i = 0; i < am.getMembers().size(); i++) { String s =
-		 * am.getMembers().get(i).getUsername(); //Have they been invited?
-		 * if(!summoned.contains(s))
-		 * needNotification.add(am.getMembers().get(i).getUsername()); } //TODO
-		 * Skal update ta seg av dette? //TODO GJøre det batch istedenfor
-		 * if(needNotification.size() != 0){ for (int i = 0; i <
-		 * needNotification.size(); i++) {
-		 * createNotificationModel("Du har blitt invitert til: " +
-		 * am.getTitle(), am.getId(), needNotification.get(i)); } }
-		 * 
-		 * }
-		 */
 	}
 
 	// CREATE
@@ -703,8 +580,8 @@ public class Factory {
 	// DELETE
 	public void deleteAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
-		String query = String.format("DELETE FROM Appointment WHERE id='%s'",
-				l);
+		String query = String
+				.format("DELETE FROM Appointment WHERE id='%s'", l);
 		updateDatabase(query);
 	}
 
@@ -841,10 +718,10 @@ public class Factory {
 		}
 
 		RoomModel utRm = new RoomModel(roomNumber, roomName, capacity, location);
-		
-		if(utRm.getRoomName() == null)
+
+		if (utRm.getRoomName() == null)
 			utRm = null;
-		
+
 		rs.close();
 		db.close();
 
@@ -882,12 +759,12 @@ public class Factory {
 		return gm;
 	}
 
-	public void deleteGroupModel(int id) throws SQLException, ClassNotFoundException{
-			String query = String.format("DELETE from groupp WHERE id=%d",
-					id);
-			updateDatabase(query);
+	public void deleteGroupModel(int id) throws SQLException,
+			ClassNotFoundException {
+		String query = String.format("DELETE from groupp WHERE id=%d", id);
+		updateDatabase(query);
 	}
-	
+
 	public void UpdateGroupModel(GroupModel gm) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format("UPDATE Groupp "
