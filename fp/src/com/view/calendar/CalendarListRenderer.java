@@ -26,7 +26,7 @@ public class CalendarListRenderer extends DefaultListCellRenderer{
         */
         
         CalendarModel calendar = (CalendarModel)value;
-
+        
         /*
         if(person.getGender() == Gender.female)      
             lbl.setIcon(femaleIcon);

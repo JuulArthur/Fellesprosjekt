@@ -120,7 +120,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 				ArrayList<Object> al = new ArrayList<Object>();
 				al.add(newCalendar);		
 				
-				tempO = newCal;
+				tempO = newCalendar;
 				
 				/* Send that shiit to server*/
 				if(newCal == true){
@@ -169,16 +169,16 @@ public class CalendarController implements ActionListener, IServerResponse{
 			else{
 				switch (toDo) {
 				case NEW_CALENDAR:
-					//TODO
-					//calendarView.getListCalendar().add(tempO);
-					tempO = null;
-					
+					main.getCalendarModels().add((CalendarModel)tempO);
+					dListModelCalendarModels.addElement(tempO);
+					calendarView.getTextFieldManageCalendar().setText("");					
 					break;
 
 				default:
 					break;
 				}
 				
+				/* Nullify */
 				toDo = ToDo.NOTHING;
 				tempO = null;
 			}
