@@ -3,13 +3,12 @@ package com.view.calendar;
 import java.awt.Component;
 
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import com.model.CalendarModel;
+import com.model.NotificationModel;
 
-public class CalendarListRenderer extends DefaultListCellRenderer{
+public class NotificationListRenderer extends DefaultListCellRenderer{
 	
 	//private static ImageIcon maleIcon;
 	//private static ImageIcon femaleIcon;
@@ -25,7 +24,7 @@ public class CalendarListRenderer extends DefaultListCellRenderer{
         }
         */
         
-        CalendarModel calendar = (CalendarModel)value;
+        NotificationModel notification = (NotificationModel)value;
         
         /*
         if(person.getGender() == Gender.female)      
@@ -34,7 +33,7 @@ public class CalendarListRenderer extends DefaultListCellRenderer{
             lbl.setIcon(maleIcon);
             */
 		
-		lbl.setText("<html><b>" + calendar.getName() + "</b></html>");//<br/><i>" + calendar.getOwner() +"</i></html>");
+		lbl.setText("<html><b>" + notification.getText() + "</b></html>");//<br/><i>" + calendar.getOwner() +"</i></html>");
 
 		return lbl;
 	}

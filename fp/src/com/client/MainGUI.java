@@ -23,11 +23,6 @@ import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
-import com.view.CalendarJDialog;
-import com.view.calendar.CalendarLayout;
-import com.view.LogginPane;
-import com.view.MeetingPanel;
-import com.view.SavedMeetingPanel;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
@@ -101,10 +96,6 @@ public class MainGUI extends JFrame{
 		this.calendarController = new CalendarController(this, calendarView);
 		
         Global.respondGUI.add(calendarController);
-        
-		System.out.println(this.calendarModels.size());
-		for(CalendarModel cm : calendarModels)
-			System.out.println(cm.getName());
 	}
 	
 	public void initCreateAppointment(){
@@ -126,8 +117,27 @@ public class MainGUI extends JFrame{
 	/*
 	 * GETTERS AND SETTERS
 	 */
+	
 	public UserModel getUserModel() {
 		return userModel;
+	}
+
+	public ArrayList<CalendarModel> getSubscribedCalendarModels() {
+		return subscribedCalendarModels;
+	}
+
+	public void setSubscribedCalendarModels(
+			ArrayList<CalendarModel> subscribedCalendarModels) {
+		this.subscribedCalendarModels = subscribedCalendarModels;
+	}
+
+	public ArrayList<NotificationModel> getNotificationsModels() {
+		return notificationsModels;
+	}
+
+	public void setNotificationsModels(
+			ArrayList<NotificationModel> notificationsModels) {
+		this.notificationsModels = notificationsModels;
 	}
 
 	public void setUserModel(UserModel userModel) {
