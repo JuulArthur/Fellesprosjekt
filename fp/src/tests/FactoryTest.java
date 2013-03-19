@@ -36,8 +36,6 @@ public class FactoryTest {
 	 * write tests
 	 */
 
-	static Connection conn;
-	static String rootPassword = "hei123";
 	static Factory f;
 	UserModel um;
 	RoomModel rm;
