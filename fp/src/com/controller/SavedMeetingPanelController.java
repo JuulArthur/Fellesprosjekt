@@ -63,6 +63,8 @@ public class SavedMeetingPanelController implements ActionListener {
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			System.out.println("ring han Juul");
+		} else if(e.getSource() == meetingPanel.getMooteinnkalling()){
+			System.out.println("sende ut et eller annet");
 		}
 	}
 	public SavedMeetingPanel getMeetingPanel(){
