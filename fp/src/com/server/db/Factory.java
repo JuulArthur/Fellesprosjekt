@@ -310,9 +310,13 @@ public class Factory {
 	}
 
 	public AlarmModel createAlarmModel(Date date, String text,
-			AppointmentModel ap, UserModel user) throws SQLException,
+			int time, AppointmentModel ap, UserModel user) throws SQLException,
 			ClassNotFoundException {
-		AlarmModel am = new AlarmModel(date, text, ap, user);
+		AlarmModel am = new AlarmModel(date, text, time, ap, user);
+		String hours = Integer.toString(time%60);
+		String minutes = Integer.toString(time - Integer.parseInt(hours));
+		String textDate = date.toString();
+		textDate += " "+hours+":"+minutes+":00";
 		String query = String.format("insert into Alarm "
 				+ "(date, text, appointmentid, username) values "
 				+ "('%s', '%s',%d,'%s')", date, text, ap.getId(),
@@ -323,7 +327,7 @@ public class Factory {
 
 	public AlarmModel createAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
-		return createAlarmModel(am.getDate(), am.getText(), am.getAppointment(), am.getCreator());
+		return createAlarmModel(am.getDate(), am.getText(), am.getTime(), am.getAppointment(), am.getCreator());
 	}
 
 	public AlarmModel getAlarmModel(String user, long aid)
@@ -341,7 +345,7 @@ public class Factory {
 			text = rs.getString(2);
 		}
 
-		AlarmModel am = new AlarmModel(date, text, null, null);
+		AlarmModel am = new AlarmModel(date, text,0, null, null);
 		rs.close();
 		db.close();
 
@@ -363,7 +367,7 @@ public class Factory {
 			text = rs.getString(2);
 		}
 
-		AlarmModel am = new AlarmModel(date, text, ap, creator);
+		AlarmModel am = new AlarmModel(date, text,0, ap, creator);
 		rs.close();
 		db.close();
 
@@ -378,7 +382,7 @@ public class Factory {
 
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
-		updateAlarmModel(new AlarmModel(date, text, ap, user));
+		updateAlarmModel(new AlarmModel(date, text,0, ap, user));
 	}
 
 	public void updateAlarmModel(AlarmModel am) throws SQLException,
