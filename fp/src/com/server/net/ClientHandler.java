@@ -177,6 +177,9 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 						case ALLUSERS:
 							al.add(factory.getEveryUser(msgW.getUser()));
+						case ISSUMMONEDTO: // ArrayList users, long appointmentid
+							factory.getIsSummonedTo((long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
+							break;
 
 						default:
 							break;
@@ -228,7 +231,7 @@ public class ClientHandler  extends ServiceHandler {
 						case USER:
 							factory.createUserModel((UserModel)msgW.getObjects().get(0));
 							break;
-						case ISSUMMONEDTO:
+						case ISSUMMONEDTO: // ArrayList users, long appointmentid
 							factory.createIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
 							break;
 
@@ -276,6 +279,10 @@ public class ClientHandler  extends ServiceHandler {
 						case USER: //UserModel
 							factory.updateUserModel((UserModel)msgW.getObjects().get(0));
 							break;
+							
+						case ISSUMMONEDTO: // ArrayList users, long appointmentid
+							factory.updateIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
+							break;
 
 						default:
 							break;
@@ -320,6 +327,10 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case USER: //String username
 							factory.deleteUserModel((String)msgW.getObjects().get(0));
+							break;
+							
+						case ISSUMMONEDTO: //ON CASCADE FIXES
+							success = false;
 							break;
 
 						default:

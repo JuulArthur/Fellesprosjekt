@@ -442,7 +442,7 @@ public class Factory {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public ArrayList<String> getIsSummonedTo(int aid)
+	public ArrayList<String> getIsSummonedTo(long aid)
 			throws ClassNotFoundException, SQLException {
 		ArrayList<String> summoned = new ArrayList<String>();
 
@@ -456,6 +456,11 @@ public class Factory {
 		}
 
 		return summoned;
+	}
+	
+	public void updateIsSummonedTo(ArrayList<UserModel> users, long l) throws ClassNotFoundException, SQLException{
+		deleteIsSummonedTo(l);
+		createIsSummonedTo(users, l);
 	}
 
 	public void createIsSummonedTo(ArrayList<UserModel> users, long l)
