@@ -30,6 +30,8 @@ public class SavedMeetingPanelController  implements ActionListener {
 		else if (meetingPanel.getNotComming().contains(gui.getUserModel())){
 			meetingPanel.getAvslag().setEnabled(false);
 		}
+		
+		
 	}
 
 	public void isCommint(){

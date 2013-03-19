@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -39,8 +40,11 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JLabel lblDate;
 	private JButton btnAccept;
 	private JButton btnDecline ;
-	
+	private DefaultListModel notCommingList;
+	private DefaultListModel commingList;
 	public SavedMeetingPanel () {
+		notCommingList=new DefaultListModel();
+		commingList =new DefaultListModel();
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 75, 0, 0, 0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -124,7 +128,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_scrollPane2.gridy = 10;
 		add(scrollPane2, gbc_scrollPane2);
 		
-		NotComming = new JList();
+		NotComming = new JList(notCommingList);
 		scrollPane2.setViewportView(NotComming);
 		
 		scrollPane = new JScrollPane();
@@ -136,8 +140,8 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_scrollPane.gridx = 7;
 		gbc_scrollPane.gridy = 4;
 		add(scrollPane, gbc_scrollPane);
-		
-		Comming = new JList();
+		commingList= new DefaultListModel();
+		Comming = new JList(commingList);
 		scrollPane.setViewportView(Comming);
 		
 		lblNewLabel = new JLabel("Legge avtale til:");
@@ -213,8 +217,8 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		}
 	}
 	
-	public JList getComming(){
-		return this.Comming;
+	public DefaultListModel getComming(){
+		return this.commingList;
 	}
 
 	public JButton getGodta(){
@@ -226,7 +230,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		return this.btnDecline;
 	}
 	
-	public JList getNotComming(){
-		return this.NotComming;
+	public DefaultListModel getNotComming(){
+		return this.notCommingList;
 	}
 }
