@@ -2,6 +2,8 @@ package com.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -28,7 +30,7 @@ import com.view.calendar.NotificationListRenderer;
 import com.view.ManageCalendarsJDialog;
 import com.view.MeetingPanel;
 
-public class CalendarController implements ActionListener, IServerResponse{
+public class CalendarController implements ActionListener, IServerResponse, PropertyChangeListener{
 	
 	private MainGUI main;
 	
@@ -108,13 +110,8 @@ public class CalendarController implements ActionListener, IServerResponse{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == calendarView.getBtnLeggTilAvtale()){
-			MeetingPanel meetingPanel = new MeetingPanel();
-			JFrame meetingFrame = new JFrame("Avtale/Møte");
-			meetingFrame.getContentPane().add(meetingPanel);
-			meetingFrame.pack();
-			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			meetingFrame.setVisible(true);
-			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			Global.respondGUI.remove(this);
+			main.initCreateAppointment();
 		}
 		/* Pluss sign popup on calendars*/
 		else if (e.getSource() == calendarView.getbtnManageCalendar()) {
@@ -164,6 +161,12 @@ public class CalendarController implements ActionListener, IServerResponse{
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGOUT, null));
 		}
+		else if(e.getSource() == calendarView.getButtonNextWeek()){
+			
+		}
+		else if(e.getSource() == calendarView.getButtonLastWeek()){
+			
+		}
 		
 	}
 
@@ -197,8 +200,17 @@ public class CalendarController implements ActionListener, IServerResponse{
 		}	
 		return true;		
 	}
-
 	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Adds the given CalenderModel to the defaultListModel and ArrayList and nullifies the ManageCalendar textfield
+	 * @param model
+	 */
 	public void addCalenderModelItem(CalendarModel model){
 		main.getCalendarModels().add(model);
 		dListModelCalendarModels.addElement(model);
@@ -219,7 +231,6 @@ public class CalendarController implements ActionListener, IServerResponse{
 	public MainGUI getMain() {
 		return main;
 	}
-	
 	
 	
 }
