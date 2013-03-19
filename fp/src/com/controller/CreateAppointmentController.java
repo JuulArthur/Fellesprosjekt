@@ -40,6 +40,18 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 //		this.calendarView.addButtonMeetingAddListener(this);
 	}
 	
+	public CreateAppointmentController(MainGUI gui, MeetingPanel view, AppointmentModel am){
+		this.gui = gui;
+		this.view = view;
+		this.user = gui.getUserModel();
+		this.am = am;
+		alist  = new ArrayList<Object>();
+		this.appointmentState = appointmentState.NOTHING;
+		
+		this.view.saveBtnAddListener(this);
+//		this.calendarView.addButtonMeetingAddListener(this);
+	}
+	
 	private String fromMonthTextToNumber(String month){
 		for(int i=0;i<MONTHS.length;i++){
 			System.out.println(month);
@@ -143,18 +155,32 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				System.out.println("date");
 				return;
 			}
-			AppointmentModel am = new AppointmentModel(System.currentTimeMillis(), startTime, endTime, user,
-					title, view.getDescriptionText(), view.getPlaceText(), Date.valueOf(date),
-					participants);
-			this.am = am;
+			
+			if (am!=null){
+				this.am.setDate(Date.valueOf(date));
+				this.am.setStartTime(startTime);
+				this.am.setEndTime(endTime);
+				this.am.setTitle(title);
+				this.am.setText(view.getDescriptionText());
+				this.am.setPlace(view.getPlaceText());
+				for(UserModel member:participants){
+					if(!am.memberContains(member)){
+						am.addMember(member);
+					}
+				}
+			}
+			else{
+				AppointmentModel am = new AppointmentModel(System.currentTimeMillis(), startTime, endTime, user,
+						title, view.getDescriptionText(), view.getPlaceText(), Date.valueOf(date),
+						participants);
+				this.am = am;
+			}
 			String alarmTimeText = view.getAlarmText();
 			alist.add(am);
 			if(checkTimeField(alarmTimeText)){
 				int alarmHours = Integer.parseInt(alarmTimeText.substring(0,2));
 				int alarmMinutes = Integer.parseInt(alarmTimeText.substring(3,5));
 				int alarmTime = alarmHours*60 + alarmMinutes;
-//				alarmTime += ":00";
-//				String alarmDate = date+" "+alarmTime;
 				AlarmModel alm = new AlarmModel(Date.valueOf(date),"Alarm til avtale med tittel: "+title, alarmTime, am, gui.getUserModel());
 				alist.add(alm);
 			}
@@ -163,6 +189,9 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.APPOINTMENT, alist));
+		}
+		else if(e.getSource() == view.getReturnButton()){
+			
 		}
 		
 	}
