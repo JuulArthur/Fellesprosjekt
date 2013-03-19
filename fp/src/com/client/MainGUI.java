@@ -5,23 +5,21 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.view.CalendarJDialog;
-import com.view.CalendarLayout;
-import com.view.LogginPane;
-import com.view.MainMeetingPanel;
-import com.view.MeetingPanel;
-
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
-import com.model.AppointmentModel;
 import com.model.AlarmModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
+import com.view.CalendarJDialog;
+import com.view.CalendarLayout;
+import com.view.LogginPane;
+import com.view.MeetingPanel;
+import com.view.SavedMeetingPanel;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
@@ -31,6 +29,7 @@ public class MainGUI extends JFrame{
 	private CalendarLayout calendarView;	
 	private CalendarJDialog calendarJDialogView;
 	private MeetingPanel createAppointmentView;
+	private SavedMeetingPanel appointmentView;
 	
 	/* Controllers*/
 	LogginPaneController logginController;
