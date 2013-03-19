@@ -343,8 +343,8 @@ public class Factory {
 	public AlarmModel getAlarmModel(String user, long aid)
 			throws ClassNotFoundException, SQLException {
 
-		String query = String.format("Select date, text,time"
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+		String query = String.format("Select date, text "
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d", user,
 				aid);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
@@ -371,8 +371,8 @@ public class Factory {
 	public AlarmModel getAlarmModel(String user, long aid, AppointmentModel ap,
 			UserModel creator) throws ClassNotFoundException, SQLException {
 
-		String query = String.format("Select date, text, time "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+		String query = String.format("Select date, text "
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d", user,
 				aid);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
