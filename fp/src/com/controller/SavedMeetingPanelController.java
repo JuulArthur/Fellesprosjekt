@@ -2,26 +2,41 @@ package com.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
+import com.model.NotificationModel;
+import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
+import com.net.msg.MSGFlagVerb;
+import com.net.msg.MSGType;
+import com.net.support.State;
+import com.settings.Global;
 import com.view.SavedMeetingPanel;
 
-public class SavedMeetingPanelController implements ActionListener {
+public class SavedMeetingPanelController implements ActionListener, IServerResponse {
 
 	private MainGUI gui;
 	private SavedMeetingPanel meetingPanel;
 	private AppointmentModel appointment;
+	private ArrayList<NotificationModel> notificationQue = new ArrayList<NotificationModel>();
+	private ToDO verb;
 
+	
+	
 	public SavedMeetingPanelController(AppointmentModel appointment,
 			SavedMeetingPanel newMeetingpanel, MainGUI gui) {
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
-		meetingPanel.setStede(this.appointment.getPlace());
+		verb= ToDO.NOTHING;
 		meetingPanel.setTitteltextField(this.appointment.getText());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
+		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
 
 		meetingPanel.getAvslag().addActionListener(this);
@@ -67,10 +82,62 @@ public class SavedMeetingPanelController implements ActionListener {
 			System.out.println("ring han Juul");
 		} else if(e.getSource() == meetingPanel.getMooteinnkalling()){
 			appointment.setSendnotification(true);
-			
+			sendNotification();
 		}
 	}
 	public SavedMeetingPanel getMeetingPanel(){
 		return this.meetingPanel;
 	}
+
+	@Override
+	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
+		// TODO Auto-generated method stub
+		if(success){
+			/* Do we have response objects? */
+			if(al != null){
+			}
+			else{
+				switch (verb) {
+				case SENDING:
+					verb= ToDO.NOTHING;
+					break;
+				case NOTHING:
+					//The model has already been updated
+					break;
+
+				default:
+					break;
+				}
+			
+			}
+		}
+		else { //Dårlig stemning
+		}		
+		
+		return false;
+	}
+
+	
+	
+	
+	public void sendNotification(){
+		for (int i =0; i<appointment.getMembers().size();i++){
+			UserModel currentuser=appointment.getMembers().get(i);
+			NotificationModel notification = new NotificationModel(appointment.getText(), this.appointment,currentuser);
+			this.notificationQue.add(notification);
+		}
+		
+		verb = ToDO.SENDING;
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.NOTIFICATION, notificationQue));
+	}
 }
+
+
+enum ToDO{
+	SENDING,
+	NOTHING
+}
+		

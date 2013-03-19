@@ -235,6 +235,13 @@ public class MainMeetingPanel extends JPanel {
 	public void setStede(String sted){
 	 this.stedTextField.setText(sted);	
 	}
+	public JButton getReturnButton(){
+		return btnReturn;
+	}
+	public void returnBtnAddListener(ActionListener al) {
+		btnReturn.addActionListener(al);
+	}
+
 	
 }	
 

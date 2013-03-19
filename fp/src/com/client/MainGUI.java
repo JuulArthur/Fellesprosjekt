@@ -1,6 +1,7 @@
 package com.client;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -64,7 +65,7 @@ public class MainGUI extends JFrame{
         this.logginView = new LogginPane();
         this.calendarView = new CalendarLayout();
         this.createAppointmentView = new MeetingPanel();
-		
+		this.appointmentView = new SavedMeetingPanel();
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
         this.pack(); 
@@ -108,14 +109,23 @@ public class MainGUI extends JFrame{
 		Global.respondGUI.add(createAppointmentController);
 	}
 	
-	public void initAppointment(AppointmentModel inputAppointment){
+	public void initCreateAppointment(AppointmentModel am){
+		
 		this.getContentPane().removeAll();
-		this.getContentPane().add(calendarView);
+		this.getContentPane().add(createAppointmentView);
 		this.pack();
+		
+		this.createAppointmentController = new CreateAppointmentController(this, createAppointmentView, am);
+		Global.respondGUI.add(createAppointmentController);
+	}
+	
+	public void initAppointment(AppointmentModel inputAppointment){
 		this.appointmentController= new SavedMeetingPanelController(inputAppointment, appointmentView , this);
 		this.getContentPane().removeAll();
 		this.getContentPane().add(appointmentController.getMeetingPanel());
 		this.pack();
+		
+		Global.respondGUI.add(appointmentController);
 	}
 	
 	public static void main(String[] args) throws Exception {

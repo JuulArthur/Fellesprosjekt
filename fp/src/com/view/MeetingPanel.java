@@ -255,7 +255,7 @@ public class MeetingPanel extends MainMeetingPanel {
 	public void saveBtnAddListener(ActionListener al) {
 		btnLagre_1.addActionListener(al);
 	}
-
+	
 	class openAlarmCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			createCalenderDialog((alarmTextField));
@@ -296,9 +296,6 @@ public class MeetingPanel extends MainMeetingPanel {
 		this.participantList = participantList;
 	}
 	
-	public String getAlarmText(){
-		return btnAlarmCalendar.getText();
-	}
 	
 	class backAction implements ActionListener {
 

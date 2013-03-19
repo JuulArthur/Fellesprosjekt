@@ -16,12 +16,13 @@ import org.junit.Test;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
+import com.model.CalendarModel;
 import com.model.RoomModel;
 import com.model.UserModel;
 import com.server.db.Factory;
 
 /**
- * Follow description from DatabaseConnector.java, and make a database named
+ * Follow description from com.server.db/DatabaseConnector.java, and make a database named
  * testdatabase for this test
  * 
  * @author cristea
@@ -35,15 +36,13 @@ public class FactoryTest {
 	 * write tests
 	 */
 
-	static Connection conn;
-	static String rootPassword = "hei123";
 	static Factory f;
 	UserModel um;
 	RoomModel rm;
 	AppointmentModel ap;
 	AlarmModel am;
 
-	// start init and close
+	// start init
 	@BeforeClass
 	public static void init() throws SQLException {
 
@@ -51,13 +50,7 @@ public class FactoryTest {
 
 	}
 
-	@AfterClass
-	public static void out() throws SQLException {
-		conn.createStatement().executeUpdate("drop database factorytest;");
-		conn.close();
-	}
-
-	// en init and close
+	// en init
 
 	// start user model test
 	@Test
@@ -228,7 +221,7 @@ public class FactoryTest {
 		f.createAppointmentModel(ap);
 
 		AlarmModel dummy = new AlarmModel(Date.valueOf("2013-02-28"), "ALARM!",
-				ap, um);
+				0, ap, um);
 		am = null;
 		am = f.createAlarmModel(dummy);
 		assertNotNull("crateAlarmModel didn't return any object", am);
@@ -239,7 +232,7 @@ public class FactoryTest {
 	public void testGetAlarmModelAlarmModel() throws ClassNotFoundException,
 			SQLException {
 		AlarmModel dummy = new AlarmModel(Date.valueOf("2013-02-28"), "ALARM!",
-				ap, um);
+				0, ap, um);
 		am = null;
 		am = f.getAlarmModel(dummy);
 		assertNotNull("getAlarmModel didn't return any object", am);
@@ -250,7 +243,7 @@ public class FactoryTest {
 	public void testUpdateAlarmModelAlarmModel() throws SQLException,
 			ClassNotFoundException {
 		AlarmModel dummy = new AlarmModel(Date.valueOf("2015-03-12"),
-				"ALARM!...NOT", ap, um);
+				"ALARM!...NOT", 0, ap, um);
 		f.updateAlarmModel(dummy);
 		am = null;
 		am = f.getAlarmModel(dummy);
@@ -261,10 +254,10 @@ public class FactoryTest {
 	public void testDeleteAlarmModelAlarmModel() throws SQLException,
 			ClassNotFoundException {
 		AlarmModel dummy = new AlarmModel(Date.valueOf("2015-03-12"),
-				"ALARM!...NOT", ap, um);
+				"ALARM!...NOT", 0, ap, um);
 		f.deleteAlarmModel(dummy);
 		um = new UserModel("hei", "hei", "op", "lo", "l", "992", 0);
-		am = new AlarmModel(Date.valueOf("2013-03-24"), "ALAAARM", ap, um);
+		am = new AlarmModel(Date.valueOf("2013-03-24"), "ALAAARM", 0, ap, um);
 		am = f.getAlarmModel(dummy);
 		assertNull("deleteAlarmModel didn't delete object", am);
 	}
@@ -274,7 +267,9 @@ public class FactoryTest {
 	// start calendar model test
 	@Test
 	public void testCreateCalendarModelCalendarModel() {
-		fail("Not yet implemented");
+		CalendarModel dummy = new CalendarModel(3L, "testkalender",
+				new ArrayList<AppointmentModel>(Arrays.asList(ap)), "chris");
+		
 	}
 
 	@Test
@@ -291,7 +286,8 @@ public class FactoryTest {
 	public void testDeleteCalendarModelCalendarModel() {
 		fail("Not yet implemented");
 	}
-	//end calendar model test
+
+	// end calendar model test
 
 	@Test
 	public void testMakeQuery() {
@@ -382,5 +378,23 @@ public class FactoryTest {
 	public void testGetGroupModel() {
 		fail("Not yet implemented");
 	}
+
+	//start close
+	@AfterClass
+	public static void out() throws SQLException, ClassNotFoundException {
+		f.updateDatabase("delete from alarm;");
+		f.updateDatabase("delete from appointment;");
+		f.updateDatabase("delete from belongto;");
+		f.updateDatabase("delete from calendar;");
+		f.updateDatabase("delete from follows;");
+		f.updateDatabase("delete from groupp;");
+		f.updateDatabase("delete from issummonedto;");
+		f.updateDatabase("delete from memberof;");
+		f.updateDatabase("delete from notification;");
+		f.updateDatabase("delete from reserved;");
+		f.updateDatabase("delete from room;");
+		f.updateDatabase("delete from user;");
+	}
+	//end close
 
 }

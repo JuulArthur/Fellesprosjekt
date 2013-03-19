@@ -328,8 +328,8 @@ public class Factory {
 		String textDate = date.toString();
 		textDate += " "+hours+":"+minutes+":00";
 		String query = String.format("insert into Alarm "
-				+ "(date, text, appointmentid, username) values "
-				+ "('%s', '%s',%d,'%s')", date, text, ap.getId(),
+				+ "(date, text, time, appointmentid, username) values "
+				+ "('%s', '%s',%d ,%d,'%s')", date, text, time, ap.getId(),
 				user.getUsername());
 		updateDatabase(query);
 		return am;
@@ -338,29 +338,31 @@ public class Factory {
 	public AlarmModel createAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
 		return createAlarmModel(am.getDate(), am.getText(),
-				0,am.getAppointment(), am.getCreator());
+				am.getTime(),am.getAppointment(), am.getCreator());
 	}
 
 	public AlarmModel getAlarmModel(String user, long aid)
 			throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d", user,
 				aid);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
 		Date date = null;
 		String text = null;
+		int time = 0;
 		while (rs.next()) {
 			date = rs.getDate(1);
 			text = rs.getString(2);
+			time = rs.getInt(3);
 		}
 
 		AlarmModel am;
-		if (text == null || date == null)
+		if (date == null)
 			am = null;
 		else
-			am = new AlarmModel(date, text,0, null, null);
+			am = new AlarmModel(date, text,time, null, null);
 		rs.close();
 		db.close();
 
@@ -371,22 +373,24 @@ public class Factory {
 			UserModel creator) throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d", user,
 				aid);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
 		Date date = null;
 		String text = null;
+		int time = 0;
 		while (rs.next()) {
 			date = rs.getDate(1);
 			text = rs.getString(2);
+			time = rs.getInt(3);
 		}
 
 		AlarmModel am;
 		if (text == null || date == null)
 			am = null;
 		else
-			am = new AlarmModel(date, text,0, null, null);
+			am = new AlarmModel(date, text,time, null, null);
 
 		rs.close();
 		db.close();
@@ -400,19 +404,18 @@ public class Factory {
 				.getId(), am.getAppointment(), am.getCreator());
 	}
 
-	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
+	public void updateAlarmModel(Date date, String text, int time, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
-		updateAlarmModel(new AlarmModel(date, text,0, ap, user));
+		updateAlarmModel(new AlarmModel(date, text,time, ap, user));
 	}
 
 	public void updateAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
 		System.out.println(am.getDate());
 		String query = String
-				.format("UPDATE Alarm SET date='%s',text='%s' WHERE appointmentid=%d AND username='%s'",
-						am.getDate(), am.getText(),
-						am.getAppointment().getId(), am.getCreator()
-								.getUsername());
+				.format("UPDATE Alarm SET date='%s',text='%s',time=%d WHERE appointmentid=%d AND username='%s'",
+						am.getDate(), am.getText(), am.getTime(),
+						am.getAppointment().getId(), am.getCreator().getUsername());
 		updateDatabase(query);
 	}
 
