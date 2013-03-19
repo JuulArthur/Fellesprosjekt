@@ -57,7 +57,6 @@ public class MainGUI extends JFrame{
 	
 	/*
 	 *  INITS
-	 * 
 	 */
 	public void initLoggin() throws Exception{
 		startServer();
@@ -182,6 +181,4 @@ public class MainGUI extends JFrame{
 	public void setAlarmModel(AlarmModel alarmModel) {
 		this.alarmModel = alarmModel;
 	}
-	
-	
 }

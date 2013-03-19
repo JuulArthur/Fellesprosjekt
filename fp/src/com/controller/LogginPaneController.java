@@ -21,12 +21,13 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 		this.gui = gui;
 		this.l_liew = l_view;
 		
+		this.l_liew.getPasswordField().addActionListener(this);
 		this.l_liew.addLogginButtonListener(this);
 	}
 	
 
 		@Override
-		public void actionPerformed(ActionEvent e) {	
+		public void actionPerformed(ActionEvent e) {
 			String username = l_liew.getUsernameField().getText();
 			String password = l_liew.getPasswordField().getText();
 			

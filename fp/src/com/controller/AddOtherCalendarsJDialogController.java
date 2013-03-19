@@ -11,10 +11,16 @@ import com.view.AddOtherCalendarsJDialog;
 public class AddOtherCalendarsJDialogController implements IServerResponse, ActionListener{
 
 	/* View */
-	AddOtherCalendarsJDialog  addOtherCalendars;
+	private AddOtherCalendarsJDialog  addOtherCalendars;
 	
-	public AddOtherCalendarsJDialogController(){
+	/* Controller */
+	private CalendarController calendarController;
+	
+	
+	public AddOtherCalendarsJDialogController(CalendarController calendarController){
+		this.calendarController = calendarController;
 		addOtherCalendars = new AddOtherCalendarsJDialog();
+		addOtherCalendars.setLocationRelativeTo(calendarController.getMain());
 		addOtherCalendars.setVisible(true);
 		addOtherCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
 	}
