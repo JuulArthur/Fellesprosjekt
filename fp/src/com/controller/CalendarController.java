@@ -148,9 +148,8 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 			
 		}
 		else if (e.getSource() == calendarView.getBtnShowOtherCalendars()) {
-			AddOtherCalendarsJDialog  addOtherCalendars = new AddOtherCalendarsJDialog();
-			addOtherCalendars.setVisible(true);
-			addOtherCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+			AddOtherCalendarsJDialogController addOtherCalendarsController = new AddOtherCalendarsJDialogController();
+			Global.respondGUI.add(this);
 			
 		}
 		

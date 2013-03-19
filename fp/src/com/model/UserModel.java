@@ -46,6 +46,8 @@ public class UserModel {
 	@XmlElement(name="subscribedCalendars")
 	private ArrayList<CalendarModel> subscribedCalendars;
 	
+	private CalendarModel summonedTo;
+	
 	/* JAXB */
 	public UserModel(){
 		changeSupport = new PropertyChangeSupport(this);
@@ -65,6 +67,7 @@ public class UserModel {
 		this.isAdmin = isAdmin==1;
 		this.notifications = new ArrayList<NotificationModel>();
 		this.myCalendars = new ArrayList<CalendarModel>();
+		this.subscribedCalendars = new ArrayList<CalendarModel>();
 	}
 	
 	/* Methods */

@@ -66,7 +66,6 @@ public class MainGUI extends JFrame{
         this.calendarView = new CalendarLayout();
         this.createAppointmentView = new MeetingPanel();
 		this.appointmentView = new SavedMeetingPanel();
-		
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
         this.pack(); 

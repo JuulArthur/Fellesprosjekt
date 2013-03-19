@@ -216,7 +216,9 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case NOTIFICATION:
-							factory.createNotificationModel((NotificationModel)msgW.getObjects().get(0));
+							for(Object nm : msgW.getObjects()){
+								factory.createNotificationModel((NotificationModel)nm);
+							}
 							break;
 							
 						case ROOM:
@@ -225,6 +227,9 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case USER:
 							factory.createUserModel((UserModel)msgW.getObjects().get(0));
+							break;
+						case ISSUMMONEDTO:
+							factory.createIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
 							break;
 
 						default:
