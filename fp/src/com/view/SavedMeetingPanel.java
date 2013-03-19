@@ -8,6 +8,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import java.awt.GridBagLayout;
@@ -33,7 +34,12 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JList list2;
 	private JFrame savedMeeting;
 	private JLabel lblNewLabel;
+<<<<<<< HEAD
 	private ButtonGroup buttongrp;
+=======
+	private JTextField dateTextField;
+	private JLabel lblDate;
+>>>>>>> 5763c4676e3852457e7b3bae0378b7360380ad1b
 	
 	public SavedMeetingPanel () {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -45,9 +51,35 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		titteltextField.setEditable(false);
 		stedTextField.setEditable(false);
 		beskrivelseTextArea.setEditable(false);
+<<<<<<< HEAD
 		
 		buttongrp = new ButtonGroup();
 		
+=======
+		startTextField.setEditable(false);
+		sluttTextField.setEditable(false);
+		alarmTextField.setEditable(false);
+		
+		
+		lblDate = new JLabel("Dato:");
+		GridBagConstraints gbc_lblDate = new GridBagConstraints();
+		gbc_lblDate.anchor = GridBagConstraints.WEST;
+		gbc_lblDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDate.gridx = 3;
+		gbc_lblDate.gridy = 2;
+		add(lblDate, gbc_lblDate);
+		
+		dateTextField = new JTextField();
+		GridBagConstraints gbc_dateTextField = new GridBagConstraints();
+		gbc_dateTextField.anchor = GridBagConstraints.WEST;
+		gbc_dateTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_dateTextField.gridx = 5;
+		gbc_dateTextField.gridy = 2;
+		dateTextField.setColumns(15);
+		dateTextField.setEditable(false);
+		add(dateTextField, gbc_dateTextField);
+	
+>>>>>>> 5763c4676e3852457e7b3bae0378b7360380ad1b
 		JButton btnAccept = new JButton("Godta");
 		buttongrp.add(btnAccept);
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
@@ -85,8 +117,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_lblKommerIkke.gridy = 7;
 		add(lblKommerIkke, gbc_lblKommerIkke);
 		
-		
-		
+	
 		scrollPane2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane2 = new GridBagConstraints();
 		gbc_scrollPane2.gridheight = 2;

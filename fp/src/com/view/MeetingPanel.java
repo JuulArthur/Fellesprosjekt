@@ -26,56 +26,68 @@ import com.controller.IServerResponse;
 public class MeetingPanel extends MainMeetingPanel {
 	private JLabel lblKalender;
 	private JLabel lblDeltagere;
+	private JLabel lblDate;
 	private JButton btnSlett;
 	private JButton btnLagre_1;
 	private JButton addPerson;
 	private JButton removePerson;
-	private JButton btnopenStartCalendar;
-	private JButton btnopenStopCalendar;
+	private JButton btnChooseDate;
 	private JButton btnAlarmCalendar;
 	private JList participantList;
 	private JButton btnChooseRoom;
 	private JComboBox CalendarComboBox;
 	private JFrame meetingFrame;
+	private JTextField dateTextField;
+	private JLabel lblFormat;
+	private int posY;
 
 	public MeetingPanel() {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
 		/* 
 		 * TODO: Se p� Kalenderknappene
 		 */
+		posY = 3;
+		setFormatLabel(posY);
+		posY = 4;
+		setFormatLabel(posY);
+		posY = 6;
+		setFormatLabel(posY);
 		
-		btnopenStartCalendar = new JButton("\u00C5pne kalender");
-		btnopenStartCalendar.addActionListener(new openStartCalendar());
-		GridBagConstraints gbc_btnopenStartCalendar = new GridBagConstraints();
-		gbc_btnopenStartCalendar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnopenStartCalendar.gridx = 6;
-		gbc_btnopenStartCalendar.gridy = 2;
-		add(btnopenStartCalendar, gbc_btnopenStartCalendar);
-
-		btnopenStopCalendar = new JButton("\u00C5pne kalender");
-		btnopenStopCalendar.addActionListener(new openStopCalendar());
-		GridBagConstraints gbc_btnopenStopCalendar = new GridBagConstraints();
-		gbc_btnopenStopCalendar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnopenStopCalendar.gridx = 6;
-		gbc_btnopenStopCalendar.gridy = 3;
-		add(btnopenStopCalendar, gbc_btnopenStopCalendar);
-
-		btnAlarmCalendar = new JButton("\u00C5pne kalender");
-		btnAlarmCalendar.addActionListener(new openAlarmCalendar());
-		GridBagConstraints gbc_btnAlarmStartCalendar = new GridBagConstraints();
-		gbc_btnAlarmStartCalendar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAlarmStartCalendar.gridx = 6;
-		gbc_btnAlarmStartCalendar.gridy = 5;
-		add(btnAlarmCalendar, gbc_btnAlarmStartCalendar);
-
+		dateTextField = new JTextField();
+		GridBagConstraints gbc_dateTextField = new GridBagConstraints();
+		gbc_dateTextField.anchor = GridBagConstraints.WEST;
+		gbc_dateTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_dateTextField.gridx = 5;
+		gbc_dateTextField.gridy = 2;
+		dateTextField.setColumns(15);
+		dateTextField.setEditable(false);
+		add(dateTextField, gbc_dateTextField);
+		
+		lblDate = new JLabel("Dato:");
+		GridBagConstraints gbc_lblDate = new GridBagConstraints();
+		gbc_lblDate.anchor = GridBagConstraints.WEST;
+		gbc_lblDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDate.gridwidth = 2;
+		gbc_lblDate.gridx = 3;
+		gbc_lblDate.gridy = 2;
+		add(lblDate, gbc_lblDate);
+	
+		btnChooseDate = new JButton("Velg dato");
+		btnChooseDate.addActionListener(new OpenChooseDate());
+		GridBagConstraints gbc_btnChooseDate = new GridBagConstraints();
+		gbc_btnChooseDate.insets = new Insets(0, 0, 5, 5);
+		gbc_btnChooseDate.gridx = 6;
+		gbc_btnChooseDate.gridy = 2;
+		add(btnChooseDate, gbc_btnChooseDate);
+		
 		btnChooseRoom = new JButton("+");
 		btnChooseRoom.addActionListener(new chooseRoomAction());
 		GridBagConstraints gbc_btnChooseRoom = new GridBagConstraints();
 		gbc_btnChooseRoom.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChooseRoom.gridx = 6;
-		gbc_btnChooseRoom.gridy = 4;
+		gbc_btnChooseRoom.gridy = 5;
 		add(btnChooseRoom, gbc_btnChooseRoom);
 		
 		lblKalender = new JLabel("Kalender:");
@@ -158,9 +170,22 @@ public class MeetingPanel extends MainMeetingPanel {
 
 	}
 
-	private void setText(JTextField textField, String day, String clockTime) {
-		textField.setText(day + " Klokken: " + clockTime);
+	private void setText(JTextField textField, String day) {
+		textField.setText(day);
 	}
+	
+	private void setFormatLabel(int posY) {
+		lblFormat = new JLabel("(tt:mm)");
+		GridBagConstraints gbc_lblFormat1 = new GridBagConstraints();
+		gbc_lblFormat1.anchor = GridBagConstraints.WEST;
+		gbc_lblFormat1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFormat1.gridwidth = 2;
+		gbc_lblFormat1.gridx = 4;
+		gbc_lblFormat1.gridy = posY;
+		add(lblFormat, gbc_lblFormat1);
+	}
+	
+	
 /*
  * Oppretter en instans av CalendarJDialog, og legger til en knapp du kan trykke p� n�r du er ferdig.
  * N�r du trykker den knappen vil riktig textfield bli oppdatert.
@@ -180,7 +205,7 @@ public class MeetingPanel extends MainMeetingPanel {
 
 		btnChangesDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setText(textField, calendarDialog.getdayChosen(), calendarDialog.getclockTime());					
+				setText(textField, calendarDialog.getdayChosen());					
 				calendarDialog.dispose();
 			}
 		});			
@@ -233,19 +258,11 @@ public class MeetingPanel extends MainMeetingPanel {
 			createCalenderDialog((alarmTextField));
 		}
 	}		
-	class openStopCalendar implements ActionListener {
+	class OpenChooseDate implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			createCalenderDialog(sluttTextField);
+			createCalenderDialog(dateTextField);
 		}
-	}	
-
-	class openStartCalendar implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			createCalenderDialog(startTextField);
-		}	
-	}
-
-	
+	}		
 	
 	class addNewPerson implements ActionListener {
 
