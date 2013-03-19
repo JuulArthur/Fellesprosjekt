@@ -182,6 +182,14 @@ public class AppointmentModel {
 		this.members = members;
 		changeSupport.firePropertyChange(MEMBERS_PROPERTY, oldValue, members);
 	}
+	
+	public void addMembers(UserModel member){
+		this.members.add(member);
+	}
+	
+	public boolean memberContains(UserModel member){
+		return this.members.contains(member);
+	}
 
 	public void addMember(UserModel member) {
 		if (!this.members.contains(member))

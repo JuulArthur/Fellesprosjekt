@@ -108,6 +108,16 @@ public class MainGUI extends JFrame{
 		Global.respondGUI.add(createAppointmentController);
 	}
 	
+	public void initCreateAppointment(AppointmentModel am){
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().add(createAppointmentView);
+		this.pack();
+		
+		this.createAppointmentController = new CreateAppointmentController(this, createAppointmentView, am);
+		Global.respondGUI.add(createAppointmentController);
+	}
+	
 	public void initAppointment(AppointmentModel inputAppointment){
 		this.getContentPane().removeAll();
 		this.getContentPane().add(calendarView);
