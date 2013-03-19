@@ -127,7 +127,6 @@ public class ServerHandler extends ServiceHandler {
 						//SEND THE ACCEPT BACK TO SERVER
 						// if msgW.getObjects.get(0) contains something, return it. the context will fix casting
 						
-						System.out.println(msgW);
 						propagateResponseToGUI(true, msgW.getObjects());
 
 						if(subject != null){							

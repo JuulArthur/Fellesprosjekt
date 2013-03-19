@@ -6,7 +6,11 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.client.MainGUI;
 import com.model.CalendarModel;
@@ -40,6 +44,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 	/* Div */
 	private ToDo toDo;
 	private Object tempO;
+	private CalendarModel selectedCalenderModel;
 	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
 		/* Get the views */
@@ -72,6 +77,19 @@ public class CalendarController implements ActionListener, IServerResponse{
 		this.calendarView.addButtonManageCalendarAddListener(this);
 		this.calendarView.addButtonShowOtherCalendarsAddListener(this);
 		
+		final JList listCalender = this.calendarView.getListCalendar();
+		final JTextField txt = this.calendarView.getTextFieldManageCalendar();
+		
+		this.calendarView.getListCalendar().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!e.getValueIsAdjusting()){
+					selectedCalenderModel = (CalendarModel)dListModelCalendarModels.getElementAt(listCalender.getSelectedIndex());
+					txt.setText("");
+				}	
+			}
+		});
+		
 		/* We are currently waiting for nothing*/
 		toDo = toDo.NOTHING;
 		
@@ -96,62 +114,41 @@ public class CalendarController implements ActionListener, IServerResponse{
 			meetingFrame.pack();
 			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
 			meetingFrame.setVisible(true);
-			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}
 		/* Pluss sign popup on calendars*/
 		else if (e.getSource() == calendarView.getbtnManageCalendar()) {
-			if(calendarView.getTextFieldManageCalendar().getText().length() > 0){
-
-				/* Is it a new calendar? */
-				String c_name = calendarView.getTextFieldManageCalendar().getText();
-				CalendarModel newCalendar = null;
-				boolean newCal = true;
+			//Algorithm
+			//1. Is the TextFIeld selected?
+				//Is there any text?
+			//Is an JList selected?
+			
+			boolean isNew = false;
+			CalendarModel sCalendar = null;
+			
+			String c_name = calendarView.getTextFieldManageCalendar().getText();
+			
+			if(c_name.length() > 0){
+				isNew = true;
+				sCalendar = new CalendarModel();
+				sCalendar.setName(c_name);
+				long unixTime = System.currentTimeMillis() / 1000L;
+				sCalendar.setId(unixTime);
+				sCalendar.setOwner(userModel.getUsername());
 				
-				/*Check if the name we typed already exists */
-				if(dListModelCalendarModels != null)
-					
-					for(int i = 0; i < dListModelCalendarModels.size(); i++){
-						if(((CalendarModel)dListModelCalendarModels.get(i)).getName().equals(c_name)){
-							newCalendar = (CalendarModel) dListModelCalendarModels.get(i);
-							newCal = false;
-							break;
-						}
-					}
-				
-				if(newCal == true){
-					newCalendar = new CalendarModel();
-					newCalendar.setName(c_name);
-					long unixTime = System.currentTimeMillis() / 1000L;
-					newCalendar.setId(unixTime);
-					newCalendar.setOwner(userModel.getUsername());
-				}
-				
-				/*Edit that shiiit*/
-				ManageCalendarsJDialog manageCalendars = new ManageCalendarsJDialog(newCalendar);
-				manageCalendars.setModal(true);
-				manageCalendars.setVisible(true);
-				manageCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
-				
-				
-				
-				ArrayList<Object> al = new ArrayList<Object>();
-				al.add(newCalendar);		
-				
-				tempO = newCalendar;
-				
-				/* Send that shiit to server*/
-				if(newCal == true){
-					Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
-					Global.sHandler.setState(State.CONNECTED_WAITING);
-					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, al));
-					toDo = ToDo.NEW_CALENDAR;
-				}
-				else{
-					Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
-					Global.sHandler.setState(State.CONNECTED_WAITING);
-					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE, MSGFlagSubject.CALENDAR, al));
+			}
+			else {
+				if(selectedCalenderModel != null){
+					sCalendar = selectedCalenderModel;
 				}
 			}
+			
+			if(sCalendar != null){
+				ManageCalendarsJDialogController manageCalanderController = new ManageCalendarsJDialogController(isNew, sCalendar, this);	
+				Global.respondGUI.add(manageCalanderController);
+			}
+			
+			
 		}
 		else if (e.getSource() == calendarView.getBtnShowOtherCalendars()) {
 			AddOtherCalendarsJDialog  addOtherCalendars = new AddOtherCalendarsJDialog();
@@ -183,11 +180,6 @@ public class CalendarController implements ActionListener, IServerResponse{
 			}
 			else{
 				switch (toDo) {
-				case NEW_CALENDAR:
-					main.getCalendarModels().add((CalendarModel)tempO);
-					dListModelCalendarModels.addElement(tempO);
-					calendarView.getTextFieldManageCalendar().setText("");					
-					break;
 				case EXIT:
 					System.exit(0);
 					break;
@@ -205,6 +197,31 @@ public class CalendarController implements ActionListener, IServerResponse{
 		}	
 		return true;		
 	}
+
+	
+	public void addCalenderModelItem(CalendarModel model){
+		main.getCalendarModels().add(model);
+		dListModelCalendarModels.addElement(model);
+		calendarView.getTextFieldManageCalendar().setText("");		
+	}
+
+	
+	/* GETTERS AND SETTERS */
+	public DefaultListModel getdListModelCalendarModels() {
+		return dListModelCalendarModels;
+	}
+
+	public void setdListModelCalendarModels(
+			DefaultListModel dListModelCalendarModels) {
+		this.dListModelCalendarModels = dListModelCalendarModels;
+	}
+
+	public MainGUI getMain() {
+		return main;
+	}
+	
+	
+	
 }
 
 /**
@@ -213,8 +230,6 @@ public class CalendarController implements ActionListener, IServerResponse{
  *
  */
 enum ToDo {
-	NEW_CALENDAR,
-	UPDATECALENDAR,
 	EXIT,
 	NOTHING
 }
