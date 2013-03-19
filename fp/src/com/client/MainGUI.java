@@ -1,6 +1,7 @@
 package com.client;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -109,13 +110,12 @@ public class MainGUI extends JFrame{
 	}
 	
 	public void initAppointment(AppointmentModel inputAppointment){
-		this.getContentPane().removeAll();
-		this.getContentPane().add(calendarView);
-		this.pack();
 		this.appointmentController= new SavedMeetingPanelController(inputAppointment, appointmentView , this);
 		this.getContentPane().removeAll();
 		this.getContentPane().add(appointmentController.getMeetingPanel());
 		this.pack();
+		
+		Global.respondGUI.add(appointmentController);
 	}
 	
 	public static void main(String[] args) throws Exception {
