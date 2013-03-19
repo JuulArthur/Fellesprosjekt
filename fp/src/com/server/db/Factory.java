@@ -550,9 +550,12 @@ public class Factory {
 
 		rs.close();
 		db.close();
-
-		return new AppointmentModel(l, startTime, endTime, host, title, text,
+		
+		if(title != null)
+			return new AppointmentModel(l, startTime, endTime, host, title, text,
 				place, date, members);
+		else
+			return null;
 	}
 
 	// UPDATE
@@ -604,6 +607,9 @@ public class Factory {
 		return am;
 	}
 
+	public void deleteAppointmentModel(AppointmentModel am) throws SQLException, ClassNotFoundException {
+		deleteAppointmentModel(am.getId());
+	}
 	// DELETE
 	public void deleteAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
