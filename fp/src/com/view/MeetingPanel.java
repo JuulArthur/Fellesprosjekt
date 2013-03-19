@@ -158,7 +158,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnLagre_1.gridx = 5;
 		gbc_btnLagre_1.gridy = 12;
-		btnLagre_1.addActionListener(new saveAction());
+//		btnLagre_1.addActionListener(new saveAction());
 		add(btnLagre_1, gbc_btnLagre_1);
 		
 		btnSlett = new JButton("Slett");
@@ -239,18 +239,18 @@ public class MeetingPanel extends MainMeetingPanel {
 		}
 	}
 	
-	class saveAction implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			SavedMeetingPanel savedMeetingPanel = new SavedMeetingPanel();
-			JFrame savedMeetingFrame = new JFrame("Legg til brukere og/eller grupper");
-			savedMeetingFrame.getContentPane().add(savedMeetingPanel);
-			savedMeetingFrame.pack();
-			savedMeetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			savedMeetingFrame.setVisible(true);
-			savedMeetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		}
-		
-	}
+//	class saveAction implements ActionListener {
+//		public void actionPerformed(ActionEvent e) {
+//			SavedMeetingPanel savedMeetingPanel = new SavedMeetingPanel();
+//			JFrame savedMeetingFrame = new JFrame("Legg til brukere og/eller grupper");
+//			savedMeetingFrame.getContentPane().add(savedMeetingPanel);
+//			savedMeetingFrame.pack();
+//			savedMeetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
+//			savedMeetingFrame.setVisible(true);
+//			savedMeetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+//		}
+//		
+//	}
 	
 	public void saveBtnAddListener(ActionListener al) {
 		btnLagre_1.addActionListener(al);

@@ -69,6 +69,7 @@ public class MainGUI extends JFrame{
 
         this.logginView = new LogginPane();
         this.calendarView = new CalendarLayout();
+        this.createAppointmentView = new MeetingPanel();
 		
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
@@ -108,15 +109,22 @@ public class MainGUI extends JFrame{
 	}
 	
 	public void initCreateAppointment(){
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().add(createAppointmentView);
+		this.pack();
+		
+		this.createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
+		Global.respondGUI.add(createAppointmentController);
+	}
+	
+	public void initAppointment(AppointmentModel inputAppointment){
 		this.getContentPane().removeAll();
 		this.getContentPane().add(calendarView);
 		this.pack();
 		
-		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
-	}
-	
-	public void initAppointment(AppointmentModel inputAppointment){
 		
+		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
 	}
 	
 	public static void main(String[] args) throws Exception {

@@ -76,12 +76,14 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			int endTime;
 			int year;
 			int day;
+			int month;
 			if (checkTimeField(view.getStartText())){
 				int startTimeHours = Integer.parseInt(view.getStartText().substring(0,2));
 				int startTimeMinutes = Integer.parseInt(view.getStartText().substring(3,5));
 				startTime = startTimeHours*60 + startTimeMinutes;
 			}
 			else{
+				System.out.println("start");
 				return;
 			}
 			if(checkTimeField(view.getEndText())){
@@ -90,6 +92,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				endTime = endTimeHours*60 + endTimeMinutes;
 			}
 			else{
+				System.out.println("end");
 				return;
 			}
 			JList participantList = view.getParticipantList();
@@ -98,13 +101,15 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				participants.add((UserModel) participantList.getModel().getElementAt(i));
 			}
 			String dateText = view.getDateText();
-			int indexOfDot = dateText.indexOf('.');
-			int month = fromMonthTextToNumber(dateText.substring(0,indexOfDot));
-			if(month!=-1){
-				day = Integer.parseInt(dateText.substring(indexOfDot+1));
+			int indexOfDot = dateText.indexOf(".");
+			System.out.println(indexOfDot);
+			if(indexOfDot!=-1){
+				month = fromMonthTextToNumber(dateText.substring(indexOfDot+1));
+				day = Integer.parseInt(dateText.substring(0,indexOfDot));
 				year = Calendar.getInstance().get(Calendar.YEAR);
 			}
 			else{
+				System.out.println("date");
 				return;
 			}
 			AppointmentModel am = new AppointmentModel(System.currentTimeMillis(), startTime, endTime, user,
@@ -116,7 +121,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			this.am = am;
 			appointmentState = appointmentState.NEW_APPOINTMENT;
 			
-			Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
+			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.APPOINTMENT, alist));
 		}
