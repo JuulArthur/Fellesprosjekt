@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class AddParticipantPanel extends JPanel {
 
 	private JFrame participantFrame;
+	private JComboBox userComboBox;
+	private JComboBox groupComboBox;
 	
 	public AddParticipantPanel () {
 		/*
@@ -60,13 +62,13 @@ public class AddParticipantPanel extends JPanel {
 		gbc_lblBrukernavn.gridy = 2;
 		add(lblBrukernavn, gbc_lblBrukernavn);
 		
-		JComboBox comboBox = new JComboBox();
+		userComboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(5,5, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 3;
-		add(comboBox, gbc_comboBox);
+		add(userComboBox, gbc_comboBox);
 		
 		JButton btnAddUser = new JButton("legg til");
 		GridBagConstraints gbc_btnAddUser = new GridBagConstraints();
@@ -82,13 +84,13 @@ public class AddParticipantPanel extends JPanel {
 		gbc_lblGruppe.gridy = 4;
 		add(lblGruppe, gbc_lblGruppe);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		groupComboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
 		gbc_comboBox_1.insets =new Insets(5, 5, 5, 5);
 		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_1.gridx = 0;
 		gbc_comboBox_1.gridy = 5;
-		add(comboBox_1, gbc_comboBox_1);
+		add(groupComboBox, gbc_comboBox_1);
 		
 		JButton btnaddGroup = new JButton("legg til");
 		GridBagConstraints gbc_btnaddGroup = new GridBagConstraints();
@@ -97,6 +99,26 @@ public class AddParticipantPanel extends JPanel {
 		gbc_btnaddGroup.gridy = 5;
 		add(btnaddGroup, gbc_btnaddGroup);
 		
+	}
+
+	public JComboBox getUserComboBox() {
+		return userComboBox;
+	}
+
+	public void setUserComboBox(ArrayList<Object> users) {
+		for (Object user : users) {
+			userComboBox.addItem(user);
+		}
+	}
+
+	public JComboBox getGroupComboBox() {
+		return groupComboBox;
+	}
+
+	public void setGroupComboBox(ArrayList<Object> groups) {
+		for(Object group : groups) {
+			groupComboBox.addItem(group);
+		}
 	}
 
 	class goBackAction implements ActionListener {
