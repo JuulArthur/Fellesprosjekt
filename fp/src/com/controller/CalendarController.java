@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -17,7 +18,8 @@ import com.net.msg.MSGType;
 import com.net.support.State;
 import com.settings.Global;
 import com.view.AddOtherCalendarsJDialog;
-import com.view.CalendarLayout;
+import com.view.calendar.CalendarLayout;
+import com.view.calendar.CalendarListRenderer;
 import com.view.ManageCalendarsJDialog;
 import com.view.MeetingPanel;
 
@@ -27,7 +29,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 	
 	private CalendarLayout calendarView;
 	
-	private ArrayList<CalendarModel> calendarModels;
+	//private ArrayList<CalendarModel> calendarModels;
 	private ArrayList<NotificationModel> notificationsModels;
 	
 	private UserModel userModel;
@@ -35,21 +37,36 @@ public class CalendarController implements ActionListener, IServerResponse{
 	private ToDo toDo;
 	private Object tempO;
 	
+	private DefaultListModel<CalendarModel> dListModelCalendarModels;
+	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
+		/* Get the views */
 		this.main = main;
 		this.calendarView = calendarView;
 		
-		this.calendarModels = main.getCalendarModels();
+		/* Add all calendars to the model */
+		this.dListModelCalendarModels = new DefaultListModel<CalendarModel>();
+		if(main.getCalendarModels() != null)
+			for(CalendarModel cm : main.getCalendarModels())
+				this.dListModelCalendarModels.addElement(cm);
+		
+		/* Get the UserModel */
 		this.userModel = main.getUserModel();
 		
+		/* Add listeners */
 		this.calendarView.addButtonMeetingAddListener(this);
 		this.calendarView.addButtonLogoutAddListener(this);
 		this.calendarView.addButtonManageCalendarAddListener(this);
 		this.calendarView.addButtonShowOtherCalendarsAddListener(this);
 		
+		/* We are currently waiting for nothing*/
 		toDo = toDo.NOTHING;
 		
+		/* Add the models to the views*/
+		this.calendarView.getListCalendar().setModel(dListModelCalendarModels);
 		
+		/*Add renderes*/
+		this.calendarView.getListCalendar().setCellRenderer(new CalendarListRenderer());
 	}
 
 	@Override
@@ -73,10 +90,12 @@ public class CalendarController implements ActionListener, IServerResponse{
 				CalendarModel newCalendar = null;
 				boolean newCal = true;
 				
-				if(calendarModels != null)
-					for(CalendarModel cm : calendarModels){
-						if(cm.getName().equals(c_name)){
-							newCalendar = cm;
+				/*Check if the name we typed already exists */
+				if(dListModelCalendarModels != null)
+					
+					for(int i = 0; i < dListModelCalendarModels.size(); i++){
+						if(dListModelCalendarModels.get(i).getName().equals(c_name)){
+							newCalendar = dListModelCalendarModels.get(i);
 							newCal = false;
 							break;
 						}
@@ -135,12 +154,9 @@ public class CalendarController implements ActionListener, IServerResponse{
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {		
-		
+		/*Check if last request was successful*/
 		if(success){
-		
-
-			
-			/* Response objects */
+			/* Do we have response objects? */
 			if(al != null){
 				if(al.get(0) instanceof UserModel){
 					//this.userModel = (UserModel)al.get(0);
@@ -173,6 +189,11 @@ public class CalendarController implements ActionListener, IServerResponse{
 	}
 }
 
+/**
+ * Responsetype enum
+ * @author perok
+ *
+ */
 enum ToDo {
 	NEW_CALENDAR,
 	UPDATECALENDAR,

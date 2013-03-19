@@ -115,8 +115,7 @@ public class Factory {
 		return getCalendarModel(cm.getId());
 	}
 
-	public CalendarModel getCalendarModel(long idIn) throws SQLException,
-			ClassNotFoundException {
+	public CalendarModel getCalendarModel(long idIn) throws SQLException, ClassNotFoundException {
 		db.initialize();
 		String query = String.format("Select '%s',name from Calendar", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
@@ -196,7 +195,7 @@ public class Factory {
 			throws ClassNotFoundException, SQLException {
 
 		String query = String
-				.format("Select username,email,name,surname,phonenumber,password,isadmin from User where username='%s'",
+				.format("Select email,name,surname,phonenumber,password,isadmin from User where username='%s'",
 						username);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
@@ -206,15 +205,18 @@ public class Factory {
 		String surname = null;
 		String phoneNumber = null;
 		int isAdmin = 0;
+		
+		//Fetch dat data
 		while (rs.next()) {
-			email = rs.getString(2);
-			name = rs.getString(3);
-			surname = rs.getString(4);
-			phoneNumber = rs.getString(5);
-			password = rs.getString(6);
-			isAdmin = rs.getInt(7);
+			email = rs.getString(1);
+			name = rs.getString(2);
+			surname = rs.getString(3);
+			phoneNumber = rs.getString(4);
+			password = rs.getString(5);
+			isAdmin = rs.getInt(6);
 		}
 
+		//Create the model
 		UserModel um = new UserModel(username, password, email, name, surname,
 				phoneNumber, isAdmin);
 
@@ -222,21 +224,23 @@ public class Factory {
 			um = null;
 		else {
 
-			query = String
-					.format("Select calendarid, isOwner from Follows Where username='%s'",
-							username);
-			ResultSet crs = db.makeSingleQuery(query);
-			int calendarId = 0;
-			boolean isOwner = false;
-			while (crs.next()) {
-				calendarId = crs.getInt(1);
-				isOwner = crs.getBoolean(2);
-				CalendarModel tempCal = getCalendarModel(calendarId);
-				if (isOwner) {
-					um.addCalendar(tempCal);
-				} else {
-					um.addSubscribedCalendars(tempCal);
-				}
+		//Get the calendars
+		query = String.format("Select calendarid, isOwner from Follows Where username='%s'",username);
+		ResultSet crs = db.makeSingleQuery(query);
+		
+		long calendarId = 0;
+		boolean isOwner = false;
+		while (crs.next()) {
+			calendarId = crs.getLong(1);
+			isOwner = crs.getBoolean(2);
+			
+			CalendarModel tempCal = getCalendarModel(calendarId);
+			
+			if (isOwner) {
+				um.addCalendar(tempCal);
+			} else {
+				um.addSubscribedCalendars(tempCal);
+			}
 
 			}
 			crs.close();
@@ -248,6 +252,7 @@ public class Factory {
 
 	}
 
+	@Deprecated
 	public UserModel getUserModel(UserModel um) throws ClassNotFoundException,
 			SQLException {
 		return getUserModel(um.getUsername());
@@ -548,26 +553,6 @@ public class Factory {
 		if (am.getMembers() != null)
 			createIsSummonedTo(am.getMembers(), am.getId());
 
-		// 3. Add all the attends to the appointment
-		/*
-		 * if(summoned.size() != 0){ createIsSummonedTo(am.getMembers(),
-		 * am.getId());
-		 * 
-		 * //4. We need to notify the new guys that they are invited
-		 * ArrayList<String> needNotification = new ArrayList<>();
-		 * 
-		 * for (int i = 0; i < am.getMembers().size(); i++) { String s =
-		 * am.getMembers().get(i).getUsername(); //Have they been invited?
-		 * if(!summoned.contains(s))
-		 * needNotification.add(am.getMembers().get(i).getUsername()); } //TODO
-		 * Skal update ta seg av dette? //TODO GJøre det batch istedenfor
-		 * if(needNotification.size() != 0){ for (int i = 0; i <
-		 * needNotification.size(); i++) {
-		 * createNotificationModel("Du har blitt invitert til: " +
-		 * am.getTitle(), am.getId(), needNotification.get(i)); } }
-		 * 
-		 * }
-		 */
 	}
 
 	// CREATE

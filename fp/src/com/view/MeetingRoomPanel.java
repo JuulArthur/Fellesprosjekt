@@ -76,6 +76,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_lblStart.gridy = 2;
 		add(lblStart, gbc_lblStart);
 		
+		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
@@ -83,6 +84,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_textField.gridy = 2;
 		add(textField, gbc_textField);
 		textField.setColumns(5);
+		textField.setEditable(false);
 		
 		JLabel lblNewLabel_1 = new JLabel("(tt:mm)");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -107,6 +109,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_textField_1.gridy = 3;
 		add(textField_1, gbc_textField_1);
 		textField_1.setColumns(5);
+		textField_1.setEditable(false);
 		
 		JLabel lblNewLabel_2 = new JLabel("(tt:mm)");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
