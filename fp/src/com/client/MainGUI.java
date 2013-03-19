@@ -10,6 +10,7 @@ import com.view.calendar.CalendarLayout;
 import com.view.LogginPane;
 import com.view.MainMeetingPanel;
 import com.view.MeetingPanel;
+import com.view.SavedMeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
@@ -23,7 +24,7 @@ import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
 import com.view.CalendarJDialog;
-import com.view.CalendarLayout;
+import com.view.calendar.CalendarLayout;
 import com.view.LogginPane;
 import com.view.MeetingPanel;
 import com.view.SavedMeetingPanel;

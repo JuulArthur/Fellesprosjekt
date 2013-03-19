@@ -37,7 +37,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 	private ToDo toDo;
 	private Object tempO;
 	
-	private DefaultListModel<CalendarModel> dListModelCalendarModels;
+	private DefaultListModel dListModelCalendarModels;
 	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
 		/* Get the views */
@@ -45,7 +45,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 		this.calendarView = calendarView;
 		
 		/* Add all calendars to the model */
-		this.dListModelCalendarModels = new DefaultListModel<CalendarModel>();
+		this.dListModelCalendarModels = new DefaultListModel();
 		if(main.getCalendarModels() != null)
 			for(CalendarModel cm : main.getCalendarModels())
 				this.dListModelCalendarModels.addElement(cm);
@@ -94,8 +94,8 @@ public class CalendarController implements ActionListener, IServerResponse{
 				if(dListModelCalendarModels != null)
 					
 					for(int i = 0; i < dListModelCalendarModels.size(); i++){
-						if(dListModelCalendarModels.get(i).getName().equals(c_name)){
-							newCalendar = dListModelCalendarModels.get(i);
+						if(((CalendarModel)dListModelCalendarModels.get(i)).getName().equals(c_name)){
+							newCalendar = (CalendarModel) dListModelCalendarModels.get(i);
 							newCal = false;
 							break;
 						}
