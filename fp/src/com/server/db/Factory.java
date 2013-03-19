@@ -325,6 +325,28 @@ public class Factory {
 		return createAlarmModel(am.getDate(), am.getText(), am.getAppointment(), am.getCreator());
 	}
 
+	public AlarmModel getAlarmModel(String user, long aid)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String.format("Select date, text "
+				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+				aid);
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		Date date = null;
+		String text = null;
+		while (rs.next()) {
+			date = rs.getDate(1);
+			text = rs.getString(2);
+		}
+
+		AlarmModel am = new AlarmModel(date, text, null, null);
+		rs.close();
+		db.close();
+
+		return am;
+	}
+	
 	public AlarmModel getAlarmModel(String user, long aid, AppointmentModel ap, UserModel creator)
 			throws ClassNotFoundException, SQLException {
 
@@ -369,9 +391,9 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	public void deleteAlarmModel(AppointmentModel ap, UserModel user)
+	public void deleteAlarmModel(AlarmModel am)
 			throws SQLException, ClassNotFoundException {
-		deleteAlarmModel(ap.getId(), user.getUsername());
+		deleteAlarmModel(am.getAppointment().getId(), am.getCreator().getUsername());
 	}
 
 	public void deleteAlarmModel(long id, String userName) throws SQLException,
