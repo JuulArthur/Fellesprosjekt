@@ -23,6 +23,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 	private MainGUI gui;
 	private MeetingPanel view;
 	private UserModel user;
+	private AppointmentModel am;
 	private AppointmentState appointmentState;
 	private final static String[] MONTHS = {"January","February","March","April","May","June","July","August","September","October","November","December"};
 	
@@ -62,7 +63,9 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		// TODO Auto-generated method stub
+		if(appointmentState == appointmentState.NEW_APPOINTMENT){
+			gui.initAppointment(am);
+		}
 		return false;
 	}
 
@@ -110,8 +113,9 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			
 			ArrayList<Object> alist = new ArrayList<Object>();
 			alist.add(am);
-			
+			this.am = am;
 			appointmentState = appointmentState.NEW_APPOINTMENT;
+			
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.APPOINTMENT, alist));
