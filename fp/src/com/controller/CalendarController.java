@@ -20,6 +20,7 @@ import com.settings.Global;
 import com.view.AddOtherCalendarsJDialog;
 import com.view.calendar.CalendarLayout;
 import com.view.calendar.CalendarListRenderer;
+import com.view.calendar.NotificationListRenderer;
 import com.view.ManageCalendarsJDialog;
 import com.view.MeetingPanel;
 
@@ -27,17 +28,18 @@ public class CalendarController implements ActionListener, IServerResponse{
 	
 	private MainGUI main;
 	
-	private CalendarLayout calendarView;
+	/* Views */
+	private CalendarLayout calendarView;	
 	
-	//private ArrayList<CalendarModel> calendarModels;
-	private ArrayList<NotificationModel> notificationsModels;
-	
+	/* Models */
+	private DefaultListModel dListModelCalendarModels;
+	private DefaultListModel dListModelOtherCalendarModels;
+	private DefaultListModel dListModelNotificationsModels;
 	private UserModel userModel;
 	
+	/* Div */
 	private ToDo toDo;
 	private Object tempO;
-	
-	private DefaultListModel dListModelCalendarModels;
 	
 	public CalendarController(MainGUI main, CalendarLayout calendarView){
 		/* Get the views */
@@ -46,9 +48,20 @@ public class CalendarController implements ActionListener, IServerResponse{
 		
 		/* Add all calendars to the model */
 		this.dListModelCalendarModels = new DefaultListModel();
+		this.dListModelOtherCalendarModels = new DefaultListModel();
+		this.dListModelNotificationsModels = new DefaultListModel();
+		
 		if(main.getCalendarModels() != null)
 			for(CalendarModel cm : main.getCalendarModels())
 				this.dListModelCalendarModels.addElement(cm);
+		
+		if(main.getSubscribedCalendarModels() != null)
+			for(CalendarModel cm : main.getSubscribedCalendarModels())
+				this.dListModelOtherCalendarModels.addElement(cm);
+		
+		if(main.getNotificationsModels() != null)
+			for(NotificationModel nm : main.getNotificationsModels())
+				this.dListModelOtherCalendarModels.addElement(nm);
 		
 		/* Get the UserModel */
 		this.userModel = main.getUserModel();
@@ -64,9 +77,13 @@ public class CalendarController implements ActionListener, IServerResponse{
 		
 		/* Add the models to the views*/
 		this.calendarView.getListCalendar().setModel(dListModelCalendarModels);
+		this.calendarView.getListOtherCalendars().setModel(dListModelOtherCalendarModels);
+		this.calendarView.getListNotification().setModel(dListModelNotificationsModels);
 		
 		/*Add renderes*/
 		this.calendarView.getListCalendar().setCellRenderer(new CalendarListRenderer());
+		this.calendarView.getListOtherCalendars().setCellRenderer(new CalendarListRenderer());
+		this.calendarView.getListNotification().setCellRenderer(new NotificationListRenderer());
 	}
 
 	@Override
@@ -145,6 +162,7 @@ public class CalendarController implements ActionListener, IServerResponse{
 		
 		else if (e.getSource() == calendarView.getBtnLoggUt()){
 			System.out.println("[CalendarControll] actionPerformed: Sent logout");
+			toDo = ToDo.EXIT;
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGOUT);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGOUT, null));
@@ -159,9 +177,6 @@ public class CalendarController implements ActionListener, IServerResponse{
 			/* Do we have response objects? */
 			if(al != null){
 				if(al.get(0) instanceof UserModel){
-					//this.userModel = (UserModel)al.get(0);
-					//gui.initCalendar();
-					Global.respondGUI.remove(this);
 					//Do not propagate
 					return false;
 				}
@@ -172,6 +187,9 @@ public class CalendarController implements ActionListener, IServerResponse{
 					main.getCalendarModels().add((CalendarModel)tempO);
 					dListModelCalendarModels.addElement(tempO);
 					calendarView.getTextFieldManageCalendar().setText("");					
+					break;
+				case EXIT:
+					System.exit(0);
 					break;
 
 				default:
@@ -197,5 +215,6 @@ public class CalendarController implements ActionListener, IServerResponse{
 enum ToDo {
 	NEW_CALENDAR,
 	UPDATECALENDAR,
+	EXIT,
 	NOTHING
 }

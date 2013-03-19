@@ -117,8 +117,27 @@ public class MainGUI extends JFrame{
 	/*
 	 * GETTERS AND SETTERS
 	 */
+	
 	public UserModel getUserModel() {
 		return userModel;
+	}
+
+	public ArrayList<CalendarModel> getSubscribedCalendarModels() {
+		return subscribedCalendarModels;
+	}
+
+	public void setSubscribedCalendarModels(
+			ArrayList<CalendarModel> subscribedCalendarModels) {
+		this.subscribedCalendarModels = subscribedCalendarModels;
+	}
+
+	public ArrayList<NotificationModel> getNotificationsModels() {
+		return notificationsModels;
+	}
+
+	public void setNotificationsModels(
+			ArrayList<NotificationModel> notificationsModels) {
+		this.notificationsModels = notificationsModels;
 	}
 
 	public void setUserModel(UserModel userModel) {
