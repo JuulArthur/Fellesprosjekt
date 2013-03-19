@@ -94,6 +94,10 @@ public class MainGUI extends JFrame{
 		this.calendarController = new CalendarController(this, calendarView);
 		
         Global.respondGUI.add(calendarController);
+        
+		System.out.println(this.calendarModels.size());
+		for(CalendarModel cm : calendarModels)
+			System.out.println(cm.getName());
 	}
 	
 	public void initCreateAppointment(){

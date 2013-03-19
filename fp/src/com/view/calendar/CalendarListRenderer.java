@@ -11,8 +11,8 @@ import com.model.CalendarModel;
 
 public class CalendarListRenderer extends DefaultListCellRenderer{
 	
-	private static ImageIcon maleIcon;
-	private static ImageIcon femaleIcon;
+	//private static ImageIcon maleIcon;
+	//private static ImageIcon femaleIcon;
 	
 	@Override 
 	public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {  
@@ -34,7 +34,7 @@ public class CalendarListRenderer extends DefaultListCellRenderer{
             lbl.setIcon(maleIcon);
             */
 		
-		lbl.setText("<html><b>" + calendar.getName() + "</b><br/><i>" + calendar.getOwner() +"</i></html>");
+		lbl.setText("<html><b>" + calendar.getName() + "</b></html>");//<br/><i>" + calendar.getOwner() +"</i></html>");
 
 		return lbl;
 	}
