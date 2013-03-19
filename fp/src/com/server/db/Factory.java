@@ -117,34 +117,36 @@ public class Factory {
 
 	public CalendarModel getCalendarModel(long idIn) throws SQLException, ClassNotFoundException {
 		db.initialize();
-		String query = String.format("Select '%s',name from Calendar", idIn);
+		String query = String.format("Select name from Calendar WHERE id = '%s'", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
-		long id = -1L;
+		//long id = -1L;
 		String name = null;
 		String owner = null;
 		ArrayList<AppointmentModel> appointments = new ArrayList<AppointmentModel>();
+		
+		//Fetch Calendar name
 		while (rs.next()) {
-			id = rs.getLong(1);
-			name = rs.getString(2);
+			//id = rs.getLong(1);
+			name = rs.getString(1);
 		}
 
-		query = String
-				.format("select username from Follows where isOwner=1 and calendarid='%s'",
+		//Fetch owner thePwner
+		query = String.format("select username from Follows where isOwner=1 and calendarid='%s'",
 						idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
 			owner = rs.getString(1);
 		}
 
-		query = String.format(
-				"select appointmentid from BelongTo where calendarid = '%d'",
-				id);
+		//FEtch all appointments
+		query = String.format("select appointmentid from BelongTo where calendarid = '%d'",
+				idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
 			appointments.add(getAppointmentModel(rs.getInt(1)));
 		}
 
-		CalendarModel cm = new CalendarModel(id, name, appointments, owner);
+		CalendarModel cm = new CalendarModel(idIn, name, appointments, owner);
 		rs.close();
 		db.close();
 
