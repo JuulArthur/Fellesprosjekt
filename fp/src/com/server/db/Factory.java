@@ -841,6 +841,10 @@ public class Factory {
 		}
 
 		RoomModel utRm = new RoomModel(roomNumber, roomName, capacity, location);
+		
+		if(utRm.getRoomName() == null)
+			utRm = null;
+		
 		rs.close();
 		db.close();
 
