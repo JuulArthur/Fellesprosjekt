@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.RoomModel;
 import com.model.UserModel;
@@ -39,7 +40,8 @@ public class FactoryTest {
 	static Factory f;
 	UserModel um;
 	RoomModel rm;
-	AppointmentModel am;
+	AppointmentModel ap;
+	AlarmModel am;
 
 	// start init and close
 	@BeforeClass
@@ -163,12 +165,12 @@ public class FactoryTest {
 		AppointmentModel dummy = new AppointmentModel(1L, 1223, 1337, um,
 				"testavtale", "dette er en test", "hjemme", new Date(0),
 				new ArrayList<UserModel>(Arrays.asList(um)));
-		am = null;
-		am = f.createAppointmentModel(dummy);
-		assertNotNull("createAppointmentModel didn't return any object", am);
+		ap = null;
+		ap = f.createAppointmentModel(dummy);
+		assertNotNull("createAppointmentModel didn't return any object", ap);
 		assertEquals(
 				"created object from createAppointmentModel not equal to dummy",
-				am, dummy);
+				ap, dummy);
 	}
 
 	@Test
@@ -177,12 +179,12 @@ public class FactoryTest {
 		AppointmentModel dummy = new AppointmentModel(1L, 1223, 1337, um,
 				"testavtale", "dette er en test", "hjemme", new Date(0),
 				new ArrayList<UserModel>(Arrays.asList(um)));
-		am = null;
-		am = f.getAppointmentModel(dummy);
-		assertNotNull("getAppointmentModel didn't return any object", am);
+		ap = null;
+		ap = f.getAppointmentModel(dummy);
+		assertNotNull("getAppointmentModel didn't return any object", ap);
 		assertEquals(
 				"fetched object from getAppointmentModel not equal to dummy",
-				am, dummy);
+				ap, dummy);
 	}
 
 	@Test
@@ -192,9 +194,9 @@ public class FactoryTest {
 				"trolololo", "dette er en test", "hjemme", new Date(0),
 				new ArrayList<UserModel>(Arrays.asList(um)));
 		f.updateAppointmentModel(dummy);
-		am = null;
-		am = f.getAppointmentModel(dummy);
-		assertEquals("updateAppointmentModel didn't work as intended", am,
+		ap = null;
+		ap = f.getAppointmentModel(dummy);
+		assertEquals("updateAppointmentModel didn't work as intended", ap,
 				dummy);
 	}
 
@@ -205,31 +207,73 @@ public class FactoryTest {
 				"trolololo", "dette er en test", "hjemme", new Date(0),
 				new ArrayList<UserModel>(Arrays.asList(um)));
 		f.deleteAppointmentModel(dummy);
-		am = new AppointmentModel(2L, 2313, 1231, um, "hei", "paa", "deg",
+		ap = new AppointmentModel(2L, 2313, 1231, um, "hei", "paa", "deg",
 				new Date(1L), new ArrayList<UserModel>(Arrays.asList(um)));
-		am = f.getAppointmentModel(dummy);
-		assertNull("deleteAppointmentModel didn't delete the object", am);
+		ap = f.getAppointmentModel(dummy);
+		assertNull("deleteAppointmentModel didn't delete the object", ap);
 	}
 
 	// end appointment model test
 
+	// start alarm model test
+	@Test
+	public void testCreateAlarmModelAlarmModel() throws ClassNotFoundException,
+			SQLException {
+		// set up shit, um should already be in the database
+		ap = new AppointmentModel(2L, 1223, 1337, um, "trolololo",
+				"dette er en test", "hjemme", new Date(0),
+				new ArrayList<UserModel>(Arrays.asList(um)));
+		um = new UserModel("cristea2", "hei123", "c@t.no", "chris",
+				"tonnessen", "88888888", 1);
+		f.createAppointmentModel(ap);
+
+		AlarmModel dummy = new AlarmModel(Date.valueOf("2013-02-28"), "ALARM!",
+				ap, um);
+		am = null;
+		am = f.createAlarmModel(dummy);
+		assertNotNull("crateAlarmModel didn't return any object", am);
+		assertEquals("createAlarmModel doesn't equal dummy", am, dummy);
+	}
+
+	@Test
+	public void testGetAlarmModelAlarmModel() throws ClassNotFoundException,
+			SQLException {
+		AlarmModel dummy = new AlarmModel(Date.valueOf("2013-02-28"), "ALARM!",
+				ap, um);
+		am = null;
+		am = f.getAlarmModel(dummy);
+		assertNotNull("getAlarmModel didn't return any object", am);
+		assertEquals("getAlarmModel didn't equal dummy", am, dummy);
+	}
+
+	@Test
+	public void testUpdateAlarmModelAlarmModel() throws SQLException,
+			ClassNotFoundException {
+		AlarmModel dummy = new AlarmModel(Date.valueOf("2015-03-12"),
+				"ALARM!...NOT", ap, um);
+		f.updateAlarmModel(dummy);
+		am = null;
+		am = f.getAlarmModel(dummy);
+		assertEquals("updateAlarmModel didn't udpate object", am, dummy);
+	}
+
+	@Test
+	public void testDeleteAlarmModelAlarmModel() throws SQLException,
+			ClassNotFoundException {
+		AlarmModel dummy = new AlarmModel(Date.valueOf("2015-03-12"),
+				"ALARM!...NOT", ap, um);
+		f.deleteAlarmModel(dummy);
+		um = new UserModel("hei", "hei", "op", "lo", "l", "992", 0);
+		am = new AlarmModel(Date.valueOf("2013-03-24"), "ALAAARM", ap, um);
+		am = f.getAlarmModel(dummy);
+		assertNull("deleteAlarmModel didn't delete object", am);
+	}
+
+	// end alarm model test
+
+	// start calendar model test
 	@Test
 	public void testCreateCalendarModelCalendarModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateCalendarModelIntStringArrayListOfAppointmentModelString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateCalendarModelCalendarModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateCalendarModelIntStringArrayListOfAppointmentModelString() {
 		fail("Not yet implemented");
 	}
 
@@ -239,7 +283,7 @@ public class FactoryTest {
 	}
 
 	@Test
-	public void testGetCalendarModelInt() {
+	public void testUpdateCalendarModelCalendarModel() {
 		fail("Not yet implemented");
 	}
 
@@ -247,11 +291,7 @@ public class FactoryTest {
 	public void testDeleteCalendarModelCalendarModel() {
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testDeleteCalendarModelInt() {
-		fail("Not yet implemented");
-	}
+	//end calendar model test
 
 	@Test
 	public void testMakeQuery() {
@@ -265,56 +305,6 @@ public class FactoryTest {
 
 	@Test
 	public void testCheckPasswordUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateAlarmModelDateStringAppointmentModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateAlarmModelAlarmModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAlarmModelStringInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAlarmModelAppointmentModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAlarmModelAlarmModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateAlarmModelDateStringAppointmentModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateAlarmModelAlarmModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteAlarmModelAppointmentModelUserModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteAlarmModelIntString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteAlarmModelAlarmModel() {
 		fail("Not yet implemented");
 	}
 
