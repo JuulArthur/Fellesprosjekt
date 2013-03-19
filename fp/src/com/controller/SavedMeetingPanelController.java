@@ -4,11 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
+import com.net.msg.MSGType;
+import com.net.support.State;
 import com.settings.Global;
 import com.view.SavedMeetingPanel;
 
@@ -18,7 +23,7 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 	private SavedMeetingPanel meetingPanel;
 	private AppointmentModel appointment;
 	private ArrayList<NotificationModel> notificationQue = new ArrayList<NotificationModel>();
-	private Enum verb;
+	private ToDO verb;
 
 	
 	
@@ -27,6 +32,7 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
+		verb= ToDO.NOTHING;
 		meetingPanel.setTitteltextField(this.appointment.getText());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
@@ -76,7 +82,7 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 			System.out.println("ring han Juul");
 		} else if(e.getSource() == meetingPanel.getMooteinnkalling()){
 			appointment.setSendnotification(true);
-			
+			sendNotification();
 		}
 	}
 	public SavedMeetingPanel getMeetingPanel(){
@@ -92,19 +98,17 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 			}
 			else{
 				switch (verb) {
-				case CREATE:
-					calendarController.addCalenderModelItem(model);	
+				case SENDING:
+					verb= ToDO.NOTHING;
 					break;
-				case UPDATE:
+				case NOTHING:
 					//The model has already been updated
 					break;
 
 				default:
 					break;
 				}
-				manageCalendars.setVisible(false);
-				manageCalendars.dispose();
-				Global.respondGUI.remove(this);
+			
 			}
 		}
 		else { //Dårlig stemning
@@ -112,7 +116,7 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 		
 		return false;
 	}
-	}
+
 	
 	
 	
@@ -123,7 +127,11 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 			this.notificationQue.add(notification);
 		}
 		
+		verb = ToDO.SENDING;
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
 		
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.NOTIFICATION, notificationQue));
 	}
 }
 

@@ -296,9 +296,6 @@ public class MeetingPanel extends MainMeetingPanel {
 		this.participantList = participantList;
 	}
 	
-	public String getAlarmText(){
-		return btnAlarmCalendar.getText();
-	}
 	
 	class backAction implements ActionListener {
 

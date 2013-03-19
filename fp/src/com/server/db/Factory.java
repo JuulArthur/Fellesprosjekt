@@ -337,7 +337,7 @@ public class Factory {
 	public AlarmModel createAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
 		return createAlarmModel(am.getDate(), am.getText(),
-				0,am.getAppointment(), am.getCreator());
+				am.getTime(),am.getAppointment(), am.getCreator());
 	}
 
 	public AlarmModel getAlarmModel(String user, long aid)
@@ -403,9 +403,9 @@ public class Factory {
 				.getId(), am.getAppointment(), am.getCreator());
 	}
 
-	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
+	public void updateAlarmModel(Date date, String text, int time, AppointmentModel ap,
 			UserModel user) throws SQLException, ClassNotFoundException {
-		updateAlarmModel(new AlarmModel(date, text,0, ap, user));
+		updateAlarmModel(new AlarmModel(date, text,time, ap, user));
 	}
 
 	public void updateAlarmModel(AlarmModel am) throws SQLException,
