@@ -28,15 +28,18 @@ public class AlarmModel {
 	private AppointmentModel appointment;
 	@XmlElement(name="creator")
 	private UserModel creator;
+	@XmlElement(name="time")
+	private int time;
 	
 	public AlarmModel(){} /* for jabx */
 	
 	public AlarmModel(Date date, String text,
-			AppointmentModel appointment, UserModel creator) {
+			 int time, AppointmentModel appointment, UserModel creator) {
 		this.date = date;
 		this.text = text;
 		this.appointment = appointment;
 		this.creator = creator;
+		this.time = time;
 		changeSupport = new PropertyChangeSupport(this);
 	}
 
@@ -78,6 +81,14 @@ public class AlarmModel {
 		UserModel oldValue = this.creator;
 		this.creator = creator;
 		changeSupport.firePropertyChange(CREATOR_PROPERTY, oldValue, creator);
+	}
+	
+	public int getTime(){
+		return this.time;
+	}
+	
+	public void setTime(int time){
+		this.time = time;
 	}
 
 	@Override

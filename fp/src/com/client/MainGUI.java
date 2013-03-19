@@ -5,24 +5,23 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.view.CalendarJDialog;
-import com.view.calendar.CalendarLayout;
-import com.view.LogginPane;
-import com.view.MainMeetingPanel;
-import com.view.MeetingPanel;
-import com.view.SavedMeetingPanel;
-
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.controller.SavedMeetingPanelController;
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
+import com.view.CalendarJDialog;
+import com.view.LogginPane;
+import com.view.MeetingPanel;
+import com.view.SavedMeetingPanel;
+import com.view.calendar.CalendarLayout;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
@@ -38,7 +37,7 @@ public class MainGUI extends JFrame{
 	private LogginPaneController logginController;
 	private CalendarController calendarController;
 	private CreateAppointmentController createAppointmentController;
-	
+	private SavedMeetingPanelController appointmentController;
 	
 	/* Models */
 	private UserModel userModel = null;
@@ -64,6 +63,7 @@ public class MainGUI extends JFrame{
 
         this.logginView = new LogginPane();
         this.calendarView = new CalendarLayout();
+        this.createAppointmentView = new MeetingPanel();
 		
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
@@ -99,15 +99,23 @@ public class MainGUI extends JFrame{
 	}
 	
 	public void initCreateAppointment(){
+		
 		this.getContentPane().removeAll();
-		this.getContentPane().add(calendarView);
+		this.getContentPane().add(createAppointmentView);
 		this.pack();
 		
-		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
+		this.createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
+		Global.respondGUI.add(createAppointmentController);
 	}
 	
 	public void initAppointment(AppointmentModel inputAppointment){
-		
+		this.getContentPane().removeAll();
+		this.getContentPane().add(calendarView);
+		this.pack();
+		this.appointmentController= new SavedMeetingPanelController(inputAppointment, appointmentView , this);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(appointmentController.getMeetingPanel());
+		this.pack();
 	}
 	
 	public static void main(String[] args) throws Exception {
