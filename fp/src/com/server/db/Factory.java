@@ -344,7 +344,7 @@ public class Factory {
 			throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d", user,
 				aid);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
@@ -370,7 +370,7 @@ public class Factory {
 			UserModel creator) throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
-				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
+				+ "from Alarm WHERE username='%s'AND appointmentid=%d", user,
 				aid);
 		db.initialize();
 		ResultSet rs = db.makeSingleQuery(query);
