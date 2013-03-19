@@ -42,6 +42,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JButton btnDecline ;
 	private DefaultListModel notCommingList;
 	private DefaultListModel commingList;
+	
 	public SavedMeetingPanel () {
 		notCommingList=new DefaultListModel();
 		commingList =new DefaultListModel();
@@ -161,7 +162,6 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		c.gridy=7;
 		add(calenderList,c);
 		
-		btnDecline.setEnabled(false);
 		
 		btnSendNotice = new JButton("Send ut m\u00F8teinnkalling");
 		btnSendNotice.addActionListener(new ActionListener() {
@@ -224,7 +224,10 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	public JButton getGodta(){
 		return this.btnAccept;
 	}
-
+	
+	public JButton getRediger(){
+		return this.btnEdit;
+	}
 
 	public JButton getAvslag(){
 		return this.btnDecline;

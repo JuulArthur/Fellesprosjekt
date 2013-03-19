@@ -26,8 +26,7 @@ public class SavedMeetingPanelController  implements ActionListener {
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
 		
 		if(!(appointment.getHost()==gui.getUserModel())){
-			meetingPanel.setVisible(false);
-			meetingPanel.setVisible(false);
+			meetingPanel.getRediger().setVisible(false);
 		}
 		if(meetingPanel.getComming().contains(gui.getUserModel())){
 			meetingPanel.getGodta().setEnabled(false);
