@@ -1,10 +1,12 @@
 package com.view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -30,15 +32,21 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane2;
 	private JLabel lblKommerIkke;
-	private JList list;
-	private JList list2;
+	private JList Comming;
+	private JList NotComming;
 	private JFrame savedMeeting;
 	private JLabel lblNewLabel;
 	private ButtonGroup buttongrp;
 	private JTextField dateTextField;
 	private JLabel lblDate;
+	private JButton btnAccept;
+	private JButton btnDecline ;
+	private DefaultListModel notCommingList;
+	private DefaultListModel commingList;
 	
 	public SavedMeetingPanel () {
+		notCommingList=new DefaultListModel();
+		commingList =new DefaultListModel();
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 75, 0, 0, 0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -74,7 +82,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		dateTextField.setEditable(false);
 		add(dateTextField, gbc_dateTextField);
 	
-		JButton btnAccept = new JButton("Godta");
+		btnAccept = new JButton("Godta");
 		buttongrp.add(btnAccept);
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
 		gbc_btnAccept.anchor = GridBagConstraints.EAST;
@@ -83,7 +91,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_btnAccept.gridy = 2;
 		add(btnAccept, gbc_btnAccept);
 		
-		JButton btnDecline = new JButton("Avsl\u00E5");
+		btnDecline = new JButton("Avsl\u00E5");
 		buttongrp.add(btnDecline);
 		GridBagConstraints gbc_btnDecline = new GridBagConstraints();
 		gbc_btnDecline.anchor = GridBagConstraints.WEST;
@@ -115,15 +123,15 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		scrollPane2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane2 = new GridBagConstraints();
 		gbc_scrollPane2.gridheight = 2;
-		gbc_scrollPane2.gridwidth = 4;
+		gbc_scrollPane2.gridwidth = 2;
 		gbc_scrollPane2.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane2.gridx = 7;
 		gbc_scrollPane2.gridy = 10;
 		add(scrollPane2, gbc_scrollPane2);
 		
-		list2 = new JList();
-		scrollPane2.setViewportView(list2);
+		NotComming = new JList(notCommingList);
+		scrollPane2.setViewportView(NotComming);
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -134,9 +142,9 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_scrollPane.gridx = 7;
 		gbc_scrollPane.gridy = 4;
 		add(scrollPane, gbc_scrollPane);
-		
-		list = new JList();
-		scrollPane.setViewportView(list);
+		commingList= new DefaultListModel();
+		Comming = new JList(commingList);
+		scrollPane.setViewportView(Comming);
 		
 		lblNewLabel = new JLabel("Legge avtale til:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -154,6 +162,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		c.gridx=5;
 		c.gridy=7;
 		add(calenderList,c);
+		
 		
 		btnSendNotice = new JButton("Send ut m\u00F8teinnkalling");
 		btnSendNotice.addActionListener(new ActionListener() {
@@ -208,6 +217,28 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
 		}
 	}
-
 	
+	public DefaultListModel getComming(){
+		return this.commingList;
+	}
+
+	public JButton getGodta(){
+		return this.btnAccept;
+	}
+	
+	public JButton getRediger(){
+		return this.btnEdit;
+	}
+
+	public JButton getAvslag(){
+		return this.btnDecline;
+	}
+	
+	public JButton getMooteinnkalling(){
+		return this.btnSendNotice;
+	}
+	
+	public DefaultListModel getNotComming(){
+		return this.notCommingList;
+	}
 }

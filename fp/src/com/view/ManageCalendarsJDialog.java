@@ -14,6 +14,9 @@ import com.model.CalendarModel;
 
 public class ManageCalendarsJDialog extends JDialog {
 	
+	private JButton btnLagre;
+	private JButton btnAvbryt;
+	
 	public ManageCalendarsJDialog(CalendarModel model) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -46,14 +49,14 @@ public class ManageCalendarsJDialog extends JDialog {
 		gbc_VisibleCheckBox.gridy = 2;
 		getContentPane().add(VisibleCheckBox, gbc_VisibleCheckBox);
 		
-		JButton btnAvbryt = new JButton("Avbryt");
+		btnAvbryt = new JButton("Avbryt");
 		GridBagConstraints gbc_btnAvbryt = new GridBagConstraints();
 		gbc_btnAvbryt.insets = new Insets(10, 0, 5, 5);
 		gbc_btnAvbryt.gridx = 0;
 		gbc_btnAvbryt.gridy = 3;
 		getContentPane().add(btnAvbryt, gbc_btnAvbryt);
 		
-		JButton btnLagre = new JButton("Lagre");
+		btnLagre = new JButton("Lagre");
 		GridBagConstraints gbc_btnLagre = new GridBagConstraints();
 		gbc_btnLagre.insets = new Insets(10, 0, 5, 0);
 		gbc_btnLagre.gridx = 1;
@@ -61,6 +64,14 @@ public class ManageCalendarsJDialog extends JDialog {
 		getContentPane().add(btnLagre, gbc_btnLagre);
 		
 		this.pack();
+	}
+	
+	public JButton getBtnLagre() {
+		return btnLagre;
+	}
+
+	public JButton getBtnAvbryt() {
+		return btnAvbryt;
 	}
 
 	/**
