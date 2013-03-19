@@ -2,12 +2,13 @@ package com.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.view.SavedMeetingPanel;
 
-public class SavedMeetingPanelController implements ActionListener {
+public class SavedMeetingPanelController implements ActionListener, IServerResponse {
 
 	private MainGUI gui;
 	private SavedMeetingPanel meetingPanel;
@@ -18,10 +19,10 @@ public class SavedMeetingPanelController implements ActionListener {
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
-		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setTitteltextField(this.appointment.getText());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
+		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
 
 		meetingPanel.getAvslag().addActionListener(this);
@@ -72,5 +73,11 @@ public class SavedMeetingPanelController implements ActionListener {
 	}
 	public SavedMeetingPanel getMeetingPanel(){
 		return this.meetingPanel;
+	}
+
+	@Override
+	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
