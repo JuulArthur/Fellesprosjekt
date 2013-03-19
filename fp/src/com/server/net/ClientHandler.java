@@ -329,8 +329,8 @@ public class ClientHandler  extends ServiceHandler {
 							factory.deleteUserModel((String)msgW.getObjects().get(0));
 							break;
 							
-						case ISSUMMONEDTO: //ON CASCADE FIXES
-							success = false;
+						case ISSUMMONEDTO: //DELETE GIVEN PEOPLE FROM SUMMONEDLIST TO GIVEN APPOINTMENT
+							factory.deleteIsSummonedToPeople((ArrayList<String>)msgW.getObjects().get(0), (long)msgW.getObjects().get(0));
 							break;
 
 						default:
