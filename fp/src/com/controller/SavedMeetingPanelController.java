@@ -24,12 +24,18 @@ public class SavedMeetingPanelController  implements ActionListener {
 		meetingPanel.setStartText(""+this.appointment.getStartTime());
 		meetingPanel.setEndText(""+this.appointment.getEndTime());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
+		
+		if(!(appointment.getHost()==gui.getUserModel())){
+			meetingPanel.setVisible(false);
+			meetingPanel.setVisible(false);
+		}
 		if(meetingPanel.getComming().contains(gui.getUserModel())){
 			meetingPanel.getGodta().setEnabled(false);
 		}
 		else if (meetingPanel.getNotComming().contains(gui.getUserModel())){
 			meetingPanel.getAvslag().setEnabled(false);
 		}
+		
 		
 		
 	}
@@ -43,6 +49,8 @@ public class SavedMeetingPanelController  implements ActionListener {
 		meetingPanel.getComming().removeElement(gui.getUserModel());
 		meetingPanel.getNotComming().addElement(gui.getUserModel());
 	}
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
