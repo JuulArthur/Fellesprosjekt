@@ -151,6 +151,7 @@ public class Factory {
 		while (rs.next()) {
 			appointments.add(getAppointmentModel(rs.getInt(1)));
 		}
+	
 
 		CalendarModel cm = new CalendarModel(idIn, name, appointments, owner);
 		rs.close();

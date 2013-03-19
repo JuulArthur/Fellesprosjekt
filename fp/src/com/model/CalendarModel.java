@@ -13,6 +13,7 @@ public class CalendarModel extends AbstractTableModel {
 	
 	public final static String ID_PROPERTY = "Id";
 	public final static String APPOINTMENTS_PROPERTY = "Appointments";
+	public final static String APPOINTMENTSSUMMONEDTO_PROPERTY = "appointmentsSummonedTo";
 	public final static String OWNER_PROPERTY = "Owner";
 	public final static String NAME_PROPERTY = "Name";
 	public final static String CALENDAR_PROPERTY = "Calendar";
@@ -39,6 +40,7 @@ public class CalendarModel extends AbstractTableModel {
 	public CalendarModel(long id, String name,
 			ArrayList<AppointmentModel> appointments, String owner) {
 
+		changeSupport = new PropertyChangeSupport(this);
 		this.id = id;
 		this.appointments = appointments;
 		this.owner = owner;

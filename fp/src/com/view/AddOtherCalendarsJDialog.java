@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JButton;
@@ -16,8 +17,8 @@ import javax.swing.JButton;
 import com.model.CalendarModel;
 
 public class AddOtherCalendarsJDialog extends JDialog {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JComboBox textField;
+	private JComboBox textField_1;
 	public AddOtherCalendarsJDialog() {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -34,14 +35,14 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		gbc_lblBrukernavn.gridy = 0;
 		getContentPane().add(lblBrukernavn, gbc_lblBrukernavn);
 		
-		textField = new JTextField();
+		textField = new JComboBox();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 0;
 		getContentPane().add(textField, gbc_textField);
-		textField.setColumns(10);
+		textField.setEditable(true);//textField.setColumns(10);
 		
 		JLabel lblKalender = new JLabel("Kalender:");
 		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
@@ -50,14 +51,15 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		gbc_lblKalender.gridy = 1;
 		getContentPane().add(lblKalender, gbc_lblKalender);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JComboBox();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 1;
 		gbc_textField_1.gridy = 1;
 		getContentPane().add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		//textField_1.setColumns(10);
+		textField_1.setEditable(true);
 		
 		JButton btnSk = new JButton("S\u00F8k");
 		GridBagConstraints gbc_btnSk = new GridBagConstraints();
