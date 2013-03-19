@@ -856,12 +856,9 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	@Deprecated
 	public void deleteRoomModel(RoomModel rm) throws SQLException,
 			ClassNotFoundException {
-		String query = String.format("DELETE from Room WHERE roomnumber=%d",
-				rm.getRoomNumber());
-		updateDatabase(query);
+		deleteRoomModel(rm.getRoomNumber());
 	}
 
 	public void deleteRoomModel(int roomNumber) throws SQLException,
