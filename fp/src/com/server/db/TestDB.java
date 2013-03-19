@@ -92,7 +92,7 @@ public class TestDB {
 		AppointmentModel ap = new AppointmentModel(1, 4, 5, user, "sdf", "gdf",
 				"haa", date, null);
 		Factory f = new Factory("database.properties");
-		AlarmModel am = new AlarmModel(date, "nidda", ap, user);
+		AlarmModel am = new AlarmModel(date, "nidda",0, ap, user);
 		f.createAlarmModel(am);
 	}
 
@@ -104,7 +104,7 @@ public class TestDB {
 		Date date = new Date(0, 0, 0);
 		AppointmentModel ap = new AppointmentModel(2, 4, 5, user, "sdf", "gdf",
 				"haa", date, null);
-		AlarmModel am = new AlarmModel(date, "", ap, user);
+		AlarmModel am = new AlarmModel(date, "",0, ap, user);
 		System.out.println(f.getAlarmModel(am));
 	}
 
@@ -116,7 +116,7 @@ public class TestDB {
 		Date date = new Date(0, 0, 0);
 		AppointmentModel ap = new AppointmentModel(2, 4, 5, user, "sdf", "gdf",
 				"haa", date, null);
-		AlarmModel am = new AlarmModel(date, "NEI", ap, user);
+		AlarmModel am = new AlarmModel(date, "NEI",0, ap, user);
 		f.updateAlarmModel(am);
 	}
 
@@ -128,7 +128,7 @@ public class TestDB {
 		Date date = new Date(0, 0, 0);
 		AppointmentModel ap = new AppointmentModel(2, 4, 5, user, "sdf", "gdf",
 				"haa", date, null);
-		AlarmModel am = new AlarmModel(date, "NEI", ap, user);
+		AlarmModel am = new AlarmModel(date, "NEI",0, ap, user);
 		f.deleteAlarmModel(am);
 	}
 
@@ -290,7 +290,7 @@ public class TestDB {
 		// "t�nnemann", "32234890", 0);
 
 		try {
-			t.testCreateTestDatabase();
+			t.testGetAlarm();
 
 			// }
 			// catch(FileNotFoundException e){

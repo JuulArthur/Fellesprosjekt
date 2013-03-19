@@ -51,7 +51,8 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 
 			if(al.get(0) instanceof UserModel){
 				gui.setUserModel((UserModel)al.get(0));
-				gui.initCalendar();
+				//gui.initCalendar();
+				gui.initCreateAppointment();
 				//Do not propagate
 				return false;
 			}
