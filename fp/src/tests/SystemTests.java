@@ -2,12 +2,16 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.model.AppointmentModel;
+import com.model.UserModel;
 import com.server.db.Factory;
 
 public class SystemTests {
@@ -20,8 +24,36 @@ public class SystemTests {
 	}
 
 	@Test
-	public void logOn() {
-		fail("Not yet implemented");
+	public void logOn() throws SQLException, ClassNotFoundException {
+		UserModel dummy = new UserModel("chris", "hei123", "ep", "chris", "tonnessen", "88888888", 1);
+		f.createUserModel(dummy);
+		assertTrue("can't log on with right username and password", f.checkPassword("chris", "hei123"));
+	}
+	
+	@Test
+	public void logOnInvalidUsernameAndPassword() throws SQLException, ClassNotFoundException {
+		assertFalse("can log on with wrong username/password", f.checkPassword("chris", "hei321"));
+	}
+	
+	@Test
+	public void createAppointment() throws SQLException, ClassNotFoundException {
+		AppointmentModel dummy = new AppointmentModel(1L, 1, 2, f.getUserModel("chris"), "testtitle", "yoyo text yo", "hjemme", Date.valueOf("2013-02-04"), new ArrayList<UserModel>());
+		f.createAppointmentModel(dummy);
+		assertEquals("cound't create same appointment", f.getAppointmentModel(dummy).toString(), dummy.toString());
+	}
+	
+	@Test
+	public void updateAppointment() throws SQLException, ClassNotFoundException {
+		AppointmentModel dummy = new AppointmentModel(1L, 1, 2, f.getUserModel("chris"), "changedtitle", "yoyo text yo", "hjemme", Date.valueOf("2013-02-04"), new ArrayList<UserModel>());
+		f.updateAppointmentModel(dummy);
+		assertEquals("couldn't update appointment", f.getAppointmentModel(dummy).toString(), dummy.toString());
+	}
+	
+	@Test
+	public void deleteAppointment() throws SQLException, ClassNotFoundException {
+		AppointmentModel dummy = new AppointmentModel(1L, 1, 2, f.getUserModel("chris"), "testtitle", "yoyo text yo", "hjemme", Date.valueOf("2013-02-04"), new ArrayList<UserModel>());
+		f.deleteAppointmentModel(dummy);
+		assertNull("couldn't delete appointment", f.getAppointmentModel(dummy));
 	}
 	
 	@AfterClass
