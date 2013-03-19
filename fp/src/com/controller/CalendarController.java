@@ -184,12 +184,9 @@ public class CalendarController implements ActionListener, IServerResponse{
 			}
 		}
 		else { //Dårlig stemning
-
-		}
-		
+		}	
 		return true;		
 	}
-
 }
 
 /**

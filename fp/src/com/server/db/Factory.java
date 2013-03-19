@@ -820,28 +820,9 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	@Deprecated
 	public RoomModel getRoomModel(RoomModel rm) throws ClassNotFoundException,
 			SQLException {
-		String query = String.format("Select roomname, capacity, location "
-				+ "from Room WHERE roomnumber=%d", rm.getRoomNumber());
-		db.initialize();
-		ResultSet rs = db.makeSingleQuery(query);
-		String roomName = null;
-		int capacity = 0;
-		String location = null;
-		while (rs.next()) {
-			roomName = rs.getString(1);
-			capacity = rs.getInt(2);
-			location = rs.getString(3);
-		}
-
-		RoomModel utRm = new RoomModel(rm.getRoomNumber(), roomName, capacity,
-				location);
-		rs.close();
-		db.close();
-
-		return utRm;
+		return getRoomModel(rm.getRoomNumber());
 	}
 
 	public RoomModel getRoomModel(int roomNumber)
@@ -860,6 +841,10 @@ public class Factory {
 		}
 
 		RoomModel utRm = new RoomModel(roomNumber, roomName, capacity, location);
+		
+		if(utRm.getRoomName() == null)
+			utRm = null;
+		
 		rs.close();
 		db.close();
 
@@ -875,12 +860,9 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	@Deprecated
 	public void deleteRoomModel(RoomModel rm) throws SQLException,
 			ClassNotFoundException {
-		String query = String.format("DELETE from Room WHERE roomnumber=%d",
-				rm.getRoomNumber());
-		updateDatabase(query);
+		deleteRoomModel(rm.getRoomNumber());
 	}
 
 	public void deleteRoomModel(int roomNumber) throws SQLException,
