@@ -229,6 +229,7 @@ public class Factory {
 		UserModel um = new UserModel(username, password, email, name, surname,
 				phoneNumber, isAdmin);
 
+		//Check if the user exists
 		if (um.getPassword().equals(null))
 			um = null;
 		else {
@@ -255,6 +256,32 @@ public class Factory {
 
 			}
 			crs.close();
+			
+			
+			// Get the IsSummonedTo appointments
+				
+				ArrayList<AppointmentModel> summoned = new ArrayList<AppointmentModel>();
+
+				query = String.format("SELECT appointmentid, isAccepted, isSeen "
+						+ "FROM IsSummonedTo WHERE username='%s'", username);
+
+				crs = makeQuery(query);
+
+				while (rs.next()) {
+					AppointmentModel cake = getAppointmentModel(rs.getLong(1));
+					cake.setAccepted(rs.getBoolean(2));
+					cake.setSeen(rs.getBoolean(3));
+					summoned.add(cake);
+				}
+				
+				crs.close();
+				
+				CalendarModel cm = new CalendarModel();
+				cm.setOwner(username);
+				cm.setName("Summoned To");
+				cm.setAppointments(summoned);
+				
+				um.setSummonedTo(cm);
 		}
 		rs.close();
 		db.close();
@@ -457,6 +484,7 @@ public class Factory {
 
 		return summoned;
 	}
+	
 	
 	public void updateIsSummonedTo(ArrayList<UserModel> users, long l) throws ClassNotFoundException, SQLException{
 		deleteIsSummonedTo(l);
