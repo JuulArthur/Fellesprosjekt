@@ -442,7 +442,7 @@ public class Factory {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public ArrayList<String> getIsSummonedTo(int aid)
+	public ArrayList<String> getIsSummonedTo(long aid)
 			throws ClassNotFoundException, SQLException {
 		ArrayList<String> summoned = new ArrayList<String>();
 
@@ -456,6 +456,11 @@ public class Factory {
 		}
 
 		return summoned;
+	}
+	
+	public void updateIsSummonedTo(ArrayList<UserModel> users, long l) throws ClassNotFoundException, SQLException{
+		deleteIsSummonedTo(l);
+		createIsSummonedTo(users, l);
 	}
 
 	public void createIsSummonedTo(ArrayList<UserModel> users, long l)
@@ -519,6 +524,48 @@ public class Factory {
 				System.err.println("[Factory] ProcessUpdateCounts: " + i);
 			}
 		}
+	}
+	
+	public void deleteIsSummonedToPeople(ArrayList<String> users, long aid) throws ClassNotFoundException, SQLException{
+		String query = 
+				"DELETE FROM IsSummonedTo " +
+				"WHERE appointmentid='?' AND username='?'";
+		
+		
+		PreparedStatement pst;
+		try {
+			db.initialize();
+			pst = db.makeBatchUpdate(query);
+
+			/* insert data */
+			for (int i = 0; i < users.size(); i++) {
+				pst.setLong(1, aid);
+				pst.setString(2, users.get(i));
+				pst.addBatch();
+			}
+
+			// Execute the batch
+			int[] updateCounts = pst.executeBatch();
+
+			db.close();
+
+		} catch (BatchUpdateException e) {
+			// Not all of the statements were successfully executed
+			int[] updateCounts = e.getUpdateCounts();
+
+			// Some databases will continue to execute after one fails.
+			// If so, updateCounts.length will equal the number of batched
+			// statements.
+			// If not, updateCounts.length will equal the number of successfully
+			// executed statements
+			processUpdateCounts(updateCounts);
+
+			// Either commit the successfully executed statements or rollback
+			// the entire batch
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void deleteIsSummonedTo(long l) throws ClassNotFoundException,

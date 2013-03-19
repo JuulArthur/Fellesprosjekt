@@ -92,12 +92,16 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				return true;
 			}
 			else{
+				appointmentState.SUMMONING;
 				gui.initAppointment(am);
 				return true;
 			}
 		}
 		else if (appointmentState == appointmentState.NEW_ALARM){
 			gui.initAppointment(am);
+			return true;
+		}
+		else if (appointmentState == appointmentState.NOTHING){
 			return true;
 		}
 		return false;
@@ -225,5 +229,6 @@ enum AppointmentState {
 	NEW_APPOINTMENT,
 	NEW_ALARM,
 	UPDATE_APPOINTMENT,
+	SUMMONING,
 	NOTHING
 }
