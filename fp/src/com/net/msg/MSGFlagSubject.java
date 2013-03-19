@@ -7,5 +7,7 @@ public enum MSGFlagSubject {
 	GROUP,
 	NOTIFICATION,
 	ROOM,
-	USER
+	USER,
+	ALLGROUPS,
+	ALLUSERS
 }

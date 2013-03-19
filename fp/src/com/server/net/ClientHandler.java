@@ -171,6 +171,12 @@ public class ClientHandler  extends ServiceHandler {
 						case USER: //String username
 							al.add(factory.getUserModel((String)msgW.getObjects().get(0)));
 							break;
+							
+						case ALLGROUPS:
+							al.add(factory.getEveryGroup());
+							break;
+						case ALLUSERS:
+							al.add(factory.getEveryUser(msgW.getUser()));
 
 						default:
 							break;
