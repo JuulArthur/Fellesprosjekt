@@ -110,13 +110,8 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == calendarView.getBtnLeggTilAvtale()){
-			MeetingPanel meetingPanel = new MeetingPanel();
-			JFrame meetingFrame = new JFrame("Avtale/Møte");
-			meetingFrame.getContentPane().add(meetingPanel);
-			meetingFrame.pack();
-			meetingFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			meetingFrame.setVisible(true);
-			meetingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			Global.respondGUI.remove(this);
+			main.initCreateAppointment();
 		}
 		/* Pluss sign popup on calendars*/
 		else if (e.getSource() == calendarView.getbtnManageCalendar()) {
