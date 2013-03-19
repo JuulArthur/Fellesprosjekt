@@ -23,6 +23,7 @@ public class AppointmentModel {
 	private final static String ISDELETED_PROPERTY = "IsDeleted";
 	private final static String DATE_PROPERTY = "Date";
 	private final static String MEMBERS_PROPERTY = "Members";
+	private final static String ISSENDTOUTNOTI_PROPERY = "isSendtOutNoti";
 	
 	@XmlTransient
 	public PropertyChangeSupport changeSupport;
@@ -47,6 +48,9 @@ public class AppointmentModel {
 	private Date date;
 	@XmlElement(name = "members")
 	private ArrayList<UserModel> members;
+	
+	@XmlElement(name = "isSendtOutNoti")
+	private boolean isSendtOutNoti;
 
 	public AppointmentModel() {
 	} /* for jaxb */
@@ -66,6 +70,7 @@ public class AppointmentModel {
 
 		/* not hidden when made */
 		this.isDeleted = false;
+		this.isSendtOutNoti = false;
 	}
 
 	public long getId() {
@@ -142,7 +147,16 @@ public class AppointmentModel {
 	public boolean isDeleted() {
 		return isDeleted;
 	}
-
+	
+	public void setSendnotification(boolean setNotification){
+		boolean oldValue = this.isSendtOutNoti;
+		this.isSendtOutNoti = setNotification;
+		changeSupport.firePropertyChange(ISDELETED_PROPERTY, oldValue, isSendtOutNoti);
+	}
+	public boolean getSendNotification(){
+		return this.isSendtOutNoti;
+	}
+	
 	public void setDeleted(boolean isDeleted) {
 		boolean oldValue = this.isDeleted;
 		this.isDeleted = isDeleted;

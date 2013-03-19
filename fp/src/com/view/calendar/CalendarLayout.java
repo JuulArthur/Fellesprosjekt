@@ -34,6 +34,8 @@ public class CalendarLayout extends JPanel {
 	private JButton btnManageCalendar;
 	private JButton btnShowOtherCalendars;
 	private JButton btnLeggTilAvtale;
+	private JButton buttonLastWeek;
+	private JButton buttonNextWeek;
 	private JList listNotification;
 	private JList listCalendar;
 	private JList listOtherCalendars;
@@ -57,13 +59,13 @@ public class CalendarLayout extends JPanel {
 		add(btnLeggTilAvtale, gbc_btnLeggTilAvtale);
 		
 		
-		JButton button_2 = new JButton("<");
+		buttonLastWeek = new JButton("<");
 		GridBagConstraints gbc_button_2 = new GridBagConstraints();
 		gbc_button_2.anchor = GridBagConstraints.EAST;
 		gbc_button_2.insets = new Insets(0, 0, 5, 5);
 		gbc_button_2.gridx = 3;
 		gbc_button_2.gridy = 1;
-		add(button_2, gbc_button_2);
+		add(buttonLastWeek, gbc_button_2);
 		
 		
 		JLabel lblNewLabel_3 = new JLabel("Uke ");
@@ -73,13 +75,13 @@ public class CalendarLayout extends JPanel {
 		gbc_lblNewLabel_3.gridy = 1;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		JButton button_1 = new JButton(">");
+		buttonNextWeek = new JButton(">");
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
 		gbc_button_1.anchor = GridBagConstraints.WEST;
 		gbc_button_1.insets = new Insets(0, 0, 5, 5);
 		gbc_button_1.gridx = 5;
 		gbc_button_1.gridy = 1;
-		add(button_1, gbc_button_1);
+		add(buttonNextWeek, gbc_button_1);
 		
 		btnLoggUt = new JButton("logg ut");
 		GridBagConstraints gbc_btnLoggUt = new GridBagConstraints();
@@ -337,6 +339,15 @@ public class CalendarLayout extends JPanel {
 	public void setListOtherCalendars(JList listOtherCalendars) {
 		this.listOtherCalendars = listOtherCalendars;
 	}
+
+	public JButton getButtonLastWeek() {
+		return buttonLastWeek;
+	}
+
+	public JButton getButtonNextWeek() {
+		return buttonNextWeek;
+	}
+	
 	
 	
 }

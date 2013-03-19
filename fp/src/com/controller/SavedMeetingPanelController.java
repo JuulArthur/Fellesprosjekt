@@ -1,6 +1,5 @@
 package com.controller;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,6 +30,9 @@ public class SavedMeetingPanelController implements ActionListener {
 
 		if (!(appointment.getHost() == gui.getUserModel())) {
 			meetingPanel.getRediger().setVisible(false);
+		}
+		if(appointment.getSendNotification()){
+			meetingPanel.getMooteinnkalling().setEnabled(false);
 		}
 		if (meetingPanel.getComming().contains(gui.getUserModel())) {
 			meetingPanel.getGodta().setEnabled(false);
@@ -64,7 +66,8 @@ public class SavedMeetingPanelController implements ActionListener {
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			System.out.println("ring han Juul");
 		} else if(e.getSource() == meetingPanel.getMooteinnkalling()){
-			System.out.println("sende ut et eller annet");
+			appointment.setSendnotification(true);
+			
 		}
 	}
 	public SavedMeetingPanel getMeetingPanel(){

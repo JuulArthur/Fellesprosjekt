@@ -887,5 +887,32 @@ public class Factory {
 		return gm;
 
 	}
+	
+	public ArrayList<String> getEveryUser(String user) throws ClassNotFoundException, SQLException {
+		ArrayList<String> everyUser = new ArrayList<String>();
+		
+		String query = String.format("Select username from User WHERE username <> '%s'", user);
+
+		ResultSet rs = makeQuery(query);
+		while (rs.next()) {
+			everyUser.add(rs.getString(1));
+		}
+		return everyUser;
+		
+	}
+	
+	public ArrayList<String> getEveryGroup() throws ClassNotFoundException, SQLException {
+		ArrayList<String> everyGroup = new ArrayList<String>();
+		
+		String query = String.format("Select username from Groupp");
+
+		ResultSet rs = makeQuery(query);
+		while (rs.next()) {
+			everyGroup.add(rs.getString(1));
+		}
+		return everyGroup;
+		
+	}
+	
 
 }
