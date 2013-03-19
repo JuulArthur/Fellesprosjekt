@@ -10,6 +10,7 @@ import com.view.CalendarLayout;
 import com.view.LogginPane;
 import com.view.MainMeetingPanel;
 import com.view.MeetingPanel;
+import com.view.SavedMeetingPanel;
 
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
@@ -92,6 +93,8 @@ public class MainGUI extends JFrame{
 		
 		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
 	}
+	
+	
 	
 	public static void main(String[] args) throws Exception {
 		new MainGUI().initLoggin();
