@@ -34,12 +34,9 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JList list2;
 	private JFrame savedMeeting;
 	private JLabel lblNewLabel;
-<<<<<<< HEAD
 	private ButtonGroup buttongrp;
-=======
 	private JTextField dateTextField;
 	private JLabel lblDate;
->>>>>>> 5763c4676e3852457e7b3bae0378b7360380ad1b
 	
 	public SavedMeetingPanel () {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -51,11 +48,9 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		titteltextField.setEditable(false);
 		stedTextField.setEditable(false);
 		beskrivelseTextArea.setEditable(false);
-<<<<<<< HEAD
 		
 		buttongrp = new ButtonGroup();
 		
-=======
 		startTextField.setEditable(false);
 		sluttTextField.setEditable(false);
 		alarmTextField.setEditable(false);
@@ -79,7 +74,6 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		dateTextField.setEditable(false);
 		add(dateTextField, gbc_dateTextField);
 	
->>>>>>> 5763c4676e3852457e7b3bae0378b7360380ad1b
 		JButton btnAccept = new JButton("Godta");
 		buttongrp.add(btnAccept);
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
@@ -93,7 +87,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		buttongrp.add(btnDecline);
 		GridBagConstraints gbc_btnDecline = new GridBagConstraints();
 		gbc_btnDecline.anchor = GridBagConstraints.WEST;
-		gbc_btnDecline.insets = new Insets(0, 0, 5, 0);
+		gbc_btnDecline.insets = new Insets(0, 0, 5, 5);
 		gbc_btnDecline.gridx = 8;
 		gbc_btnDecline.gridy = 2;
 		
@@ -135,7 +129,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 3;
 		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 7;
 		gbc_scrollPane.gridy = 4;
@@ -148,30 +142,18 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.BASELINE_LEADING;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 7;
-		gbc_lblNewLabel.gridy = 13;
+		gbc_lblNewLabel.gridx = 3;
+		gbc_lblNewLabel.gridy = 7;
 		add(lblNewLabel, gbc_lblNewLabel);
 		JComboBox calenderList = new JComboBox();
 		GridBagConstraints c = new GridBagConstraints();
-		c.gridwidth = 2;
-		c.insets = new Insets(0, 0, 5, 0);
+		c.insets = new Insets(0, 0, 5, 5);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 1;
 		c.ipadx =100;
-		c.gridx=7;
-		c.gridy=14;
+		c.gridx=5;
+		c.gridy=7;
 		add(calenderList,c);
-		
-		btnEdit = new JButton("Rediger");
-		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-		gbc_btnEdit.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnEdit.anchor = GridBagConstraints.NORTH;
-		gbc_btnEdit.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEdit.ipady = 10;
-		gbc_btnEdit.ipadx = 5;
-		gbc_btnEdit.gridx = 5;
-		gbc_btnEdit.gridy = 19;
-		btnEdit.addActionListener(new editMeetingPanel());
 		
 		btnSendNotice = new JButton("Send ut m\u00F8teinnkalling");
 		btnSendNotice.addActionListener(new ActionListener() {
@@ -187,8 +169,19 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 				gbc_btnSendNotice.ipadx = 5;
 				gbc_btnSendNotice.anchor = GridBagConstraints.SOUTHEAST;
 				gbc_btnSendNotice.gridx = 5;
-				gbc_btnSendNotice.gridy = 17;
+				gbc_btnSendNotice.gridy = 13;
 				add(btnSendNotice, gbc_btnSendNotice);
+		
+		btnEdit = new JButton("Rediger");
+		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+		gbc_btnEdit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnEdit.anchor = GridBagConstraints.NORTH;
+		gbc_btnEdit.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEdit.ipady = 10;
+		gbc_btnEdit.ipadx = 5;
+		gbc_btnEdit.gridx = 5;
+		gbc_btnEdit.gridy = 14;
+		btnEdit.addActionListener(new editMeetingPanel());
 		
 		
 		add(btnEdit, gbc_btnEdit);

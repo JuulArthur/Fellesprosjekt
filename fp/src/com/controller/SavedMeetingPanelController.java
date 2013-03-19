@@ -14,16 +14,16 @@ public class SavedMeetingPanelController  implements ActionListener {
 	private SavedMeetingPanel meetingPanel;
 
 	
-	public SavedMeetingPanelController(MainMeetingPanel mainPanel, MainGUI gui){
+	public SavedMeetingPanelController(AppointmentModel appointment, SavedMeetingPanel newMeetingpanel){
 		this.gui=gui;
-		this.meetingPanel=new SavedMeetingPanel();
+		this.meetingPanel=newMeetingpanel;
 		meetingPanel.setStede(mainPanel.getPlaceText());
 		meetingPanel.setTitteltextField(mainPanel.getTittelText());
 		meetingPanel.setStartText(mainPanel.getStartText());
 		meetingPanel.setEndText(mainPanel.getEndText());
 		meetingPanel.setBeskrivelseTextArea(mainPanel.getDescriptionText());
 	}
-	
+
 	
 
 	@Override
