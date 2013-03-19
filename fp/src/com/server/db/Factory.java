@@ -81,6 +81,7 @@ public class Factory {
 				"update Calendar set name='%s' where id = '%d'", name, id);
 		updateDatabase(query);
 
+		/*
 		query = String
 				.format("delete from Follows where isOwner = 1 and calendarid = '%d' and username <> '%s'",
 						id, owner);
@@ -90,8 +91,9 @@ public class Factory {
 				.format("insert into Follows (isOwner, username, calendarid) values ('%s', '%s', '%s')",
 						1, owner, id);
 		updateDatabase(query);
+		*/
 
-		if (appointments.size() > 0) {
+		if (appointments != null && appointments.size() > 0) {
 			query = String.format(
 					"delete from BelongTo where calendarid = '%d'", id);
 			updateDatabase(query);
