@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import com.view.CalendarJDialog;
+import com.view.calendar.CalendarLayout;
+import com.view.LogginPane;
+import com.view.MainMeetingPanel;
+import com.view.MeetingPanel;
+
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
@@ -32,14 +38,15 @@ public class MainGUI extends JFrame{
 	private SavedMeetingPanel appointmentView;
 	
 	/* Controllers*/
-	LogginPaneController logginController;
-	CalendarController calendarController;
-	CreateAppointmentController createAppointmentController;
+	private LogginPaneController logginController;
+	private CalendarController calendarController;
+	private CreateAppointmentController createAppointmentController;
 	
 	
 	/* Models */
 	private UserModel userModel = null;
 	private ArrayList<CalendarModel> calendarModels;
+	private ArrayList<CalendarModel> subscribedCalendarModels;
 	private ArrayList<NotificationModel> notificationsModels;
 	private AlarmModel alarmModel;
 	
@@ -56,11 +63,10 @@ public class MainGUI extends JFrame{
 	 * 
 	 */
 	public void initLoggin() throws Exception{
-		
 		startServer();
 
-        logginView = new LogginPane();
-        calendarView = new CalendarLayout();
+        this.logginView = new LogginPane();
+        this.calendarView = new CalendarLayout();
 		
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
@@ -74,14 +80,29 @@ public class MainGUI extends JFrame{
         Global.respondGUI.add(logginController);
 	}
 	
-	public void initCalendar(){
+	public void initCalendar(){		
+		/* Init calendarView*/
 		this.getContentPane().removeAll();
 		this.getContentPane().add(calendarView);
 		this.pack();
 		
-		calendarController = new CalendarController(this, calendarView);
+		/* Remove loggin */
+		Global.respondGUI.remove(logginController);
+		this.logginController = null;
+		this.logginView = null;
+		
+		this.calendarModels = this.userModel.getCalendars();
+		this.notificationsModels = this.userModel.getNotifications();
+		this.subscribedCalendarModels = this.userModel.getSubscribedCalendars();
+		
+		/* Setup new controller */		
+		this.calendarController = new CalendarController(this, calendarView);
 		
         Global.respondGUI.add(calendarController);
+        
+		System.out.println(this.calendarModels.size());
+		for(CalendarModel cm : calendarModels)
+			System.out.println(cm.getName());
 	}
 	
 	public void initCreateAppointment(){
@@ -99,7 +120,6 @@ public class MainGUI extends JFrame{
 	/*
 	 * GETTERS AND SETTERS
 	 */
-
 	public UserModel getUserModel() {
 		return userModel;
 	}

@@ -1,4 +1,4 @@
-package com.view;
+package com.view.calendar;
 
 import javax.swing.JPanel;
 

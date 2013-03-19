@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import com.client.MainGUI;
 import com.model.UserModel;
 import com.net.msg.MSGFlagVerb;
@@ -54,7 +52,6 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 			if(al.get(0) instanceof UserModel){
 				gui.setUserModel((UserModel)al.get(0));
 				gui.initCalendar();
-				Global.respondGUI.remove(this);
 				//Do not propagate
 				return false;
 			}

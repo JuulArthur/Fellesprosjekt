@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JList;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
@@ -21,6 +23,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 	private MainGUI gui;
 	private MeetingPanel view;
 	private UserModel user;
+	private final static String[] MONTHS = {"January","February","March","April","May","June","July","August","September","October","November","December"};
 	
 	public CreateAppointmentController(MainGUI gui, MeetingPanel view){
 		this.gui = gui;
@@ -29,6 +32,15 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		
 		this.view.saveBtnAddListener(this);
 //		this.calendarView.addButtonMeetingAddListener(this);
+	}
+	
+	public int fromMonthTextToNumber(String month){
+		for(int i=0;i<MONTHS.length;i++){
+			if (MONTHS[i].equals(month)){
+				return i+1;
+			}
+		}
+		return -1;
 	}
 
 	@Override
@@ -51,8 +63,13 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			for (int i = 0;i<participantList.getModel().getSize();i++){
 				participants.add((UserModel) participantList.getModel().getElementAt(i));
 			}
+			String dateText = view.getDateText();
+			int indexOfDot = dateText.indexOf('.');
+			int month = fromMonthTextToNumber(dateText.substring(0,indexOfDot));
+			int day = Integer.parseInt(dateText.substring(indexOfDot+1));
+			int year = Calendar.getInstance().get(Calendar.YEAR);
 			AppointmentModel am = new AppointmentModel(System.currentTimeMillis(), startTime, endTime, user,
-					view.getTittelText(), view.getDescriptionText(), view.getPlaceText(), Date date,
+					view.getTittelText(), view.getDescriptionText(), view.getPlaceText(), new Date(year,month,day),
 					participants);
 			
 			ArrayList<Object> alist = new ArrayList<Object>();
@@ -60,9 +77,13 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.LOGIN);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
-			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGIN, alist));
+			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.APPOINTMENT, alist));
 		}
-		// TODO Auto-generated method stub
 		
 	}
+}
+
+enum AppointmentState {
+	NEW_APPOINTMENT,
+	NOTHING
 }

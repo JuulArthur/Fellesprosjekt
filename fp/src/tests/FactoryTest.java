@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.model.RoomModel;
 import com.model.UserModel;
 import com.server.db.Factory;
 
@@ -32,7 +33,7 @@ public class FactoryTest {
 	static Connection conn;
 	static String rootPassword = "hei123";
 	static Factory f;
-	UserModel cm;
+	UserModel cm; RoomModel rm;
 
 	//start init and close
 	@BeforeClass
@@ -55,7 +56,7 @@ public class FactoryTest {
 		UserModel dummy = new UserModel ("cristea", "hei123", "c@t.no", "chris", "tonnessen", "88888888", 1);
 		cm = f.createUserModel(dummy);
 		assertNotNull("createUserModel didn't return any object", cm);
-		assertEquals("created object not equal to dummy", cm, dummy);
+		assertEquals("created object from createUserModel not equal to dummy", cm, dummy);
 		
 	}
 
@@ -64,7 +65,7 @@ public class FactoryTest {
 		UserModel dummy = new UserModel("cristea", "hei123", "c@t.no", "chris", "tonnessen", "88888888", 1);
 		cm = f.getUserModel(dummy);
 		assertNotNull("getUsermodel didn't return any object", cm);
-		assertEquals("fetched object didn't equal dummy", cm, dummy);
+		assertEquals("fetched object from getUserModel didn't equal dummy", cm, dummy);
 	}
 
 	@Test
@@ -86,23 +87,35 @@ public class FactoryTest {
 		
 	//start room model test
 	@Test
-	public void testCreateRoomModelRoomModel() {
-		fail("Not yet implemented");
+	public void testCreateRoomModelRoomModel() throws SQLException, ClassNotFoundException {
+		RoomModel dummy = new RoomModel(1,"testrom",42,"hjemme");
+		rm = f.createRoomModel(dummy);
+		assertNotNull("createRoomModel didn't reaturn any object", rm);
+		assertEquals("created object from createRoomModel not equal to dummy", rm, dummy);
 	}
 
 	@Test
-	public void testGetRoomModelRoomModel() {
-		fail("Not yet implemented");
+	public void testGetRoomModelRoomModel() throws ClassNotFoundException, SQLException {
+		RoomModel dummy = new RoomModel(1,"testrom",42,"hjemme");
+		rm = f.getRoomModel(dummy);
+		assertNotNull("getRoomModel dudn't return any object", rm);
+		assertEquals("fetched object from getRoomModel didn't equal dummy", rm, dummy);
 	}
 
 	@Test
-	public void testUpdateRoomModel() {
-		fail("Not yet implemented");
+	public void testUpdateRoomModel() throws SQLException, ClassNotFoundException {
+		RoomModel dummy = new RoomModel(1,"testrom",42,"ute");
+		f.updateRoomModel(dummy);
+		rm = f.getRoomModel(dummy);
+		assertEquals("updateRoomModel didn't update properly", rm, dummy);
 	}
 
 	@Test
-	public void testDeleteRoomModelRoomModel() {
-		fail("Not yet implemented");
+	public void testDeleteRoomModelRoomModel() throws SQLException, ClassNotFoundException {
+		RoomModel dummy = new RoomModel(1,"testrom",42,"ute");
+		f.deleteRoomModel(dummy);
+		rm = f.getRoomModel(dummy);
+		assertNull("deleteRoomModel didn't delete room", rm);
 	}
 	//end room model test
 	

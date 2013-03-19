@@ -287,6 +287,10 @@ public class MeetingPanel extends MainMeetingPanel {
 	public JList getParticipantList() {
 		return participantList;
 	}
+	
+	public String getDateText(){
+		return dateTextField.getText();
+	}
 
 	public void setParticipantList(JList participantList) {
 		this.participantList = participantList;

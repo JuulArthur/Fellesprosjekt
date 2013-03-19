@@ -31,7 +31,7 @@ public class CalendarJDialog extends JDialog {
 	
 	JList list = new JList(months);
 	JScrollPane scrollPane;
-	CalendarModel model = new CalendarModel();
+	SmallCalendar model = new SmallCalendar();
 	JTable table = new JTable(model);
 	private final int thisYear = 2013;
 	private String dayChosen = "";
@@ -84,6 +84,7 @@ public class CalendarJDialog extends JDialog {
 		}
 		
 	}
+
 	
 	public String getdayChosen () {
 		return dayChosen;
@@ -125,7 +126,7 @@ public class CalendarJDialog extends JDialog {
 		}
 	  }
 	
-	class CalendarModel extends AbstractTableModel {
+	class SmallCalendar extends AbstractTableModel {
 
 		private String [] days = { "Søn", "Man", "Tir", "Ons", "Tor", "Fri", "Lør" };
 		
@@ -133,7 +134,7 @@ public class CalendarJDialog extends JDialog {
 		
 		private String [][] calendar = new String[getRowCount()][getColumnCount()];
 				
-		public CalendarModel() {
+		public SmallCalendar() {
 			for (int i = 0; i < days.length; i++) {
 				calendar[0][i] = days[i];
 			}
