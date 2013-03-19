@@ -258,7 +258,8 @@ public class FactoryTest {
 	}
 
 	@Test
-	public void testDeleteAlarmModelAlarmModel() throws SQLException, ClassNotFoundException {
+	public void testDeleteAlarmModelAlarmModel() throws SQLException,
+			ClassNotFoundException {
 		AlarmModel dummy = new AlarmModel(Date.valueOf("2015-03-12"),
 				"ALARM!...NOT", ap, um);
 		f.deleteAlarmModel(dummy);
@@ -270,23 +271,9 @@ public class FactoryTest {
 
 	// end alarm model test
 
+	// start calendar model test
 	@Test
 	public void testCreateCalendarModelCalendarModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateCalendarModelIntStringArrayListOfAppointmentModelString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateCalendarModelCalendarModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateCalendarModelIntStringArrayListOfAppointmentModelString() {
 		fail("Not yet implemented");
 	}
 
@@ -296,7 +283,7 @@ public class FactoryTest {
 	}
 
 	@Test
-	public void testGetCalendarModelInt() {
+	public void testUpdateCalendarModelCalendarModel() {
 		fail("Not yet implemented");
 	}
 
@@ -304,11 +291,7 @@ public class FactoryTest {
 	public void testDeleteCalendarModelCalendarModel() {
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testDeleteCalendarModelInt() {
-		fail("Not yet implemented");
-	}
+	//end calendar model test
 
 	@Test
 	public void testMakeQuery() {
