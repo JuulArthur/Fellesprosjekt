@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
+import com.model.NotificationModel;
+import com.model.UserModel;
+import com.net.msg.MSGFlagVerb;
+import com.settings.Global;
 import com.view.SavedMeetingPanel;
 
 public class SavedMeetingPanelController implements ActionListener, IServerResponse {
@@ -13,7 +17,11 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 	private MainGUI gui;
 	private SavedMeetingPanel meetingPanel;
 	private AppointmentModel appointment;
+	private ArrayList<NotificationModel> notificationQue = new ArrayList<NotificationModel>();
+	private Enum verb;
 
+	
+	
 	public SavedMeetingPanelController(AppointmentModel appointment,
 			SavedMeetingPanel newMeetingpanel, MainGUI gui) {
 		this.gui = gui;
@@ -78,6 +86,50 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
+		if(success){
+			/* Do we have response objects? */
+			if(al != null){
+			}
+			else{
+				switch (verb) {
+				case CREATE:
+					calendarController.addCalenderModelItem(model);	
+					break;
+				case UPDATE:
+					//The model has already been updated
+					break;
+
+				default:
+					break;
+				}
+				manageCalendars.setVisible(false);
+				manageCalendars.dispose();
+				Global.respondGUI.remove(this);
+			}
+		}
+		else { //Dårlig stemning
+		}		
+		
 		return false;
 	}
+	}
+	
+	
+	
+	public void sendNotification(){
+		for (int i =0; i<appointment.getMembers().size();i++){
+			UserModel currentuser=appointment.getMembers().get(i);
+			NotificationModel notification = new NotificationModel(appointment.getText(), this.appointment,currentuser);
+			this.notificationQue.add(notification);
+		}
+		
+		
+	}
 }
+
+
+enum ToDO{
+	SENDING,
+	NOTHING
+}
+		
