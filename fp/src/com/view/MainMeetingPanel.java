@@ -201,24 +201,34 @@ public class MainMeetingPanel extends JPanel {
 		return alarmTextField.getText();
 	}
 
-	public void setAlarmText(JTextField alarmTextField) {
-		this.alarmTextField = alarmTextField;
+	public void setAlarmText(String alarmTextField) {
+		this.alarmTextField.setText(alarmTextField);
 	}
 
 	public String getTittelText() {
 		return titteltextField.getText();
 	}
 
-	public void setTitteltextField(JTextField titteltextField) {
-		this.titteltextField = titteltextField;
+	public void setTitteltextField(String titteltextField) {
+		this.titteltextField.setText(titteltextField);
 	}
 
 	public String getDescriptionText() {
 		return beskrivelseTextArea.getText();
 	}
 
-	public void setBeskrivelseTextArea(JTextArea beskrivelseTextArea) {
-		this.beskrivelseTextArea = beskrivelseTextArea;
+	public void setBeskrivelseTextArea(String beskrivelseTextArea) {
+		this.beskrivelseTextArea.setText(beskrivelseTextArea);
+	}
+	public void setStartText(String time){
+		this.startTextField.setText(time);
+	}
+	public void setEndText(String time){
+		this.sluttTextField.setText(time);
+	}
+	public void setStede(String sted){
+	 this.stedTextField.setText(sted);	
 	}
 	
-}
+}	
+

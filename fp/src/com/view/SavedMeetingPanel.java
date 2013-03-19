@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -33,8 +34,12 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JList list2;
 	private JFrame savedMeeting;
 	private JLabel lblNewLabel;
+<<<<<<< HEAD
+	private ButtonGroup buttongrp;
+=======
 	private JTextField dateTextField;
 	private JLabel lblDate;
+>>>>>>> 5763c4676e3852457e7b3bae0378b7360380ad1b
 	
 	public SavedMeetingPanel () {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -46,6 +51,11 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		titteltextField.setEditable(false);
 		stedTextField.setEditable(false);
 		beskrivelseTextArea.setEditable(false);
+<<<<<<< HEAD
+		
+		buttongrp = new ButtonGroup();
+		
+=======
 		startTextField.setEditable(false);
 		sluttTextField.setEditable(false);
 		alarmTextField.setEditable(false);
@@ -69,7 +79,9 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		dateTextField.setEditable(false);
 		add(dateTextField, gbc_dateTextField);
 	
+>>>>>>> 5763c4676e3852457e7b3bae0378b7360380ad1b
 		JButton btnAccept = new JButton("Godta");
+		buttongrp.add(btnAccept);
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
 		gbc_btnAccept.anchor = GridBagConstraints.EAST;
 		gbc_btnAccept.insets = new Insets(0, 0, 5, 5);
@@ -78,12 +90,16 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		add(btnAccept, gbc_btnAccept);
 		
 		JButton btnDecline = new JButton("Avsl\u00E5");
+		buttongrp.add(btnDecline);
 		GridBagConstraints gbc_btnDecline = new GridBagConstraints();
 		gbc_btnDecline.anchor = GridBagConstraints.WEST;
 		gbc_btnDecline.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDecline.gridx = 8;
 		gbc_btnDecline.gridy = 2;
+		
 		add(btnDecline, gbc_btnDecline);
+		
+	
 		
 		lblKommer = new JLabel("Kommer");
 		GridBagConstraints gbc_lblKommer = new GridBagConstraints();

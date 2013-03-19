@@ -134,22 +134,11 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_removePerson.gridx = 5;
 		gbc_removePerson.gridy = 8;
 		add(removePerson, gbc_removePerson);
-		
-		btnLagre_1 = new JButton("Lagre");
-		GridBagConstraints gbc_btnLagre_1 = new GridBagConstraints();
-		gbc_btnLagre_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLagre_1.ipady = 10;
-		gbc_btnLagre_1.ipadx = 5;
-		gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_btnLagre_1.gridx = 6;
-		gbc_btnLagre_1.gridy = 8;
-		btnLagre_1.addActionListener(new saveAction());
-		add(btnLagre_1, gbc_btnLagre_1);
 
 		JScrollPane deltagerScrollPane = new JScrollPane(); 
 		GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
 		gbc_deltagerScrollPane.gridwidth = 2;
-		gbc_deltagerScrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_deltagerScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_deltagerScrollPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_deltagerScrollPane.gridx = 3;
 		gbc_deltagerScrollPane.gridy = 9;
@@ -158,14 +147,25 @@ public class MeetingPanel extends MainMeetingPanel {
 		participantList = new JList();
 		deltagerScrollPane.setViewportView(participantList);
 		
+		btnLagre_1 = new JButton("Lagre");
+		GridBagConstraints gbc_btnLagre_1 = new GridBagConstraints();
+		gbc_btnLagre_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLagre_1.ipady = 10;
+		gbc_btnLagre_1.ipadx = 5;
+		gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_btnLagre_1.gridx = 6;
+		gbc_btnLagre_1.gridy = 11;
+		btnLagre_1.addActionListener(new saveAction());
+		add(btnLagre_1, gbc_btnLagre_1);
+		
 		btnSlett = new JButton("Slett");
 		GridBagConstraints gbc_btnSlett = new GridBagConstraints();
-		gbc_btnSlett.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSlett.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSlett.ipady = 10;
 		gbc_btnSlett.ipadx = 5;
 		gbc_btnSlett.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnSlett.gridx = 6;
-		gbc_btnSlett.gridy = 9;
+		gbc_btnSlett.gridx = 7;
+		gbc_btnSlett.gridy = 11;
 		add(btnSlett, gbc_btnSlett);	
 
 	}
@@ -283,6 +283,10 @@ public class MeetingPanel extends MainMeetingPanel {
 	
 	public JList getParticipantList() {
 		return participantList;
+	}
+	
+	public String getDateText(){
+		return dateTextField.getText();
 	}
 
 	public void setParticipantList(JList participantList) {
