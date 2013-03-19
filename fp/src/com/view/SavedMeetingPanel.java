@@ -1,5 +1,6 @@
 package com.view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -231,6 +232,10 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 
 	public JButton getAvslag(){
 		return this.btnDecline;
+	}
+	
+	public JButton getMooteinnkalling(){
+		return this.btnSendNotice;
 	}
 	
 	public DefaultListModel getNotComming(){
