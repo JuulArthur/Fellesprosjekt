@@ -18,6 +18,7 @@ import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
 import com.model.AlarmModel;
+import com.model.AppointmentModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
@@ -114,7 +115,9 @@ public class MainGUI extends JFrame{
 		createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
 	}
 	
-	
+	public void initAppointment(AppointmentModel inputAppointment){
+		
+	}
 	
 	public static void main(String[] args) throws Exception {
 		new MainGUI().initLoggin();

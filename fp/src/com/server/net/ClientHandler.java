@@ -145,7 +145,7 @@ public class ClientHandler  extends ServiceHandler {
 						/* SUBJECTT */
 						switch (subject) {
 						case ALARM: //String user, int appointmentid
-							al.add(factory.getAlarmModel((String)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1)));
+							al.add(factory.getAlarmModel((String)msgW.getObjects().get(0), (Long)msgW.getObjects().get(1)));
 							break;
 							
 						case CALENDAR:
