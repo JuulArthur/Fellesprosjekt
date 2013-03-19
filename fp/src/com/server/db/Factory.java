@@ -254,7 +254,6 @@ public class Factory {
 
 	}
 
-	@Deprecated
 	public UserModel getUserModel(UserModel um) throws ClassNotFoundException,
 			SQLException {
 		return getUserModel(um.getUsername());
@@ -503,6 +502,9 @@ public class Factory {
 
 	/* APPOINTMENT */
 	// GET
+	public AppointmentModel getAppointmentModel(AppointmentModel am) throws SQLException, ClassNotFoundException {
+		return getAppointmentModel(am.getId());
+	}
 	public AppointmentModel getAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format(
@@ -548,9 +550,12 @@ public class Factory {
 
 		rs.close();
 		db.close();
-
-		return new AppointmentModel(l, startTime, endTime, host, title, text,
+		
+		if(title != null)
+			return new AppointmentModel(l, startTime, endTime, host, title, text,
 				place, date, members);
+		else
+			return null;
 	}
 
 	// UPDATE
@@ -581,9 +586,8 @@ public class Factory {
 
 	// CREATE
 
-	public void createAppointmentModel(AppointmentModel am)
+	public AppointmentModel createAppointmentModel(AppointmentModel am)
 			throws ClassNotFoundException, SQLException {
-		/* Update appointment */
 		String query = String
 				.format("INSERT INTO Appointment "
 						+ "(id, startTime, EndTime, host, title, text, place, isDeleted, date) "
@@ -599,8 +603,13 @@ public class Factory {
 		if (am.getMembers() != null && am.getMembers().size() != 0) {
 			createIsSummonedTo(am.getMembers(), am.getId());
 		}
+		
+		return am;
 	}
 
+	public void deleteAppointmentModel(AppointmentModel am) throws SQLException, ClassNotFoundException {
+		deleteAppointmentModel(am.getId());
+	}
 	// DELETE
 	public void deleteAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
