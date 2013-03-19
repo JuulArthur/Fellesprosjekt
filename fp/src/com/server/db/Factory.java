@@ -117,31 +117,35 @@ public class Factory {
 		return getCalendarModel(cm.getId());
 	}
 
-	public CalendarModel getCalendarModel(long idIn) throws SQLException, ClassNotFoundException {
+	public CalendarModel getCalendarModel(long idIn) throws SQLException,
+			ClassNotFoundException {
 		db.initialize();
-		String query = String.format("Select name from Calendar WHERE id = '%s'", idIn);
+		String query = String.format(
+				"Select name from Calendar WHERE id = '%s'", idIn);
 		ResultSet rs = db.makeSingleQuery(query);
-		//long id = -1L;
+		// long id = -1L;
 		String name = null;
 		String owner = null;
 		ArrayList<AppointmentModel> appointments = new ArrayList<AppointmentModel>();
-		
-		//Fetch Calendar name
+
+		// Fetch Calendar name
 		while (rs.next()) {
-			//id = rs.getLong(1);
+			// id = rs.getLong(1);
 			name = rs.getString(1);
 		}
 
-		//Fetch owner thePwner
-		query = String.format("select username from Follows where isOwner=1 and calendarid='%s'",
+		// Fetch owner thePwner
+		query = String
+				.format("select username from Follows where isOwner=1 and calendarid='%s'",
 						idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
 			owner = rs.getString(1);
 		}
 
-		//FEtch all appointments
-		query = String.format("select appointmentid from BelongTo where calendarid = '%d'",
+		// FEtch all appointments
+		query = String.format(
+				"select appointmentid from BelongTo where calendarid = '%d'",
 				idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
@@ -209,8 +213,8 @@ public class Factory {
 		String surname = null;
 		String phoneNumber = null;
 		int isAdmin = 0;
-		
-		//Fetch dat data
+
+		// Fetch dat data
 		while (rs.next()) {
 			email = rs.getString(1);
 			name = rs.getString(2);
@@ -220,7 +224,7 @@ public class Factory {
 			isAdmin = rs.getInt(6);
 		}
 
-		//Create the model
+		// Create the model
 		UserModel um = new UserModel(username, password, email, name, surname,
 				phoneNumber, isAdmin);
 
@@ -228,23 +232,25 @@ public class Factory {
 			um = null;
 		else {
 
-		//Get the calendars
-		query = String.format("Select calendarid, isOwner from Follows Where username='%s'",username);
-		ResultSet crs = db.makeSingleQuery(query);
-		
-		long calendarId = 0;
-		boolean isOwner = false;
-		while (crs.next()) {
-			calendarId = crs.getLong(1);
-			isOwner = crs.getBoolean(2);
-			
-			CalendarModel tempCal = getCalendarModel(calendarId);
-			
-			if (isOwner) {
-				um.addCalendar(tempCal);
-			} else {
-				um.addSubscribedCalendars(tempCal);
-			}
+			// Get the calendars
+			query = String
+					.format("Select calendarid, isOwner from Follows Where username='%s'",
+							username);
+			ResultSet crs = db.makeSingleQuery(query);
+
+			long calendarId = 0;
+			boolean isOwner = false;
+			while (crs.next()) {
+				calendarId = crs.getLong(1);
+				isOwner = crs.getBoolean(2);
+
+				CalendarModel tempCal = getCalendarModel(calendarId);
+
+				if (isOwner) {
+					um.addCalendar(tempCal);
+				} else {
+					um.addSubscribedCalendars(tempCal);
+				}
 
 			}
 			crs.close();
@@ -273,8 +279,9 @@ public class Factory {
 
 	public void updateUserModel(UserModel um) throws SQLException,
 			ClassNotFoundException {
-		updateUserModel(um.getUsername(), um.getPassword(), um.getEmail(), um.getName(),
-				um.getSurname(), um.getPhoneNumber(), (um.isAdmin()?1:0));
+		updateUserModel(um.getUsername(), um.getPassword(), um.getEmail(),
+				um.getName(), um.getSurname(), um.getPhoneNumber(),
+				(um.isAdmin() ? 1 : 0));
 	}
 
 	public void deleteUserModel(String username) throws SQLException,
@@ -325,7 +332,8 @@ public class Factory {
 
 	public AlarmModel createAlarmModel(AlarmModel am) throws SQLException,
 			ClassNotFoundException {
-		return createAlarmModel(am.getDate(), am.getText(), am.getAppointment(), am.getCreator());
+		return createAlarmModel(am.getDate(), am.getText(),
+				am.getAppointment(), am.getCreator());
 	}
 
 	public AlarmModel getAlarmModel(String user, long aid)
@@ -343,15 +351,19 @@ public class Factory {
 			text = rs.getString(2);
 		}
 
-		AlarmModel am = new AlarmModel(date, text, null, null);
+		AlarmModel am;
+		if (text == null || date == null)
+			am = null;
+		else
+			am = new AlarmModel(date, text, null, null);
 		rs.close();
 		db.close();
 
 		return am;
 	}
-	
-	public AlarmModel getAlarmModel(String user, long aid, AppointmentModel ap, UserModel creator)
-			throws ClassNotFoundException, SQLException {
+
+	public AlarmModel getAlarmModel(String user, long aid, AppointmentModel ap,
+			UserModel creator) throws ClassNotFoundException, SQLException {
 
 		String query = String.format("Select date, text "
 				+ "from Alarm WHERE username='%s'AND appointmendid=%d", user,
@@ -365,7 +377,12 @@ public class Factory {
 			text = rs.getString(2);
 		}
 
-		AlarmModel am = new AlarmModel(date, text, ap, creator);
+		AlarmModel am;
+		if (text == null || date == null)
+			am = null;
+		else
+			am = new AlarmModel(date, text, null, null);
+
 		rs.close();
 		db.close();
 
@@ -374,8 +391,8 @@ public class Factory {
 
 	public AlarmModel getAlarmModel(AlarmModel am)
 			throws ClassNotFoundException, SQLException {
-		return getAlarmModel(am.getCreator().getUsername(), am.getAppointment().getId(),
-				am.getAppointment(), am.getCreator());
+		return getAlarmModel(am.getCreator().getUsername(), am.getAppointment()
+				.getId(), am.getAppointment(), am.getCreator());
 	}
 
 	public void updateAlarmModel(Date date, String text, AppointmentModel ap,
@@ -394,9 +411,10 @@ public class Factory {
 		updateDatabase(query);
 	}
 
-	public void deleteAlarmModel(AlarmModel am)
-			throws SQLException, ClassNotFoundException {
-		deleteAlarmModel(am.getAppointment().getId(), am.getCreator().getUsername());
+	public void deleteAlarmModel(AlarmModel am) throws SQLException,
+			ClassNotFoundException {
+		deleteAlarmModel(am.getAppointment().getId(), am.getCreator()
+				.getUsername());
 	}
 
 	public void deleteAlarmModel(long id, String userName) throws SQLException,
@@ -406,7 +424,7 @@ public class Factory {
 				userName, id);
 		updateDatabase(query);
 	}
-	
+
 	/**
 	 * Gets all the usernames for the attending people of an appointment
 	 * 
@@ -504,9 +522,11 @@ public class Factory {
 
 	/* APPOINTMENT */
 	// GET
-	public AppointmentModel getAppointmentModel(AppointmentModel am) throws SQLException, ClassNotFoundException {
+	public AppointmentModel getAppointmentModel(AppointmentModel am)
+			throws SQLException, ClassNotFoundException {
 		return getAppointmentModel(am.getId());
 	}
+
 	public AppointmentModel getAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format(
@@ -552,10 +572,10 @@ public class Factory {
 
 		rs.close();
 		db.close();
-		
-		if(title != null)
-			return new AppointmentModel(l, startTime, endTime, host, title, text,
-				place, date, members);
+
+		if (title != null)
+			return new AppointmentModel(l, startTime, endTime, host, title,
+					text, place, date, members);
 		else
 			return null;
 	}
@@ -605,13 +625,15 @@ public class Factory {
 		if (am.getMembers() != null && am.getMembers().size() != 0) {
 			createIsSummonedTo(am.getMembers(), am.getId());
 		}
-		
+
 		return am;
 	}
 
-	public void deleteAppointmentModel(AppointmentModel am) throws SQLException, ClassNotFoundException {
+	public void deleteAppointmentModel(AppointmentModel am)
+			throws SQLException, ClassNotFoundException {
 		deleteAppointmentModel(am.getId());
 	}
+
 	// DELETE
 	public void deleteAppointmentModel(long l) throws SQLException,
 			ClassNotFoundException {
