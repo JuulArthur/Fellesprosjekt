@@ -19,6 +19,9 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
+		System.out.println(gui);
+		System.out.println(appointment);
+		System.out.println(meetingPanel);
 		meetingPanel.setTitteltextField(this.appointment.getText());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
