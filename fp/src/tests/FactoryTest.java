@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.model.AppointmentModel;
 import com.model.RoomModel;
 import com.model.UserModel;
 import com.server.db.Factory;
@@ -33,7 +34,7 @@ public class FactoryTest {
 	static Connection conn;
 	static String rootPassword = "hei123";
 	static Factory f;
-	UserModel cm; RoomModel rm;
+	UserModel cm; RoomModel rm; AppointmentModel am;
 
 	//start init and close
 	@BeforeClass
@@ -118,6 +119,28 @@ public class FactoryTest {
 		assertNull("deleteRoomModel didn't delete room", rm);
 	}
 	//end room model test
+	
+	//start appointment model test
+	@Test
+	public void testCreateAppointmentModel() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testGetAppointmentModel() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testUpdateAppointmentModel() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDeleteAppointmentModel() {
+		fail("Not yet implemented");
+	}
+	//end appointment model test
 	
 	@Test
 	public void testCreateCalendarModelCalendarModel() {
@@ -238,27 +261,6 @@ public class FactoryTest {
 	public void testDeleteIsSummonedTo() {
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testGetAppointmentModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateAppointmentModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateAppointmentModel() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteAppointmentModel() {
-		fail("Not yet implemented");
-	}
-
 	@Test
 	public void testCreateNotificationModelStringIntString() {
 		fail("Not yet implemented");

@@ -43,6 +43,7 @@ public class MeetingPanel extends MainMeetingPanel {
 
 	public MeetingPanel() {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
 		/* 
@@ -77,6 +78,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		btnChooseDate = new JButton("Velg dato");
 		btnChooseDate.addActionListener(new OpenChooseDate());
 		GridBagConstraints gbc_btnChooseDate = new GridBagConstraints();
+		gbc_btnChooseDate.anchor = GridBagConstraints.WEST;
 		gbc_btnChooseDate.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChooseDate.gridx = 6;
 		gbc_btnChooseDate.gridy = 2;
@@ -85,10 +87,50 @@ public class MeetingPanel extends MainMeetingPanel {
 		btnChooseRoom = new JButton("+");
 		btnChooseRoom.addActionListener(new chooseRoomAction());
 		GridBagConstraints gbc_btnChooseRoom = new GridBagConstraints();
+		gbc_btnChooseRoom.anchor = GridBagConstraints.WEST;
 		gbc_btnChooseRoom.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChooseRoom.gridx = 6;
 		gbc_btnChooseRoom.gridy = 5;
 		add(btnChooseRoom, gbc_btnChooseRoom);
+
+		lblDeltagere = new JLabel("Deltagere:");
+		GridBagConstraints gbc_lblDeltagere = new GridBagConstraints();
+		gbc_lblDeltagere.anchor = GridBagConstraints.WEST;
+		gbc_lblDeltagere.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDeltagere.gridx = 3;
+		gbc_lblDeltagere.gridy = 9;
+		add(lblDeltagere, gbc_lblDeltagere);
+						
+								addPerson = new JButton("+");
+								addPerson.addActionListener(new addNewPerson());
+								addPerson.setPreferredSize(new Dimension(41, 20));
+								GridBagConstraints gbc_addPerson = new GridBagConstraints();
+								gbc_addPerson.anchor = GridBagConstraints.EAST;
+								gbc_addPerson.insets = new Insets(0, 0, 5, 5);
+								gbc_addPerson.gridx = 3;
+								gbc_addPerson.gridy = 10;
+								add(addPerson, gbc_addPerson);
+				
+						removePerson = new JButton("-");
+						removePerson.setPreferredSize(new Dimension(41, 20));
+						GridBagConstraints gbc_removePerson = new GridBagConstraints();
+						gbc_removePerson.anchor = GridBagConstraints.WEST;
+						gbc_removePerson.insets = new Insets(0, 0, 5, 5);
+						gbc_removePerson.gridx = 4;
+						gbc_removePerson.gridy = 10;
+						add(removePerson, gbc_removePerson);
+		
+				JScrollPane deltagerScrollPane = new JScrollPane(); 
+				GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
+				gbc_deltagerScrollPane.gridwidth = 2;
+				gbc_deltagerScrollPane.insets = new Insets(0, 0, 5, 5);
+				gbc_deltagerScrollPane.fill = GridBagConstraints.HORIZONTAL;
+				gbc_deltagerScrollPane.gridx = 3;
+				gbc_deltagerScrollPane.gridy = 11;
+				add(deltagerScrollPane, gbc_deltagerScrollPane);
+				
+				participantList = new JList();
+				deltagerScrollPane.setViewportView(participantList);
 		
 		lblKalender = new JLabel("Kalender:");
 		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
@@ -100,72 +142,33 @@ public class MeetingPanel extends MainMeetingPanel {
 		add(lblKalender, gbc_lblKalender);
 		
 		CalendarComboBox = new JComboBox();
-		CalendarComboBox.setPreferredSize(new Dimension(120, 30));
+		CalendarComboBox.setPreferredSize(new Dimension(50, 30));
 		GridBagConstraints gbc_CalendarComboBox = new GridBagConstraints();
 		gbc_CalendarComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_CalendarComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_CalendarComboBox.gridx = 5;
 		gbc_CalendarComboBox.gridy = 7;
 		add(CalendarComboBox, gbc_CalendarComboBox);
-
-		lblDeltagere = new JLabel("Deltagere:");
-		GridBagConstraints gbc_lblDeltagere = new GridBagConstraints();
-		gbc_lblDeltagere.anchor = GridBagConstraints.WEST;
-		gbc_lblDeltagere.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDeltagere.gridx = 3;
-		gbc_lblDeltagere.gridy = 8;
-		add(lblDeltagere, gbc_lblDeltagere);
-
-		addPerson = new JButton("+");
-		addPerson.addActionListener(new addNewPerson());
-		addPerson.setPreferredSize(new Dimension(22, 20));
-		GridBagConstraints gbc_addPerson = new GridBagConstraints();
-		gbc_addPerson.anchor = GridBagConstraints.EAST;
-		gbc_addPerson.insets = new Insets(0, 0, 5, 5);
-		gbc_addPerson.gridx = 4;
-		gbc_addPerson.gridy = 8;
-		add(addPerson, gbc_addPerson);
-
-		removePerson = new JButton("-");
-		removePerson.setPreferredSize(new Dimension(22, 20));
-		GridBagConstraints gbc_removePerson = new GridBagConstraints();
-		gbc_removePerson.anchor = GridBagConstraints.WEST;
-		gbc_removePerson.insets = new Insets(0, 0, 5, 5);
-		gbc_removePerson.gridx = 5;
-		gbc_removePerson.gridy = 8;
-		add(removePerson, gbc_removePerson);
-
-		JScrollPane deltagerScrollPane = new JScrollPane(); 
-		GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
-		gbc_deltagerScrollPane.gridwidth = 2;
-		gbc_deltagerScrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_deltagerScrollPane.fill = GridBagConstraints.HORIZONTAL;
-		gbc_deltagerScrollPane.gridx = 3;
-		gbc_deltagerScrollPane.gridy = 9;
-		add(deltagerScrollPane, gbc_deltagerScrollPane);
-		
-		participantList = new JList();
-		deltagerScrollPane.setViewportView(participantList);
 		
 		btnLagre_1 = new JButton("Lagre");
 		GridBagConstraints gbc_btnLagre_1 = new GridBagConstraints();
 		gbc_btnLagre_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLagre_1.ipady = 10;
 		gbc_btnLagre_1.ipadx = 5;
-		gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_btnLagre_1.gridx = 6;
-		gbc_btnLagre_1.gridy = 11;
+		gbc_btnLagre_1.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_btnLagre_1.gridx = 5;
+		gbc_btnLagre_1.gridy = 12;
 		btnLagre_1.addActionListener(new saveAction());
 		add(btnLagre_1, gbc_btnLagre_1);
 		
 		btnSlett = new JButton("Slett");
 		GridBagConstraints gbc_btnSlett = new GridBagConstraints();
-		gbc_btnSlett.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSlett.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSlett.ipady = 10;
 		gbc_btnSlett.ipadx = 5;
 		gbc_btnSlett.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnSlett.gridx = 7;
-		gbc_btnSlett.gridy = 11;
+		gbc_btnSlett.gridx = 6;
+		gbc_btnSlett.gridy = 12;
 		add(btnSlett, gbc_btnSlett);	
 
 	}
