@@ -5,24 +5,23 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.view.CalendarJDialog;
-import com.view.calendar.CalendarLayout;
-import com.view.LogginPane;
-import com.view.MainMeetingPanel;
-import com.view.MeetingPanel;
-import com.view.SavedMeetingPanel;
-
 import com.client.net.ServerHandler;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.controller.SavedMeetingPanelController;
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
+import com.view.CalendarJDialog;
+import com.view.LogginPane;
+import com.view.MeetingPanel;
+import com.view.SavedMeetingPanel;
+import com.view.calendar.CalendarLayout;
 import com.xml.JAXBMarshaller;
 
 public class MainGUI extends JFrame{
@@ -38,7 +37,7 @@ public class MainGUI extends JFrame{
 	private LogginPaneController logginController;
 	private CalendarController calendarController;
 	private CreateAppointmentController createAppointmentController;
-	
+	private SavedMeetingPanelController appointmentController;
 	
 	/* Models */
 	private UserModel userModel = null;
@@ -108,6 +107,10 @@ public class MainGUI extends JFrame{
 	
 	public void initAppointment(AppointmentModel inputAppointment){
 		
+		this.appointmentController= new SavedMeetingPanelController(inputAppointment, appointmentView , this);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(appointmentController.getMeetingPanel());
+		this.pack();
 	}
 	
 	public static void main(String[] args) throws Exception {
