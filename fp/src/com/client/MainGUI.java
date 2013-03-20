@@ -11,6 +11,7 @@ import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
 import com.controller.LogginPaneController;
+import com.controller.MeetingRoomController;
 import com.controller.SavedMeetingPanelController;
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
@@ -42,6 +43,7 @@ public class MainGUI extends JFrame{
 	private CreateAppointmentController createAppointmentController;
 	private SavedMeetingPanelController appointmentController;	
 	private AddParticipantController participantController;
+	private MeetingRoomController meetingroomController;
 	
 	/* Models */
 	private UserModel userModel = null;

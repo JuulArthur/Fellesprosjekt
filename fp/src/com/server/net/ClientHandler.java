@@ -168,15 +168,20 @@ public class ClientHandler  extends ServiceHandler {
 							al.add(factory.getRoomModel((Integer)msgW.getObjects().get(0)));
 							break;
 							
+						case AVAILIBLEROOM:
+							al.add(factory.getAvailableRooms((Integer)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1), (Integer)msgW.getObjects().get(2)));
+							
 						case USER: //String username
 							al.add(factory.getUserModel((String)msgW.getObjects().get(0)));
 							break;
 							
 						case ALLGROUPS:
-							al = factory.getEveryGroup();
+						//	al = factory.getEveryGroup();
+							al.add(factory.getEveryGroup());
 							break;
 						case ALLUSERS: //String user that shall not be with
-							al = factory.getEveryUser((String)msgW.getObjects().get(0));
+						//	al = factory.getEveryUser((String)msgW.getObjects().get(0));
+							al.add(factory.getEveryUser((String)msgW.getObjects().get(0)));
 							break;
 						case ISSUMMONEDTO_ACCEPTED: //long appointmentid
 							al = factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(0)), true);//((UserModel)msgW.getObjects().get(0));
@@ -271,6 +276,13 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case GROUP:
 							factory.UpdateGroupModel((GroupModel)msgW.getObjects().get(0));
+							break;
+							
+						case ISNOTCOMMING:
+							factory.updateIsNotComming((UserModel)msgW.getObjects().get(0), (AppointmentModel)msgW.getObjects().get(1));
+							break;
+						case ISCOMMING:
+							factory.updateIscomming((UserModel)msgW.getObjects().get(0), (AppointmentModel)msgW.getObjects().get(1));
 							break;
 							
 						case NOTIFICATION:// NotificationModel

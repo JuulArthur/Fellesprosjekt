@@ -60,7 +60,7 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
 		meetingPanel.setAlarmText("insert alarm here! ");
 		meetingPanel.setCalendar(gui.getUserModel());
-
+		addPersonToCommingAndNot();
 		meetingPanel.getAvslag().addActionListener(this);
 		meetingPanel.getGodta().addActionListener(this);
 		meetingPanel.getRediger().addActionListener(this);
@@ -86,30 +86,24 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
 		meetingPanel.getGodta().setEnabled(false);
-	
 		
-		ArrayList<Object> que= new ArrayList<Object>();
-		que.add(appointment.getId());
-		
-		
-		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+		ArrayList<Object> que = new ArrayList<Object>();
+		que.add(gui.getUserModel());
+		que.add(appointment);
+		//que har {bruker, appointment}
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
 				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
-						MSGFlagSubject.ISSUMMONEDTO_ACCEPTED,que));
+						MSGFlagSubject.ISCOMMING,que ));
 		
-
+		meetingPanel.getComming().clear();
+		meetingPanel.getNotComming().clear();
+		addPersonToCommingAndNot();
+		
 	}
 	
 
-	private ArrayList<UserModel> iscomming(ArrayList<UserModel> members) {
-		
-		
-		ArrayList<UserModel> isCommingQue= new ArrayList<UserModel>();
-		for (UserModel user: members){
-		}
-		return isCommingQue;
-	}
 
 	public void notComming() {
 		meetingPanel.getGodta().setEnabled(true);
@@ -117,16 +111,21 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getNotComming().addElement(gui.getUserModel());
 		meetingPanel.getAvslag().setEnabled(false);
 		
+		ArrayList<Object> que = new ArrayList<Object>();
+		que.add(gui.getUserModel());
+		que.add(appointment);
+		//que har {bruker, appointment}
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+						MSGFlagSubject.ISNOTCOMMING,que ));
+		
+		meetingPanel.getComming().clear();
+		meetingPanel.getNotComming().clear();
+		addPersonToCommingAndNot();
 	}
 
-	private ArrayList<UserModel> isNotcomming(ArrayList<UserModel> members) {
-	
-		
-		ArrayList<UserModel> isNotCommingQue= new ArrayList<UserModel>();
-		for (UserModel user: members){
-		}
-		return isNotCommingQue;
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -180,7 +179,7 @@ public class SavedMeetingPanelController implements ActionListener,
 		return this.meetingPanel;
 	}
 
-	public void addPersonToCommingAndNot(){
+	private void addPersonToCommingAndNot(){
 		ArrayList<Object> que= new ArrayList<Object>();
 		que.add(appointment.getId());
 		
@@ -208,6 +207,7 @@ public class SavedMeetingPanelController implements ActionListener,
 					break;
 					
 				case ISACCEPTED:
+					verb=ToDO.ISNOTACC;
 					for(Object com : al){
 					meetingPanel.getComming().addElement(com);}
 					
@@ -224,8 +224,10 @@ public class SavedMeetingPanelController implements ActionListener,
 					
 				case ISNOTACC:
 					for(Object com : al){
-						meetingPanel.getComming().addElement(com);}
+						meetingPanel.getNotComming().addElement(com);}
+					verb=ToDO.NOTHING;
 					break; 
+					
 				default:
 					break;
 				}
