@@ -1,6 +1,5 @@
 package com.client;
 
-
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -111,6 +110,7 @@ public class MainGUI extends JFrame{
 	// -----test----
 	
 	public void initParticipantPanel (MeetingPanel view) {
+		System.out.println("initParticipantPanel");
 		this.getContentPane().add(participantController.getParticipantPanel());
 		this.pack();
 		this.participantController = new AddParticipantController(view);

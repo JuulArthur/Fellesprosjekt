@@ -64,7 +64,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	}
 	
 	public AddParticipantPanel getParticipantPanel () {
-		return this.p_view;
+		return	p_view;
 	}
 
 	@Override
@@ -82,6 +82,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 					System.out.println("setGroupComboBox");
 					break;
 				case NOTHING:
+					break;
 					// Its not gonna happen
 				default:
 					break;
@@ -98,6 +99,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == p_view.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
+			System.out.println("AddUserbtn - Pressed");
 			JList userList = m_view.getParticipantList();
 			
 			Object selectedUser = p_view.getUserComboBox().getSelectedItem();
@@ -108,6 +110,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		}
 		else if (e.getSource() == p_view.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
+			System.out.println("AddGroupbtn - Pressed");
 			JList groupList = m_view.getParticipantList();
 			
 			Object selectedGroup = p_view.getGroupComboBox().getSelectedItem();
@@ -117,6 +120,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			m_view.setParticipantList(groupList);
 		}
 		else if (e.getSource() == p_view.getBackButton()) {
+			System.out.println("Backbtn - Pressed");
 			p_view.setVisible(false);
 		}
 	}
