@@ -469,12 +469,13 @@ public class Factory {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public ArrayList<Object> getIsSummonedTo(long aid)
+	public ArrayList<Object> getIsSummonedTo(long aid, boolean accepted)
 			throws ClassNotFoundException, SQLException {
 		ArrayList<Object> summoned = new ArrayList<Object>();
 
 		String query = String.format("Select username "
-				+ "FROM IsSummonedTo WHERE appointmentid='%s'", aid);
+				+ "FROM IsSummonedTo " +
+				"WHERE appointmentid='%s' AND isAccepted='%b'", aid, accepted);
 
 		ResultSet rs = makeQuery(query);
 
