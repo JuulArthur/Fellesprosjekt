@@ -13,6 +13,7 @@ import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
+import com.server.db.Factory;
 import com.settings.Global;
 import com.view.SavedMeetingPanel;
 
@@ -49,11 +50,12 @@ public class SavedMeetingPanelController implements ActionListener,
 		this.meetingPanel = newMeetingpanel;
 		verb = ToDO.NOTHING;
 		meetingPanel.setTitteltextField(this.appointment.getText());
+		meetingPanel.setDato(""+this.appointment.getDate());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
 		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
-		
+		meetingPanel.setAlarmText("insert alarm here!");
 
 		meetingPanel.getAvslag().addActionListener(this);
 		meetingPanel.getGodta().addActionListener(this);
@@ -76,6 +78,7 @@ public class SavedMeetingPanelController implements ActionListener,
 
 
 	public void isCommint() {
+		meetingPanel.getAvslag().setEnabled(true);
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
 		meetingPanel.getGodta().setEnabled(false);
@@ -83,6 +86,7 @@ public class SavedMeetingPanelController implements ActionListener,
 	}
 
 	public void notComming() {
+		meetingPanel.getGodta().setEnabled(true);
 		meetingPanel.getComming().removeElement(gui.getUserModel());
 		meetingPanel.getNotComming().addElement(gui.getUserModel());
 		meetingPanel.getAvslag().setEnabled(false);
@@ -98,7 +102,7 @@ public class SavedMeetingPanelController implements ActionListener,
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			gui.initCreateAppointment(appointment);
-} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
+		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
 			appointment.setSendnotification(true);
 			sendNotification();
 			meetingPanel.getMooteinnkalling().setEnabled(false);

@@ -964,10 +964,10 @@ public class Factory {
 
 	}
 	
-	public ArrayList<String> getEveryUser(String user) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> getEveryUser() throws ClassNotFoundException, SQLException {
 		ArrayList<String> everyUser = new ArrayList<String>();
 		
-		String query = String.format("Select username from User WHERE username != '%s'", user);
+		String query = String.format("Select username from User");
 
 		ResultSet rs = makeQuery(query);
 		while (rs.next()) {
