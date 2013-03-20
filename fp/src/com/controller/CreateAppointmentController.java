@@ -46,6 +46,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		
 		this.view.saveBtnAddListener(this);
 		this.view.returnBtnAddListener(this);
+		this.view.removePersonBtnAddListener(this);
 	}
 	
 	public CreateAppointmentController(MainGUI gui, MeetingPanel view, AppointmentModel am){
@@ -294,6 +295,9 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (e.getSource() == view.getChooseRomButton()){
 			gui.initParticipantPanel(view);
+		}
+		else if (e.getSource() == view.getRemovePersonBtn()){
+			view.deleteParticipant();
 		}
 		
 	}
