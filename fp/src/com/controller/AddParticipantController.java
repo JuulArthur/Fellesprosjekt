@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
-import com.model.AppointmentModel;
 import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
@@ -20,27 +20,29 @@ import com.view.MeetingPanel;
 public class AddParticipantController implements IServerResponse, ActionListener {
 
 	private MainGUI gui;
-	private AddParticipantPanel p_view;
+	private AddParticipantPanel participantPanel;
 	private MeetingPanel m_view;
-	private Type type;
 	private DefaultListModel userListModel, groupListModel;
-	ArrayList<Object> users;
-	ArrayList<Object> groups;
+	private boolean ifGroups;
 	
-	private MSGFlagVerb verb;
-	private AppointmentModel model;	
+	ArrayList<Object> users;	
+	private MSGFlagVerb verb;	
 	
-	public AddParticipantController(MeetingPanel meeting) {
-//		this.gui = gui;
+	public AddParticipantController(MainGUI gui, MeetingPanel meeting) {
+		ifGroups = false;
+		this.gui = gui;
 		this.m_view = meeting;
-		this.p_view = new AddParticipantPanel();
-//		this.model = model;
-		this.type = type.NOTHING;
 		
-		this.p_view.addButtonUserAddListener(this);
-		this.p_view.addButtonGroupAddListener(this);
-		//this.p_view.addButtonBackAddListener(this);
+		participantPanel = new AddParticipantPanel();
+		participantPanel.setLocationRelativeTo(null);
+		participantPanel.setVisible(true);
+		participantPanel.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+		participantPanel.pack();
 		
+		participantPanel.addButtonUserAddListener(this);
+		participantPanel.addButtonGroupAddListener(this);
+		participantPanel.addButtonBackAddListener(this);
+				
 		userListModel = new DefaultListModel();
 		groupListModel = new DefaultListModel();
 			
@@ -48,55 +50,36 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		users = new ArrayList<Object>();
 		System.out.println("Oppretta ArrayList");
 		
-	//	users.add(model);
+		users.add(gui.getUserModel().getUsername());
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
-		System.out.println("SetFlag: GET\n");
 		Global.sHandler.setState(State.CONNECTED_WAITING);
-		System.out.println("setState: CONNECTED WAITING\n");
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, null));
-		System.out.println("shandler: et eller annet sent\n");		
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
 		
-		System.out.println("verb: GET");
-		type = type.PEEPS;
-		System.out.println("PEEPS");
-		/*
-		groups = new ArrayList<Object>();
-		groups.add(model);
-		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
-		Global.sHandler.setState(State.CONNECTED_WAITING);
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, null));	
-		type = type.GROUPS;
-		System.out.println("GROUPS");
-		*/
 	}
 	
 	public AddParticipantPanel getParticipantPanel () {
-		return	p_view;
+		return	participantPanel;
 	}
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// setter det i user og group combobox
 		if (success) {
-			if (al != null) {
-				switch (type) {
-				case PEEPS:
-					p_view.setUserComboBox(al);
-					System.out.println("setUserComboBox");
-					break;
-				case GROUPS:
-					p_view.setGroupComboBox(al);
-					System.out.println("setGroupComboBox");
-					break;
-				case NOTHING:
-					break;
-					// Its not gonna happen
-				default:
-					break;
-				}
-			}			
+			if (al != null && !ifGroups) {
+				participantPanel.setUserComboBox(al);
+				// send ny spørring om alle grupper
+				Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+				Global.sHandler.setState(State.CONNECTED_WAITING);
+				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, null));	
+				ifGroups = true;
+				return true;
+			}
+			if (al != null && ifGroups) {
+				participantPanel.setGroupComboBox(al);
+				return true;
+			}
 			else {
-				System.out.println("Det fins ingen brukere og grupper i systemet");
+				System.out.println("Det fins ingen brukere og/eller grupper i systemet");
 			}
 		}
 		return false;
@@ -104,40 +87,37 @@ public class AddParticipantController implements IServerResponse, ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == p_view.getBtnAddUser()) {
+		if (e.getSource() == participantPanel.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
-			System.out.println("AddUserbtn - Pressed");
 			JList userList = m_view.getParticipantList();
+			Object selectedUser = participantPanel.getUserComboBox().getSelectedItem();
 			
-			Object selectedUser = p_view.getUserComboBox().getSelectedItem();
-			userListModel.addElement(selectedUser);
-			
-			userList.setModel(userListModel);
-			m_view.setParticipantList(userList);
+			if (!userListModel.contains(selectedUser)) {
+				userListModel.addElement(selectedUser);
+				userList.setModel(userListModel);
+				m_view.setParticipantList(userList);
+		//		participantPanel.getUserComboBox().removeItem(selectedUser);
+			}
 		}
-		else if (e.getSource() == p_view.getBtnAddGroup()) {
+		else if (e.getSource() == participantPanel.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
-			System.out.println("AddGroupbtn - Pressed");
 			JList groupList = m_view.getParticipantList();
 			
-			Object selectedGroup = p_view.getGroupComboBox().getSelectedItem();
-			userListModel.addElement(selectedGroup);
-			
-			groupList.setModel(groupListModel);
-			m_view.setParticipantList(groupList);
+			Object selectedGroup = participantPanel.getGroupComboBox().getSelectedItem();
+
+			if (!userListModel.contains(selectedGroup)) {
+				userListModel.addElement(selectedGroup);
+				groupList.setModel(groupListModel);
+				m_view.setParticipantList(groupList);
+		//		participantPanel.getGroupComboBox().removeItem(selectedGroup);
+			}			
 		}
-		else if (e.getSource() == p_view.getBackButton()) {
+		else if (e.getSource() == participantPanel.getBackButton()) {
 			System.out.println("Backbtn - Pressed");
-			p_view.setVisible(false);
+			participantPanel.setVisible(false);
+			participantPanel.dispose();
 		}
-//		else if (e.getSource() == p_view.getBackButton()) {
-//			p_view.setVisible(false);
-//		}
 	}
 }
 
-enum Type{
-	GROUPS,
-	PEEPS,
-	NOTHING
-}
+

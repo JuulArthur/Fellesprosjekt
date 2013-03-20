@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.jws.soap.SOAPBinding.Use;
+
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
@@ -15,6 +17,7 @@ import com.net.msg.MSGType;
 import com.net.support.State;
 import com.server.db.Factory;
 import com.settings.Global;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import com.view.SavedMeetingPanel;
 
 public class SavedMeetingPanelController implements ActionListener,
@@ -83,7 +86,29 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
 		meetingPanel.getGodta().setEnabled(false);
+	
+		
+		ArrayList<Object> que= new ArrayList<Object>();
+		que.add(appointment.getId());
+		
+		
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+						MSGFlagSubject.ISSUMMONEDTO_ACCEPTED,que));
+		
 
+	}
+	
+
+	private ArrayList<UserModel> iscomming(ArrayList<UserModel> members) {
+		
+		
+		ArrayList<UserModel> isCommingQue= new ArrayList<UserModel>();
+		for (UserModel user: members){
+		}
+		return isCommingQue;
 	}
 
 	public void notComming() {
@@ -91,7 +116,16 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getComming().removeElement(gui.getUserModel());
 		meetingPanel.getNotComming().addElement(gui.getUserModel());
 		meetingPanel.getAvslag().setEnabled(false);
+		
+	}
 
+	private ArrayList<UserModel> isNotcomming(ArrayList<UserModel> members) {
+	
+		
+		ArrayList<UserModel> isNotCommingQue= new ArrayList<UserModel>();
+		for (UserModel user: members){
+		}
+		return isNotCommingQue;
 	}
 
 	@Override
@@ -146,13 +180,25 @@ public class SavedMeetingPanelController implements ActionListener,
 		return this.meetingPanel;
 	}
 
+	public void addPersonToCommingAndNot(){
+		ArrayList<Object> que= new ArrayList<Object>();
+		que.add(appointment.getId());
+		
+		
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+						MSGFlagSubject.ISSUMMONEDTO_ACCEPTED,que));
+		
+	}
+	
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
 		if (success) {
 			/* Do we have response objects? */
-			if (al != null) {
-			} else {
+			 {
 				switch (verb) {
 				case SENDING:
 					verb = ToDO.NOTHING;
@@ -160,7 +206,26 @@ public class SavedMeetingPanelController implements ActionListener,
 				case NOTHING:
 					// The model has already been updated
 					break;
-
+					
+				case ISACCEPTED:
+					for(Object com : al){
+					meetingPanel.getComming().addElement(com);}
+					
+					ArrayList<Object> que= new ArrayList<Object>();
+					que.add(appointment.getId());
+					Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+					Global.sHandler.setState(State.CONNECTED_WAITING);
+					Global.sHandler.writeMessage(Global.jaxbMarshaller
+							.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+									MSGFlagSubject.ISSUMMONEDTO_DENIED,que));
+					
+					
+					break;
+					
+				case ISNOTACC:
+					for(Object com : al){
+						meetingPanel.getComming().addElement(com);}
+					break; 
 				default:
 					break;
 				}
@@ -190,5 +255,5 @@ public class SavedMeetingPanelController implements ActionListener,
 }
 
 enum ToDO {
-	SENDING, NOTHING
+	SENDING, NOTHING, ISACCEPTED, ISNOTACC
 }
