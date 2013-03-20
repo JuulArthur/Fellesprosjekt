@@ -68,12 +68,13 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		if (tempDay.charAt(0)=='0'){
 			tempDay = tempDay.substring(1);
 		}
-		//this.view.setDate()
+		this.view.setDateText(tempDay+"."+tempTextMonth);
 		
 		this.view.saveBtnAddListener(this);
 		this.view.returnBtnAddListener(this);
 		this.view.removePersonBtnAddListener(this);
 		this.view.addPersonBtnAddListener(this);
+		this.view.setPlaceText(am.getPlace());
 	}
 	
 	private String fromMonthTextToNumber(String month){
