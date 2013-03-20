@@ -205,7 +205,8 @@ public class ClientHandler  extends ServiceHandler {
 						case ALARM: //AlarmModel
 							factory.createAlarmModel((AlarmModel)msgW.getObjects().get(0));
 							break;
-			
+						case BELONGTO://AppoinmentID, targetCalendarID
+							factory.createBelongTo((long)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));
 						case CALENDAR: //CalendarModel
 							factory.createCalendarModel((CalendarModel)msgW.getObjects().get(0));
 							break;

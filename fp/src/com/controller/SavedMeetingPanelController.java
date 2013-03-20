@@ -24,9 +24,26 @@ public class SavedMeetingPanelController implements ActionListener,
 	private AppointmentModel appointment;
 	private ArrayList<Object> notificationQue = new ArrayList<Object>();
 	private ToDO verb;
+	private long oldCalID;
 
+	
+	
+	
+	
 	public SavedMeetingPanelController(AppointmentModel appointment,
 			SavedMeetingPanel newMeetingpanel, MainGUI gui) {
+		oldCalID=-1;
+		dummyconstrutor(appointment, newMeetingpanel, gui);
+	}
+	
+	public SavedMeetingPanelController(long oldCalendarId, AppointmentModel appointment,
+			SavedMeetingPanel newMeetingpanel, MainGUI gui){
+		this.oldCalID=oldCalendarId;
+		dummyconstrutor(appointment,newMeetingpanel,gui);
+	}
+	
+	private void  dummyconstrutor(AppointmentModel appointment,
+			SavedMeetingPanel newMeetingpanel, MainGUI gui){
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
@@ -36,6 +53,7 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
 		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
+		
 
 		meetingPanel.getAvslag().addActionListener(this);
 		meetingPanel.getGodta().addActionListener(this);
@@ -54,8 +72,8 @@ public class SavedMeetingPanelController implements ActionListener,
 		} else if (meetingPanel.getNotComming().contains(gui.getUserModel())) {
 			meetingPanel.getAvslag().setEnabled(false);
 		}
-
 	}
+
 
 	public void isCommint() {
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
@@ -95,12 +113,29 @@ public class SavedMeetingPanelController implements ActionListener,
 
 	public void addAppointmentToCalender(AppointmentModel appointment,
 			CalendarModel targetCal) {
-		Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+		ArrayList<Object> objectQue= new ArrayList<Object>();
+		objectQue.add(appointment.getId());
+		objectQue.add(targetCal.getId());
+		objectQue.add(oldCalID);
+		
+		if(oldCalID!=-1){
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
-				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,
-						MSGFlagSubject., notificationQue));
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+						MSGFlagSubject.BELONGTO,objectQue ));
 	}
+		else{
+			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+			Global.sHandler.setState(State.CONNECTED_WAITING);
+			Global.sHandler.writeMessage(Global.jaxbMarshaller
+					.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,
+							MSGFlagSubject.BELONGTO,objectQue ));
+			}
+	}
+
+	
+	
 
 	public SavedMeetingPanel getMeetingPanel() {
 		return this.meetingPanel;
