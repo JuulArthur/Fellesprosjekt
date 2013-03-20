@@ -1029,10 +1029,10 @@ public class Factory {
 
 	}
 
-	public ArrayList<Object> getEveryUser() throws ClassNotFoundException, SQLException {
+	public ArrayList<Object> getEveryUser(String user) throws ClassNotFoundException, SQLException {
 		ArrayList<Object> everyUser = new ArrayList<Object>();
 		
-		String query = String.format("Select username from User");
+		String query = String.format("Select username from User where username <> '%d'", user);
 
 		ResultSet rs = makeQuery(query);
 		while (rs.next()) {

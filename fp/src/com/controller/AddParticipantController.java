@@ -23,16 +23,14 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private MainGUI gui;
 	private AddParticipantPanel participantPanel;
 	private MeetingPanel m_view;
-	private Type type;
 	private DefaultListModel userListModel, groupListModel;
 	ArrayList<Object> users;
 	ArrayList<Object> groups;
 	
-	private MSGFlagVerb verb;
-	private AppointmentModel model;	
+	private MSGFlagVerb verb;	
 	
-	public AddParticipantController(MeetingPanel meeting) {
-//		this.gui = gui;
+	public AddParticipantController(MainGUI gui, MeetingPanel meeting) {
+		this.gui = gui;
 		this.m_view = meeting;
 		participantPanel = new AddParticipantPanel();
 		participantPanel.setLocationRelativeTo(null);
@@ -42,9 +40,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		participantPanel.addButtonUserAddListener(this);
 		participantPanel.addButtonGroupAddListener(this);
 		participantPanel.addButtonBackAddListener(this);
-			
-		this.type = type.NOTHING;
-		
+				
 		userListModel = new DefaultListModel();
 		groupListModel = new DefaultListModel();
 			
@@ -52,17 +48,14 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		users = new ArrayList<Object>();
 		System.out.println("Oppretta ArrayList");
 		
-	//	users.add(model);
+		users.add(gui.getUserModel().getUsername());
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 		System.out.println("SetFlag: GET\n");
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		System.out.println("setState: CONNECTED WAITING\n");
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, null));
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
 		System.out.println("shandler: et eller annet sent\n");		
 		
-		System.out.println("verb: GET");
-		type = type.PEEPS;
-		System.out.println("PEEPS");
 		/*
 		groups = new ArrayList<Object>();
 		groups.add(model);
@@ -83,24 +76,16 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		// setter det i user og group combobox
 		if (success) {
 			if (al != null) {
-				switch (type) {
-				case PEEPS:
-					participantPanel.setUserComboBox(al);
-					System.out.println("setUserComboBox");
-					break;
-				case GROUPS:
-					participantPanel.setGroupComboBox(al);
-					System.out.println("setGroupComboBox");
-					break;
-				case NOTHING:
-					break;
-					// Its not gonna happen
-				default:
-					break;
-				}
-			}			
+				participantPanel.setUserComboBox(al);
+				// send ny spørring om alle grupper
+				Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+				Global.sHandler.setState(State.CONNECTED_WAITING);
+				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, null));	
+				participantPanel.setGroupComboBox(al);
+				return true;
+			}
 			else {
-				System.out.println("Det fins ingen brukere og grupper i systemet");
+				System.out.println("Det fins ingen brukere og/eller grupper i systemet");
 			}
 		}
 		return false;
@@ -135,14 +120,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			participantPanel.setVisible(false);
 			participantPanel.dispose();
 		}
-//		else if (e.getSource() == p_view.getBackButton()) {
-//			p_view.setVisible(false);
-//		}
 	}
 }
 
-enum Type{
-	GROUPS,
-	PEEPS,
-	NOTHING
-}
+
