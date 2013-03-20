@@ -53,9 +53,12 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 	private List<Event> events = new ArrayList<Event>();
 	private DateInterval interval;
 	private Calendar cal;
+	
+	private DayView myDayView;
 
 	@SuppressWarnings("unchecked")
 	public CalendarViewModel() throws Exception {
+		
 		/*
 		Date date = DateUtil.round2Week(new Date());
 		date = new Date(date.getTime() + 8 * 60 * 60 * 1000);
@@ -81,7 +84,45 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		Date _start = DateUtil.round2Week(start.toDate());
 		Date end = DateUtil.getDiffDay(start.toDate(), +7);
 		interval = new DateInterval(_start, end);
-		this.refresh();
+		
+		try {
+			this.myDayView.refresh();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void removeAllEvents(){
+		events = new ArrayList<Event>();
+	}
+	
+	public void addManyEvents(ArrayList<AppointmentModel> ams){
+		for(AppointmentModel am : ams){
+			Event event = new Event();
+			DateTime dt = new DateTime(am.getDate());
+			dt = dt.withHourOfDay(13);
+			
+			System.out.println(dt.toDate());
+			
+			event.setStart(dt.toDate());
+			
+			dt = dt.withHourOfDay(17);
+			System.out.println(dt);
+			event.setEnd(dt.toDate());
+			
+			
+			event.setDescription(am.getText());
+			event.setSummary(am.getTitle());
+			events.add(event);
+		}
+		
+		try {
+			this.myDayView.refresh();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	public List<Event> getEvents(Object calId) throws Exception {
@@ -94,6 +135,10 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 
 	public DateInterval getInterval() {
 		return interval;
+	}
+	
+	public void setDayView(DayView dayVIew){
+		this.myDayView = dayVIew;
 	}
 
 }

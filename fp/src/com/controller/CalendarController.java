@@ -97,7 +97,10 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 					selectedCalenderModel = (CalendarModel)dListModelCalendarModels.getElementAt(listCalender.getSelectedIndex());
 					txt.setText("");
 					calendarWeekController.addModel(selectedCalenderModel);
-					calendarWeekController.setModel(selectedCalenderModel);
+					//calendarWeekController.setModel(selectedCalenderModel);
+
+					
+					
 				}	
 			}
 		});
@@ -158,7 +161,7 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 			
 		}
 		else if (e.getSource() == calendarView.getBtnShowOtherCalendars()) {
-			AddOtherCalendarsJDialogController addOtherCalendarsController = new AddOtherCalendarsJDialogController(this);
+			AddOtherCalendarsJDialogController addOtherCalendarsController = new AddOtherCalendarsJDialogController(this, true); //TODO kan ikke alltid være true
 			Global.respondGUI.add(this);
 			
 		}

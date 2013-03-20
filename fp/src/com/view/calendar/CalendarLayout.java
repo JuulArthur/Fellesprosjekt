@@ -192,6 +192,7 @@ public class CalendarLayout extends JPanel {
 			dayView = new DayView(new DayViewConfig());
 			dayView.setModel(calViewModel);
 			dayView.refresh();
+			calViewModel.setDayView(dayView);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

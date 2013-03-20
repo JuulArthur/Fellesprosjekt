@@ -54,6 +54,11 @@ public class UserModel {
 		changeSupport = new PropertyChangeSupport(this);
 	}
 	
+	public UserModel(String username){
+		changeSupport = new PropertyChangeSupport(this);
+		this.username = username;
+	}
+	
 	public UserModel(String username, String password, String email,
 			String name, String surname, String phoneNumber, int isAdmin) {
 		

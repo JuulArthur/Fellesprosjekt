@@ -147,7 +147,7 @@ public class Factory {
 				idIn);
 		rs = db.makeSingleQuery(query);
 		while (rs.next()) {
-			appointments.add(getAppointmentModel(rs.getInt(1)));
+			appointments.add(getAppointmentModel(rs.getLong(1), owner)); //TODO IF IS NULL LOOK AT THIS!!
 		}
 
 		CalendarModel cm = new CalendarModel(idIn, name, appointments, owner);
@@ -747,6 +747,64 @@ public class Factory {
 		else
 			return null;
 	}
+	
+	
+
+	public AppointmentModel getAppointmentModel(long l, String owner) throws SQLException,
+			ClassNotFoundException {
+		String query = String.format(
+				"Select startTime, EndTime, host, title, text, place, isDeleted, date "
+						+ "FROM Appointment WHERE id='%s'", l);
+
+		ResultSet rs = makeQuery(query);
+
+		int startTime = 0;
+		int endTime = 0;
+		UserModel host = null;
+		String title = null;
+		String text = null;
+		String place = null;
+		boolean isDeleted;
+		Date date = null;
+		ArrayList<UserModel> members = null;
+
+		while (rs.next()) {
+			startTime = rs.getInt(1);
+			endTime = rs.getInt(2);
+			host = new UserModel(owner);
+			title = rs.getString(4);
+			text = rs.getString(5);
+			place = rs.getString(6);
+			isDeleted = rs.getBoolean(7);
+			date = rs.getDate(8);
+		}
+
+		/* Get members */
+		// members = new ArrayList<>();
+
+		query = String.format("Select username "
+				+ "from IsSummonedTo WHERE appointmentid='%s'", l);
+		rs = db.makeSingleQuery(query);
+
+		while (rs.next()) {
+			members.add(getUserModel(rs.getString(1)));
+		}
+
+		if(members != null)
+			if (members.size() == 0)
+				members = null;
+
+		rs.close();
+		db.close();
+
+		if (title != null)
+			return new AppointmentModel(l, startTime, endTime, host, title,
+					text, place, date, members);
+		else
+			return null;
+	}
+	
+	
 
 	// UPDATE
 	// CREATE
