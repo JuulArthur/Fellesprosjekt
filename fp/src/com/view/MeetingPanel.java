@@ -273,6 +273,10 @@ public class MeetingPanel extends MainMeetingPanel {
 		removePerson.addActionListener(al);
 	}
 	
+	public void addPersonBtnAddListener(ActionListener al) {
+		addPerson.addActionListener(al);
+	}
+	
 	class openAlarmCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			createCalenderDialog((alarmTextField));
@@ -340,5 +344,13 @@ public class MeetingPanel extends MainMeetingPanel {
 	public void deleteParticipant(){
 		int i = participantList.getAnchorSelectionIndex();
 		model.remove(i);
+	}
+	
+	public JButton getAddParticipantButton(){
+		return this.addPerson;
+	}
+	
+	public void setDateText(){
+		
 	}
 }

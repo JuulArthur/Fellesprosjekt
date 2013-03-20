@@ -47,6 +47,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.view.saveBtnAddListener(this);
 		this.view.returnBtnAddListener(this);
 		this.view.removePersonBtnAddListener(this);
+		this.view.addPersonBtnAddListener(this);
 	}
 	
 	public CreateAppointmentController(MainGUI gui, MeetingPanel view, AppointmentModel am){
@@ -57,8 +58,22 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		alist  = new ArrayList<Object>();
 		this.appointmentState = appointmentState.NOTHING;
 		
+		this.view.setTitteltextField(am.getTitle());
+		this.view.setBeskrivelseTextArea(am.getText());
+		this.view.setStartText(Integer.toString(am.getStartTime()));
+		this.view.setEndText(Integer.toString(am.getEndTime()));
+		int tempMonth = Integer.parseInt(am.getDate().toString().substring(5,7));
+		String tempTextMonth = MONTHS[tempMonth];
+		String tempDay = am.getDate().toString().substring(8,10);
+		if (tempDay.charAt(0)=='0'){
+			tempDay = tempDay.substring(1);
+		}
+		//this.view.setDate()
+		
 		this.view.saveBtnAddListener(this);
 		this.view.returnBtnAddListener(this);
+		this.view.removePersonBtnAddListener(this);
+		this.view.addPersonBtnAddListener(this);
 	}
 	
 	private String fromMonthTextToNumber(String month){
@@ -157,6 +172,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			return true;
 		}
 		else if (appointmentState == appointmentState.NOTHING){
+			Global.respondGUI.remove(this);
 			gui.initCalendar();
 			return true;
 		}
@@ -287,13 +303,15 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if(e.getSource() == view.getReturnButton()){
 			if (this.am==null){
+				Global.respondGUI.remove(this);
 				gui.initCalendar();
 			}
 			else{
+				Global.respondGUI.remove(this);
 				gui.initAppointment(this.am);
 			}
 		}
-		else if (e.getSource() == view.getChooseRomButton()){
+		else if (e.getSource() == view.getAddParticipantButton()){
 			gui.initParticipantPanel(view);
 		}
 		else if (e.getSource() == view.getRemovePersonBtn()){
