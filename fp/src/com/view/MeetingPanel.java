@@ -320,7 +320,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		return this.addPerson;
 	}
 	
-	public void setDateText(){
-		
+	public void setDateText(String text){
+		this.dateTextField.setText(text);
 	}
 }

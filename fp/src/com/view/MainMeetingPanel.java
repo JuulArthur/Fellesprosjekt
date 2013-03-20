@@ -242,6 +242,10 @@ public class MainMeetingPanel extends JPanel {
 		btnReturn.addActionListener(al);
 	}
 
+	public void setPlaceText(String place) {
+		this.stedTextField.setText(place);
+		
+	}
 	
 }	
 
