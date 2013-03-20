@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.jws.soap.SOAPBinding.Use;
+
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
@@ -15,6 +17,7 @@ import com.net.msg.MSGType;
 import com.net.support.State;
 import com.server.db.Factory;
 import com.settings.Global;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import com.view.SavedMeetingPanel;
 
 public class SavedMeetingPanelController implements ActionListener,
@@ -83,7 +86,24 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
 		meetingPanel.getGodta().setEnabled(false);
+		ArrayList<Object> doshit= new ArrayList<Object>();
+		ArrayList<UserModel> comming=iscomming(appointment.getMembers());
+		comming.add(gui.getUserModel());
+		doshit.add(comming);
+		doshit.add(appointment.getId());
+		
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+						MSGFlagSubject.ISSUMMONEDTO,doshit ));
+		
 
+	}
+
+	private ArrayList<UserModel> iscomming(ArrayList<UserModel> members) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public void notComming() {
