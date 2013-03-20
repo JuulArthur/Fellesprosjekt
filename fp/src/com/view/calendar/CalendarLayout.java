@@ -17,6 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import bizcal.common.DayViewConfig;
+import bizcal.swing.DayView;
+
 import com.model.*;
 
 import javax.swing.JComboBox;
@@ -40,7 +44,9 @@ public class CalendarLayout extends JPanel {
 	private JList listNotification;
 	private JList listCalendar;
 	private JList listOtherCalendars;
-	JLabel labelGivenWeek;
+	private JLabel labelGivenWeek;
+	private DayView dayView;
+	private CalendarViewModel calViewModel;
 	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
@@ -169,6 +175,7 @@ public class CalendarLayout extends JPanel {
 		gbc_list.gridy = 4;
 		add(listNotification, gbc_list);
 		
+		/*
 		JList listTime = new JList(time);
 		listTime.enable(false);
 		GridBagConstraints gbc_list_2 = new GridBagConstraints();
@@ -177,12 +184,22 @@ public class CalendarLayout extends JPanel {
 		gbc_list_2.fill = GridBagConstraints.BOTH;
 		gbc_list_2.gridx = 2;
 		gbc_list_2.gridy = 4;
-		add(listTime, gbc_list_2);
+		add(listTime, gbc_list_2);*/
 	
 		
+		try {
+			calViewModel = new CalendarViewModel();
+			dayView = new DayView(new DayViewConfig());
+			dayView.setModel(calViewModel);
+			dayView.refresh();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*
 		table = new JTable(model);
 		table.setRowSelectionAllowed(false);
-		table.setRowHeight(17);
+		table.setRowHeight(17);*/
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridheight = 8;
 		gbc_table.gridwidth = 7;
@@ -190,7 +207,9 @@ public class CalendarLayout extends JPanel {
 		gbc_table.fill = GridBagConstraints.BOTH;
 		gbc_table.gridx = 3;
 		gbc_table.gridy = 4;
-		add(table, gbc_table);
+		//add(table, gbc_table);
+		add(dayView.getComponent(), gbc_table);
+
 		
 		JLabel lblMyCalendars = new JLabel("Mine Kalendere");
 		GridBagConstraints gbc_lblMyCalendars = new GridBagConstraints();
@@ -353,8 +372,12 @@ public class CalendarLayout extends JPanel {
 	public JLabel getLabelGivenWeek() {
 		return labelGivenWeek;
 	}
-	
-	
-	
-	
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public CalendarViewModel getCalViewModel() {
+		return calViewModel;
+	}	
 }

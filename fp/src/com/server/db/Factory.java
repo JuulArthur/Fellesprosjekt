@@ -551,21 +551,22 @@ public class Factory {
 		return summoned;
 	}
 	
-	public void updateIscomming(ArrayList<UserModel> butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
-		for (UserModel isComming: butthurt){
+	public void updateIscomming(UserModel butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
+		
 		String query = String
 				.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
-						true, ap.getId() , isComming.getUsername());
+						true, ap.getId() , butthurt.getUsername());
 		updateDatabase(query);
-		}
+		
 	}
-	public void updateIsNotComming(ArrayList<UserModel> butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
-		for (UserModel isComming: butthurt){
+	
+	
+	public void updateIsNotComming(UserModel butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
 			String query = String
 					.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
-							false, ap.getId() , isComming.getUsername());
+							false, ap.getId() , butthurt.getUsername());
 			updateDatabase(query);
-			}
+			
 	}
 	
 	
