@@ -175,8 +175,8 @@ public class ClientHandler  extends ServiceHandler {
 						case ALLGROUPS:
 							al = factory.getEveryGroup();
 							break;
-						case ALLUSERS:
-							al = factory.getEveryUser();
+						case ALLUSERS: //String user that shall not be with
+							al = factory.getEveryUser((String)msgW.getObjects().get(0));
 							break;
 						case ISSUMMONEDTO_ACCEPTED: //long appointmentid
 							al = factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(0)), true);//((UserModel)msgW.getObjects().get(0));
