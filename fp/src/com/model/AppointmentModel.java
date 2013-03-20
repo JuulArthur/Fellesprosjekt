@@ -1,5 +1,6 @@
 package com.model;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class AppointmentModel {
 	private boolean isSendtOutNoti;
 
 	public AppointmentModel() {
+		changeSupport = new PropertyChangeSupport(this);
 	} /* for jaxb */
 
 	public AppointmentModel(long id, int startTime, int endTime, UserModel host,
@@ -77,6 +79,8 @@ public class AppointmentModel {
 		/* not hidden when made */
 		this.isDeleted = false;
 		this.isSendtOutNoti = false;
+		
+		changeSupport = new PropertyChangeSupport(this);
 	}
 
 	public long getId() {
@@ -226,6 +230,13 @@ public class AppointmentModel {
 		boolean oldValue = this.isSeen;
 		this.isSeen = isSeen;
 		changeSupport.firePropertyChange(ISSEEN_PROPERTY, oldValue, isSeen);
+	}
+	
+	/*
+	 * Add listener
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		changeSupport.addPropertyChangeListener(listener);
 	}
 
 	@Override
