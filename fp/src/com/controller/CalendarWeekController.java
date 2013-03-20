@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 
+import com.model.AppointmentModel;
 import com.model.CalendarModel;
 import com.view.calendar.CalendarLayout;
 
@@ -15,6 +16,7 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 	
 	/*Models*/
 	private ArrayList<CalendarModel> calendarsModels;
+	private ArrayList<AppointmentModel> appointments;
 	
 	/*Views*/
 	private CalendarLayout calendarView;
@@ -23,18 +25,36 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 	
 	public CalendarWeekController(CalendarLayout cl) {
 		//Inits
-		this.calendarsModels = new ArrayList<>();
+		this.calendarsModels = new ArrayList<CalendarModel>();
 		this.calendarView = cl;
 		
 		firstDayGivenWeek = new DateTime();
 		firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
-
-
+		this.calendarView.getLabelGivenWeek().setText("Uke: " + firstDayGivenWeek.getWeekOfWeekyear());
 	}
 	
 	public void addModel(CalendarModel cm){
 		calendarsModels.add(cm);
+		for(AppointmentModel am : cm.getAppointments()){
+			am.addPropertyChangeListener(this);
+			DateTime appointment = new DateTime(am.getDate());
+			System.out.println(appointment);
+		}
+		
 	}
+	
+	public void setModel(CalendarModel cm){
+		calendarsModels = new ArrayList<CalendarModel>();
+		calendarsModels.add(cm);
+		for(AppointmentModel am : cm.getAppointments()){
+			am.addPropertyChangeListener(this);
+			DateTime appointment = new DateTime(am.getDate());
+			System.out.println(appointment);
+		}
+		
+	}
+	
+	
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -49,10 +69,11 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 			firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
 		}
 		else if(e.getSource() == calendarView.getButtonNextWeek()){
-			System.out.println(firstDayGivenWeek);
-			firstDayGivenWeek.plusWeeks(-1);
-			System.out.println(firstDayGivenWeek);
+			firstDayGivenWeek = firstDayGivenWeek.plusWeeks(1);
+			firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
 		}
+		
+		this.calendarView.getLabelGivenWeek().setText("Uke: " + firstDayGivenWeek.getWeekOfWeekyear());
 		
 	}
 	
