@@ -100,37 +100,37 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_lblDeltagere.gridx = 3;
 		gbc_lblDeltagere.gridy = 9;
 		add(lblDeltagere, gbc_lblDeltagere);
-						
-								addPerson = new JButton("+");
-								addPerson.addActionListener(new addNewPerson());
-								addPerson.setPreferredSize(new Dimension(41, 20));
-								GridBagConstraints gbc_addPerson = new GridBagConstraints();
-								gbc_addPerson.anchor = GridBagConstraints.EAST;
-								gbc_addPerson.insets = new Insets(0, 0, 5, 5);
-								gbc_addPerson.gridx = 3;
-								gbc_addPerson.gridy = 10;
-								add(addPerson, gbc_addPerson);
-				
-						removePerson = new JButton("-");
-						removePerson.setPreferredSize(new Dimension(41, 20));
-						GridBagConstraints gbc_removePerson = new GridBagConstraints();
-						gbc_removePerson.anchor = GridBagConstraints.WEST;
-						gbc_removePerson.insets = new Insets(0, 0, 5, 5);
-						gbc_removePerson.gridx = 4;
-						gbc_removePerson.gridy = 10;
-						add(removePerson, gbc_removePerson);
-		
-				JScrollPane deltagerScrollPane = new JScrollPane(); 
-				GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
-				gbc_deltagerScrollPane.gridwidth = 2;
-				gbc_deltagerScrollPane.insets = new Insets(0, 0, 5, 5);
-				gbc_deltagerScrollPane.fill = GridBagConstraints.HORIZONTAL;
-				gbc_deltagerScrollPane.gridx = 3;
-				gbc_deltagerScrollPane.gridy = 11;
-				add(deltagerScrollPane, gbc_deltagerScrollPane);
-				
-				participantList = new JList();
-				deltagerScrollPane.setViewportView(participantList);
+
+		addPerson = new JButton("+");
+		addPerson.addActionListener(new addNewPerson());
+		addPerson.setPreferredSize(new Dimension(41, 20));
+		GridBagConstraints gbc_addPerson = new GridBagConstraints();
+		gbc_addPerson.anchor = GridBagConstraints.EAST;
+		gbc_addPerson.insets = new Insets(0, 0, 5, 5);
+		gbc_addPerson.gridx = 3;
+		gbc_addPerson.gridy = 10;
+		add(addPerson, gbc_addPerson);
+
+		removePerson = new JButton("-");
+		removePerson.setPreferredSize(new Dimension(41, 20));
+		GridBagConstraints gbc_removePerson = new GridBagConstraints();
+		gbc_removePerson.anchor = GridBagConstraints.WEST;
+		gbc_removePerson.insets = new Insets(0, 0, 5, 5);
+		gbc_removePerson.gridx = 4;
+		gbc_removePerson.gridy = 10;
+		add(removePerson, gbc_removePerson);
+
+		JScrollPane deltagerScrollPane = new JScrollPane(); 
+		GridBagConstraints gbc_deltagerScrollPane = new GridBagConstraints();
+		gbc_deltagerScrollPane.gridwidth = 2;
+		gbc_deltagerScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_deltagerScrollPane.fill = GridBagConstraints.HORIZONTAL;
+		gbc_deltagerScrollPane.gridx = 3;
+		gbc_deltagerScrollPane.gridy = 11;
+		add(deltagerScrollPane, gbc_deltagerScrollPane);
+
+		participantList = new JList();
+		deltagerScrollPane.setViewportView(participantList);
 		
 		lblKalender = new JLabel("Kalender:");
 		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
@@ -296,9 +296,6 @@ public class MeetingPanel extends MainMeetingPanel {
 		this.participantList = participantList;
 	}
 	
-	public JButton getChooseRomButton(){
-		return this.btnChooseRoom;
-	}
 	
 	class backAction implements ActionListener {
 
