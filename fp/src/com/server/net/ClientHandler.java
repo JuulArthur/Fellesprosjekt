@@ -173,14 +173,13 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ALLGROUPS:
-							al.add(factory.getEveryGroup());
+							al = factory.getEveryGroup();
 							break;
 						case ALLUSERS:
-			//				al.add(factory.getEveryUser(msgW.getUser()));
-							al.add(factory.getEveryUser());
+							al = factory.getEveryUser();
 							break;
 						case ISSUMMONEDTO: // ArrayList users, long appointmentid
-							factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
+							al = factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(0)));//((UserModel)msgW.getObjects().get(0));
 							break;
 
 						default:
