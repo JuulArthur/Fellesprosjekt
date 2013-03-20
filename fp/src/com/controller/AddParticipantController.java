@@ -24,19 +24,24 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private AddParticipantPanel participantPanel;
 	private MeetingPanel m_view;
 	private DefaultListModel userListModel, groupListModel;
+	private boolean ifGroups;
+	
 	ArrayList<Object> users;
 	ArrayList<Object> groups;
 	
 	private MSGFlagVerb verb;	
 	
 	public AddParticipantController(MainGUI gui, MeetingPanel meeting) {
+		ifGroups = false;
 		this.gui = gui;
 		this.m_view = meeting;
+		
 		participantPanel = new AddParticipantPanel();
 		participantPanel.setLocationRelativeTo(null);
 		participantPanel.setVisible(true);
 		participantPanel.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
-
+		participantPanel.pack();
+		
 		participantPanel.addButtonUserAddListener(this);
 		participantPanel.addButtonGroupAddListener(this);
 		participantPanel.addButtonBackAddListener(this);
@@ -75,12 +80,16 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// setter det i user og group combobox
 		if (success) {
-			if (al != null) {
+			if (al != null && !ifGroups) {
 				participantPanel.setUserComboBox(al);
 				// send ny spørring om alle grupper
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, null));	
+				ifGroups = true;
+				return true;
+			}
+			if (al != null && ifGroups) {
 				participantPanel.setGroupComboBox(al);
 				return true;
 			}
