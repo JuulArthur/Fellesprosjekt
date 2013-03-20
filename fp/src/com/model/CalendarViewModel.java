@@ -32,6 +32,8 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import org.joda.time.DateTime;
+
 import bizcal.common.Calendar;
 import bizcal.common.CalendarModel;
 import bizcal.common.DayViewConfig;
@@ -73,6 +75,13 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		cal.setId(1);
 		cal.setSummary("Week view");
 
+	}
+	
+	public void setWeekStart(DateTime start) throws Exception{
+		Date _start = DateUtil.round2Week(start.toDate());
+		Date end = DateUtil.getDiffDay(start.toDate(), +7);
+		interval = new DateInterval(_start, end);
+		this.refresh();
 	}
 
 	public List<Event> getEvents(Object calId) throws Exception {
