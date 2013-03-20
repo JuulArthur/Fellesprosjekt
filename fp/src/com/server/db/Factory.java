@@ -469,9 +469,9 @@ public class Factory {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public ArrayList<String> getIsSummonedTo(long aid)
+	public ArrayList<Object> getIsSummonedTo(long aid)
 			throws ClassNotFoundException, SQLException {
-		ArrayList<String> summoned = new ArrayList<String>();
+		ArrayList<Object> summoned = new ArrayList<Object>();
 
 		String query = String.format("Select username "
 				+ "FROM IsSummonedTo WHERE appointmentid='%s'", aid);
@@ -479,7 +479,7 @@ public class Factory {
 		ResultSet rs = makeQuery(query);
 
 		while (rs.next()) {
-			summoned.add(rs.getString(1));
+			summoned.add((Object)rs.getString(1));
 		}
 
 		return summoned;
@@ -981,28 +981,28 @@ public class Factory {
 
 	}
 	
-	
-	public ArrayList<String> getEveryUser() throws ClassNotFoundException, SQLException {
-		ArrayList<String> everyUser = new ArrayList<String>();
+		
+	public ArrayList<Object> getEveryUser() throws ClassNotFoundException, SQLException {
+		ArrayList<Object> everyUser = new ArrayList<Object>();
 		
 		String query = String.format("Select username from User");
 
 		ResultSet rs = makeQuery(query);
 		while (rs.next()) {
-			everyUser.add(rs.getString(1));
+			everyUser.add((Object)rs.getString(1));
 		}
 		return everyUser;
 		
 	}
 	
-	public ArrayList<String> getEveryGroup() throws ClassNotFoundException, SQLException {
-		ArrayList<String> everyGroup = new ArrayList<String>();
+	public ArrayList<Object> getEveryGroup() throws ClassNotFoundException, SQLException {
+		ArrayList<Object> everyGroup = new ArrayList<Object>();
 		
-		String query = String.format("Select username from Groupp");
+		String query = String.format("Select name from Groupp");
 
 		ResultSet rs = makeQuery(query);
 		while (rs.next()) {
-			everyGroup.add(rs.getString(1));
+			everyGroup.add((Object)rs.getString(1));
 		}
 		return everyGroup;
 		

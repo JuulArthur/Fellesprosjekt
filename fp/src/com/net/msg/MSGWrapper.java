@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -41,7 +42,7 @@ public class MSGWrapper {
 	@XmlElement(name="user")
 	private String user;
 	
-	@XmlElement(name="objects")
+	@XmlElement(name="objects")//@XmlAnyElement(lax=true)
 	private ArrayList<Object> objects;
 
 	/**
