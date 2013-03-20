@@ -229,6 +229,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			JList participantList = view.getParticipantList();
 			for (int i = 0;i<participantList.getModel().getSize();i++){
 				participants.add((UserModel) participantList.getModel().getElementAt(i));
+				System.out.println(participants);
 			}
 			String dateText = view.getDateText();
 			int indexOfDot = dateText.indexOf(".");
