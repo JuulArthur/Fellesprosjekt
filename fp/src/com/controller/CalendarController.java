@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -13,7 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import com.client.MainGUI;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
@@ -29,6 +27,9 @@ import com.view.calendar.CalendarListRenderer;
 import com.view.calendar.NotificationListRenderer;
 import com.view.ManageCalendarsJDialog;
 import com.view.MeetingPanel;
+
+
+
 
 public class CalendarController implements ActionListener, IServerResponse, PropertyChangeListener{
 	
@@ -235,6 +236,10 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		return main;
 	}
 	
+	enum ToDo {
+		EXIT,
+		NOTHING
+	}
 	
 }
 
@@ -243,7 +248,4 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
  * @author perok
  *
  */
-enum ToDo {
-	EXIT,
-	NOTHING
-}
+
