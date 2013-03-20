@@ -270,12 +270,12 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			//Then i add the participants if there are some
 			if(participants.size()>0){
 				alist.add(participants);
-				alist.add(am.getId());
+				alist.add(Long.toString(am.getId()));
 			}
 			//Then add the participants to be removed
 			if(uninvitedParticipants.size()>0){
 				alist.add(uninvitedParticipants);
-				alist.add(am.getId());
+				alist.add(Long.toString(am.getId()));
 				shallUninvite = true;
 			}
 			appointmentState = appointmentState.NEW_APPOINTMENT;
