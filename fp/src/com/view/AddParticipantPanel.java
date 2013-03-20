@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class AddParticipantPanel extends JPanel {
 
-	private JFrame participantFrame;
 	private JComboBox userComboBox;
 	private JComboBox groupComboBox;
 	private JButton btnAddGroup;
 	private JButton btnAddUser;
+	private JButton btnGoBack;
 	
 	public AddParticipantPanel () {
 		/*
@@ -47,8 +47,7 @@ public class AddParticipantPanel extends JPanel {
 		gbc_lblLeggTilDeltagere.gridy = 0;
 		add(lblLeggTilDeltagere, gbc_lblLeggTilDeltagere);
 		
-		JButton btnGoBack = new JButton("tilbake");
-		btnGoBack.addActionListener(new goBackAction());
+		btnGoBack = new JButton("tilbake");
 		GridBagConstraints gbc_btnGoBack = new GridBagConstraints();
 		gbc_btnGoBack.anchor = GridBagConstraints.EAST;
 		gbc_btnGoBack.gridwidth = 2;
@@ -111,6 +110,13 @@ public class AddParticipantPanel extends JPanel {
 		btnAddGroup.addActionListener(al);
 	}
 
+	public void addButtonBackAddListener (ActionListener al) {
+		btnGoBack.addActionListener(al);
+	}
+	
+	public JButton getBackButton() {
+		return btnGoBack;
+	}
 	
 	public JButton getBtnAddGroup() {
 		return btnAddGroup;
@@ -141,11 +147,5 @@ public class AddParticipantPanel extends JPanel {
 		}
 	}
 
-	class goBackAction implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			participantFrame.dispose();		
-		}	
-	}	
 }
 	
