@@ -34,7 +34,7 @@ public class MainGUI extends JFrame{
 	private CalendarJDialog calendarJDialogView;
 	private MeetingPanel createAppointmentView;
 	private SavedMeetingPanel appointmentView;
-	private AddParticipantPanel participantView;
+//	private AddParticipantPanel participantView;
 	
 	/* Controllers*/
 	private LogginPaneController logginController;
@@ -68,7 +68,7 @@ public class MainGUI extends JFrame{
         this.calendarView = new CalendarLayout();
         this.createAppointmentView = new MeetingPanel();
 		this.appointmentView = new SavedMeetingPanel();
-		this.participantView = new AddParticipantPanel();
+//		this.participantView = new AddParticipantPanel();
 		
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
@@ -108,7 +108,7 @@ public class MainGUI extends JFrame{
 	}
 	
 	// -----test----
-	
+/*	
 	public void initParticipantPanel (MeetingPanel view) {
 		System.out.println("initParticipantPanel");
 		this.getContentPane().add(participantView);
@@ -118,7 +118,7 @@ public class MainGUI extends JFrame{
 		Global.respondGUI.add(participantController);
 		
 	}
-	
+	*/
 	public void initCreateAppointment(){
 		
 		this.getContentPane().removeAll();

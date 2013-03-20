@@ -328,7 +328,8 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (e.getSource() == view.getAddParticipantButton()){
 			Global.respondGUI.remove(this);
-			gui.initParticipantPanel(view);
+			AddParticipantController participantController = new AddParticipantController(view);	
+			Global.respondGUI.add(participantController);
 		}
 		else if (e.getSource() == view.getRemovePersonBtn()){
 			view.deleteParticipant();
