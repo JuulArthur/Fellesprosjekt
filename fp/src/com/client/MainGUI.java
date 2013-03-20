@@ -108,6 +108,17 @@ public class MainGUI extends JFrame{
         Global.respondGUI.add(calendarController);
 	}
 	
+	// -----test----
+	
+	public void initParticipantPanel (MeetingPanel view) {
+		this.participantController = new AddParticipantController(view);
+		
+		this.getContentPane().add(participantController.getParticipantPanel());
+		this.pack();
+		Global.respondGUI.add(participantController);
+
+	}
+	
 	public void initCreateAppointment(){
 		
 		this.getContentPane().removeAll();

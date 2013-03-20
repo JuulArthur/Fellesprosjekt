@@ -23,18 +23,18 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private AddParticipantPanel p_view;
 	private MeetingPanel m_view;
 	private Type type;
-	private DefaultListModel userListModel, groupListModel;
+	private DefaultListModel<Object> userListModel, groupListModel;
 
 	private MSGFlagVerb verb;
 	private AppointmentModel model;	
 	
-	public AddParticipantController(MeetingPanel meeting, AddParticipantPanel panel) {
+	public AddParticipantController(MeetingPanel meeting) {
 //		this.gui = gui;
 		this.m_view = meeting;
+		this.p_view = new AddParticipantPanel();
 //		this.model = model;
 		this.type = type.NOTHING;
-		this.p_view = panel;
-		
+
 		this.p_view.addButtonUserAddListener(this);
 		this.p_view.addButtonGroupAddListener(this);
 		
@@ -55,6 +55,10 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		verb = MSGFlagVerb.GET;	
 		type = type.GROUPS;
 	}
+	
+	public AddParticipantPanel getParticipantPanel () {
+		return this.p_view;
+	}
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
@@ -68,6 +72,8 @@ public class AddParticipantController implements IServerResponse, ActionListener
 				case GROUPS:
 					p_view.setGroupComboBox(al);
 					break;
+				case NOTHING:
+					// Its not gonna happen
 				default:
 					break;
 				}
@@ -84,24 +90,29 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == p_view.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
-			userListModel = new DefaultListModel();
+			userListModel = new DefaultListModel<Object>();
 			JList userList = m_view.getParticipantList();
+			
 			Object selectedUser = p_view.getUserComboBox().getSelectedItem();
 			userListModel.addElement(selectedUser);
+			
 			userList.setModel(userListModel);
 			m_view.setParticipantList(userList);
 		}
 		else if (e.getSource() == p_view.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
-			groupListModel = new DefaultListModel();
+			groupListModel = new DefaultListModel<Object>();
 			JList groupList = m_view.getParticipantList();
+			
 			Object selectedGroup = p_view.getGroupComboBox().getSelectedItem();
 			userListModel.addElement(selectedGroup);
+			
 			groupList.setModel(groupListModel);
 			m_view.setParticipantList(groupList);
 		}
 	}
 }
+
 
 enum Type{
 	GROUPS,
