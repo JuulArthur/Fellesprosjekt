@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
+import com.model.CalendarViewModel;
 import com.view.calendar.CalendarLayout;
 
 public class CalendarWeekController implements PropertyChangeListener, ActionListener{
@@ -17,6 +18,8 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 	/*Models*/
 	private ArrayList<CalendarModel> calendarsModels;
 	private ArrayList<AppointmentModel> appointments;
+	
+	private CalendarViewModel calendarViewModel;
 	
 	/*Views*/
 	private CalendarLayout calendarView;
@@ -27,6 +30,7 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 		//Inits
 		this.calendarsModels = new ArrayList<CalendarModel>();
 		this.calendarView = cl;
+		this.calendarViewModel = this.calendarView.getCalViewModel();
 		
 		//this.calendarView.getTable().setModel(null);
 		
@@ -71,14 +75,31 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 		if(e.getSource() == calendarView.getButtonLastWeek()){
 			firstDayGivenWeek = firstDayGivenWeek.plusWeeks(-1);
 			firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
+			try {
+				calendarViewModel.setWeekStart(firstDayGivenWeek);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource() == calendarView.getButtonNextWeek()){
 			firstDayGivenWeek = firstDayGivenWeek.plusWeeks(1);
 			firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
+			try {
+				calendarViewModel.setWeekStart(firstDayGivenWeek);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		this.calendarView.getLabelGivenWeek().setText("Uke: " + firstDayGivenWeek.getWeekOfWeekyear());
-		
+		try {
+			this.calendarView.getDayView().refresh();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {

@@ -113,7 +113,7 @@ public class CalendarLayout extends JPanel {
 		gbc_lblNotification.gridx = 0;
 		gbc_lblNotification.gridy = 3;
 		add(lblNotification, gbc_lblNotification);
-		
+		/*
 		JLabel lblMandag = new JLabel("mandag");
 		GridBagConstraints gbc_lblMandag = new GridBagConstraints();
 		gbc_lblMandag.anchor = GridBagConstraints.WEST;
@@ -165,7 +165,7 @@ public class CalendarLayout extends JPanel {
 		gbc_lblSndag.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSndag.gridx = 9;
 		gbc_lblSndag.gridy = 3;
-		add(lblSndag, gbc_lblSndag);
+		add(lblSndag, gbc_lblSndag);*/
 		
 		listNotification = new JList();
 		GridBagConstraints gbc_list = new GridBagConstraints();
@@ -379,5 +379,14 @@ public class CalendarLayout extends JPanel {
 
 	public CalendarViewModel getCalViewModel() {
 		return calViewModel;
-	}	
+	}
+
+	public DayView getDayView() {
+		return dayView;
+	}
+
+	public void setDayView(DayView dayView) {
+		this.dayView = dayView;
+	}
+	
 }

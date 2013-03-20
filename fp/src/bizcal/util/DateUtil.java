@@ -743,6 +743,7 @@ public class DateUtil
 
 	public static Date round2Week(Date date) throws Exception {
 		Calendar cal = newCalendar();
+		cal.setFirstDayOfWeek(2);
 		cal.setTime(date);
 		cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
 		cal.set(Calendar.HOUR_OF_DAY, 0);
