@@ -55,6 +55,7 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 	public void setModel(CalendarModel cm){
 		calendarsModels = new ArrayList<CalendarModel>();
 		calendarsModels.add(cm);
+		calendarViewModel.removeAllEvents();
 		if(cm.getAppointments() != null)
 			calendarViewModel.addManyEvents(cm.getAppointments());
 			/*
