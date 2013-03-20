@@ -257,6 +257,10 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	public JComboBox getCalendarList(){
 		return  this.calenderList;
 	}
+	public void setDato(String dato){
+		this.dateTextField.setText(dato);
+	}
+
 	public JButton getAddCal(){
 		return this.leggTilKalender;
 	}
