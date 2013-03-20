@@ -9,7 +9,6 @@ import javax.swing.JList;
 import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
-import com.model.AppointmentModel;
 import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
@@ -26,9 +25,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private DefaultListModel userListModel, groupListModel;
 	private boolean ifGroups;
 	
-	ArrayList<Object> users;
-	ArrayList<Object> groups;
-	
+	ArrayList<Object> users;	
 	private MSGFlagVerb verb;	
 	
 	public AddParticipantController(MainGUI gui, MeetingPanel meeting) {
@@ -55,11 +52,8 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		
 		users.add(gui.getUserModel().getUsername());
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
-		System.out.println("SetFlag: GET\n");
 		Global.sHandler.setState(State.CONNECTED_WAITING);
-		System.out.println("setState: CONNECTED WAITING\n");
 		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
-		System.out.println("shandler: et eller annet sent\n");		
 		
 	}
 	
