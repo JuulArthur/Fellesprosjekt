@@ -25,6 +25,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private Type type;
 	private DefaultListModel userListModel, groupListModel;
 	ArrayList<Object> users;
+	ArrayList<Object> groups;
 	
 	private MSGFlagVerb verb;
 	private AppointmentModel model;	
@@ -32,7 +33,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public AddParticipantController(MeetingPanel meeting) {
 //		this.gui = gui;
 		this.m_view = meeting;
-//		this.p_view = new AddParticipantPanel();
+		this.p_view = new AddParticipantPanel();
 //		this.model = model;
 		this.type = type.NOTHING;
 		
@@ -53,18 +54,17 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		System.out.println("setState: CONNECTED WAITING\n");
 		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
-		System.out.println("shandler: et eller annet sent\n");
-		verb = MSGFlagVerb.GET;	
+		System.out.println("shandler: et eller annet sent\n");		
+		
 		System.out.println("verb: GET");
 		type = type.PEEPS;
 		System.out.println("PEEPS");
 		
-		ArrayList<Object> groups = new ArrayList<Object>();
+		groups = new ArrayList<Object>();
 		groups.add(model);
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, groups));
-		verb = MSGFlagVerb.GET;	
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, groups));	
 		type = type.GROUPS;
 		System.out.println("GROUPS");
 	}
@@ -95,7 +95,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 				}
 			}			
 			else {
-			//dno
+				System.out.println("Det fins ingen brukere og grupper i systemet");
 			}
 		}
 		return false;

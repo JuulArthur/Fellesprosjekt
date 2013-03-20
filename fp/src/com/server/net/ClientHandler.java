@@ -176,7 +176,8 @@ public class ClientHandler  extends ServiceHandler {
 							al.add(factory.getEveryGroup());
 							break;
 						case ALLUSERS:
-							al.add(factory.getEveryUser(msgW.getUser()));
+			//				al.add(factory.getEveryUser(msgW.getUser()));
+							al.add(factory.getEveryUser());
 							break;
 						case ISSUMMONEDTO: // ArrayList users, long appointmentid
 							factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
