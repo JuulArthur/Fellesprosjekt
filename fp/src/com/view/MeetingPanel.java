@@ -9,6 +9,9 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.DefaultListModel;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +24,9 @@ import java.util.ArrayList;
 
 import javax.swing.JList;
 
+
 import com.controller.IServerResponse;
+import com.model.UserModel;
 
 public class MeetingPanel extends MainMeetingPanel {
 	private JLabel lblKalender;
@@ -40,6 +45,8 @@ public class MeetingPanel extends MainMeetingPanel {
 	private JTextField dateTextField;
 	private JLabel lblFormat;
 	private int posY;
+	private DefaultListModel model;
+	private DefaultListSelectionModel myListSelectionModel;
 
 	public MeetingPanel() {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -129,8 +136,14 @@ public class MeetingPanel extends MainMeetingPanel {
 		gbc_deltagerScrollPane.gridy = 11;
 		add(deltagerScrollPane, gbc_deltagerScrollPane);
 
-		participantList = new JList();
+		
+		model = new DefaultListModel();
+		participantList = new JList(model);
 		deltagerScrollPane.setViewportView(participantList);
+		myListSelectionModel = new DefaultListSelectionModel();
+		myListSelectionModel.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		
+		participantList.setSelectionModel(myListSelectionModel);
 		
 		lblKalender = new JLabel("Kalender:");
 		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
@@ -256,6 +269,10 @@ public class MeetingPanel extends MainMeetingPanel {
 		btnLagre_1.addActionListener(al);
 	}
 	
+	public void removePersonBtnAddListener(ActionListener al) {
+		removePerson.addActionListener(al);
+	}
+	
 	class openAlarmCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			createCalenderDialog((alarmTextField));
@@ -309,5 +326,19 @@ public class MeetingPanel extends MainMeetingPanel {
 
 	public JButton getChooseRomButton() {
 		return this.btnChooseRoom;
+	}
+	
+	public JButton getRemovePersonBtn(){
+		return this.removePerson;
+	}
+	
+	public UserModel getSelectedParticipant(){
+		int i = participantList.getAnchorSelectionIndex();
+		return (UserModel) model.getElementAt(i);
+	}
+	
+	public void deleteParticipant(){
+		int i = participantList.getAnchorSelectionIndex();
+		model.remove(i);
 	}
 }
