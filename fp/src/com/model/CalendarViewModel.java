@@ -54,6 +54,7 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 
 	@SuppressWarnings("unchecked")
 	public CalendarViewModel() throws Exception {
+		/*
 		Date date = DateUtil.round2Week(new Date());
 		date = new Date(date.getTime() + 8 * 60 * 60 * 1000);
 		for (int i = 0; i < 7; i++) {
@@ -64,13 +65,13 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 			events.add(event);
 			date = DateUtil.getDiffDay(date, +1);
 			date = new Date(date.getTime() + 60 * 60 * 1000);
-		}
+		}*/
 		Date start = DateUtil.round2Week(new Date());
 		Date end = DateUtil.getDiffDay(start, +7);
 		interval = new DateInterval(start, end);
 		cal = new Calendar();
 		cal.setId(1);
-		cal.setSummary("Peter");
+		cal.setSummary("Week view");
 
 	}
 
