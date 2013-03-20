@@ -115,6 +115,7 @@ public class MainGUI extends JFrame{
 		this.pack();
 		this.participantController = new AddParticipantController(view);
 	
+		Global.respondGUI.remove(createAppointmentController);
 		Global.respondGUI.add(participantController);
 		
 	}

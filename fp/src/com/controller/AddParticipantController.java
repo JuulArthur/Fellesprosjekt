@@ -24,14 +24,15 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private MeetingPanel m_view;
 	private Type type;
 	private DefaultListModel userListModel, groupListModel;
-
+	ArrayList<Object> users;
+	
 	private MSGFlagVerb verb;
 	private AppointmentModel model;	
 	
 	public AddParticipantController(MeetingPanel meeting) {
 //		this.gui = gui;
 		this.m_view = meeting;
-		this.p_view = new AddParticipantPanel();
+//		this.p_view = new AddParticipantPanel();
 //		this.model = model;
 		this.type = type.NOTHING;
 		
@@ -41,10 +42,9 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		
 		userListModel = new DefaultListModel();
 		groupListModel = new DefaultListModel();
-		
-		
+			
 		// Hente liste med users og groups
-		ArrayList<Object> users = new ArrayList<Object>();
+		users = new ArrayList<Object>();
 		System.out.println("Oppretta ArrayList");
 		
 	//	users.add(model);
