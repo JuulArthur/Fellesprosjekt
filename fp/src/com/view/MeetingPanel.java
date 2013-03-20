@@ -323,4 +323,5 @@ public class MeetingPanel extends MainMeetingPanel {
 	public void setDateText(String text){
 		this.dateTextField.setText(text);
 	}
+
 }

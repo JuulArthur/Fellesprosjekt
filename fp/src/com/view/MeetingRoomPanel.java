@@ -186,6 +186,7 @@ public class MeetingRoomPanel extends JPanel {
 	}
 	
 	
+	
 	public void setFrame (JFrame frame) {
 		this.meetingRoomFrame = frame;
 	}

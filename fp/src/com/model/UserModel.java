@@ -236,5 +236,8 @@ public class UserModel {
 				+ surname + ", phoneNumber=" + phoneNumber + ", isAdmin="
 				+ isAdmin + ", notifications=" + notifications + "]";
 	}
+	public ArrayList<CalendarModel> getMyCalendar(){
+		return this.myCalendars;
+	}
 
 }
