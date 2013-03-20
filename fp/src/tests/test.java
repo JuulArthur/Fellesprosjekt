@@ -10,10 +10,10 @@ import java.util.Locale;
 
 public class test {
 	public static void main(String[] args) throws ParseException{
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		Date date = Date.valueOf("2011-04-04");
-		String textDate = date.toString();
-		textDate += " "+"12"+":"+"11"+":00";
-		System.out.println(textDate);
+//		int year = Calendar.getInstance().get(Calendar.YEAR);
+//		Date date = Date.valueOf("2011-04-04");
+//		String textDate = date.toString();
+//		textDate += " "+"12"+":"+"11"+":00";
+//		System.out.println(textDate);
 	}
 }
