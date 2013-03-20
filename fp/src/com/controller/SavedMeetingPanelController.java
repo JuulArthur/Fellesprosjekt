@@ -55,7 +55,8 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
 		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
-		meetingPanel.setAlarmText("insert alarm here!");
+		meetingPanel.setAlarmText("insert alarm here! ");
+		meetingPanel.setCalendar(gui.getUserModel());
 
 		meetingPanel.getAvslag().addActionListener(this);
 		meetingPanel.getGodta().addActionListener(this);
@@ -103,9 +104,9 @@ public class SavedMeetingPanelController implements ActionListener,
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			gui.initCreateAppointment(appointment);
 		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
+			meetingPanel.getMooteinnkalling().setEnabled(false);
 			appointment.setSendnotification(true);
 			sendNotification();
-			meetingPanel.getMooteinnkalling().setEnabled(false);
 		} else if (e.getSource() == meetingPanel.getAddCal()) {
 			// her skal man legge til denne avtalen til en kalender.
 			addAppointmentToCalender(appointment, (CalendarModel) meetingPanel

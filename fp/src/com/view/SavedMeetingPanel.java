@@ -22,7 +22,11 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import org.omg.CORBA.OBJ_ADAPTER;
+
 import com.controller.IServerResponse;
+import com.model.CalendarModel;
+import com.model.UserModel;
 
 public class SavedMeetingPanel extends MainMeetingPanel {
 
@@ -45,6 +49,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private DefaultListModel commingList;
 	private JComboBox calenderList;
 	private JButton leggTilKalender;
+	private DefaultListModel calmodel;
 	
 	
 	public SavedMeetingPanel () {
@@ -263,5 +268,11 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 
 	public JButton getAddCal(){
 		return this.leggTilKalender;
+	}
+	public void setCalendar(UserModel userModel) {
+		ArrayList<CalendarModel> calenderque=  userModel.getMyCalendar();
+		for (Object diffCal: calenderque ){
+			( this.calenderList).addItem(diffCal);
+		}
 	}
 }
