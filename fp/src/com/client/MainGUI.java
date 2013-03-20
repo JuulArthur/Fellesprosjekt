@@ -96,11 +96,11 @@ public class MainGUI extends JFrame{
 		
 		this.calendarModels = this.userModel.getCalendars();
 		if(this.calendarModels == null) //If there are no calendars from before on the user
-			this.calendarModels = new ArrayList<>();
+			this.calendarModels = new ArrayList<CalendarModel>();
 		this.notificationsModels = this.userModel.getNotifications();
 		this.subscribedCalendarModels = this.userModel.getSubscribedCalendars();
 		if(this.subscribedCalendarModels == null)
-			this.subscribedCalendarModels = new ArrayList<>();
+			this.subscribedCalendarModels = new ArrayList<CalendarModel>();
 		
 		/* Setup new controller */		
 		this.calendarController = new CalendarController(this, calendarView);

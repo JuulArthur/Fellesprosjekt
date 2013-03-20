@@ -34,6 +34,9 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 	
 	private MainGUI main;
 	
+	/* Controllers */
+	private CalendarWeekController calendarWeekController;
+	
 	/* Views */
 	private CalendarLayout calendarView;	
 	
@@ -52,6 +55,8 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		/* Get the views */
 		this.main = main;
 		this.calendarView = calendarView;
+		
+		calendarWeekController = new CalendarWeekController(calendarView);
 		
 		/* Add all calendars to the model */
 		this.dListModelCalendarModels = new DefaultListModel();
@@ -78,6 +83,8 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		this.calendarView.addButtonLogoutAddListener(this);
 		this.calendarView.addButtonManageCalendarAddListener(this);
 		this.calendarView.addButtonShowOtherCalendarsAddListener(this);
+		this.calendarView.getButtonLastWeek().addActionListener(calendarWeekController);
+		this.calendarView.getButtonNextWeek().addActionListener(calendarWeekController);
 		
 		final JList listCalender = this.calendarView.getListCalendar();
 		final JTextField txt = this.calendarView.getTextFieldManageCalendar();
@@ -160,12 +167,7 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.LOGOUT, null));
 		}
-		else if(e.getSource() == calendarView.getButtonNextWeek()){
-			
-		}
-		else if(e.getSource() == calendarView.getButtonLastWeek()){
-			
-		}
+
 		
 	}
 

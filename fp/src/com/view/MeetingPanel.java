@@ -296,6 +296,9 @@ public class MeetingPanel extends MainMeetingPanel {
 		this.participantList = participantList;
 	}
 	
+	public JButton getChooseRomButton(){
+		return this.btnChooseRoom;
+	}
 	
 	class backAction implements ActionListener {
 

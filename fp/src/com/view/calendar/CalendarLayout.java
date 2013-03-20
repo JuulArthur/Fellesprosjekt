@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 public class CalendarLayout extends JPanel {
 	private JTextField textFieldManageCalendar;
 	private CalendarModel model = new CalendarModel();
+	
 	private JTable table;
 	private String[] time = {"07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
 	private JFrame calendarFrame;
