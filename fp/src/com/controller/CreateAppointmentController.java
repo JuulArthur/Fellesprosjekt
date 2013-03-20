@@ -292,7 +292,9 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				gui.initAppointment(this.am);
 			}
 		}
-		else if (e.getSource() == view.getChooseRomButton())
+		else if (e.getSource() == view.getChooseRomButton()){
+			gui.initParticipantPanel(view);
+		}
 		
 	}
 }
