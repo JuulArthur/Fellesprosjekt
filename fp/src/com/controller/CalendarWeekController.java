@@ -28,6 +28,8 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 		this.calendarsModels = new ArrayList<CalendarModel>();
 		this.calendarView = cl;
 		
+		//this.calendarView.getTable().setModel(null);
+		
 		firstDayGivenWeek = new DateTime();
 		firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
 		this.calendarView.getLabelGivenWeek().setText("Uke: " + firstDayGivenWeek.getWeekOfWeekyear());
