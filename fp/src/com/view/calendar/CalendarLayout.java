@@ -44,8 +44,9 @@ public class CalendarLayout extends JPanel {
 	private JList listNotification;
 	private JList listCalendar;
 	private JList listOtherCalendars;
-	JLabel labelGivenWeek;
-	DayView dayView;
+	private JLabel labelGivenWeek;
+	private DayView dayView;
+	private CalendarViewModel calViewModel;
 	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
@@ -187,8 +188,9 @@ public class CalendarLayout extends JPanel {
 	
 		
 		try {
+			calViewModel = new CalendarViewModel();
 			dayView = new DayView(new DayViewConfig());
-			dayView.setModel(new CalendarViewModel());
+			dayView.setModel(calViewModel);
 			dayView.refresh();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -374,4 +376,8 @@ public class CalendarLayout extends JPanel {
 	public JTable getTable() {
 		return table;
 	}
+
+	public CalendarViewModel getCalViewModel() {
+		return calViewModel;
+	}	
 }
