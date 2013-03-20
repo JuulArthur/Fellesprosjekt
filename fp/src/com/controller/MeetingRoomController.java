@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JList;
+
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.RoomModel;
+import com.model.UserModel;
 import com.view.MeetingRoomPanel;
 
 
@@ -37,7 +40,7 @@ public class MeetingRoomController implements ActionListener, IServerResponse{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == view.getSearch()){
-			
+			//hente ut en liste over ledige rom ut fra kapasitet og tidspunkt
 			
 		}
 		
@@ -45,6 +48,7 @@ public class MeetingRoomController implements ActionListener, IServerResponse{
 			
 			
 		}
+		
 		
 		
 	}
