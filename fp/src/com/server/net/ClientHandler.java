@@ -273,6 +273,13 @@ public class ClientHandler  extends ServiceHandler {
 							factory.UpdateGroupModel((GroupModel)msgW.getObjects().get(0));
 							break;
 							
+						case ISNOTCOMMING:
+							factory.updateIsNotComming((UserModel)msgW.getObjects().get(0), (AppointmentModel)msgW.getObjects().get(1));
+							break;
+						case ISCOMMING:
+							factory.updateIscomming((UserModel)msgW.getObjects().get(0), (AppointmentModel)msgW.getObjects().get(1));
+							break;
+							
 						case NOTIFICATION:// NotificationModel
 							factory.updateNotificationModel((NotificationModel)msgW.getObjects().get(0));
 							break;
