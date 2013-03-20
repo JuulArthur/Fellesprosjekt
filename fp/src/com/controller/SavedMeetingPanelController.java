@@ -41,6 +41,7 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getGodta().addActionListener(this);
 		meetingPanel.getRediger().addActionListener(this);
 		meetingPanel.getAddcalendar().addActionListener(this);
+		meetingPanel.getAddcalendar().addActionListener(this);
 
 		if (!(appointment.getHost() == gui.getUserModel())) {
 			meetingPanel.getRediger().setVisible(false);
@@ -94,7 +95,11 @@ public class SavedMeetingPanelController implements ActionListener,
 
 	public void addAppointmentToCalender(AppointmentModel appointment,
 			CalendarModel targetCal) {
-
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,
+						MSGFlagSubject., notificationQue));
 	}
 
 	public SavedMeetingPanel getMeetingPanel() {
