@@ -51,6 +51,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
 		verb = MSGFlagVerb.GET;	
 		type = type.PEEPS;
+		System.out.println("PEEPS");
 		
 		ArrayList<Object> groups = new ArrayList<Object>();
 		groups.add(model);
@@ -59,6 +60,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, groups));
 		verb = MSGFlagVerb.GET;	
 		type = type.GROUPS;
+		System.out.println("GROUPS");
 	}
 	
 	public AddParticipantPanel getParticipantPanel () {
@@ -73,9 +75,11 @@ public class AddParticipantController implements IServerResponse, ActionListener
 				switch (type) {
 				case PEEPS:
 					p_view.setUserComboBox(al);
+					System.out.println("setUserComboBox");
 					break;
 				case GROUPS:
 					p_view.setGroupComboBox(al);
+					System.out.println("setGroupComboBox");
 					break;
 				case NOTHING:
 					// Its not gonna happen
