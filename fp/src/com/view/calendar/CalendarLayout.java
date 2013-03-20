@@ -40,6 +40,7 @@ public class CalendarLayout extends JPanel {
 	private JList listNotification;
 	private JList listCalendar;
 	private JList listOtherCalendars;
+	JLabel labelGivenWeek;
 	
 	public CalendarLayout() {
 		setBorder(new EmptyBorder(0,15,0,15));
@@ -69,12 +70,12 @@ public class CalendarLayout extends JPanel {
 		add(buttonLastWeek, gbc_button_2);
 		
 		
-		JLabel lblNewLabel_3 = new JLabel("Uke ");
+		labelGivenWeek = new JLabel("Uke ");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 4;
 		gbc_lblNewLabel_3.gridy = 1;
-		add(lblNewLabel_3, gbc_lblNewLabel_3);
+		add(labelGivenWeek, gbc_lblNewLabel_3);
 		
 		buttonNextWeek = new JButton(">");
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
@@ -348,6 +349,11 @@ public class CalendarLayout extends JPanel {
 	public JButton getButtonNextWeek() {
 		return buttonNextWeek;
 	}
+
+	public JLabel getLabelGivenWeek() {
+		return labelGivenWeek;
+	}
+	
 	
 	
 	
