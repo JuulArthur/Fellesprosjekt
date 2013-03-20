@@ -21,6 +21,9 @@ public class MeetingRoomPanel extends JPanel {
 	private JFrame meetingRoomFrame;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JList list;
+	private JButton btnChooseRoom;
+	private JButton btnSk; 
 
 	public MeetingRoomPanel () {
 		/*
@@ -67,6 +70,14 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_spinner.gridx = 2;
 		gbc_spinner.gridy = 1;
 		add(spinner, gbc_spinner);
+		
+		btnSk = new JButton("s\u00F8k");
+		GridBagConstraints gbc_btnSk = new GridBagConstraints();
+		gbc_btnSk.anchor = GridBagConstraints.WEST;
+		gbc_btnSk.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSk.gridx = 3;
+		gbc_btnSk.gridy = 1;
+		add(btnSk, gbc_btnSk);
 		
 		JLabel lblStart = new JLabel("Start");
 		GridBagConstraints gbc_lblStart = new GridBagConstraints();
@@ -127,7 +138,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_lblLedigeRom.gridy = 4;
 		add(lblLedigeRom, gbc_lblLedigeRom);
 		
-		JList list = new JList();
+		list = new JList();
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.gridwidth = 2;
 		gbc_list.insets = new Insets(0, 0, 5, 5);
@@ -136,7 +147,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_list.gridy = 5;
 		add(list, gbc_list);
 		
-		JButton btnChooseRoom = new JButton("Velg rom");
+		btnChooseRoom = new JButton("Velg rom");
 		GridBagConstraints gbc_btnChooseRoom = new GridBagConstraints();
 		gbc_btnChooseRoom.anchor = GridBagConstraints.SOUTH;
 		gbc_btnChooseRoom.insets = new Insets(0, 0, 5, 5);
@@ -151,6 +162,24 @@ public class MeetingRoomPanel extends JPanel {
 			meetingRoomFrame.dispose();
 		}
 	}
+	public void setStartText(String textField) {
+		this.textField.setText(textField);
+	}
+	
+	public void setEndText(String textField_1) {
+		this.textField_1.setText(textField_1);
+	}
+	
+	public void setRoomList(JList list){
+		this.list = list;
+	}
+	public JButton getChooseRoom() {
+		return btnChooseRoom;
+	}
+	public JButton getSearch() {
+		return btnSk;
+	}
+	
 	
 	public void setFrame (JFrame frame) {
 		this.meetingRoomFrame = frame;

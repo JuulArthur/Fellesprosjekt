@@ -77,8 +77,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 				default:
 					break;
 				}
-			}
-			
+			}			
 			else {
 			//dno
 			}
@@ -112,7 +111,6 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		}
 	}
 }
-
 
 enum Type{
 	GROUPS,
