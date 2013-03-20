@@ -37,6 +37,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		
 		this.p_view.addButtonUserAddListener(this);
 		this.p_view.addButtonGroupAddListener(this);
+		this.p_view.addButtonBackAddListener(this);
 		
 		userListModel = new DefaultListModel();
 		groupListModel = new DefaultListModel();
@@ -110,6 +111,10 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			
 			groupList.setModel(groupListModel);
 			m_view.setParticipantList(groupList);
+		}
+		else if (e.getSource() == p_view.getBackButton()) {
+			// Må fjerne addParticipantPanelet
+			
 		}
 	}
 }
