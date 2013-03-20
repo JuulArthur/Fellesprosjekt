@@ -53,20 +53,21 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		System.out.println("SetFlag: GET\n");
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		System.out.println("setState: CONNECTED WAITING\n");
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, null));
 		System.out.println("shandler: et eller annet sent\n");		
 		
 		System.out.println("verb: GET");
 		type = type.PEEPS;
 		System.out.println("PEEPS");
-		
+		/*
 		groups = new ArrayList<Object>();
 		groups.add(model);
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, groups));	
+		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, null));	
 		type = type.GROUPS;
 		System.out.println("GROUPS");
+		*/
 	}
 	
 	public AddParticipantPanel getParticipantPanel () {

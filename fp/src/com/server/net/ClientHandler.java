@@ -173,14 +173,16 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ALLGROUPS:
-							al.add(factory.getEveryGroup());
+							al = factory.getEveryGroup();
 							break;
 						case ALLUSERS:
-			//				al.add(factory.getEveryUser(msgW.getUser()));
-							al.add(factory.getEveryUser());
+							al = factory.getEveryUser();
 							break;
-						case ISSUMMONEDTO: // ArrayList users, long appointmentid
-							factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
+						case ISSUMMONEDTO_ACCEPTED: //long appointmentid
+							al = factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(0)), true);//((UserModel)msgW.getObjects().get(0));
+							break;
+						case ISSUMMONEDTO_DENIED: //long appointmentid
+							al = factory.getIsSummonedTo(Long.parseLong((String)msgW.getObjects().get(0)), false);//((UserModel)msgW.getObjects().get(0));
 							break;
 
 						default:
@@ -234,7 +236,7 @@ public class ClientHandler  extends ServiceHandler {
 						case USER:
 							factory.createUserModel((UserModel)msgW.getObjects().get(0));
 							break;
-						case ISSUMMONEDTO: // ArrayList users, long appointmentid
+						case ISSUMMONEDTO_ACCEPTED: // ArrayList users, long appointmentid
 							factory.createIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
 							break;
 
@@ -283,7 +285,7 @@ public class ClientHandler  extends ServiceHandler {
 							factory.updateUserModel((UserModel)msgW.getObjects().get(0));
 							break;
 							
-						case ISSUMMONEDTO: // ArrayList users, long appointmentid
+						case ISSUMMONEDTO_ACCEPTED: // ArrayList users, long appointmentid
 							factory.updateIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
 							break;
 							
@@ -335,7 +337,7 @@ public class ClientHandler  extends ServiceHandler {
 							factory.deleteUserModel((String)msgW.getObjects().get(0));
 							break;
 							
-						case ISSUMMONEDTO: //DELETE GIVEN PEOPLE FROM SUMMONEDLIST TO GIVEN APPOINTMENT
+						case ISSUMMONEDTO_ACCEPTED: //DELETE GIVEN PEOPLE FROM SUMMONEDLIST TO GIVEN APPOINTMENT
 							factory.deleteIsSummonedToPeople((ArrayList<String>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(0)));
 							break;
 
