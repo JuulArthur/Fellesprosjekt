@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import com.client.MainGUI;
+import com.model.AppointmentModel;
 import com.model.UserModel;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;

@@ -81,7 +81,7 @@ public class SavedMeetingPanelController implements ActionListener,
 	}
 
 
-	public void isCommint() {
+	public void isComming() {
 		meetingPanel.getAvslag().setEnabled(true);
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
@@ -131,11 +131,12 @@ public class SavedMeetingPanelController implements ActionListener,
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == meetingPanel.getGodta()) {
-			isCommint();
+			isComming();
 		} else if (e.getSource() == meetingPanel.getAvslag()) {
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			gui.initCreateAppointment(appointment);
+			
 		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
 			meetingPanel.getMooteinnkalling().setEnabled(false);
 			appointment.setSendnotification(true);
