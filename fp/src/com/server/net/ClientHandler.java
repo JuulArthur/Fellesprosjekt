@@ -382,7 +382,15 @@ public class ClientHandler  extends ServiceHandler {
 		
 			
 	}
+	
+	public ArrayList<?> myMethod()
+	{
+	    // for ArrayList of longs:
+	    return new ArrayList<Long>();
+	}
 }
+
+
 
 /*
 Runnable runnable = new Runnable() {
