@@ -97,8 +97,8 @@ public class SavedMeetingPanelController implements ActionListener,
 		} else if (e.getSource() == meetingPanel.getAvslag()) {
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
-			System.out.println("ring han Juul");
-		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
+			gui.initCreateAppointment(appointment);
+} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
 			appointment.setSendnotification(true);
 			sendNotification();
 			meetingPanel.getMooteinnkalling().setEnabled(false);
