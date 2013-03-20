@@ -124,7 +124,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
-				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO, alist));
+				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
 				return true;
 			}
 			return true;
@@ -138,7 +138,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 						
 						Global.sHandler.setCurrentFlag(MSGFlagVerb.DELETE);
 						Global.sHandler.setState(State.CONNECTED_WAITING);
-						Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.DELETE, MSGFlagSubject.ISSUMMONEDTO, alist));
+						Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.DELETE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
 						return true;
 					}
 					else{
@@ -146,7 +146,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 						
 						Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 						Global.sHandler.setState(State.CONNECTED_WAITING);
-						Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO, alist));
+						Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
 						return true;
 					}
 				}
@@ -155,7 +155,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 					
 					Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 					Global.sHandler.setState(State.CONNECTED_WAITING);
-					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO, alist));
+					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
 					return true;
 				}
 			}
@@ -169,7 +169,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.DELETE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
-			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.DELETE, MSGFlagSubject.ISSUMMONEDTO, alist));
+			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.DELETE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
 			return true;
 		}
 		else if (appointmentState == appointmentState.NOTHING){
@@ -313,6 +313,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			}
 		}
 		else if (e.getSource() == view.getAddParticipantButton()){
+			Global.respondGUI.remove(this);
 			gui.initParticipantPanel(view);
 		}
 		else if (e.getSource() == view.getRemovePersonBtn()){

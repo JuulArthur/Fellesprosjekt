@@ -54,7 +54,6 @@ public class MainMeetingPanel extends JPanel {
 		add(lblAvtale, gbc_lblAvtale);
 
 		btnReturn = new JButton("Tilbake");		
-		btnReturn.addActionListener(new returnAction());
 		
 		GridBagConstraints gbc_btnReturn = new GridBagConstraints();
 		gbc_btnReturn.anchor = GridBagConstraints.WEST;
@@ -181,11 +180,6 @@ public class MainMeetingPanel extends JPanel {
 
 	}
 		
-	class returnAction implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			meetingFrame.dispose();
-		}
-	}
 	public static void main(String args[]){
 		JFrame frame = new JFrame();
 		MainMeetingPanel panel = new MainMeetingPanel();
@@ -246,6 +240,7 @@ public class MainMeetingPanel extends JPanel {
 		this.stedTextField.setText(place);
 		
 	}
+
 	
 }	
 
