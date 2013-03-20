@@ -117,8 +117,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			m_view.setParticipantList(groupList);
 		}
 		else if (e.getSource() == p_view.getBackButton()) {
-			// Må fjerne addParticipantPanelet
-			
+			p_view.setVisible(false);
 		}
 	}
 }
