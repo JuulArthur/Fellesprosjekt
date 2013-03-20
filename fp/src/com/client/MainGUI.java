@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import com.client.net.ServerHandler;
+import com.controller.AddParticipantController;
 import com.controller.CalendarController;
 import com.controller.CreateAppointmentController;
 import com.controller.IServerResponse;
@@ -18,6 +19,7 @@ import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
 import com.settings.Global;
+import com.view.AddParticipantPanel;
 import com.view.CalendarJDialog;
 import com.view.LogginPane;
 import com.view.MeetingPanel;
@@ -33,12 +35,14 @@ public class MainGUI extends JFrame{
 	private CalendarJDialog calendarJDialogView;
 	private MeetingPanel createAppointmentView;
 	private SavedMeetingPanel appointmentView;
+	private AddParticipantPanel participantView;
 	
 	/* Controllers*/
 	private LogginPaneController logginController;
 	private CalendarController calendarController;
 	private CreateAppointmentController createAppointmentController;
-	private SavedMeetingPanelController appointmentController;
+	private SavedMeetingPanelController appointmentController;	
+	private AddParticipantController participantController;
 	
 	/* Models */
 	private UserModel userModel = null;
@@ -65,6 +69,7 @@ public class MainGUI extends JFrame{
         this.calendarView = new CalendarLayout();
         this.createAppointmentView = new MeetingPanel();
 		this.appointmentView = new SavedMeetingPanel();
+		this.participantView = new AddParticipantPanel();
 		
 		this.setTitle("Google Calendar. No rights reserved");
         this.getContentPane().add(logginView.pane);
