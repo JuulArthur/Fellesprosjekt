@@ -34,9 +34,13 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		this.p_view = new AddParticipantPanel();
 //		this.model = model;
 		this.type = type.NOTHING;
-
+		
 		this.p_view.addButtonUserAddListener(this);
 		this.p_view.addButtonGroupAddListener(this);
+		
+		userListModel = new DefaultListModel();
+		groupListModel = new DefaultListModel();
+		
 		
 		// Hente liste med users og groups
 		ArrayList<Object> users = new ArrayList<Object>();
@@ -89,7 +93,6 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == p_view.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
-			userListModel = new DefaultListModel();
 			JList userList = m_view.getParticipantList();
 			
 			Object selectedUser = p_view.getUserComboBox().getSelectedItem();
@@ -100,7 +103,6 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		}
 		else if (e.getSource() == p_view.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
-			groupListModel = new DefaultListModel();
 			JList groupList = m_view.getParticipantList();
 			
 			Object selectedGroup = p_view.getGroupComboBox().getSelectedItem();
