@@ -23,7 +23,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private AddParticipantPanel p_view;
 	private MeetingPanel m_view;
 	private Type type;
-	private DefaultListModel<Object> userListModel, groupListModel;
+	private DefaultListModel userListModel, groupListModel;
 
 	private MSGFlagVerb verb;
 	private AppointmentModel model;	
@@ -89,7 +89,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == p_view.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
-			userListModel = new DefaultListModel<Object>();
+			userListModel = new DefaultListModel();
 			JList userList = m_view.getParticipantList();
 			
 			Object selectedUser = p_view.getUserComboBox().getSelectedItem();
@@ -100,7 +100,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		}
 		else if (e.getSource() == p_view.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
-			groupListModel = new DefaultListModel<Object>();
+			groupListModel = new DefaultListModel();
 			JList groupList = m_view.getParticipantList();
 			
 			Object selectedGroup = p_view.getGroupComboBox().getSelectedItem();
