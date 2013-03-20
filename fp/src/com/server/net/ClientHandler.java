@@ -283,6 +283,9 @@ public class ClientHandler  extends ServiceHandler {
 						case ISSUMMONEDTO: // ArrayList users, long appointmentid
 							factory.updateIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
 							break;
+							
+						case BELONGTO: //appointmentid, newCalID, oldCalId
+							factory.updateBelongTo((long)msgW.getObjects().get(0), (long)msgW.getObjects().get(1), (long)msgW.getObjects().get(2));
 
 						default:
 							break;
