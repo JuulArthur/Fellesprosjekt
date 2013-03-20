@@ -25,10 +25,9 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 	private MainGUI gui;
 	private MeetingRoomPanel view;
 	private AppointmentModel appointment;
-	private RoomModel room;
 	private ArrayList<Object> alist = new ArrayList<Object>();
 
-	private MSGFlagVerb verb;
+	
 
 	public MeetingRoomController(MainGUI gui, MeetingRoomPanel view, AppointmentModel appointment) {
 		this.gui = gui;
