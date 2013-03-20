@@ -28,12 +28,14 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 	private AppointmentState appointmentState;
 	private final static String[] MONTHS = {"Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember"};
 	ArrayList<Object> alist;
+	private ArrayList<String> uninvitedParticipants;
 	
 	public CreateAppointmentController(MainGUI gui, MeetingPanel view){
 		this.gui = gui;
 		this.view = view;
 		this.user = gui.getUserModel();
 		alist  = new ArrayList<Object>();
+		uninvitedParticipants = new ArrayList<String>();
 		this.appointmentState = appointmentState.NOTHING;
 		
 		this.view.saveBtnAddListener(this);
@@ -92,8 +94,11 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				return true;
 			}
 			else{
-				appointmentState.SUMMONING;
-				gui.initAppointment(am);
+				appointmentState = appointmentState.SUMMONING;
+				
+				Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+				Global.sHandler.setState(State.CONNECTED_WAITING);
+				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO, alist));
 				return true;
 			}
 		}
@@ -175,6 +180,12 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 						am.addMember(member);
 					}
 				}
+				for(UserModel member: am.getMembers()){
+					if (!participants.contains(member)){
+						uninvitedParticipants.add(member.getName());
+						am.removeMember(member);
+					}
+				}
 				appointmentState = appointmentState.UPDATE_APPOINTMENT;
 			}
 			else{
@@ -192,12 +203,14 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				int alarmMinutes = Integer.parseInt(alarmTimeText.substring(3,5));
 				int alarmTime = alarmHours*60 + alarmMinutes;
 				AlarmModel alm = new AlarmModel(Date.valueOf(date),"Alarm til avtale med tittel: "+title, alarmTime, am, gui.getUserModel());
+				appointmentState = appointmentState.NEW_ALARM;
 				alist.add(alm);
-				System.out.println(alm);
-				System.out.println(alist);
 			}
 			else if (alarmTimeText.length()!=0){
 				System.out.println("alarm");
+			}
+			if(this.am.getMembers().size()!=0){
+				this
 			}
 			if(appointmentState == appointmentState.UPDATE_APPOINTMENT){
 				appointmentState = appointmentState.NEW_APPOINTMENT;
@@ -230,5 +243,6 @@ enum AppointmentState {
 	NEW_ALARM,
 	UPDATE_APPOINTMENT,
 	SUMMONING,
+	UNSUMMONING,
 	NOTHING
 }
