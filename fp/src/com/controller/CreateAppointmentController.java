@@ -173,7 +173,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (appointmentState == appointmentState.NOTHING){
 			Global.respondGUI.remove(this);
-			gui.initCalendar();
+			gui.initAppointment(am);
 			return true;
 		}
 		return false;

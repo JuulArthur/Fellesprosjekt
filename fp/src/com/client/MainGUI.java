@@ -111,7 +111,7 @@ public class MainGUI extends JFrame{
 	// -----test----
 	
 	public void initParticipantPanel (MeetingPanel view) {
-		this.getContentPane().add(participantController.getParticipantPanel());
+		this.getContentPane().add(participantView);
 		this.pack();
 		this.participantController = new AddParticipantController(view);
 	
