@@ -86,8 +86,10 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
 		meetingPanel.getGodta().setEnabled(false);
+	
 		ArrayList<Object> doshit= new ArrayList<Object>();
 		ArrayList<UserModel> comming=iscomming(appointment.getMembers());
+	
 		comming.add(gui.getUserModel());
 		doshit.add(comming);
 		doshit.add(appointment.getId());
@@ -102,8 +104,12 @@ public class SavedMeetingPanelController implements ActionListener,
 	}
 
 	private ArrayList<UserModel> iscomming(ArrayList<UserModel> members) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		ArrayList<UserModel> isCommingQue= new ArrayList<UserModel>();
+		for (UserModel user: members){
+		}
+		return isCommingQue;
 	}
 
 	public void notComming() {
@@ -111,7 +117,28 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getComming().removeElement(gui.getUserModel());
 		meetingPanel.getNotComming().addElement(gui.getUserModel());
 		meetingPanel.getAvslag().setEnabled(false);
+		ArrayList<Object> doshit= new ArrayList<Object>();
+		ArrayList<UserModel> comming=isNotcomming(appointment.getMembers());
+	
+		comming.add(gui.getUserModel());
+		doshit.add(comming);
+		doshit.add(appointment.getId());
+		
+		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
+		Global.sHandler.setState(State.CONNECTED_WAITING);
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+						MSGFlagSubject.ISSUMMONEDTO,doshit ));
 
+	}
+
+	private ArrayList<UserModel> isNotcomming(ArrayList<UserModel> members) {
+	
+		
+		ArrayList<UserModel> isNotCommingQue= new ArrayList<UserModel>();
+		for (UserModel user: members){
+		}
+		return isNotCommingQue;
 	}
 
 	@Override
