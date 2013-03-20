@@ -24,6 +24,7 @@ public class MeetingRoomPanel extends JPanel {
 	private JList list;
 	private JButton btnChooseRoom;
 	private JButton btnSk; 
+	private JSpinner spinner;
 
 	public MeetingRoomPanel () {
 		/*
@@ -64,7 +65,7 @@ public class MeetingRoomPanel extends JPanel {
 		gbc_lblAntallPersoner.gridy = 1;
 		add(lblAntallPersoner, gbc_lblAntallPersoner);
 		
-		JSpinner spinner = new JSpinner();
+		spinner = new JSpinner();
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
 		gbc_spinner.insets = new Insets(0, 0, 5, 5);
 		gbc_spinner.gridx = 2;
@@ -183,6 +184,9 @@ public class MeetingRoomPanel extends JPanel {
 	}
 	public JButton getSearch() {
 		return btnSk;
+	}
+	public int getCapacity(){
+		return Integer.parseInt((String) spinner.getValue());
 	}
 	
 	
