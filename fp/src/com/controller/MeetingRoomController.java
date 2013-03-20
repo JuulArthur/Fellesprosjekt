@@ -9,48 +9,55 @@ import javax.swing.JList;
 import com.client.MainGUI;
 import com.model.AppointmentModel;
 import com.model.RoomModel;
-import com.model.UserModel;
+import com.net.msg.MSGFlagSubject;
+import com.net.msg.MSGFlagVerb;
+import com.net.msg.MSGType;
+import com.net.support.State;
+import com.settings.Global;
 import com.view.MeetingRoomPanel;
 
-
-
-public class MeetingRoomController implements ActionListener, IServerResponse{
+public class MeetingRoomController implements ActionListener, IServerResponse {
 
 	private MainGUI gui;
 	private MeetingRoomPanel view;
 	private AppointmentModel appointment;
 	private RoomModel room;
-	
+
+	private MSGFlagVerb verb;
+
 	public MeetingRoomController(MainGUI gui, MeetingRoomPanel view, AppointmentModel appointment) {
 		this.gui = gui;
 		this.view = view;
 		this.appointment = appointment;
+	
 		view.setStartText(""+appointment.getStartTime());
 		view.setEndText(""+appointment.getEndTime());
 		
+	
 	}
 	
-	
-	@Override
+
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == view.getSearch()){
 			//hente ut en liste over ledige rom ut fra kapasitet og tidspunkt
 			
+			
 		}
 		
 		else if (e.getSource() == view.getChooseRoom()){
-			
+			//legge til valgte rom i appointmentModel og gå tilbake til MeetingPanel
 			
 		}
 		
 		
 		
 	}
-
 }
+
+	
