@@ -96,6 +96,8 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 				if(!e.getValueIsAdjusting()){
 					selectedCalenderModel = (CalendarModel)dListModelCalendarModels.getElementAt(listCalender.getSelectedIndex());
 					txt.setText("");
+					calendarWeekController.addModel(selectedCalenderModel);
+					calendarWeekController.setModel(selectedCalenderModel);
 				}	
 			}
 		});
