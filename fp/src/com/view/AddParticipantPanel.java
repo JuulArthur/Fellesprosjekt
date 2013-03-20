@@ -21,6 +21,8 @@ public class AddParticipantPanel extends JPanel {
 	private JFrame participantFrame;
 	private JComboBox userComboBox;
 	private JComboBox groupComboBox;
+	private JButton btnAddGroup;
+	private JButton btnAddUser;
 	
 	public AddParticipantPanel () {
 		/*
@@ -70,7 +72,7 @@ public class AddParticipantPanel extends JPanel {
 		gbc_comboBox.gridy = 3;
 		add(userComboBox, gbc_comboBox);
 		
-		JButton btnAddUser = new JButton("legg til");
+		btnAddUser = new JButton("legg til");
 		GridBagConstraints gbc_btnAddUser = new GridBagConstraints();
 		gbc_btnAddUser.insets = new Insets(5,5, 5, 5);
 		gbc_btnAddUser.gridx = 2;
@@ -92,13 +94,30 @@ public class AddParticipantPanel extends JPanel {
 		gbc_comboBox_1.gridy = 5;
 		add(groupComboBox, gbc_comboBox_1);
 		
-		JButton btnaddGroup = new JButton("legg til");
+		btnAddGroup = new JButton("legg til");
 		GridBagConstraints gbc_btnaddGroup = new GridBagConstraints();
 		gbc_btnaddGroup.insets = new Insets(5, 5, 5, 5);
 		gbc_btnaddGroup.gridx = 2;
 		gbc_btnaddGroup.gridy = 5;
-		add(btnaddGroup, gbc_btnaddGroup);
+		add(btnAddGroup, gbc_btnaddGroup);
 		
+	}
+
+	public void addButtonUserAddListener(ActionListener al) {
+		btnAddUser.addActionListener(al);
+	}
+
+	public void addButtonGroupAddListener(ActionListener al) {
+		btnAddGroup.addActionListener(al);
+	}
+
+	
+	public JButton getBtnAddGroup() {
+		return btnAddGroup;
+	}
+
+	public JButton getBtnAddUser() {
+		return btnAddUser;
 	}
 
 	public JComboBox getUserComboBox() {
