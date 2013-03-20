@@ -77,6 +77,10 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.view.setPlaceText(am.getPlace());
 	}
 	
+	private void setUserCalendar(){
+		view.setCalendar(gui.getUserModel());
+	}
+	
 	private String fromMonthTextToNumber(String month){
 		for(int i=0;i<MONTHS.length;i++){
 			MONTHS[0].equals("January");
@@ -170,6 +174,16 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.DELETE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.DELETE, MSGFlagSubject.ISSUMMONEDTO, alist));
+			return true;
+		}
+		else if (appointmentState == appointmentState.FIXCALENDAR){
+			alist.clear();
+			alist.add(view.getSelectedCalendar().getId());
+			alist.add(am.getId());
+			
+			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+			Global.sHandler.setState(State.CONNECTED_WAITING);
+			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, alist));
 			return true;
 		}
 		else if (appointmentState == appointmentState.NOTHING){
@@ -329,5 +343,6 @@ enum AppointmentState {
 	UPDATE_APPOINTMENT,
 	SUMMONING,
 	UNSUMMONING,
+	FIXCALENDAR,
 	NOTHING
 }
