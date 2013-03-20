@@ -287,7 +287,7 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case BELONGTO: //appointmentid, newCalID, oldCalId
 							factory.updateBelongTo(Long.valueOf((String)msgW.getObjects().get(0)), Long.valueOf((String)msgW.getObjects().get(1)), Long.valueOf((String)msgW.getObjects().get(2)));
-
+							break;
 						default:
 							break;
 						}
