@@ -2,19 +2,19 @@ package com.server.db;
 
 import java.sql.BatchUpdateException;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import com.model.AlarmModel;
 import com.model.AppointmentModel;
+import com.model.CalendarModel;
+import com.model.GroupModel;
 import com.model.NotificationModel;
 import com.model.RoomModel;
 import com.model.UserModel;
-import com.model.GroupModel;
-import com.model.CalendarModel;
 
 public class Factory {
 
@@ -550,9 +550,28 @@ public class Factory {
 
 		return summoned;
 	}
-
+	
+	public void updateIscomming(ArrayList<UserModel> butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
+		for (UserModel isComming: butthurt){
+		String query = String
+				.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
+						true, ap.getId() , isComming.getUsername());
+		updateDatabase(query);
+		}
+	}
+	public void updateIsNotComming(ArrayList<UserModel> butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
+		for (UserModel isComming: butthurt){
+			String query = String
+					.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
+							false, ap.getId() , isComming.getUsername());
+			updateDatabase(query);
+			}
+	}
+	
+	
 	public void updateIsSummonedTo(ArrayList<UserModel> users, long l)
 			throws ClassNotFoundException, SQLException {
+
 		deleteIsSummonedTo(l);
 		createIsSummonedTo(users, l);
 	}
