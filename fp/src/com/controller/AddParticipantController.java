@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
+import com.model.UserModel;
 import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
@@ -24,6 +25,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private MeetingPanel m_view;
 	private DefaultListModel userListModel, groupListModel;
 	private boolean ifGroups;
+	private UserModel usermodel;
 	
 	ArrayList<Object> users;	
 	private MSGFlagVerb verb;	

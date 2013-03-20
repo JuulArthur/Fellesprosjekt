@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import com.controller.IServerResponse;
+import com.model.UserModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -132,19 +133,19 @@ public class AddParticipantPanel extends JDialog {
 		return userComboBox;
 	}
 
-	public void setUserComboBox(ArrayList<Object> users) {
-		for (Object user : users) {
-			userComboBox.addItem(user);
-		}
-	}
-
 	public JComboBox getGroupComboBox() {
 		return groupComboBox;
 	}
 
+	public void setUserComboBox(ArrayList<Object> users) {
+		for (Object user : users) {
+			userComboBox.addItem(user.toString());
+		}
+	}
+
 	public void setGroupComboBox(ArrayList<Object> groups) {
 		for(Object group : groups) {
-			groupComboBox.addItem(group);
+			groupComboBox.addItem(group.toString());
 		}
 	}
 
