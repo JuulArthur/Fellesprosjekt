@@ -168,6 +168,9 @@ public class ClientHandler  extends ServiceHandler {
 							al.add(factory.getRoomModel((Integer)msgW.getObjects().get(0)));
 							break;
 							
+						case AVAILIBLEROOM:
+							al.add(factory.getAvailableRooms((Integer)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1), (Integer)msgW.getObjects().get(2)));
+							
 						case USER: //String username
 							al.add(factory.getUserModel((String)msgW.getObjects().get(0)));
 							break;
@@ -271,6 +274,13 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case GROUP:
 							factory.UpdateGroupModel((GroupModel)msgW.getObjects().get(0));
+							break;
+							
+						case ISNOTCOMMING:
+							factory.updateIsNotComming((UserModel)msgW.getObjects().get(0), (AppointmentModel)msgW.getObjects().get(1));
+							break;
+						case ISCOMMING:
+							factory.updateIscomming((UserModel)msgW.getObjects().get(0), (AppointmentModel)msgW.getObjects().get(1));
 							break;
 							
 						case NOTIFICATION:// NotificationModel

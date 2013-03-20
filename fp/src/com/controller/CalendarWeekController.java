@@ -28,6 +28,8 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 		this.calendarsModels = new ArrayList<CalendarModel>();
 		this.calendarView = cl;
 		
+		//this.calendarView.getTable().setModel(null);
+		
 		firstDayGivenWeek = new DateTime();
 		firstDayGivenWeek = firstDayGivenWeek.withDayOfWeek(1);
 		this.calendarView.getLabelGivenWeek().setText("Uke: " + firstDayGivenWeek.getWeekOfWeekyear());
@@ -35,22 +37,24 @@ public class CalendarWeekController implements PropertyChangeListener, ActionLis
 	
 	public void addModel(CalendarModel cm){
 		calendarsModels.add(cm);
-		for(AppointmentModel am : cm.getAppointments()){
-			am.addPropertyChangeListener(this);
-			DateTime appointment = new DateTime(am.getDate());
-			System.out.println(appointment);
-		}
+		if(cm.getAppointments() != null)
+			for(AppointmentModel am : cm.getAppointments()){
+				am.addPropertyChangeListener(this);
+				DateTime appointment = new DateTime(am.getDate());
+				System.out.println(appointment);
+			}
 		
 	}
 	
 	public void setModel(CalendarModel cm){
 		calendarsModels = new ArrayList<CalendarModel>();
 		calendarsModels.add(cm);
-		for(AppointmentModel am : cm.getAppointments()){
-			am.addPropertyChangeListener(this);
-			DateTime appointment = new DateTime(am.getDate());
-			System.out.println(appointment);
-		}
+		if(cm.getAppointments() != null)
+			for(AppointmentModel am : cm.getAppointments()){
+				am.addPropertyChangeListener(this);
+				DateTime appointment = new DateTime(am.getDate());
+				System.out.println(appointment);
+			}
 		
 	}
 	
