@@ -306,4 +306,8 @@ public class MeetingPanel extends MainMeetingPanel {
 
 			
 		}
+
+	public JButton getChooseRomButton() {
+		return this.btnChooseRoom;
+	}
 }
