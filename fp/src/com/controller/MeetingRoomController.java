@@ -44,9 +44,6 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		if (success) {
 			JList rooms = new JList(al.toArray());
 			view.setRoomList(rooms);
-			
-				
-				
 			}
 			
 		return false;

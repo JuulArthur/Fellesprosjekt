@@ -1,6 +1,6 @@
 package com.view;
 
-import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -10,13 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-public class MeetingRoomPanel extends JPanel {
+public class MeetingRoomPanel extends JDialog {
 
 	private JFrame meetingRoomFrame;
 	private JTextField textField;

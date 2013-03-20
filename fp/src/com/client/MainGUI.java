@@ -17,12 +17,14 @@ import com.model.AlarmModel;
 import com.model.AppointmentModel;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
+import com.model.RoomModel;
 import com.model.UserModel;
 import com.settings.Global;
 import com.view.AddParticipantPanel;
 import com.view.CalendarJDialog;
 import com.view.LogginPane;
 import com.view.MeetingPanel;
+import com.view.MeetingRoomPanel;
 import com.view.SavedMeetingPanel;
 import com.view.calendar.CalendarLayout;
 import com.xml.JAXBMarshaller;
@@ -35,6 +37,7 @@ public class MainGUI extends JFrame{
 	private CalendarJDialog calendarJDialogView;
 	private MeetingPanel createAppointmentView;
 	private SavedMeetingPanel appointmentView;
+	
 //	private AddParticipantPanel participantView;
 	
 	/* Controllers*/
@@ -51,6 +54,7 @@ public class MainGUI extends JFrame{
 	private ArrayList<CalendarModel> subscribedCalendarModels;
 	private ArrayList<NotificationModel> notificationsModels;
 	private AlarmModel alarmModel;
+	private RoomModel roomModel;
 	
 	public void startServer() throws Exception{
 		Global.sHandler = new ServerHandler("localhost", 8078 ); //mel.is
