@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
@@ -20,7 +21,7 @@ import com.view.MeetingPanel;
 public class AddParticipantController implements IServerResponse, ActionListener {
 
 	private MainGUI gui;
-	private AddParticipantPanel p_view;
+	private AddParticipantPanel participantPanel;
 	private MeetingPanel m_view;
 	private Type type;
 	private DefaultListModel userListModel, groupListModel;
@@ -33,13 +34,16 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	public AddParticipantController(MeetingPanel meeting) {
 //		this.gui = gui;
 		this.m_view = meeting;
-		this.p_view = new AddParticipantPanel();
-//		this.model = model;
+		participantPanel = new AddParticipantPanel();
+		participantPanel.setLocationRelativeTo(null);
+		participantPanel.setVisible(true);
+		participantPanel.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+
+		participantPanel.addButtonUserAddListener(this);
+		participantPanel.addButtonGroupAddListener(this);
+		participantPanel.addButtonBackAddListener(this);
+			
 		this.type = type.NOTHING;
-		
-		this.p_view.addButtonUserAddListener(this);
-		this.p_view.addButtonGroupAddListener(this);
-		//this.p_view.addButtonBackAddListener(this);
 		
 		userListModel = new DefaultListModel();
 		groupListModel = new DefaultListModel();
@@ -71,7 +75,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	}
 	
 	public AddParticipantPanel getParticipantPanel () {
-		return	p_view;
+		return	participantPanel;
 	}
 
 	@Override
@@ -81,11 +85,11 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			if (al != null) {
 				switch (type) {
 				case PEEPS:
-					p_view.setUserComboBox(al);
+					participantPanel.setUserComboBox(al);
 					System.out.println("setUserComboBox");
 					break;
 				case GROUPS:
-					p_view.setGroupComboBox(al);
+					participantPanel.setGroupComboBox(al);
 					System.out.println("setGroupComboBox");
 					break;
 				case NOTHING:
@@ -104,31 +108,32 @@ public class AddParticipantController implements IServerResponse, ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == p_view.getBtnAddUser()) {
+		if (e.getSource() == participantPanel.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
 			System.out.println("AddUserbtn - Pressed");
 			JList userList = m_view.getParticipantList();
 			
-			Object selectedUser = p_view.getUserComboBox().getSelectedItem();
+			Object selectedUser = participantPanel.getUserComboBox().getSelectedItem();
 			userListModel.addElement(selectedUser);
 			
 			userList.setModel(userListModel);
 			m_view.setParticipantList(userList);
 		}
-		else if (e.getSource() == p_view.getBtnAddGroup()) {
+		else if (e.getSource() == participantPanel.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
 			System.out.println("AddGroupbtn - Pressed");
 			JList groupList = m_view.getParticipantList();
 			
-			Object selectedGroup = p_view.getGroupComboBox().getSelectedItem();
+			Object selectedGroup = participantPanel.getGroupComboBox().getSelectedItem();
 			userListModel.addElement(selectedGroup);
 			
 			groupList.setModel(groupListModel);
 			m_view.setParticipantList(groupList);
 		}
-		else if (e.getSource() == p_view.getBackButton()) {
+		else if (e.getSource() == participantPanel.getBackButton()) {
 			System.out.println("Backbtn - Pressed");
-			p_view.setVisible(false);
+			participantPanel.setVisible(false);
+			participantPanel.dispose();
 		}
 //		else if (e.getSource() == p_view.getBackButton()) {
 //			p_view.setVisible(false);

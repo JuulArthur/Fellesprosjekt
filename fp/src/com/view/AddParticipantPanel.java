@@ -1,5 +1,6 @@
 package com.view;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class AddParticipantPanel extends JPanel {
+public class AddParticipantPanel extends JDialog {
 
 	private JComboBox userComboBox;
 	private JComboBox groupComboBox;

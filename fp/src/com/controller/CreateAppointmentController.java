@@ -77,6 +77,10 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.view.setPlaceText(am.getPlace());
 	}
 	
+	private void setUserCalendar(){
+		view.setCalendar(gui.getUserModel());
+	}
+	
 	private String fromMonthTextToNumber(String month){
 		for(int i=0;i<MONTHS.length;i++){
 			MONTHS[0].equals("January");
@@ -172,6 +176,16 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.DELETE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
 			return true;
 		}
+		else if (appointmentState == appointmentState.FIXCALENDAR){
+			alist.clear();
+			alist.add(view.getSelectedCalendar().getId());
+			alist.add(am.getId());
+			
+			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
+			Global.sHandler.setState(State.CONNECTED_WAITING);
+			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, alist));
+			return true;
+		}
 		else if (appointmentState == appointmentState.NOTHING){
 			Global.respondGUI.remove(this);
 			gui.initAppointment(am);
@@ -215,6 +229,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			JList participantList = view.getParticipantList();
 			for (int i = 0;i<participantList.getModel().getSize();i++){
 				participants.add((UserModel) participantList.getModel().getElementAt(i));
+				System.out.println(participants);
 			}
 			String dateText = view.getDateText();
 			int indexOfDot = dateText.indexOf(".");
@@ -314,7 +329,8 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (e.getSource() == view.getAddParticipantButton()){
 			Global.respondGUI.remove(this);
-			gui.initParticipantPanel(view);
+			AddParticipantController participantController = new AddParticipantController(view);	
+			Global.respondGUI.add(participantController);
 		}
 		else if (e.getSource() == view.getRemovePersonBtn()){
 			view.deleteParticipant();
@@ -329,5 +345,6 @@ enum AppointmentState {
 	UPDATE_APPOINTMENT,
 	SUMMONING,
 	UNSUMMONING,
+	FIXCALENDAR,
 	NOTHING
 }

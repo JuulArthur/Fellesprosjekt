@@ -26,6 +26,7 @@ import javax.swing.JList;
 
 
 import com.controller.IServerResponse;
+import com.model.CalendarModel;
 import com.model.UserModel;
 
 public class MeetingPanel extends MainMeetingPanel {
@@ -45,8 +46,8 @@ public class MeetingPanel extends MainMeetingPanel {
 	private JTextField dateTextField;
 	private JLabel lblFormat;
 	private int posY;
-	private DefaultListModel model;
-	private DefaultListSelectionModel myListSelectionModel;
+	private DefaultListModel modelParticipant;
+	private DefaultListSelectionModel myListSelectionModelParticipant;
 
 	public MeetingPanel() {
 		GridBagLayout gridBagLayout = (GridBagLayout) getLayout();
@@ -136,13 +137,13 @@ public class MeetingPanel extends MainMeetingPanel {
 		add(deltagerScrollPane, gbc_deltagerScrollPane);
 
 		
-		model = new DefaultListModel();
-		participantList = new JList(model);
+		modelParticipant = new DefaultListModel();
+		participantList = new JList(modelParticipant);
 		deltagerScrollPane.setViewportView(participantList);
-		myListSelectionModel = new DefaultListSelectionModel();
-		myListSelectionModel.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		myListSelectionModelParticipant = new DefaultListSelectionModel();
+		myListSelectionModelParticipant.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 		
-		participantList.setSelectionModel(myListSelectionModel);
+		participantList.setSelectionModel(myListSelectionModelParticipant);
 		
 		lblKalender = new JLabel("Kalender:");
 		GridBagConstraints gbc_lblKalender = new GridBagConstraints();
@@ -308,12 +309,12 @@ public class MeetingPanel extends MainMeetingPanel {
 	
 	public UserModel getSelectedParticipant(){
 		int i = participantList.getAnchorSelectionIndex();
-		return (UserModel) model.getElementAt(i);
+		return (UserModel) modelParticipant.getElementAt(i);
 	}
 	
 	public void deleteParticipant(){
 		int i = participantList.getAnchorSelectionIndex();
-		model.remove(i);
+		modelParticipant.remove(i);
 	}
 	
 	public JButton getAddParticipantButton(){
@@ -324,4 +325,14 @@ public class MeetingPanel extends MainMeetingPanel {
 		this.dateTextField.setText(text);
 	}
 
+	public void setCalendar(UserModel userModel) {
+		ArrayList<CalendarModel> calenderque=  userModel.getMyCalendar();
+		for (Object diffCal: calenderque ){
+			CalendarComboBox.addItem(diffCal);
+		}
+	}
+	
+	public CalendarModel getSelectedCalendar(){
+		return (CalendarModel)CalendarComboBox.getSelectedItem();
+	}
 }
