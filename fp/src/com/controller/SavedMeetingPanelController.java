@@ -4,10 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import com.client.MainGUI;
 import com.model.AppointmentModel;
+import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
 import com.net.msg.MSGFlagSubject;
@@ -23,7 +22,7 @@ public class SavedMeetingPanelController implements ActionListener,
 	private MainGUI gui;
 	private SavedMeetingPanel meetingPanel;
 	private AppointmentModel appointment;
-	private ArrayList<NotificationModel> notificationQue = new ArrayList<NotificationModel>();
+	private ArrayList<Object> notificationQue = new ArrayList<Object>();
 	private ToDO verb;
 
 	public SavedMeetingPanelController(AppointmentModel appointment,
@@ -84,7 +83,18 @@ public class SavedMeetingPanelController implements ActionListener,
 			appointment.setSendnotification(true);
 			sendNotification();
 			meetingPanel.getMooteinnkalling().setEnabled(false);
+		} else if (e.getSource() == meetingPanel.getAddCal()) {
+			// her skal man legge til denne avtalen til en kalender.
+			addAppointmentToCalender(appointment, (CalendarModel) meetingPanel
+					.getCalendarList().getSelectedItem());
+
 		}
+
+	}
+
+	public void addAppointmentToCalender(AppointmentModel appointment,
+			CalendarModel targetCal) {
+
 	}
 
 	public SavedMeetingPanel getMeetingPanel() {
@@ -128,7 +138,6 @@ public class SavedMeetingPanelController implements ActionListener,
 		verb = ToDO.SENDING;
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
-
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
 				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,
 						MSGFlagSubject.NOTIFICATION, notificationQue));

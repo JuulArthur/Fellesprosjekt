@@ -43,6 +43,7 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JButton btnDecline ;
 	private DefaultListModel notCommingList;
 	private DefaultListModel commingList;
+	private JComboBox calenderList;
 	private JButton leggTilKalender;
 	
 	
@@ -160,7 +161,8 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		gbc_lblNewLabel.gridx = 3;
 		gbc_lblNewLabel.gridy = 7;
 		add(lblNewLabel, gbc_lblNewLabel);
-		JComboBox calenderList = new JComboBox();
+		
+	 calenderList = new JComboBox();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 5, 5);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -249,6 +251,13 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		return this.notCommingList;
 	}
 	public JButton getAddcalendar(){
+		return this.leggTilKalender;
+	}
+	
+	public JComboBox getCalendarList(){
+		return  this.calenderList;
+	}
+	public JButton getAddCal(){
 		return this.leggTilKalender;
 	}
 }
