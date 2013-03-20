@@ -42,7 +42,8 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		alist  = new ArrayList<Object>();
 		participants = new ArrayList<UserModel>();
 		uninvitedParticipants = new ArrayList<String>();
-		this.appointmentState = appointmentState.NOTHING;
+		this.appointmentState = appointmentState.NOTHIN;
+		setUserCalendar();
 		
 		this.view.saveBtnAddListener(this);
 		this.view.returnBtnAddListener(this);
@@ -56,7 +57,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.user = gui.getUserModel();
 		this.am = am;
 		alist  = new ArrayList<Object>();
-		this.appointmentState = appointmentState.NOTHING;
+		this.appointmentState = appointmentState.NOTHIN;
 		
 		this.view.setTitteltextField(am.getTitle());
 		this.view.setBeskrivelseTextArea(am.getText());
@@ -69,6 +70,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			tempDay = tempDay.substring(1);
 		}
 		this.view.setDateText(tempDay+"."+tempTextMonth);
+		setUserCalendar();
 		
 		this.view.saveBtnAddListener(this);
 		this.view.returnBtnAddListener(this);
@@ -113,7 +115,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				alist.remove(0);
 				
 				if (alist.size()==1){
-					appointmentState = appointmentState.NOTHING;
+					appointmentState = appointmentState.FIXCALENDAR;
 				}
 				else{
 					appointmentState = appointmentState.NEW_ALARM;
@@ -138,7 +140,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				alist.remove(0);
 				if(alist.size()==2){
 					if(shallUninvite){
-						appointmentState = appointmentState.NOTHING;
+						appointmentState = appointmentState.FIXCALENDAR;
 						
 						Global.sHandler.setCurrentFlag(MSGFlagVerb.DELETE);
 						Global.sHandler.setState(State.CONNECTED_WAITING);
@@ -146,7 +148,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 						return true;
 					}
 					else{
-						appointmentState = appointmentState.NOTHING;
+						appointmentState = appointmentState.FIXCALENDAR;
 						
 						Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 						Global.sHandler.setState(State.CONNECTED_WAITING);
@@ -166,7 +168,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			return true;
 		}
 		else if (appointmentState == appointmentState.SUMMONING){
-			appointmentState = appointmentState.NOTHING;
+			appointmentState = appointmentState.FIXCALENDAR;
 			
 			alist.remove(0);
 			alist.remove(0);
@@ -181,12 +183,13 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			alist.add(view.getSelectedCalendar().getId());
 			alist.add(am.getId());
 			
+			appointmentState = appointmentState.NOTHIN;
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, alist));
 			return true;
 		}
-		else if (appointmentState == appointmentState.NOTHING){
+		else if (appointmentState == appointmentState.NOTHIN){
 			Global.respondGUI.remove(this);
 			gui.initAppointment(am);
 			return true;
@@ -346,5 +349,5 @@ enum AppointmentState {
 	SUMMONING,
 	UNSUMMONING,
 	FIXCALENDAR,
-	NOTHING
+	NOTHIN
 }
