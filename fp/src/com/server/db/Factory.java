@@ -229,6 +229,7 @@ public class Factory {
 		UserModel um = new UserModel(username, password, email, name, surname,
 				phoneNumber, isAdmin);
 
+		//Check if the user exists
 		if (um.getPassword().equals(null))
 			um = null;
 		else {
@@ -255,6 +256,32 @@ public class Factory {
 
 			}
 			crs.close();
+			
+			
+			// Get the IsSummonedTo appointments
+				
+				ArrayList<AppointmentModel> summoned = new ArrayList<AppointmentModel>();
+
+				query = String.format("SELECT appointmentid, isAccepted, isSeen "
+						+ "FROM IsSummonedTo WHERE username='%s'", username);
+
+				crs = makeQuery(query);
+
+				while (rs.next()) {
+					AppointmentModel cake = getAppointmentModel(rs.getLong(1));
+					cake.setAccepted(rs.getBoolean(2));
+					cake.setSeen(rs.getBoolean(3));
+					summoned.add(cake);
+				}
+				
+				crs.close();
+				
+				CalendarModel cm = new CalendarModel();
+				cm.setOwner(username);
+				cm.setName("Summoned To");
+				cm.setAppointments(summoned);
+				
+				um.setSummonedTo(cm);
 		}
 		rs.close();
 		db.close();
@@ -442,7 +469,7 @@ public class Factory {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public ArrayList<String> getIsSummonedTo(int aid)
+	public ArrayList<String> getIsSummonedTo(long aid)
 			throws ClassNotFoundException, SQLException {
 		ArrayList<String> summoned = new ArrayList<String>();
 
@@ -456,6 +483,12 @@ public class Factory {
 		}
 
 		return summoned;
+	}
+	
+	
+	public void updateIsSummonedTo(ArrayList<UserModel> users, long l) throws ClassNotFoundException, SQLException{
+		deleteIsSummonedTo(l);
+		createIsSummonedTo(users, l);
 	}
 
 	public void createIsSummonedTo(ArrayList<UserModel> users, long l)
@@ -519,6 +552,48 @@ public class Factory {
 				System.err.println("[Factory] ProcessUpdateCounts: " + i);
 			}
 		}
+	}
+	
+	public void deleteIsSummonedToPeople(ArrayList<String> users, long aid) throws ClassNotFoundException, SQLException{
+		String query = 
+				"DELETE FROM IsSummonedTo " +
+				"WHERE appointmentid='?' AND username='?'";
+		
+		
+		PreparedStatement pst;
+		try {
+			db.initialize();
+			pst = db.makeBatchUpdate(query);
+
+			/* insert data */
+			for (int i = 0; i < users.size(); i++) {
+				pst.setLong(1, aid);
+				pst.setString(2, users.get(i));
+				pst.addBatch();
+			}
+
+			// Execute the batch
+			int[] updateCounts = pst.executeBatch();
+
+			db.close();
+
+		} catch (BatchUpdateException e) {
+			// Not all of the statements were successfully executed
+			int[] updateCounts = e.getUpdateCounts();
+
+			// Some databases will continue to execute after one fails.
+			// If so, updateCounts.length will equal the number of batched
+			// statements.
+			// If not, updateCounts.length will equal the number of successfully
+			// executed statements
+			processUpdateCounts(updateCounts);
+
+			// Either commit the successfully executed statements or rollback
+			// the entire batch
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void deleteIsSummonedTo(long l) throws ClassNotFoundException,

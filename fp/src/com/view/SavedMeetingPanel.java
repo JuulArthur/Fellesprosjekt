@@ -43,6 +43,8 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	private JButton btnDecline ;
 	private DefaultListModel notCommingList;
 	private DefaultListModel commingList;
+	private JButton leggTilKalender;
+	
 	
 	public SavedMeetingPanel () {
 		notCommingList=new DefaultListModel();
@@ -101,7 +103,12 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		
 		add(btnDecline, gbc_btnDecline);
 		
-	
+		leggTilKalender = new JButton("Legg til i valgte Kalender");
+		GridBagConstraints dick = new GridBagConstraints();
+		dick.gridx=5;
+		dick.gridy=12;
+		add(leggTilKalender, dick);
+		
 		
 		lblKommer = new JLabel("Kommer");
 		GridBagConstraints gbc_lblKommer = new GridBagConstraints();
@@ -240,5 +247,8 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	
 	public DefaultListModel getNotComming(){
 		return this.notCommingList;
+	}
+	public JButton getAddcalendar(){
+		return this.leggTilKalender;
 	}
 }

@@ -24,6 +24,8 @@ public class AppointmentModel {
 	private final static String DATE_PROPERTY = "Date";
 	private final static String MEMBERS_PROPERTY = "Members";
 	private final static String ISSENDTOUTNOTI_PROPERY = "isSendtOutNoti";
+	private final static String ISACCEPTED_PROPERTY = "KJFHKDJSGJHBGJHB";
+	private final static String ISSEEN_PROPERTY = "HJGKJSDKJLIGGH";
 	
 	@XmlTransient
 	public PropertyChangeSupport changeSupport;
@@ -48,6 +50,10 @@ public class AppointmentModel {
 	private Date date;
 	@XmlElement(name = "members")
 	private ArrayList<UserModel> members;
+	@XmlElement(name = "isAccepted")
+	private boolean isAccepted;
+	@XmlElement(name = "isSeen")
+	private boolean isSeen;
 	
 	@XmlElement(name = "isSendtOutNoti")
 	private boolean isSendtOutNoti;
@@ -199,6 +205,27 @@ public class AppointmentModel {
 	public void removeMember(UserModel member) {
 		if (this.members.contains(member))
 			this.members.remove(member);
+	}
+	
+
+	public boolean isAccepted() {
+		return isAccepted;
+	}
+
+	public void setAccepted(boolean isAccepted) {
+		boolean oldValue = this.isSeen;
+		this.isAccepted = isAccepted;
+		changeSupport.firePropertyChange(ISACCEPTED_PROPERTY, oldValue, isSeen);
+	}
+
+	public boolean isSeen() {
+		return isSeen;
+	}
+
+	public void setSeen(boolean isSeen) {
+		boolean oldValue = this.isSeen;
+		this.isSeen = isSeen;
+		changeSupport.firePropertyChange(ISSEEN_PROPERTY, oldValue, isSeen);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -24,9 +25,9 @@ public class LogginPane extends JPanel {
 	public JPanel pane;
 	private JTextField usernameField;
 	private JLabel usernameLabel;
-	private JTextField passwordField;
+	private JPasswordField passwordField;
 	private JLabel passwordLabel;
-	private JButton loggin;
+	private JButton buttonLoggin;
 	private JFrame loginFrame;
 	
 	public LogginPane(){
@@ -65,7 +66,7 @@ public class LogginPane extends JPanel {
 		gbc_passwordLabel.gridx = 1;
 		gbc_passwordLabel.gridy = 2;
 		pane.add(passwordLabel, gbc_passwordLabel);
-		passwordField=new JTextField();
+		passwordField=new JPasswordField();
 		passwordField.setColumns(20);
 
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
@@ -74,18 +75,25 @@ public class LogginPane extends JPanel {
 		gbc_passwordField.gridx = 2;
 		gbc_passwordField.gridy = 2;
 		pane.add(passwordField, gbc_passwordField);
-		loggin = new JButton("Logg in");
+		buttonLoggin = new JButton("Logg in");
 		GridBagConstraints gbc_loggin = new GridBagConstraints();
 		gbc_loggin.anchor = GridBagConstraints.NORTHWEST;
 		gbc_loggin.insets = new Insets(0, 0, 5, 5);
 		gbc_loggin.gridx = 2;
 		gbc_loggin.gridy = 3;
-		pane.add(loggin, gbc_loggin);
+		pane.add(buttonLoggin, gbc_loggin);
 	}
 
 	
 	public void addLogginButtonListener(ActionListener a){
-		loggin.addActionListener(a);
+		buttonLoggin.addActionListener(a);
+	}
+	
+	
+
+
+	public JButton getButtonLoggin() {
+		return buttonLoggin;
 	}
 
 
@@ -99,14 +107,11 @@ public class LogginPane extends JPanel {
 	}
 
 
-	public JTextField getPasswordField() {
+	public JPasswordField getPasswordField() {
 		return passwordField;
 	}
-
-
-	public void setPasswordField(JTextField passwordField) {
-		this.passwordField = passwordField;
-	}
+	
+	
 	
 	public static void main (String args[]) {
         JFrame frame = new JFrame("Prototype");

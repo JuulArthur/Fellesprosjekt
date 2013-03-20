@@ -46,6 +46,7 @@ public class UserModel {
 	@XmlElement(name="subscribedCalendars")
 	private ArrayList<CalendarModel> subscribedCalendars;
 	
+	@XmlElement(name="summonedTo")
 	private CalendarModel summonedTo;
 	
 	/* JAXB */
@@ -68,6 +69,7 @@ public class UserModel {
 		this.notifications = new ArrayList<NotificationModel>();
 		this.myCalendars = new ArrayList<CalendarModel>();
 		this.subscribedCalendars = new ArrayList<CalendarModel>();
+		this.summonedTo = new CalendarModel();
 	}
 	
 	/* Methods */
@@ -214,7 +216,18 @@ public class UserModel {
 	public void removeSubscribedCalendars(CalendarModel calendar) {
 		this.subscribedCalendars.remove(calendar);
 	}
+	
 		
+
+	public CalendarModel getSummonedTo() {
+		return summonedTo;
+	}
+
+	public void setSummonedTo(CalendarModel summonedTo) {
+		CalendarModel oldValue = this.summonedTo;
+		this.summonedTo = summonedTo;
+		changeSupport.firePropertyChange(MYCALENDARS_PROPERTY, oldValue, summonedTo);
+	}
 
 	@Override
 	public String toString() {

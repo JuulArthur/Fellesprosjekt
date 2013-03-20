@@ -17,7 +17,8 @@ import com.net.support.State;
 import com.settings.Global;
 import com.view.SavedMeetingPanel;
 
-public class SavedMeetingPanelController implements ActionListener, IServerResponse {
+public class SavedMeetingPanelController implements ActionListener,
+		IServerResponse {
 
 	private MainGUI gui;
 	private SavedMeetingPanel meetingPanel;
@@ -25,14 +26,12 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 	private ArrayList<NotificationModel> notificationQue = new ArrayList<NotificationModel>();
 	private ToDO verb;
 
-	
-	
 	public SavedMeetingPanelController(AppointmentModel appointment,
 			SavedMeetingPanel newMeetingpanel, MainGUI gui) {
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
-		verb= ToDO.NOTHING;
+		verb = ToDO.NOTHING;
 		meetingPanel.setTitteltextField(this.appointment.getText());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
@@ -42,11 +41,12 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 		meetingPanel.getAvslag().addActionListener(this);
 		meetingPanel.getGodta().addActionListener(this);
 		meetingPanel.getRediger().addActionListener(this);
+		meetingPanel.getAddcalendar().addActionListener(this);
 
 		if (!(appointment.getHost() == gui.getUserModel())) {
 			meetingPanel.getRediger().setVisible(false);
 		}
-		if(appointment.getSendNotification()){
+		if (appointment.getSendNotification()) {
 			meetingPanel.getMooteinnkalling().setEnabled(false);
 		}
 		if (meetingPanel.getComming().contains(gui.getUserModel())) {
@@ -80,64 +80,61 @@ public class SavedMeetingPanelController implements ActionListener, IServerRespo
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			System.out.println("ring han Juul");
-		} else if(e.getSource() == meetingPanel.getMooteinnkalling()){
+		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
 			appointment.setSendnotification(true);
 			sendNotification();
+			meetingPanel.getMooteinnkalling().setEnabled(false);
 		}
 	}
-	public SavedMeetingPanel getMeetingPanel(){
+
+	public SavedMeetingPanel getMeetingPanel() {
 		return this.meetingPanel;
 	}
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
-		if(success){
+		if (success) {
 			/* Do we have response objects? */
-			if(al != null){
-			}
-			else{
+			if (al != null) {
+			} else {
 				switch (verb) {
 				case SENDING:
-					verb= ToDO.NOTHING;
+					verb = ToDO.NOTHING;
 					break;
 				case NOTHING:
-					//The model has already been updated
+					// The model has already been updated
 					break;
 
 				default:
 					break;
 				}
-			
+
 			}
+		} else { // Dårlig stemning
 		}
-		else { //Dårlig stemning
-		}		
-		
+
 		return false;
 	}
 
-	
-	
-	
-	public void sendNotification(){
-		for (int i =0; i<appointment.getMembers().size();i++){
-			UserModel currentuser=appointment.getMembers().get(i);
-			NotificationModel notification = new NotificationModel(appointment.getText(), this.appointment,currentuser);
+	public void sendNotification() {
+		for (int i = 0; i < appointment.getMembers().size(); i++) {
+			UserModel currentuser = appointment.getMembers().get(i);
+			NotificationModel notification = new NotificationModel(
+					appointment.getText(), this.appointment, currentuser);
 			this.notificationQue.add(notification);
 		}
-		
+
 		verb = ToDO.SENDING;
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
-		
-		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.NOTIFICATION, notificationQue));
+
+		Global.sHandler.writeMessage(Global.jaxbMarshaller
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,
+						MSGFlagSubject.NOTIFICATION, notificationQue));
 	}
 }
 
-
-enum ToDO{
-	SENDING,
-	NOTHING
+enum ToDO {
+	SENDING, NOTHING
 }
-		

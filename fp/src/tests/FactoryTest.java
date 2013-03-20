@@ -62,7 +62,7 @@ public class FactoryTest {
 		um = f.createUserModel(dummy);
 		assertNotNull("createUserModel didn't return any object", um);
 		assertEquals("created object from createUserModel not equal to dummy",
-				um, dummy);
+				um.toString(), dummy.toString());
 
 	}
 
@@ -74,8 +74,8 @@ public class FactoryTest {
 		um = null;
 		um = f.getUserModel(dummy);
 		assertNotNull("getUsermodel didn't return any object", um);
-		assertEquals("fetched object from getUserModel didn't equal dummy", um,
-				dummy);
+		assertEquals("fetched object from getUserModel didn't equal dummy", um.toString(),
+				dummy.toString());
 	}
 
 	@Test
@@ -86,7 +86,7 @@ public class FactoryTest {
 		um = null;
 		f.updateUserModel(dummy);
 		um = f.getUserModel(dummy);
-		assertEquals("updateUserModel didn't update properly", um, dummy);
+		assertEquals("updateUserModel didn't update properly", um.toString(), dummy.toString());
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class FactoryTest {
 		rm = f.createRoomModel(dummy);
 		assertNotNull("createRoomModel didn't reaturn any object", rm);
 		assertEquals("created object from createRoomModel not equal to dummy",
-				rm, dummy);
+				rm.toString(), dummy.toString());
 	}
 
 	@Test
@@ -121,8 +121,8 @@ public class FactoryTest {
 		rm = null;
 		rm = f.getRoomModel(dummy);
 		assertNotNull("getRoomModel dudn't return any object", rm);
-		assertEquals("fetched object from getRoomModel didn't equal dummy", rm,
-				dummy);
+		assertEquals("fetched object from getRoomModel didn't equal dummy", rm.toString(),
+				dummy.toString());
 	}
 
 	@Test
@@ -132,7 +132,7 @@ public class FactoryTest {
 		f.updateRoomModel(dummy);
 		rm = null;
 		rm = f.getRoomModel(dummy);
-		assertEquals("updateRoomModel didn't update properly", rm, dummy);
+		assertEquals("updateRoomModel didn't update properly", rm.toString(), dummy.toString());
 	}
 
 	@Test
@@ -163,7 +163,7 @@ public class FactoryTest {
 		assertNotNull("createAppointmentModel didn't return any object", ap);
 		assertEquals(
 				"created object from createAppointmentModel not equal to dummy",
-				ap, dummy);
+				ap.toString(), dummy.toString());
 	}
 
 	@Test
@@ -177,7 +177,7 @@ public class FactoryTest {
 		assertNotNull("getAppointmentModel didn't return any object", ap);
 		assertEquals(
 				"fetched object from getAppointmentModel not equal to dummy",
-				ap, dummy);
+				ap.toString(), dummy.toString());
 	}
 
 	@Test
@@ -189,8 +189,8 @@ public class FactoryTest {
 		f.updateAppointmentModel(dummy);
 		ap = null;
 		ap = f.getAppointmentModel(dummy);
-		assertEquals("updateAppointmentModel didn't work as intended", ap,
-				dummy);
+		assertEquals("updateAppointmentModel didn't work as intended", ap.toString(),
+				dummy.toString());
 	}
 
 	@Test
@@ -225,7 +225,7 @@ public class FactoryTest {
 		am = null;
 		am = f.createAlarmModel(dummy);
 		assertNotNull("crateAlarmModel didn't return any object", am);
-		assertEquals("createAlarmModel doesn't equal dummy", am, dummy);
+		assertEquals("createAlarmModel doesn't equal dummy", am.toString(), dummy.toString());
 	}
 
 	@Test
@@ -236,7 +236,7 @@ public class FactoryTest {
 		am = null;
 		am = f.getAlarmModel(dummy);
 		assertNotNull("getAlarmModel didn't return any object", am);
-		assertEquals("getAlarmModel didn't equal dummy", am, dummy);
+		assertEquals("getAlarmModel didn't equal dummy", am.toString(), dummy.toString());
 	}
 
 	@Test
@@ -247,7 +247,7 @@ public class FactoryTest {
 		f.updateAlarmModel(dummy);
 		am = null;
 		am = f.getAlarmModel(dummy);
-		assertEquals("updateAlarmModel didn't udpate object", am, dummy);
+		assertEquals("updateAlarmModel didn't udpate object", am.toString(), dummy.toString());
 	}
 
 	@Test
@@ -267,9 +267,7 @@ public class FactoryTest {
 	// start calendar model test
 	@Test
 	public void testCreateCalendarModelCalendarModel() {
-		CalendarModel dummy = new CalendarModel(3L, "testkalender",
-				new ArrayList<AppointmentModel>(Arrays.asList(ap)), "chris");
-		
+		fail("Not yet implemented");
 	}
 
 	@Test
