@@ -15,5 +15,8 @@ public class test {
 //		String textDate = date.toString();
 //		textDate += " "+"12"+":"+"11"+":00";
 //		System.out.println(textDate);
+		String a = "09";
+		int b = Integer.parseInt(a);
+		System.out.println(b==9);
 	}
 }

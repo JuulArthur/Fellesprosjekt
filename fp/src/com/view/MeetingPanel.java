@@ -109,7 +109,6 @@ public class MeetingPanel extends MainMeetingPanel {
 		add(lblDeltagere, gbc_lblDeltagere);
 
 		addPerson = new JButton("+");
-		addPerson.addActionListener(new addNewPerson());
 		addPerson.setPreferredSize(new Dimension(41, 20));
 		GridBagConstraints gbc_addPerson = new GridBagConstraints();
 		gbc_addPerson.anchor = GridBagConstraints.EAST;
@@ -273,29 +272,15 @@ public class MeetingPanel extends MainMeetingPanel {
 		removePerson.addActionListener(al);
 	}
 	
-	class openAlarmCalendar implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			createCalenderDialog((alarmTextField));
-		}
-	}		
+	public void addPersonBtnAddListener(ActionListener al) {
+		addPerson.addActionListener(al);
+	}
+			
 	class OpenChooseDate implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			createCalenderDialog(dateTextField);
 		}
 	}		
-	
-	class addNewPerson implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			AddParticipantPanel participantPanel = new AddParticipantPanel();
-			JFrame participantFrame = new JFrame("Legg til brukere og/eller grupper");
-			participantFrame.getContentPane().add(participantPanel);
-			participantFrame.pack();
-			participantFrame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
-			participantFrame.setVisible(true);
-			participantFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);			
-		}
-	}
 	
 	public JButton getSaveButton(){
 		return btnLagre_1;
@@ -312,17 +297,6 @@ public class MeetingPanel extends MainMeetingPanel {
 	public void setParticipantList(JList participantList) {
 		this.participantList = participantList;
 	}
-	
-	
-	class backAction implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.exit(0);
-		}
-
-			
-		}
 
 	public JButton getChooseRomButton() {
 		return this.btnChooseRoom;
@@ -340,5 +314,13 @@ public class MeetingPanel extends MainMeetingPanel {
 	public void deleteParticipant(){
 		int i = participantList.getAnchorSelectionIndex();
 		model.remove(i);
+	}
+	
+	public JButton getAddParticipantButton(){
+		return this.addPerson;
+	}
+	
+	public void setDateText(){
+		
 	}
 }

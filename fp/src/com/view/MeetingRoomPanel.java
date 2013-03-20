@@ -173,6 +173,11 @@ public class MeetingRoomPanel extends JPanel {
 	public void setRoomList(JList list){
 		this.list = list;
 	}
+	
+	public JList getRoomList(){
+		return list;
+	}
+	
 	public JButton getChooseRoom() {
 		return btnChooseRoom;
 	}

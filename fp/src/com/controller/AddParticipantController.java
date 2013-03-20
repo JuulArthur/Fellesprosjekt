@@ -37,7 +37,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		
 		this.p_view.addButtonUserAddListener(this);
 		this.p_view.addButtonGroupAddListener(this);
-		this.p_view.addButtonBackAddListener(this);
+		//this.p_view.addButtonBackAddListener(this);
 		
 		userListModel = new DefaultListModel();
 		groupListModel = new DefaultListModel();
@@ -45,11 +45,17 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		
 		// Hente liste med users og groups
 		ArrayList<Object> users = new ArrayList<Object>();
-		users.add(model);
+		System.out.println("Oppretta ArrayList");
+		
+	//	users.add(model);
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
+		System.out.println("SetFlag: GET\n");
 		Global.sHandler.setState(State.CONNECTED_WAITING);
+		System.out.println("setState: CONNECTED WAITING\n");
 		Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLUSERS, users));
+		System.out.println("shandler: et eller annet sent\n");
 		verb = MSGFlagVerb.GET;	
+		System.out.println("verb: GET");
 		type = type.PEEPS;
 		System.out.println("PEEPS");
 		
@@ -123,6 +129,9 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			System.out.println("Backbtn - Pressed");
 			p_view.setVisible(false);
 		}
+//		else if (e.getSource() == p_view.getBackButton()) {
+//			p_view.setVisible(false);
+//		}
 	}
 }
 
