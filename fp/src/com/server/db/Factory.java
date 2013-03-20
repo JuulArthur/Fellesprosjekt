@@ -494,9 +494,9 @@ public class Factory {
 	private ArrayList<RoomModel> filterOutTakenRooms(
 			ArrayList<RoomModel> rooms, int startTime, int endTime)
 			throws SQLException, ClassNotFoundException {
-
-		// Don't even ask.. should work
-
+		
+		//Don't even ask.. should work
+		
 		ArrayList<RoomModel> takenRooms = new ArrayList<RoomModel>();
 		String query = String
 				.format("SELECT Reserved.RoomNumber From Reserved INNER JOIN Appointment where startTime >= '%d' and endTime <= '%d' ON Appointment.id = Reserved.appointmentid",
@@ -509,7 +509,7 @@ public class Factory {
 		rs.close();
 
 		rooms.remove(takenRooms);
-
+		
 		return rooms;
 	}
 
@@ -538,39 +538,38 @@ public class Factory {
 			throws ClassNotFoundException, SQLException {
 		ArrayList<Object> summoned = new ArrayList<Object>();
 
-		String query = String
-				.format("Select username " + "FROM IsSummonedTo "
-						+ "WHERE appointmentid='%s' AND isAccepted='%b'", aid,
-						accepted);
+		String query = String.format("Select username "
+				+ "FROM IsSummonedTo " +
+				"WHERE appointmentid='%s' AND isAccepted='%b'", aid, accepted);
 
 		ResultSet rs = makeQuery(query);
 
 		while (rs.next()) {
-			summoned.add((Object) rs.getString(1));
+			summoned.add((Object)rs.getString(1));
 		}
 
 		return summoned;
 	}
-
-	public void updateIscomming(UserModel butthurt, AppointmentModel ap)
-			throws SQLException, ClassNotFoundException {
-
+	
+	public void updateIscomming(UserModel butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
+		
 		String query = String
 				.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
-						true, ap.getId(), butthurt.getUsername());
+						true, ap.getId() , butthurt.getUsername());
 		updateDatabase(query);
-
+		
 	}
-
-	public void updateIsNotComming(UserModel butthurt, AppointmentModel ap)
-			throws SQLException, ClassNotFoundException {
-		String query = String
-				.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
-						false, ap.getId(), butthurt.getUsername());
-		updateDatabase(query);
-
+	
+	
+	public void updateIsNotComming(UserModel butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
+			String query = String
+					.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
+							false, ap.getId() , butthurt.getUsername());
+			updateDatabase(query);
+			
 	}
-
+	
+	
 	public void updateIsSummonedTo(ArrayList<UserModel> users, long l)
 			throws ClassNotFoundException, SQLException {
 
@@ -811,6 +810,15 @@ public class Factory {
 		updateDatabase(query);
 	}
 
+	@Deprecated
+	public void createNotificationModel(String text, int aid, String username)
+			throws SQLException, ClassNotFoundException {
+		String query = String.format("insert into Notification "
+				+ "(text, appointmentid, username) values ('%s', %d, '%s')",
+				text, aid, username);
+		updateDatabase(query);
+	}
+
 	public NotificationModel createNotificationModel(NotificationModel nm)
 			throws SQLException, ClassNotFoundException {
 		String query = String.format("insert into Notification "
@@ -820,6 +828,29 @@ public class Factory {
 						.getUsername());
 		updateDatabase(query);
 		return nm;
+	}
+
+	@Deprecated
+	public NotificationModel getNotificationModel(NotificationModel nm)
+			throws ClassNotFoundException, SQLException {
+
+		String query = String.format("Select text "
+				+ "from Notification WHERE username='%s'AND appointmentid=%d",
+				nm.getCreator().getUsername(), nm.getAppointment().getId());
+		db.initialize();
+		ResultSet rs = db.makeSingleQuery(query);
+		Date date = null;
+		String text = null;
+		while (rs.next()) {
+			text = rs.getString(1);
+		}
+
+		NotificationModel utNm = new NotificationModel(text,
+				nm.getAppointment(), nm.getCreator());
+		rs.close();
+		db.close();
+
+		return utNm;
 	}
 
 	public NotificationModel getNotificationModel(String userName, int id)
@@ -852,6 +883,16 @@ public class Factory {
 		updateDatabase(query);
 	}
 
+	@Deprecated
+	public void deleteNotificationModel(NotificationModel nm)
+			throws SQLException, ClassNotFoundException {
+		String query = String
+				.format("DELETE from Notification WHERE username='%s' AND appointmentid=%d",
+						nm.getCreator().getUsername(), nm.getAppointment()
+								.getId());
+		updateDatabase(query);
+	}
+
 	public void deleteNotificationModel(String userName, int id)
 			throws SQLException, ClassNotFoundException {
 		String query = String
@@ -869,6 +910,16 @@ public class Factory {
 						rm.getLocation());
 		updateDatabase(query);
 		return rm;
+	}
+
+	@Deprecated
+	public void createRoomModel(int roomNumber, String roomName, int capacity,
+			String location) throws SQLException, ClassNotFoundException {
+		String query = String
+				.format("insert into Room "
+						+ "(roomnumber, roomname, capacity, location) values (%d, '%s', %d, '%s')",
+						roomNumber, roomName, capacity, location);
+		updateDatabase(query);
 	}
 
 	public RoomModel getRoomModel(RoomModel rm) throws ClassNotFoundException,
@@ -998,12 +1049,10 @@ public class Factory {
 
 	}
 
-	public ArrayList<UserModel> getEveryUser(String user)
-			throws ClassNotFoundException, SQLException {
+	public ArrayList<UserModel> getEveryUser(String user) throws ClassNotFoundException, SQLException {
 		ArrayList<UserModel> everyUser = new ArrayList<UserModel>();
-
-		String query = String.format(
-				"Select username from User where username <> '%s'", user);
+		
+		String query = String.format("Select username from User where username <> '%s'", user);
 
 		ResultSet rs = makeQuery(query);
 		while (rs.next()) {
@@ -1012,11 +1061,10 @@ public class Factory {
 		return everyUser;
 
 	}
-
-	public ArrayList<UserModel> getEveryGroup() throws ClassNotFoundException,
-			SQLException {
+	
+	public ArrayList<UserModel> getEveryGroup() throws ClassNotFoundException, SQLException {
 		ArrayList<UserModel> everyGroup = new ArrayList<UserModel>();
-
+		
 		String query = String.format("Select name from Groupp");
 
 		ResultSet rs = makeQuery(query);
