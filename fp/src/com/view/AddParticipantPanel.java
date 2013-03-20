@@ -120,6 +120,7 @@ public class AddParticipantPanel extends JPanel {
 		return btnAddUser;
 	}
 
+	
 	public JComboBox getUserComboBox() {
 		return userComboBox;
 	}

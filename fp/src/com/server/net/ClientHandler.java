@@ -145,7 +145,7 @@ public class ClientHandler  extends ServiceHandler {
 						/* SUBJECTT */
 						switch (subject) {
 						case ALARM: //String user, int appointmentid
-							al.add(factory.getAlarmModel((String)msgW.getObjects().get(0), (Long)msgW.getObjects().get(1)));
+							al.add(factory.getAlarmModel((String)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1))));
 							break;
 							
 						case CALENDAR:
@@ -177,8 +177,9 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 						case ALLUSERS:
 							al.add(factory.getEveryUser(msgW.getUser()));
+							break;
 						case ISSUMMONEDTO: // ArrayList users, long appointmentid
-							factory.getIsSummonedTo((long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
+							factory.getIsSummonedTo(Long.valueOf((String) msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
 							break;
 
 						default:
@@ -232,7 +233,7 @@ public class ClientHandler  extends ServiceHandler {
 							factory.createUserModel((UserModel)msgW.getObjects().get(0));
 							break;
 						case ISSUMMONEDTO: // ArrayList users, long appointmentid
-							factory.createIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
+							factory.createIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
 							break;
 
 						default:
@@ -281,12 +282,12 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ISSUMMONEDTO: // ArrayList users, long appointmentid
-							factory.updateIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), (long)msgW.getObjects().get(1));//((UserModel)msgW.getObjects().get(0));
+							factory.updateIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
 							break;
 							
 						case BELONGTO: //appointmentid, newCalID, oldCalId
-							factory.updateBelongTo((long)msgW.getObjects().get(0), (long)msgW.getObjects().get(1), (long)msgW.getObjects().get(2));
-
+							factory.updateBelongTo(Long.valueOf((String)msgW.getObjects().get(0)), Long.valueOf((String)msgW.getObjects().get(1)), Long.valueOf((String)msgW.getObjects().get(2)));
+							break;
 						default:
 							break;
 						}
@@ -333,7 +334,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ISSUMMONEDTO: //DELETE GIVEN PEOPLE FROM SUMMONEDLIST TO GIVEN APPOINTMENT
-							factory.deleteIsSummonedToPeople((ArrayList<String>)msgW.getObjects().get(0), (long)msgW.getObjects().get(0));
+							factory.deleteIsSummonedToPeople((ArrayList<String>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(0)));
 							break;
 
 						default:
