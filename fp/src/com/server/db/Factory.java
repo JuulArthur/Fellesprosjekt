@@ -990,5 +990,25 @@ public class Factory {
 		
 	}
 	
+	public void deleteBelongTo(long appointmentid, long calId) throws ClassNotFoundException, SQLException{
+		String query = String
+				.format("DELETE from BelongTo WHERE appointmentid='%s' AND calendarid=%d",
+						appointmentid, calId);
+		updateDatabase(query);
+	}
+	
+	public void createBelongTo(long appointmentid, long calId) throws ClassNotFoundException, SQLException{
+		String query = String
+				.format("insert into BelongTo " + "(appointmentid, calendarid) VALUES "
+						+ "(%d, '%s')", appointmentid, calId);
+		updateDatabase(query);
+	}
+	
+	
+	public void updateBelongTo(long appointmentid, long newCalID, long oldCalId) throws ClassNotFoundException, SQLException{
+		deleteBelongTo(appointmentid, oldCalId);
+		createBelongTo(appointmentid, newCalID);
+	}
+	
 
 }
