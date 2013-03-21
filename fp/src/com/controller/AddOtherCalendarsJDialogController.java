@@ -54,12 +54,10 @@ public class AddOtherCalendarsJDialogController implements IServerResponse, Acti
 		
 		addOtherCalendars.addWindowListener(new WindowAdapter() {
 			public void windowClosed(WindowEvent e) {
-				super.windowClosed(e);
 			}
 
 			public void windowClosing(WindowEvent e) {
 				Global.respondGUI.remove(this);
-				windowClosing(e);
 			}
 		});
 		
