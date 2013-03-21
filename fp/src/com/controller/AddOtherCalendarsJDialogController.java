@@ -50,7 +50,6 @@ public class AddOtherCalendarsJDialogController implements IServerResponse, Acti
 		
 		addOtherCalendars.getBtnAvbryt().addActionListener(this);
 		addOtherCalendars.getBtnNewButton().addActionListener(this);
-		addOtherCalendars.getBtnSk().addActionListener(this);
 		
 		
 		addOtherCalendars.addWindowListener(new WindowAdapter() {
@@ -104,11 +103,7 @@ public class AddOtherCalendarsJDialogController implements IServerResponse, Acti
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//don't know what to check
-		if(e.getSource() == addOtherCalendars.getBtnSk()) {
-
-		}
-		else if (e.getSource() == addOtherCalendars.getBtnNewButton()){
+		if (e.getSource() == addOtherCalendars.getBtnNewButton()){
 			if(selectedCalendarModel != null)
 				calendarController.addOtherCalenderModelItem(selectedCalendarModel);
 			addOtherCalendars.setVisible(false);
