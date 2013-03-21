@@ -6,30 +6,21 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import com.client.MainGUI;
 import com.model.CalendarModel;
 import com.model.NotificationModel;
 import com.model.UserModel;
-import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
 import com.net.support.State;
 import com.settings.Global;
-import com.view.AddOtherCalendarsJDialog;
 import com.view.calendar.CalendarLayout;
 import com.view.calendar.CalendarListRenderer;
 import com.view.calendar.NotificationListRenderer;
-import com.view.ManageCalendarsJDialog;
-import com.view.MeetingPanel;
-
-
-
 
 public class CalendarController implements ActionListener, IServerResponse, PropertyChangeListener{
 	
@@ -88,6 +79,7 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		this.calendarView.getButtonNextWeek().addActionListener(calendarWeekController);
 		
 		final JList listCalender = this.calendarView.getListCalendar();
+		final JList listOtherCalender = this.calendarView.getListOtherCalendars();
 		final JTextField txt = this.calendarView.getTextFieldManageCalendar();
 		
 		this.calendarView.getListCalendar().addListSelectionListener(new ListSelectionListener() {
@@ -95,6 +87,17 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 			public void valueChanged(ListSelectionEvent e) {
 				if(!e.getValueIsAdjusting()){
 					selectedCalenderModel = (CalendarModel)dListModelCalendarModels.getElementAt(listCalender.getSelectedIndex());
+					txt.setText("");
+					calendarWeekController.setModel(selectedCalenderModel);
+					//calendarWeekController.setModel(selectedCalenderModel);
+				}	
+			}
+		});
+		this.calendarView.getListOtherCalendars().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!e.getValueIsAdjusting()){
+					selectedCalenderModel = (CalendarModel)dListModelOtherCalendarModels.getElementAt(listOtherCalender.getSelectedIndex());
 					txt.setText("");
 					calendarWeekController.setModel(selectedCalenderModel);
 					//calendarWeekController.setModel(selectedCalenderModel);
@@ -221,6 +224,12 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 	}
 
 	
+	public void addOtherCalenderModelItem(CalendarModel model){
+		
+		//main.getCalendarModels().add(model); TODO
+		dListModelOtherCalendarModels.addElement(model);
+	}
+	
 	/* GETTERS AND SETTERS */
 	public DefaultListModel getdListModelCalendarModels() {
 		return dListModelCalendarModels;
@@ -239,12 +248,5 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		EXIT,
 		NOTHING
 	}
-	
 }
-
-/**
- * Responsetype enum
- * @author perok
- *
- */
 

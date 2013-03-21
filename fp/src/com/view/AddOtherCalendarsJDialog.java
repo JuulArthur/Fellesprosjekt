@@ -19,10 +19,8 @@ import com.model.CalendarModel;
 public class AddOtherCalendarsJDialog extends JDialog {
 	private JComboBox comboBoxUserNames;
 	private JComboBox comboBoxCalendars;
-	private JList listUsers;
 	private JButton btnAvbryt;
 	private JButton btnNewButton;
-	private JButton btnSk;
 	public AddOtherCalendarsJDialog() {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -62,35 +60,18 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		gbc_textField_1.gridx = 1;
 		gbc_textField_1.gridy = 1;
 		getContentPane().add(comboBoxCalendars, gbc_textField_1);
-		//textField_1.setColumns(10);
 		comboBoxCalendars.setEditable(true);
-		
-		btnSk = new JButton("S\u00F8k");
-		GridBagConstraints gbc_btnSk = new GridBagConstraints();
-		gbc_btnSk.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSk.gridx = 3;
-		gbc_btnSk.gridy = 1;
-		getContentPane().add(btnSk, gbc_btnSk);
-		
-		listUsers = new JList();
-		GridBagConstraints gbc_list = new GridBagConstraints();
-		gbc_list.insets = new Insets(0, 0, 5, 5);
-		gbc_list.fill = GridBagConstraints.BOTH;
-		gbc_list.gridx = 1;
-		gbc_list.gridy = 2;
-		listUsers.setPreferredSize(new Dimension(150, 150));
-		getContentPane().add(listUsers, gbc_list);
 		
 		btnAvbryt = new JButton("Avbryt");
 		GridBagConstraints gbc_btnAvbryt = new GridBagConstraints();
 		gbc_btnAvbryt.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAvbryt.gridx = 3;
+		gbc_btnAvbryt.gridx = 0;
 		gbc_btnAvbryt.gridy = 4;
 		getContentPane().add(btnAvbryt, gbc_btnAvbryt);
 		
 		btnNewButton = new JButton("Lagre");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 4;
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
 		
@@ -99,7 +80,6 @@ public class AddOtherCalendarsJDialog extends JDialog {
 	}
 
 	public static void main (String args[]) {
-    //    JFrame frame = new JFrame("Prototype");
         AddOtherCalendarsJDialog other= new AddOtherCalendarsJDialog();
         other.setLocationRelativeTo(null);
         other.setDefaultCloseOperation(other.DISPOSE_ON_CLOSE);
@@ -113,19 +93,11 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		return comboBoxCalendars;
 	}
 
-	public JList getListUsers() {
-		return listUsers;
-	}
-
 	public JButton getBtnAvbryt() {
 		return btnAvbryt;
 	}
 
 	public JButton getBtnNewButton() {
 		return btnNewButton;
-	}
-
-	public JButton getBtnSk() {
-		return btnSk;
 	}
 }

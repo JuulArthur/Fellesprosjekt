@@ -417,21 +417,3 @@ public class ClientHandler  extends ServiceHandler {
 	    return new ArrayList<Long>();
 	}
 }
-
-
-
-/*
-Runnable runnable = new Runnable() {
-	@Override
-	public void run() {
-		try {
-			login = server.getFactory().checkPassword(um.getUsername(), um.getPassword());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-};
-
-POOL.execute(runnable);*/

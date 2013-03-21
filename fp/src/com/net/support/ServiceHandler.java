@@ -93,8 +93,6 @@ public abstract class ServiceHandler implements IClientHandler {
 	@Override
 	public void errorOnRead(Exception e) {
 		System.out.println( "An error happened while reading" );
-		//Stacktrace for disconnect exception gets thrown to here.
-		//System.out.println(e.getCause());
 		e.printStackTrace();		
 	}	
 

@@ -184,12 +184,13 @@ public class SavedMeetingPanelController implements ActionListener,
 
 	private void addPersonToCommingAndNot() {
 		ArrayList<Object> que = new ArrayList<Object>();
-		que.add(appointment.getId());
-
+		String mothertoucher;
+		mothertoucher=""+appointment.getId();
+		que.add(mothertoucher);
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
-				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
+				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET,
 						MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, que));
 
 	}
@@ -219,12 +220,14 @@ public class SavedMeetingPanelController implements ActionListener,
 					}
 
 					ArrayList<Object> que = new ArrayList<Object>();
-					que.add(appointment.getId());
+					String mothertoucher;
+					mothertoucher=""+appointment.getId();
+					que.add(mothertoucher);
 					Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 					Global.sHandler.setState(State.CONNECTED_WAITING);
 					Global.sHandler.writeMessage(Global.jaxbMarshaller
 							.getXMLRepresentation(0, MSGType.REQUEST,
-									MSGFlagVerb.UPDATE,
+									MSGFlagVerb.GET,
 									MSGFlagSubject.ISSUMMONEDTO_DENIED, que));
 
 					break;
