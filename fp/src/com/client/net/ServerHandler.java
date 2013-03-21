@@ -49,7 +49,9 @@ public class ServerHandler extends ServiceHandler {
 		MSGFlagVerb verb = msgW.getFlagVerb();
 		MSGFlagSubject subject = msgW.getFlagSubject();
 		ArrayList<Object> al;
-		
+		System.out.println(type);
+		System.out.println(verb);
+		System.out.println(subject);
 		/* We are not connected and need to get a accept response message */
 		switch (getState()) {
 		case DISCONNECTED:
@@ -134,7 +136,9 @@ public class ServerHandler extends ServiceHandler {
 						System.out.println("[ServerHandeler] onWrapper: ACCEPTED FROM SERVER");
 						//SEND THE ACCEPT BACK TO SERVER
 						// if msgW.getObjects.get(0) contains something, return it. the context will fix casting
-						
+						setState(State.CONNECTED);
+						currentVerbFlag = null;
+
 						propagateResponseToGUI(true, msgW.getObjects());
 
 						if(subject != null){							
@@ -147,8 +151,6 @@ public class ServerHandler extends ServiceHandler {
 
 					
 					/* Must always null out a response*/
-					currentVerbFlag = null;
-					setState(State.CONNECTED);
 					
 					//END ACCEPT
 					break;
