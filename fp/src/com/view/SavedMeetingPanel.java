@@ -271,8 +271,10 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	}
 	public void setCalendar(UserModel userModel) {
 		ArrayList<CalendarModel> calenderque=  userModel.getMyCalendar();
+		if(calenderque != null ){
 		for (Object diffCal: calenderque ){
 			( this.calenderList).addItem(diffCal);
+		}
 		}
 	}
 }

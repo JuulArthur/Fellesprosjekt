@@ -146,8 +146,8 @@ public class MainGUI extends JFrame{
 	}
 	
 	public void initAppointment(AppointmentModel inputAppointment){
-		this.appointmentController= new SavedMeetingPanelController(inputAppointment, appointmentView , this);
 		this.getContentPane().removeAll();
+		this.appointmentController= new SavedMeetingPanelController(inputAppointment, appointmentView , this);
 		this.getContentPane().add(appointmentController.getMeetingPanel());
 		this.pack();
 		
