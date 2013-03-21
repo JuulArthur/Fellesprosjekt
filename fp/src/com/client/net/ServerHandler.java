@@ -120,6 +120,14 @@ public class ServerHandler extends ServiceHandler {
 						//We can now terminate
 						System.out.println("[ServerHandeler] onWrapper: ACCEPTED LOGOUT FROM SERVER");
 						disconnect();
+						System.out.println("Terminating");
+						try {
+							Thread.sleep(1000);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						
+						System.exit(0);
 						break;
 						
 					default:

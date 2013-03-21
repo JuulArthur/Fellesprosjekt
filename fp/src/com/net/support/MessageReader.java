@@ -1,8 +1,10 @@
 package com.net.support;
 
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.SocketException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -92,7 +94,13 @@ public class MessageReader implements Runnable {
 				
 				POOL.execute(runnable);
 			}
-		} catch (Exception e) {
+		}catch (SocketException e){
+			System.out.println("[MessageReader] Run: Socket is closed");
+		}
+		catch (EOFException e){
+			System.out.println("[MessageReader] Run: Stream is closed");
+		}
+		catch (Exception e) {
 			this.client.errorOnRead(e);
 			throw new RuntimeException(e);
 		}

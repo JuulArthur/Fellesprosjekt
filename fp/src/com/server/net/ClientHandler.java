@@ -368,8 +368,13 @@ public class ClientHandler  extends ServiceHandler {
 						break;
 					case LOGOUT:
 						writeMessage(jaxbMarshaller.getXMLRepresentation(msgW.getID(), MSGType.RESPONSE, MSGFlagVerb.ACCEPT, null));
-						disconnect();
-						server.removeCLient(this);
+						try {
+							Thread.sleep(1000);
+							disconnect();
+							server.removeCLient(this);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 						break;
 					default:
 						break;
