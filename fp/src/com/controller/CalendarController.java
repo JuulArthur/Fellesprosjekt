@@ -98,9 +98,6 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 					txt.setText("");
 					calendarWeekController.setModel(selectedCalenderModel);
 					//calendarWeekController.setModel(selectedCalenderModel);
-
-					
-					
 				}	
 			}
 		});

@@ -20,6 +20,9 @@ public class AddOtherCalendarsJDialog extends JDialog {
 	private JComboBox comboBoxUserNames;
 	private JComboBox comboBoxCalendars;
 	private JList listUsers;
+	private JButton btnAvbryt;
+	private JButton btnNewButton;
+	private JButton btnSk;
 	public AddOtherCalendarsJDialog() {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -62,7 +65,7 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		//textField_1.setColumns(10);
 		comboBoxCalendars.setEditable(true);
 		
-		JButton btnSk = new JButton("S\u00F8k");
+		btnSk = new JButton("S\u00F8k");
 		GridBagConstraints gbc_btnSk = new GridBagConstraints();
 		gbc_btnSk.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSk.gridx = 3;
@@ -78,14 +81,14 @@ public class AddOtherCalendarsJDialog extends JDialog {
 		listUsers.setPreferredSize(new Dimension(150, 150));
 		getContentPane().add(listUsers, gbc_list);
 		
-		JButton btnAvbryt = new JButton("Avbryt");
+		btnAvbryt = new JButton("Avbryt");
 		GridBagConstraints gbc_btnAvbryt = new GridBagConstraints();
 		gbc_btnAvbryt.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAvbryt.gridx = 3;
 		gbc_btnAvbryt.gridy = 4;
 		getContentPane().add(btnAvbryt, gbc_btnAvbryt);
 		
-		JButton btnNewButton = new JButton("Lagre");
+		btnNewButton = new JButton("Lagre");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 4;
 		gbc_btnNewButton.gridy = 4;
@@ -113,7 +116,16 @@ public class AddOtherCalendarsJDialog extends JDialog {
 	public JList getListUsers() {
 		return listUsers;
 	}
-	
-	
 
+	public JButton getBtnAvbryt() {
+		return btnAvbryt;
+	}
+
+	public JButton getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public JButton getBtnSk() {
+		return btnSk;
+	}
 }

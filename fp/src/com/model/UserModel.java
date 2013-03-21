@@ -241,7 +241,7 @@ public class UserModel {
 				+ surname + ", phoneNumber=" + phoneNumber + ", isAdmin="
 				+ isAdmin + ", notifications=" + notifications + "]";
 		
-		return getName() + " " + getSurname();
+		return getUsername();
 	}
 	public ArrayList<CalendarModel> getMyCalendar(){
 		return this.myCalendars;
