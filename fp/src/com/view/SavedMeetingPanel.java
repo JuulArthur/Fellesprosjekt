@@ -267,6 +267,12 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		this.dateTextField.setText(dato);
 	}
 
+	public JList getNOTCOMMING(){
+		return this.NotComming;
+	}
+	public JList getCOMMING(){
+		return this.Comming;
+	}
 	public JButton getAddCal(){
 		return this.leggTilKalender;
 	}
@@ -279,5 +285,10 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 		}
 		}
 	}
-	
+	public JScrollPane getScroll2(){
+		return this.scrollPane2;
+	}
+	public JScrollPane getScroll1(){
+		return this.scrollPane;
+	}
 }

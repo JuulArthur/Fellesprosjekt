@@ -556,7 +556,7 @@ public class Factory {
 	public void updateIscomming(UserModel butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
 		
 		String query = String
-				.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
+				.format("UPDATE ISSUMMONED SET isAcepted='%b'WHERE appointmentid=%d AND username='%s'",
 						true, ap.getId() , butthurt.getUsername());
 		updateDatabase(query);
 		
@@ -565,7 +565,7 @@ public class Factory {
 	
 	public void updateIsNotComming(UserModel butthurt, AppointmentModel ap) throws SQLException, ClassNotFoundException{
 			String query = String
-					.format("UPDATE ISSUMMONED SET isAcepted=%b,WHERE appointmentid=%d AND username='%s'",
+					.format("UPDATE ISSUMMONED SET isAcepted='%b'WHERE appointmentid=%d AND username='%s'",
 							false, ap.getId() , butthurt.getUsername());
 			updateDatabase(query);
 			
