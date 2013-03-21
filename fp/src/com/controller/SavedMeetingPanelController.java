@@ -86,10 +86,6 @@ public class SavedMeetingPanelController implements ActionListener,
 	}
 
 	public void isComming() {
-		meetingPanel.getAvslag().setEnabled(true);
-		meetingPanel.getNotComming().removeElement(gui.getUserModel().getUsername());
-		meetingPanel.getComming().addElement(gui.getUserModel().getUsername());
-		meetingPanel.getGodta().setEnabled(false);
 
 		System.out.println("your commin!");
 		
@@ -105,16 +101,15 @@ public class SavedMeetingPanelController implements ActionListener,
 
 		meetingPanel.getComming().clear();
 		meetingPanel.getNotComming().clear();
+		meetingPanel.getAvslag().setEnabled(true);
+		meetingPanel.getNotComming().removeElement(gui.getUserModel().getUsername());
+		meetingPanel.getComming().addElement(gui.getUserModel().getUsername());
+		meetingPanel.getGodta().setEnabled(false);
 		addPersonToCommingAndNot();
 
 	}
 
 	public void notComming() {
-		meetingPanel.getGodta().setEnabled(true);
-		meetingPanel.getComming().removeElement(gui.getUserModel().getUsername());
-		meetingPanel.getNotComming().addElement(gui.getUserModel().getUsername());
-		meetingPanel.getAvslag().setEnabled(false);
-		System.out.println("your not comming");
 
 		ArrayList<Object> que = new ArrayList<Object>();
 		que.add(gui.getUserModel());
@@ -128,7 +123,12 @@ public class SavedMeetingPanelController implements ActionListener,
 
 		meetingPanel.getComming().clear();
 		meetingPanel.getNotComming().clear();
+		meetingPanel.getGodta().setEnabled(true);
+		meetingPanel.getComming().removeElement(gui.getUserModel().getUsername());
+		meetingPanel.getNotComming().addElement(gui.getUserModel().getUsername());
+		meetingPanel.getAvslag().setEnabled(false);
 		addPersonToCommingAndNot();
+
 	}
 
 	@Override
@@ -229,6 +229,7 @@ public class SavedMeetingPanelController implements ActionListener,
 						UserModel users = (UserModel)com;
 
 						meetingPanel.getComming().addElement(users.getUsername());
+
 					}
 					}
 
@@ -250,6 +251,7 @@ public class SavedMeetingPanelController implements ActionListener,
 					for (Object com : al) {
 						UserModel users = (UserModel)com;
 						meetingPanel.getNotComming().addElement(users.getUsername());
+					
 					}
 					}
 					verb = ToDO.NOTHING;
