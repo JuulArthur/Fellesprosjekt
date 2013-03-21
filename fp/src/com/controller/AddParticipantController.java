@@ -69,11 +69,11 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		if (success) {
 			if (al != null && !ifGroups) {
 				participantPanel.setUserComboBox(al);
+				ifGroups = true;
 				// send ny spørring om alle grupper
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.ALLGROUPS, null));	
-				ifGroups = true;
 				return true;
 			}
 			if (al != null && ifGroups) {
@@ -82,6 +82,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			}
 			else {
 				System.out.println("Det fins ingen brukere og/eller grupper i systemet");
+				return false;
 			}
 		}
 		return false;
@@ -107,8 +108,8 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			
 			Object selectedGroup = participantPanel.getGroupComboBox().getSelectedItem();
 
-			if (!userListModel.contains(selectedGroup)) {
-				userListModel.addElement(selectedGroup);
+			if (!groupListModel.contains(selectedGroup)) {
+				groupListModel.addElement(selectedGroup);
 				groupList.setModel(groupListModel);
 				m_view.setParticipantList(groupList);
 		//		participantPanel.getGroupComboBox().removeItem(selectedGroup);
