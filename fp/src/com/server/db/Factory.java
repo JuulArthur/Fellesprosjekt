@@ -465,17 +465,17 @@ public class Factory {
 	 * @throws SQLException
 	 */
 
-	private ArrayList<RoomModel> getRoomsFromCapacity(int capacity)
+	private ArrayList<Object> getRoomsFromCapacity(int capacity)
 			throws SQLException, ClassNotFoundException {
-		ArrayList<RoomModel> rooms = new ArrayList<RoomModel>();
+		ArrayList<Object> rooms = new ArrayList<Object>();
 
 		String query = String.format(
-				"select * from room where capacity >= '%d'", capacity);
+				"select * from Room where capacity >= '%d'", capacity);
 
 		ResultSet rs = makeQuery(query);
 
 		while (rs.next()) {
-			rooms.add(getRoomModel(rs.getInt(1)));
+			rooms.add(getRoomModel(rs.getLong(1)));
 		}
 		rs.close();
 
@@ -491,20 +491,22 @@ public class Factory {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	private ArrayList<RoomModel> filterOutTakenRooms(
-			ArrayList<RoomModel> rooms, int startTime, int endTime)
+	private ArrayList<Object> filterOutTakenRooms(ArrayList<Object> rooms, int startTime, int endTime)
 			throws SQLException, ClassNotFoundException {
 		
 		//Don't even ask.. should work
 		
-		ArrayList<RoomModel> takenRooms = new ArrayList<RoomModel>();
+		ArrayList<Object> takenRooms = new ArrayList<Object>();
 		String query = String
-				.format("SELECT Reserved.RoomNumber From Reserved INNER JOIN Appointment where startTime >= '%d' and endTime <= '%d' ON Appointment.id = Reserved.appointmentid",
+				.format("SELECT Reserved.RoomNumber From Reserved INNER JOIN (select * from Appointment where startTime >= '%d' and endTime <= '%d') ON Appointment.id = Reserved.appointmentid",
 						startTime, endTime);
+		System.out.println(query);
+		
+		//"SELECT Reserved.roomnumber From Reserved INNER JOIN \"Appointment where startTime >= '%d' and endTime <= '%d'\" ON Appointment.id = Reserved.appointmentid"
 		ResultSet rs = makeQuery(query);
 
 		while (rs.next()) {
-			takenRooms.add(getRoomModel(rs.getInt(1)));
+			takenRooms.add(getRoomModel(rs.getLong(1)));
 		}
 		rs.close();
 
@@ -519,10 +521,8 @@ public class Factory {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public ArrayList<RoomModel> getAvailableRooms(int capacity, int startTime,
-			int endTime) throws SQLException, ClassNotFoundException {
-		return filterOutTakenRooms(getRoomsFromCapacity(capacity), startTime,
-				endTime);
+	public ArrayList<Object> getAvailableRooms(int capacity, int startTime,	int endTime) throws SQLException, ClassNotFoundException {
+		return filterOutTakenRooms(getRoomsFromCapacity(capacity), startTime,endTime);
 	}
 
 	/**
@@ -985,7 +985,7 @@ public class Factory {
 		return getRoomModel(rm.getRoomNumber());
 	}
 
-	public RoomModel getRoomModel(int roomNumber)
+	public RoomModel getRoomModel(long roomNumber)
 			throws ClassNotFoundException, SQLException {
 		String query = String.format("Select roomname, capacity, location "
 				+ "from Room WHERE roomnumber=%d", roomNumber);
@@ -1025,7 +1025,7 @@ public class Factory {
 		deleteRoomModel(rm.getRoomNumber());
 	}
 
-	public void deleteRoomModel(int roomNumber) throws SQLException,
+	public void deleteRoomModel(long roomNumber) throws SQLException,
 			ClassNotFoundException {
 		String query = String.format("DELETE from Room WHERE roomnumber=%d",
 				roomNumber);

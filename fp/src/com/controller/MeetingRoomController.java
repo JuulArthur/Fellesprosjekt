@@ -36,7 +36,8 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		
 		view.setStartText(""+meeting.getStartText());
 		view.setEndText(""+meeting.getEndText());
-			
+		
+		view.getSearch().addActionListener(this);
 		
 		view.setLocationRelativeTo(gui);
 		
@@ -62,8 +63,8 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		if (e.getSource() == view.getSearch()){
 			//hente ut en liste over ledige rom ut fra kapasitet og tidspunkt
 			alist.add(view.getCapacity());
-			alist.add(meeting.getStartText());
-			alist.add(meeting.getEndText());
+			alist.add(createNumValue(meeting.getStartText()));
+			alist.add(createNumValue(meeting.getEndText()));
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.AVAILIBLEROOM, alist));
@@ -82,6 +83,16 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		
 		
 		
+	}
+	
+	private int createNumValue(String s){
+		String  b[] = s.split("\\:");
+
+		int a = Integer.parseInt(b[0]);
+		a *= 60;
+		a += Integer.parseInt(b[1]);
+		
+		return a;
 	}
 
 
