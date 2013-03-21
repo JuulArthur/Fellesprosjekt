@@ -142,8 +142,7 @@ public class AddParticipantPanel extends JDialog {
 			ArrayList<UserModel> temp = new ArrayList <UserModel>();
 			temp.add((UserModel) user);	
 			for (UserModel us : temp) {
-				userComboBox.addItem(us.getName());
-	
+				userComboBox.addItem(us.getName().toString());
 			}
 //			userComboBox.addItem(user.toString());
 		}
