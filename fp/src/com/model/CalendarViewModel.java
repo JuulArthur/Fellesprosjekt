@@ -106,18 +106,36 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		}
 	}
 	
+	public DateTime addIntegerHoursMinutes(DateTime time, int hoursMinutes){
+		
+		int count = 0;
+		while(hoursMinutes >= 60){
+			count++;
+			hoursMinutes -= 60;
+		}
+		time = time.withHourOfDay(count);
+		time = time.withMinuteOfHour(hoursMinutes);
+		return time;
+	}
+	
 	public void addManyEvents(ArrayList<AppointmentModel> ams){
 		for(AppointmentModel am : ams){
+			System.out.println(am.getTitle());
 			Event event = new Event();
 			event.setId(am.getId());
-			DateTime dt = new DateTime(am.getDate());
-			dt = dt.withHourOfDay(13);
 			
-			System.out.println(dt.toDate());
+			DateTime dt = new DateTime(am.getDate());
+			
+			
+			
+			dt = addIntegerHoursMinutes(dt, am.getStartTime());
+			
+			System.out.println(dt);
 			
 			event.setStart(dt.toDate());
 			
-			dt = dt.withHourOfDay(17);
+			dt = addIntegerHoursMinutes(dt, am.getEndTime());
+
 			System.out.println(dt);
 			event.setEnd(dt.toDate());
 			

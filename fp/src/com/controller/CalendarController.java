@@ -88,6 +88,7 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		this.calendarView.getButtonNextWeek().addActionListener(calendarWeekController);
 		
 		final JList listCalender = this.calendarView.getListCalendar();
+		final JList listOtherCalender = this.calendarView.getListOtherCalendars();
 		final JTextField txt = this.calendarView.getTextFieldManageCalendar();
 		
 		this.calendarView.getListCalendar().addListSelectionListener(new ListSelectionListener() {
@@ -95,6 +96,17 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 			public void valueChanged(ListSelectionEvent e) {
 				if(!e.getValueIsAdjusting()){
 					selectedCalenderModel = (CalendarModel)dListModelCalendarModels.getElementAt(listCalender.getSelectedIndex());
+					txt.setText("");
+					calendarWeekController.setModel(selectedCalenderModel);
+					//calendarWeekController.setModel(selectedCalenderModel);
+				}	
+			}
+		});
+		this.calendarView.getListOtherCalendars().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!e.getValueIsAdjusting()){
+					selectedCalenderModel = (CalendarModel)dListModelOtherCalendarModels.getElementAt(listOtherCalender.getSelectedIndex());
 					txt.setText("");
 					calendarWeekController.setModel(selectedCalenderModel);
 					//calendarWeekController.setModel(selectedCalenderModel);
@@ -220,6 +232,12 @@ public class CalendarController implements ActionListener, IServerResponse, Prop
 		calendarView.getTextFieldManageCalendar().setText("");		
 	}
 
+	
+	public void addOtherCalenderModelItem(CalendarModel model){
+		
+		//main.getCalendarModels().add(model); TODO
+		dListModelOtherCalendarModels.addElement(model);
+	}
 	
 	/* GETTERS AND SETTERS */
 	public DefaultListModel getdListModelCalendarModels() {
