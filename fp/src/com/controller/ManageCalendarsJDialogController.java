@@ -2,6 +2,8 @@ package com.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.WindowConstants;
@@ -38,6 +40,16 @@ public class ManageCalendarsJDialogController implements IServerResponse, Action
 		manageCalendars.setLocationRelativeTo(calendarController.getMain());
 		manageCalendars.setVisible(true);
 		manageCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+		
+		manageCalendars.addWindowListener(new WindowAdapter() {
+			public void windowClosed(WindowEvent e) {
+
+			}
+
+			public void windowClosing(WindowEvent e) {
+				Global.respondGUI.remove(this);
+			}
+		});
 	}
 
 	@Override
@@ -100,6 +112,7 @@ public class ManageCalendarsJDialogController implements IServerResponse, Action
 		else if(e.getSource() == manageCalendars.getBtnAvbryt()){
 			manageCalendars.setVisible(false);
 			manageCalendars.dispose();
+			Global.respondGUI.remove(this);
 		}
 		
 	}
