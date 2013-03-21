@@ -2,6 +2,7 @@ package com.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.client.MainGUI;
@@ -51,10 +52,11 @@ public class LogginPaneController  implements ActionListener, IServerResponse{
 		public boolean recievedObjectRespone(boolean success,
 				ArrayList<Object> al) {				
 
-			if(al.get(0) instanceof UserModel){
+			if(al.get(0) instanceof UserModel){				
 				gui.setUserModel((UserModel)al.get(0));
 				gui.initCalendar();
 				//gui.initCreateAppointment();
+				//gui.initAppointment(inputAppointment);
 				//Do not propagate
 				return false;
 			}

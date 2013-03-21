@@ -170,6 +170,7 @@ public class ClientHandler  extends ServiceHandler {
 							
 						case AVAILIBLEROOM:
 							al = factory.getAvailableRooms((Integer)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1), (Integer)msgW.getObjects().get(2));
+							break;
 							
 						case USER: //String username
 							al.add(factory.getUserModel((String)msgW.getObjects().get(0)));
@@ -216,8 +217,9 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 						case BELONGTO://AppoinmentID, targetCalendarID
 							factory.createBelongTo(Long.valueOf((String)msgW.getObjects().get(0)), Long.valueOf((String)msgW.getObjects().get(1)));
+							break;
 						case CALENDAR: //CalendarModel
-							factory.createCalendarModel((CalendarModel)msgW.getObjects().get(0));
+							//factory.createCalendarModel((CalendarModel)msgW.getObjects().get(0));
 							break;
 							
 						case APPOINTMENT: //AppointmentModel

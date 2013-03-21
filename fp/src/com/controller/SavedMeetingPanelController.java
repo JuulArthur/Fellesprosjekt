@@ -30,30 +30,27 @@ public class SavedMeetingPanelController implements ActionListener,
 	private ToDO verb;
 	private long oldCalID;
 
-	
-	
-	
-	
 	public SavedMeetingPanelController(AppointmentModel appointment,
 			SavedMeetingPanel newMeetingpanel, MainGUI gui) {
-		oldCalID=-1;
+		oldCalID = -1;
 		dummyconstrutor(appointment, newMeetingpanel, gui);
 	}
-	
-	public SavedMeetingPanelController(long oldCalendarId, AppointmentModel appointment,
-			SavedMeetingPanel newMeetingpanel, MainGUI gui){
-		this.oldCalID=oldCalendarId;
-		dummyconstrutor(appointment,newMeetingpanel,gui);
+
+	public SavedMeetingPanelController(long oldCalendarId,
+			AppointmentModel appointment, SavedMeetingPanel newMeetingpanel,
+			MainGUI gui) {
+		this.oldCalID = oldCalendarId;
+		dummyconstrutor(appointment, newMeetingpanel, gui);
 	}
-	
-	private void  dummyconstrutor(AppointmentModel appointment,
-			SavedMeetingPanel newMeetingpanel, MainGUI gui){
+
+	private void dummyconstrutor(AppointmentModel appointment,
+			SavedMeetingPanel newMeetingpanel, MainGUI gui) {
 		this.gui = gui;
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
 		verb = ToDO.NOTHING;
 		meetingPanel.setTitteltextField(this.appointment.getText());
-		meetingPanel.setDato(""+this.appointment.getDate());
+		meetingPanel.setDato("" + this.appointment.getDate());
 		meetingPanel.setStartText("" + this.appointment.getStartTime());
 		meetingPanel.setEndText("" + this.appointment.getEndTime());
 		meetingPanel.setStede(this.appointment.getPlace());
@@ -61,14 +58,18 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.setAlarmText("insert alarm here! ");
 		meetingPanel.setCalendar(gui.getUserModel());
 		addPersonToCommingAndNot();
+
 		meetingPanel.getAvslag().addActionListener(this);
 		meetingPanel.getGodta().addActionListener(this);
 		meetingPanel.getRediger().addActionListener(this);
 		meetingPanel.getAddcalendar().addActionListener(this);
-		meetingPanel.getAddcalendar().addActionListener(this);
-
-		if (!(appointment.getHost() == gui.getUserModel())) {
+		meetingPanel.getMooteinnkalling().addActionListener(this);
+		meetingPanel.getReturnButton().addActionListener(this);
+		
+		
+		if (!(appointment.getHost().getUsername().equals(gui.getUserModel().getUsername()))) {
 			meetingPanel.getRediger().setVisible(false);
+			meetingPanel.getMooteinnkalling().setVisible(false);
 		}
 		if (appointment.getSendNotification()) {
 			meetingPanel.getMooteinnkalling().setEnabled(false);
@@ -80,52 +81,51 @@ public class SavedMeetingPanelController implements ActionListener,
 		}
 	}
 
-
 	public void isComming() {
 		meetingPanel.getAvslag().setEnabled(true);
 		meetingPanel.getNotComming().removeElement(gui.getUserModel());
 		meetingPanel.getComming().addElement(gui.getUserModel());
 		meetingPanel.getGodta().setEnabled(false);
+
+		System.out.println("your commin!");
 		
 		ArrayList<Object> que = new ArrayList<Object>();
 		que.add(gui.getUserModel());
 		que.add(appointment);
-		//que har {bruker, appointment}
+		// que har {bruker, appointment}
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
 				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
-						MSGFlagSubject.ISCOMMING,que ));
-		
+						MSGFlagSubject.ISCOMMING, que));
+
 		meetingPanel.getComming().clear();
 		meetingPanel.getNotComming().clear();
 		addPersonToCommingAndNot();
-		
-	}
-	
 
+	}
 
 	public void notComming() {
 		meetingPanel.getGodta().setEnabled(true);
 		meetingPanel.getComming().removeElement(gui.getUserModel());
 		meetingPanel.getNotComming().addElement(gui.getUserModel());
 		meetingPanel.getAvslag().setEnabled(false);
-		
+		System.out.println("your not comming");
+
 		ArrayList<Object> que = new ArrayList<Object>();
 		que.add(gui.getUserModel());
 		que.add(appointment);
-		//que har {bruker, appointment}
+		// que har {bruker, appointment}
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
 				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
-						MSGFlagSubject.ISNOTCOMMING,que ));
-		
+						MSGFlagSubject.ISNOTCOMMING, que));
+
 		meetingPanel.getComming().clear();
 		meetingPanel.getNotComming().clear();
 		addPersonToCommingAndNot();
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -136,8 +136,9 @@ public class SavedMeetingPanelController implements ActionListener,
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
 			gui.initCreateAppointment(appointment);
-			
+
 		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
+			System.out.println("pokemon");
 			meetingPanel.getMooteinnkalling().setEnabled(false);
 			appointment.setSendnotification(true);
 			sendNotification();
@@ -146,59 +147,59 @@ public class SavedMeetingPanelController implements ActionListener,
 			addAppointmentToCalender(appointment, (CalendarModel) meetingPanel
 					.getCalendarList().getSelectedItem());
 
+		}else if(e.getSource()==meetingPanel.getReturnButton()){
+			gui.initCalendar();
+			Global.respondGUI.remove(this);
 		}
 
 	}
 
 	public void addAppointmentToCalender(AppointmentModel appointment,
 			CalendarModel targetCal) {
-		ArrayList<Object> objectQue= new ArrayList<Object>();
+		ArrayList<Object> objectQue = new ArrayList<Object>();
 		objectQue.add(appointment.getId());
 		objectQue.add(targetCal.getId());
 		objectQue.add(oldCalID);
-		
-		if(oldCalID!=-1){
-		Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
-		Global.sHandler.setState(State.CONNECTED_WAITING);
-		Global.sHandler.writeMessage(Global.jaxbMarshaller
-				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
-						MSGFlagSubject.BELONGTO,objectQue ));
-	}
-		else{
+
+		if (oldCalID != -1) {
+			Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
+			Global.sHandler.setState(State.CONNECTED_WAITING);
+			Global.sHandler.writeMessage(Global.jaxbMarshaller
+					.getXMLRepresentation(0, MSGType.REQUEST,
+							MSGFlagVerb.UPDATE, MSGFlagSubject.BELONGTO,
+							objectQue));
+		} else {
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller
-					.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE,
-							MSGFlagSubject.BELONGTO,objectQue ));
-			}
+					.getXMLRepresentation(0, MSGType.REQUEST,
+							MSGFlagVerb.CREATE, MSGFlagSubject.BELONGTO,
+							objectQue));
+		}
 	}
-
-	
-	
 
 	public SavedMeetingPanel getMeetingPanel() {
 		return this.meetingPanel;
 	}
 
-	private void addPersonToCommingAndNot(){
-		ArrayList<Object> que= new ArrayList<Object>();
+	private void addPersonToCommingAndNot() {
+		ArrayList<Object> que = new ArrayList<Object>();
 		que.add(appointment.getId());
-		
-		
+
 		Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 		Global.sHandler.setState(State.CONNECTED_WAITING);
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
 				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
-						MSGFlagSubject.ISSUMMONEDTO_ACCEPTED,que));
-		
+						MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, que));
+
 	}
-	
+
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		// TODO Auto-generated method stub
 		if (success) {
 			/* Do we have response objects? */
-			 {
+			{
 				switch (verb) {
 				case SENDING:
 					verb = ToDO.NOTHING;
@@ -206,29 +207,38 @@ public class SavedMeetingPanelController implements ActionListener,
 				case NOTHING:
 					// The model has already been updated
 					break;
-					
+
 				case ISACCEPTED:
-					verb=ToDO.ISNOTACC;
-					for(Object com : al){
-					meetingPanel.getComming().addElement(com);}
-					
-					ArrayList<Object> que= new ArrayList<Object>();
+					verb = ToDO.ISNOTACC;
+					if(al!=null){
+					for (Object com : al) {
+						UserModel users = (UserModel)com;
+
+						meetingPanel.getComming().addElement(users.getUsername());
+					}
+					}
+
+					ArrayList<Object> que = new ArrayList<Object>();
 					que.add(appointment.getId());
 					Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 					Global.sHandler.setState(State.CONNECTED_WAITING);
 					Global.sHandler.writeMessage(Global.jaxbMarshaller
-							.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.UPDATE,
-									MSGFlagSubject.ISSUMMONEDTO_DENIED,que));
-					
-					
+							.getXMLRepresentation(0, MSGType.REQUEST,
+									MSGFlagVerb.UPDATE,
+									MSGFlagSubject.ISSUMMONEDTO_DENIED, que));
+
 					break;
-					
+
 				case ISNOTACC:
-					for(Object com : al){
-						meetingPanel.getNotComming().addElement(com);}
-					verb=ToDO.NOTHING;
-					break; 
-					
+					if(al!=null){
+					for (Object com : al) {
+						UserModel users = (UserModel)com;
+						meetingPanel.getNotComming().addElement(users.getUsername());
+					}
+					}
+					verb = ToDO.NOTHING;
+					break;
+
 				default:
 					break;
 				}

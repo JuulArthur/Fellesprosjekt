@@ -42,7 +42,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		alist  = new ArrayList<Object>();
 		participants = new ArrayList<UserModel>();
 		uninvitedParticipants = new ArrayList<String>();
-		this.appointmentState = appointmentState.NOTHIN;
+		this.appointmentState = appointmentState.NOTHING;
 		setUserCalendar();
 		
 		this.view.saveBtnAddListener(this);
@@ -60,7 +60,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.user = gui.getUserModel();
 		this.am = am;
 		alist  = new ArrayList<Object>();
-		this.appointmentState = appointmentState.NOTHIN;
+		this.appointmentState = appointmentState.NOTHING;
 		
 		this.view.setTitteltextField(am.getTitle());
 		this.view.setBeskrivelseTextArea(am.getText());
@@ -115,12 +115,16 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
+		System.out.println(alist);
+		System.out.println(alist.size());
 		if(appointmentState == appointmentState.NEW_APPOINTMENT){
 			if(alist.size()==2 || alist.size()==4 || alist.size()==6){
+				System.out.println(alist.size());
 				alist.remove(0);
-				
+				System.out.println(alist.size());
 				if (alist.size()==1){
 					appointmentState = appointmentState.FIXCALENDAR;
+					System.out.println("ja");
 				}
 				else{
 					appointmentState = appointmentState.NEW_ALARM;
@@ -128,6 +132,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ALARM, alist));
+				System.out.println("gi deg da");
 				return true;
 			}
 			else if(alist.size()>1){
@@ -141,6 +146,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			return true;
 		}
 		else if (appointmentState == appointmentState.NEW_ALARM){
+			System.out.println(alist.size());
 			if(alist.size()>1){
 				alist.remove(0);
 				if(alist.size()==2){
@@ -185,16 +191,16 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (appointmentState == appointmentState.FIXCALENDAR){
 			alist.clear();
-			alist.add(view.getSelectedCalendar().getId());
-			alist.add(am.getId());
-			
-			appointmentState = appointmentState.NOTHIN;
+			alist.add(Long.toString(am.getId()));
+			alist.add(Long.toString(view.getSelectedCalendar().getId()));
+			System.out.println(alist);
+			appointmentState = appointmentState.NOTHING;
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
-			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.CALENDAR, alist));
+			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.BELONGTO, alist));
 			return true;
 		}
-		else if (appointmentState == appointmentState.NOTHIN){
+		else if (appointmentState == appointmentState.NOTHING){
 			Global.respondGUI.remove(this);
 			gui.initAppointment(am);
 			return true;
@@ -298,6 +304,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				alist.add(alm);
 			}
 			else if (alarmTimeText.length()!=0){
+				System.out.println("alarm");
 			}
 			if(appointmentState == appointmentState.UPDATE_APPOINTMENT){
 				appointmentState = appointmentState.NEW_APPOINTMENT;
@@ -358,5 +365,5 @@ enum AppointmentState {
 	SUMMONING,
 	UNSUMMONING,
 	FIXCALENDAR,
-	NOTHIN
+	NOTHING
 }
