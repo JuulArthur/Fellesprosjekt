@@ -95,6 +95,13 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 	
 	public void removeAllEvents(){
 		events = new ArrayList<Event>();
+		
+		try {
+			this.myDayView.refresh();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	public void addManyEvents(ArrayList<AppointmentModel> ams){
