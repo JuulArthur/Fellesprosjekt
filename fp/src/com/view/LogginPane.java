@@ -88,9 +88,6 @@ public class LogginPane extends JPanel {
 	public void addLogginButtonListener(ActionListener a){
 		buttonLoggin.addActionListener(a);
 	}
-	
-	
-
 
 	public JButton getButtonLoggin() {
 		return buttonLoggin;
@@ -106,12 +103,9 @@ public class LogginPane extends JPanel {
 		this.usernameField = usernameField;
 	}
 
-
 	public JPasswordField getPasswordField() {
 		return passwordField;
 	}
-	
-	
 	
 	public static void main (String args[]) {
         JFrame frame = new JFrame("Prototype");

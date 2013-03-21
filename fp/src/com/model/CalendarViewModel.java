@@ -30,56 +30,30 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JFrame;
-
 import org.joda.time.DateTime;
 
 import bizcal.common.Calendar;
 import bizcal.common.CalendarModel;
-import bizcal.common.DayViewConfig;
 import bizcal.common.Event;
 import bizcal.swing.DayView;
 import bizcal.util.DateInterval;
 import bizcal.util.DateUtil;
 
 public class CalendarViewModel extends CalendarModel.BaseImpl {
-	/*
-	 * public static void main(String[] args) throws Exception { DayView dayView
-	 * = new DayView(new DayViewConfig()); dayView.setModel(new
-	 * CalendarViewModel()); JFrame frame = new JFrame("Bizcal Demo");
-	 * dayView.refresh(); frame.setContentPane(dayView.getComponent());
-	 * frame.setSize(800, 600); frame.setVisible(true); }
-	 */
+
 	private List<Event> events = new ArrayList<Event>();
 	private DateInterval interval;
 	private Calendar cal;
 	
 	private DayView myDayView;
 
-	@SuppressWarnings("unchecked")
 	public CalendarViewModel() throws Exception {
-		
-		/*
-		Date date = DateUtil.round2Week(new Date());
-		date = new Date(date.getTime() + 8 * 60 * 60 * 1000);
-		for (int i = 0; i < 7; i++) {
-			Event event = new Event();
-			event.setStart(date);
-			event.setEnd(new Date(date.getTime() + 90 * 60 * 1000));
-			event.setSummary("Test " + i);
-			events.add(event);
-			date = DateUtil.getDiffDay(date, +1);
-			date = new Date(date.getTime() + 60 * 60 * 1000);
-		}*/
 		Date start = DateUtil.round2Week(new Date());
 		Date end = DateUtil.getDiffDay(start, +7);
 		interval = new DateInterval(start, end);
 		cal = new Calendar();
 		cal.setId(1);
 		cal.setSummary("Week view");
-		
-		
-
 	}
 	
 	public void setWeekStart(DateTime start) throws Exception{
@@ -90,7 +64,6 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		try {
 			this.myDayView.refresh();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -101,23 +74,40 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		try {
 			this.myDayView.refresh();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 	
+	public DateTime addIntegerHoursMinutes(DateTime time, int hoursMinutes){
+		
+		int count = 0;
+		while(hoursMinutes >= 60){
+			count++;
+			hoursMinutes -= 60;
+		}
+		time = time.withHourOfDay(count);
+		time = time.withMinuteOfHour(hoursMinutes);
+		return time;
+	}
+	
 	public void addManyEvents(ArrayList<AppointmentModel> ams){
 		for(AppointmentModel am : ams){
+			System.out.println(am.getTitle());
 			Event event = new Event();
 			event.setId(am.getId());
-			DateTime dt = new DateTime(am.getDate());
-			dt = dt.withHourOfDay(13);
 			
-			System.out.println(dt.toDate());
+			DateTime dt = new DateTime(am.getDate());
+			
+			
+			
+			dt = addIntegerHoursMinutes(dt, am.getStartTime());
+			
+			System.out.println(dt);
 			
 			event.setStart(dt.toDate());
 			
-			dt = dt.withHourOfDay(17);
+			dt = addIntegerHoursMinutes(dt, am.getEndTime());
+
 			System.out.println(dt);
 			event.setEnd(dt.toDate());
 			
@@ -130,7 +120,6 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		try {
 			this.myDayView.refresh();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -139,6 +128,7 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		return events;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getSelectedCalendars() throws Exception {
 		return Collections.nCopies(1, cal);
 	}

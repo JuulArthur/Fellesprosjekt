@@ -300,7 +300,13 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case ISSUMMONEDTO_ACCEPTED: // ArrayList users, long appointmentid
-							factory.updateIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
+							long appId = Long.valueOf((String)msgW.getObjects().get(0));
+							msgW.getObjects().remove(0);
+							ArrayList<UserModel> users = new ArrayList<UserModel>();
+							for (int i=0; i<msgW.getObjects().size();i++){
+								users.add((UserModel)msgW.getObjects().get(i));
+							}
+							factory.updateIsSummonedTo(users, appId);//((UserModel)msgW.getObjects().get(0));
 							break;
 							
 						case BELONGTO: //appointmentid, newCalID, oldCalId
@@ -411,21 +417,3 @@ public class ClientHandler  extends ServiceHandler {
 	    return new ArrayList<Long>();
 	}
 }
-
-
-
-/*
-Runnable runnable = new Runnable() {
-	@Override
-	public void run() {
-		try {
-			login = server.getFactory().checkPassword(um.getUsername(), um.getPassword());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-};
-
-POOL.execute(runnable);*/
