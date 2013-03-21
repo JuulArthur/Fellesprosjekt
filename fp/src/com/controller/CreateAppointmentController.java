@@ -49,6 +49,9 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.view.returnBtnAddListener(this);
 		this.view.removePersonBtnAddListener(this);
 		this.view.addPersonBtnAddListener(this);
+		
+		this.view.getChooseRomButton().addActionListener(this);
+
 	}
 	
 	public CreateAppointmentController(MainGUI gui, MeetingPanel view, AppointmentModel am){
@@ -77,6 +80,8 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		this.view.removePersonBtnAddListener(this);
 		this.view.addPersonBtnAddListener(this);
 		this.view.setPlaceText(am.getPlace());
+		
+		this.view.getChooseRomButton().addActionListener(this);
 	}
 	
 	private void setUserCalendar(){
@@ -337,6 +342,10 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (e.getSource() == view.getRemovePersonBtn()){
 			view.deleteParticipant();
+		}
+		else if (e.getSource() == view.getChooseRomButton()){
+			MeetingRoomController mrc = new MeetingRoomController(gui, view);
+			Global.respondGUI.add(mrc);
 		}
 		
 	}

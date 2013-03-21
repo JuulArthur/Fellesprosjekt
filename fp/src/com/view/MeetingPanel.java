@@ -93,7 +93,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		add(btnChooseDate, gbc_btnChooseDate);
 		
 		btnChooseRoom = new JButton("+");
-		btnChooseRoom.addActionListener(new chooseRoomAction());
+		//btnChooseRoom.addActionListener(new chooseRoomAction());
 		GridBagConstraints gbc_btnChooseRoom = new GridBagConstraints();
 		gbc_btnChooseRoom.anchor = GridBagConstraints.WEST;
 		gbc_btnChooseRoom.insets = new Insets(0, 0, 5, 5);
@@ -228,7 +228,7 @@ public class MeetingPanel extends MainMeetingPanel {
 	}	
 	public static void main(String[] args) {
 		MeetingPanel meetingPanel = new MeetingPanel();
-		JFrame frame = new JFrame("Avtale/Møte");
+		JFrame frame = new JFrame("Avtale/Mï¿½te");
 		frame.getContentPane().add(meetingPanel);
 		frame.pack();
 		frame.setLocationRelativeTo(null);		// Places the JFrame in the middle of the screen
@@ -237,7 +237,7 @@ public class MeetingPanel extends MainMeetingPanel {
 		
 	}
 	
-	
+	/*
 	class chooseRoomAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			MeetingRoomPanel meetingRoom = new MeetingRoomPanel();
@@ -250,7 +250,7 @@ public class MeetingPanel extends MainMeetingPanel {
 			meetingRoom.setFrame(meetingRoomFrame);
 
 		}
-	}
+	}*/
 	
 //	class saveAction implements ActionListener {
 //		public void actionPerformed(ActionEvent e) {
