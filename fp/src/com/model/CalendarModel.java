@@ -2,7 +2,6 @@ package com.model;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.table.AbstractTableModel;
 import javax.xml.bind.annotation.*;
@@ -11,6 +10,10 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalendarModel extends AbstractTableModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public final static String ID_PROPERTY = "Id";
 	public final static String APPOINTMENTS_PROPERTY = "Appointments";
 	public final static String APPOINTMENTSSUMMONEDTO_PROPERTY = "appointmentsSummonedTo";
@@ -125,9 +128,9 @@ public class CalendarModel extends AbstractTableModel {
 
 	@Override
 	public String toString() {
-		String s =  "CalendarModel [id=" + id + ", appointments=" + appointments
+		/*String s =  "CalendarModel [id=" + id + ", appointments=" + appointments
 				+ ", owner=" + owner + ", name=" + name + ", calendar="
-				+ Arrays.toString(calendar) + "]";
+				+ Arrays.toString(calendar) + "]";*/
 		return getName();
 	}
 
