@@ -115,8 +115,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		System.out.println(alist);
-		System.out.println(alist.size());
+		System.out.println("PRRINT MEG");
 		if(appointmentState == appointmentState.NEW_APPOINTMENT){
 			if(alist.size()==2 || alist.size()==4 || alist.size()==6){
 				System.out.println(alist.size());
@@ -137,10 +136,15 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			}
 			else if(alist.size()>1){
 				appointmentState = appointmentState.SUMMONING;
-				
+				ArrayList<Object> sendList = new ArrayList<Object>();
+				sendList.add(am.getId());
+				for (UserModel user : participants){
+					sendList.add(user);
+				}
+				System.out.println(sendList);
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
-				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
+				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, sendList));
 				return true;
 			}
 			return true;
@@ -170,6 +174,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				else{
 					appointmentState = appointmentState.SUMMONING;
 					
+					
 					Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 					Global.sHandler.setState(State.CONNECTED_WAITING);
 					Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, alist));
@@ -194,6 +199,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			alist.add(Long.toString(am.getId()));
 			alist.add(Long.toString(view.getSelectedCalendar().getId()));
 			System.out.println(alist);
+			System.out.println("er det her");
 			appointmentState = appointmentState.NOTHING;
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
@@ -317,19 +323,21 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			
 			//Then i add the participants if there are some
 			if(participants.size()>0){
-				alist.add(participants);
-				alist.add(Long.toString(am.getId()));
+				alist.add("invitedParticipants");
+				alist.add("inviteID");
 			}
 			//Then add the participants to be removed
 			if(uninvitedParticipants.size()>0){
-				alist.add(uninvitedParticipants);
-				alist.add(Long.toString(am.getId()));
+				alist.add("uninviteParticipants");
+				alist.add("ID");
 				shallUninvite = true;
 			}
 			appointmentState = appointmentState.NEW_APPOINTMENT;
 			
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
+			System.out.println("Skj¿nner du dette");
+			System.out.println(alist);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.APPOINTMENT, alist));
 		}
 		else if(e.getSource() == view.getReturnButton()){
