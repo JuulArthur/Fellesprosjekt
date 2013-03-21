@@ -236,10 +236,12 @@ public class UserModel {
 
 	@Override
 	public String toString() {
-		return "UserModel [username=" + username + ", password=" + password
+		String no =  "UserModel [username=" + username + ", password=" + password
 				+ ", email=" + email + ", name=" + name + ", surname="
 				+ surname + ", phoneNumber=" + phoneNumber + ", isAdmin="
 				+ isAdmin + ", notifications=" + notifications + "]";
+		
+		return getName() + " " + getSurname();
 	}
 	public ArrayList<CalendarModel> getMyCalendar(){
 		return this.myCalendars;

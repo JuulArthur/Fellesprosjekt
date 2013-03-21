@@ -125,9 +125,10 @@ public class CalendarModel extends AbstractTableModel {
 
 	@Override
 	public String toString() {
-		return "CalendarModel [id=" + id + ", appointments=" + appointments
+		String s =  "CalendarModel [id=" + id + ", appointments=" + appointments
 				+ ", owner=" + owner + ", name=" + name + ", calendar="
 				+ Arrays.toString(calendar) + "]";
+		return getName();
 	}
 
 }

@@ -46,14 +46,21 @@ public class ManageCalendarsJDialogController implements IServerResponse, Action
 		if(success){
 			/* Do we have response objects? */
 			if(al == null){
+				switch (verb) {
+				case UPDATE:
+					manageCalendars.setVisible(false);
+					manageCalendars.dispose();
+					Global.respondGUI.remove(this);
+					break;
+
+				default:
+					break;
+				}
 			}
 			else{
 				switch (verb) {
 				case CREATE:
 					calendarController.addCalenderModelItem(model);	
-					break;
-				case UPDATE:
-					//The model has already been updated
 					break;
 
 				default:
