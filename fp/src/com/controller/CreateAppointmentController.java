@@ -116,14 +116,13 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 	@Override
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
 		System.out.println("PRRINT MEG");
+		System.out.println(alist.size());
+		System.out.println(appointmentState);
 		if(appointmentState == appointmentState.NEW_APPOINTMENT){
 			if(alist.size()==2 || alist.size()==4 || alist.size()==6){
-				System.out.println(alist.size());
 				alist.remove(0);
-				System.out.println(alist.size());
 				if (alist.size()==1){
 					appointmentState = appointmentState.FIXCALENDAR;
-					System.out.println("ja");
 				}
 				else{
 					appointmentState = appointmentState.NEW_ALARM;
@@ -131,7 +130,6 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ALARM, alist));
-				System.out.println("gi deg da");
 				return true;
 			}
 			else if(alist.size()>1){
@@ -141,7 +139,6 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 				for (UserModel user : participants){
 					sendList.add(user);
 				}
-				System.out.println(sendList);
 				Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 				Global.sHandler.setState(State.CONNECTED_WAITING);
 				Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.ISSUMMONEDTO_ACCEPTED, sendList));
@@ -150,7 +147,6 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			return true;
 		}
 		else if (appointmentState == appointmentState.NEW_ALARM){
-			System.out.println(alist.size());
 			if(alist.size()>1){
 				alist.remove(0);
 				if(alist.size()==2){
@@ -163,6 +159,15 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 						return true;
 					}
 					else{
+						
+						alist.clear();
+						String lol;
+						lol=""+am.getId();
+						alist.add(lol);
+//						alist.add(Long.toString(am.getId()));
+						for (UserModel user: participants){
+							alist.add(user);
+						}
 						appointmentState = appointmentState.FIXCALENDAR;
 						
 						Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
@@ -198,8 +203,6 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			alist.clear();
 			alist.add(Long.toString(am.getId()));
 			alist.add(Long.toString(view.getSelectedCalendar().getId()));
-			System.out.println(alist);
-			System.out.println("er det her");
 			appointmentState = appointmentState.NOTHING;
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
@@ -217,6 +220,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == view.getSaveButton()){
+			Global.respondGUI.add(this);
 			int startTime;
 			int endTime;
 			int year;
@@ -336,8 +340,6 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
-			System.out.println("Skj¿nner du dette");
-			System.out.println(alist);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.CREATE, MSGFlagSubject.APPOINTMENT, alist));
 		}
 		else if(e.getSource() == view.getReturnButton()){
@@ -352,7 +354,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 		}
 		else if (e.getSource() == view.getAddParticipantButton()){
 			Global.respondGUI.remove(this);
-			AddParticipantController participantController = new AddParticipantController(this.gui, view);	
+			AddParticipantController participantController = new AddParticipantController(this.gui, view, this);	
 			Global.respondGUI.add(participantController);
 		}
 		else if (e.getSource() == view.getRemovePersonBtn()){

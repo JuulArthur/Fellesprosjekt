@@ -244,7 +244,13 @@ public class ClientHandler  extends ServiceHandler {
 							factory.createUserModel((UserModel)msgW.getObjects().get(0));
 							break;
 						case ISSUMMONEDTO_ACCEPTED: // ArrayList users, long appointmentid
-							factory.createIsSummonedTo((ArrayList<UserModel>)msgW.getObjects().get(0), Long.valueOf((String)msgW.getObjects().get(1)));//((UserModel)msgW.getObjects().get(0));
+							System.out.println(msgW.getObjects().get(0));
+							long tempLong = Long.parseLong((String)msgW.getObjects().get(0));
+							ArrayList<UserModel> midUsers = new ArrayList<UserModel>();
+							for (int i = 1;i<msgW.getObjects().size();i++){
+								midUsers.add((UserModel)msgW.getObjects().get(i));
+							}
+							factory.createIsSummonedTo(midUsers, tempLong);//((UserModel)msgW.getObjects().get(0));
 							break;
 
 						default:

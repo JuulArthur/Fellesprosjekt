@@ -26,14 +26,16 @@ public class AddParticipantController implements IServerResponse, ActionListener
 	private DefaultListModel userListModel, groupListModel;
 	private boolean ifGroups;
 	private UserModel usermodel;
+	private CreateAppointmentController cac;
 	
 	ArrayList<Object> users;	
 	private MSGFlagVerb verb;	
 	
-	public AddParticipantController(MainGUI gui, MeetingPanel meeting) {
+	public AddParticipantController(MainGUI gui, MeetingPanel meeting, CreateAppointmentController cac) {
 		ifGroups = false;
 		this.gui = gui;
 		this.m_view = meeting;
+		this.cac = cac;
 		
 		participantPanel = new AddParticipantPanel();
 		participantPanel.setLocationRelativeTo(null);
@@ -121,6 +123,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			participantPanel.setVisible(false);
 			participantPanel.dispose();
 			Global.respondGUI.remove(this);
+			Global.respondGUI.remove(cac);
 		}
 	}
 }

@@ -129,8 +129,8 @@ public class MainGUI extends JFrame{
 		this.getContentPane().add(createAppointmentView);
 		this.pack();
 		
+		//Global.respondGUI.add(createAppointmentController);
 		this.createAppointmentController = new CreateAppointmentController(this, createAppointmentView);
-		Global.respondGUI.add(createAppointmentController);
 	}
 	
 	public void initCreateAppointment(AppointmentModel am){
@@ -139,8 +139,8 @@ public class MainGUI extends JFrame{
 		this.getContentPane().add(createAppointmentView);
 		this.pack();
 		
+		//Global.respondGUI.add(createAppointmentController);
 		this.createAppointmentController = new CreateAppointmentController(this, createAppointmentView, am);
-		Global.respondGUI.add(createAppointmentController);
 	}
 	
 	public void initAppointment(AppointmentModel inputAppointment){
