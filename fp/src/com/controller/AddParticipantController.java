@@ -93,6 +93,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		if (e.getSource() == participantPanel.getBtnAddUser()) {
 			// Legger bruker til participantlist i MeetingPanel viewet
 			JList userList = m_view.getParticipantList();
+			userListModel = (DefaultListModel) userList.getModel();
 			UserModel selectedUser = (UserModel) participantPanel.getUserComboBox().getSelectedItem();
 			
 			if (!userListModel.contains(selectedUser)) {
@@ -105,7 +106,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 		else if (e.getSource() == participantPanel.getBtnAddGroup()) {
 			// legger gruppe til participantlist i meetingPanel viewet
 			JList groupList = m_view.getParticipantList();
-			
+			groupListModel = (DefaultListModel) groupList.getModel();
 			Object selectedGroup = participantPanel.getGroupComboBox().getSelectedItem();
 
 			if (!groupListModel.contains(selectedGroup)) {
