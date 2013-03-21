@@ -94,7 +94,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			// Legger bruker til participantlist i MeetingPanel viewet
 			JList userList = m_view.getParticipantList();
 			userListModel = (DefaultListModel) userList.getModel();
-			UserModel selectedUser = (UserModel) participantPanel.getUserComboBox().getSelectedItem();
+			Object selectedUser = participantPanel.getUserComboBox().getSelectedItem();
 			
 			if (!userListModel.contains(selectedUser)) {
 				userListModel.addElement(selectedUser);
