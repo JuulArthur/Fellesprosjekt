@@ -49,10 +49,14 @@ public class SavedMeetingPanelController implements ActionListener,
 		this.appointment = appointment;
 		this.meetingPanel = newMeetingpanel;
 		verb = ToDO.NOTHING;
-		meetingPanel.setTitteltextField(this.appointment.getText());
+		meetingPanel.setTitteltextField(this.appointment.getTitle());
 		meetingPanel.setDato("" + this.appointment.getDate());
-		meetingPanel.setStartText("" + this.appointment.getStartTime());
-		meetingPanel.setEndText("" + this.appointment.getEndTime());
+		int hour = appointment.getStartTime()/60;
+		int min = (appointment.getStartTime())-hour*60;
+		meetingPanel.setStartText("" +hour+":"+min);
+		 hour = appointment.getEndTime()/60;
+		 min = (appointment.getEndTime())-(hour*60);
+		meetingPanel.setEndText("" +hour+":"+min);
 		meetingPanel.setStede(this.appointment.getPlace());
 		meetingPanel.setBeskrivelseTextArea(this.appointment.getText());
 		meetingPanel.setAlarmText("insert alarm here! ");
@@ -83,8 +87,8 @@ public class SavedMeetingPanelController implements ActionListener,
 
 	public void isComming() {
 		meetingPanel.getAvslag().setEnabled(true);
-		meetingPanel.getNotComming().removeElement(gui.getUserModel());
-		meetingPanel.getComming().addElement(gui.getUserModel());
+		meetingPanel.getNotComming().removeElement(gui.getUserModel().getUsername());
+		meetingPanel.getComming().addElement(gui.getUserModel().getUsername());
 		meetingPanel.getGodta().setEnabled(false);
 
 		System.out.println("your commin!");
@@ -107,8 +111,8 @@ public class SavedMeetingPanelController implements ActionListener,
 
 	public void notComming() {
 		meetingPanel.getGodta().setEnabled(true);
-		meetingPanel.getComming().removeElement(gui.getUserModel());
-		meetingPanel.getNotComming().addElement(gui.getUserModel());
+		meetingPanel.getComming().removeElement(gui.getUserModel().getUsername());
+		meetingPanel.getNotComming().addElement(gui.getUserModel().getUsername());
 		meetingPanel.getAvslag().setEnabled(false);
 		System.out.println("your not comming");
 
@@ -135,7 +139,9 @@ public class SavedMeetingPanelController implements ActionListener,
 		} else if (e.getSource() == meetingPanel.getAvslag()) {
 			notComming();
 		} else if (e.getSource() == meetingPanel.getRediger()) {
-			gui.initCreateAppointment(appointment);
+			gui.initCreateAppointment(this.appointment);
+			Global.respondGUI.remove(this);
+
 
 		} else if (e.getSource() == meetingPanel.getMooteinnkalling()) {
 			System.out.println("pokemon");
@@ -157,11 +163,18 @@ public class SavedMeetingPanelController implements ActionListener,
 	public void addAppointmentToCalender(AppointmentModel appointment,
 			CalendarModel targetCal) {
 		ArrayList<Object> objectQue = new ArrayList<Object>();
-		objectQue.add(appointment.getId());
-		objectQue.add(targetCal.getId());
-		objectQue.add(oldCalID);
 
 		if (oldCalID != -1) {
+			String mothertickler;
+			mothertickler=""+appointment.getId();
+			objectQue.add(mothertickler);
+			String flipp;
+			flipp=""+targetCal.getId();
+			objectQue.add(flipp);
+			String flopp;
+			flopp=""+oldCalID;
+			
+			objectQue.add(flopp);
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.UPDATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller
