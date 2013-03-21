@@ -120,6 +120,7 @@ public class AddParticipantController implements IServerResponse, ActionListener
 			System.out.println("Backbtn - Pressed");
 			participantPanel.setVisible(false);
 			participantPanel.dispose();
+			Global.respondGUI.remove(this);
 		}
 	}
 }
