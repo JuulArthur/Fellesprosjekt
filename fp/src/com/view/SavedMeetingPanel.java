@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 
 import java.awt.GridBagLayout;
@@ -272,9 +273,11 @@ public class SavedMeetingPanel extends MainMeetingPanel {
 	public void setCalendar(UserModel userModel) {
 		ArrayList<CalendarModel> calenderque=  userModel.getMyCalendar();
 		if(calenderque != null ){
+			
 		for (Object diffCal: calenderque ){
-			( this.calenderList).addItem(diffCal);
+			( this.calenderList).addItem((CalendarModel)diffCal);
 		}
 		}
 	}
+	
 }
