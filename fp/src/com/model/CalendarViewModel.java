@@ -77,6 +77,8 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 		cal = new Calendar();
 		cal.setId(1);
 		cal.setSummary("Week view");
+		
+		
 
 	}
 	
@@ -107,6 +109,7 @@ public class CalendarViewModel extends CalendarModel.BaseImpl {
 	public void addManyEvents(ArrayList<AppointmentModel> ams){
 		for(AppointmentModel am : ams){
 			Event event = new Event();
+			event.setId(am.getId());
 			DateTime dt = new DateTime(am.getDate());
 			dt = dt.withHourOfDay(13);
 			
