@@ -157,6 +157,8 @@ public class MeetingRoomPanel extends JDialog {
 		gbc_btnChooseRoom.gridy = 5;
 		add(btnChooseRoom, gbc_btnChooseRoom);
 		
+		this.pack();
+		
 	}
 	
 	class returnAction implements ActionListener {
