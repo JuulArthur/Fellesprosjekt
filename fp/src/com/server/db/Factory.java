@@ -498,9 +498,8 @@ public class Factory {
 		
 		ArrayList<Object> takenRooms = new ArrayList<Object>();
 		String query = String
-				.format("SELECT Reserved.RoomNumber From Reserved INNER JOIN (select * from Appointment where startTime >= '%d' and endTime <= '%d') ON Appointment.id = Reserved.appointmentid",
+				.format("SELECT Reserved.RoomNumber From Reserved INNER JOIN (select * from Appointment where startTime >= '%d' and endTime <= '%d') AS app ON app.id = Reserved.appointmentid",
 						startTime, endTime);
-		System.out.println(query);
 		
 		//"SELECT Reserved.roomnumber From Reserved INNER JOIN \"Appointment where startTime >= '%d' and endTime <= '%d'\" ON Appointment.id = Reserved.appointmentid"
 		ResultSet rs = makeQuery(query);
@@ -510,7 +509,7 @@ public class Factory {
 		}
 		rs.close();
 
-		rooms.remove(takenRooms);
+		rooms.removeAll(takenRooms);
 		
 		return rooms;
 	}
