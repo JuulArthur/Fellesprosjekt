@@ -17,6 +17,11 @@ import com.model.UserModel;
 import com.server.db.Factory;
 
 public class SystemTests {
+	
+	/**
+	 * You will need a database called testdatabase, and that database needs to have all tables from the original database
+	 * See com.server.db/DatabaseConnector.java for more information
+	 */
 
 	static Factory f;
 
