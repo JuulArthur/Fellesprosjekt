@@ -186,6 +186,10 @@ public class MainMeetingPanel extends JPanel {
 	}
 	
 	public String getStartText(){
+		
+
+		
+		
 		return startTextField.getText();
 	}
 	

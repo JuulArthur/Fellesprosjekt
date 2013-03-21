@@ -189,7 +189,7 @@ public class MeetingRoomPanel extends JDialog {
 		return btnSk;
 	}
 	public int getCapacity(){
-		return Integer.parseInt((String) spinner.getValue());
+		return (Integer)spinner.getValue();
 	}
 	
 	
