@@ -381,7 +381,6 @@ public class ClientHandler  extends ServiceHandler {
 							disconnect();
 							server.removeCLient(this);
 						} catch (Exception e) {
-							// TODO: handle exception
 						}
 						break;
 					default:
@@ -409,11 +408,5 @@ public class ClientHandler  extends ServiceHandler {
 		}
 		
 			
-	}
-	
-	public ArrayList<?> myMethod()
-	{
-	    // for ArrayList of longs:
-	    return new ArrayList<Long>();
 	}
 }

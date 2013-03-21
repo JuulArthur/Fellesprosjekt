@@ -33,6 +33,9 @@ public class Factory {
 
 	public CalendarModel createCalendarModel(CalendarModel cm)
 			throws SQLException, ClassNotFoundException {
+		System.out.println(cm.getId());
+		System.out.println(cm.getName());
+		System.out.println(cm.getOwner());
 		return createCalendarModel(cm.getId(), cm.getName(),
 				cm.getAppointments(), cm.getOwner());
 	}
