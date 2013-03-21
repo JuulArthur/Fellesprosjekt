@@ -47,8 +47,12 @@ public class AddOtherCalendarsJDialogController implements IServerResponse, Acti
 		this.calendarController = calendarController;
 		addOtherCalendars = new AddOtherCalendarsJDialog();
 		addOtherCalendars.setLocationRelativeTo(calendarController.getMain());
-		addOtherCalendars.setVisible(true);
 		addOtherCalendars.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+		
+		addOtherCalendars.getBtnAvbryt().addActionListener(this);
+		addOtherCalendars.getBtnNewButton().addActionListener(this);
+		addOtherCalendars.getBtnSk().addActionListener(this);
+		
 		
 		addOtherCalendars.addWindowListener(new WindowAdapter() {
 			public void windowClosed(WindowEvent e) {
@@ -95,6 +99,8 @@ public class AddOtherCalendarsJDialogController implements IServerResponse, Acti
 		Global.sHandler.writeMessage(Global.jaxbMarshaller
 				.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET,
 						MSGFlagSubject.ALLUSERS, al));
+		
+		addOtherCalendars.setVisible(true);
 	}
 	
 	@Override

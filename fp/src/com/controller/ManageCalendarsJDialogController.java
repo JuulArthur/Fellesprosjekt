@@ -57,7 +57,7 @@ public class ManageCalendarsJDialogController implements IServerResponse, Action
 		/*Check if last request was successful*/
 		if(success){
 			/* Do we have response objects? */
-			if(al == null){
+			if(al != null){
 				switch (verb) {
 				case UPDATE:
 					manageCalendars.setVisible(false);
