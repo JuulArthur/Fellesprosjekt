@@ -508,7 +508,7 @@ public class Factory {
 		}
 		rs.close();
 
-		rooms.remove(takenRooms);
+		rooms.removeAll(takenRooms);
 		
 		return rooms;
 	}
