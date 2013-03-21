@@ -141,6 +141,8 @@ public class AddOtherCalendarsJDialogController implements IServerResponse, Acti
 			}*/
 		}
 		else if (e.getSource() == addOtherCalendars.getBtnNewButton()){
+			if(selectedCalendarModel != null)
+				calendarController.addOtherCalenderModelItem(selectedCalendarModel);
 			addOtherCalendars.setVisible(false);
 			addOtherCalendars.dispose();
 			Global.respondGUI.remove(this);
