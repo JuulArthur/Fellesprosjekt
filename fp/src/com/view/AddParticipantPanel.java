@@ -150,7 +150,7 @@ public class AddParticipantPanel extends JDialog {
 	
 	public void setGroupComboBox(ArrayList<Object> groups) {
 		for(Object group : groups) {
-			groupComboBox.addItem(group.toString());
+			groupComboBox.addItem(group);
 		}
 	}
 

@@ -169,7 +169,7 @@ public class ClientHandler  extends ServiceHandler {
 							break;
 							
 						case AVAILIBLEROOM:
-							al.add(factory.getAvailableRooms((Integer)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1), (Integer)msgW.getObjects().get(2)));
+							al = factory.getAvailableRooms((Integer)msgW.getObjects().get(0), (Integer)msgW.getObjects().get(1), (Integer)msgW.getObjects().get(2));
 							
 						case USER: //String username
 							al.add(factory.getUserModel((String)msgW.getObjects().get(0)));

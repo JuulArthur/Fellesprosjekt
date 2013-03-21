@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JList;
+import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
@@ -27,15 +28,22 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 
 	
 
-	public MeetingRoomController(MainGUI gui, MeetingRoomPanel view, AppointmentModel appointment, MainMeetingPanel meeting) {
+	public MeetingRoomController(MainGUI gui, MainMeetingPanel meeting) {
 		this.gui = gui;
-		this.view = view;
-		this.appointment = appointment;
+		this.view = new MeetingRoomPanel();
+		//this.appointment = appointment;
 		this.meeting = meeting;
 		
-	
 		view.setStartText(""+meeting.getStartText());
 		view.setEndText(""+meeting.getEndText());
+		
+		view.getSearch().addActionListener(this);
+		
+		view.setLocationRelativeTo(gui);
+		
+		view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);	
+		view.setVisible(true);
+
 		
 	}
 	
@@ -55,8 +63,8 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		if (e.getSource() == view.getSearch()){
 			//hente ut en liste over ledige rom ut fra kapasitet og tidspunkt
 			alist.add(view.getCapacity());
-			alist.add(meeting.getStartText());
-			alist.add(meeting.getEndText());
+			alist.add(createNumValue(meeting.getStartText()));
+			alist.add(createNumValue(meeting.getEndText()));
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.GET);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
 			Global.sHandler.writeMessage(Global.jaxbMarshaller.getXMLRepresentation(0, MSGType.REQUEST, MSGFlagVerb.GET, MSGFlagSubject.AVAILIBLEROOM, alist));
@@ -66,7 +74,7 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		
 		
 		else if (e.getSource() == view.getChooseRoom()){
-			//legge til valgte rom i appointmentModel og gŒ tilbake til MeetingPanel
+			//legge til valgte rom i appointmentModel og gï¿½ tilbake til MeetingPanel
 			appointment.setPlace((String) view.getRoomList().getSelectedValue());
 			
 			
@@ -75,6 +83,16 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		
 		
 		
+	}
+	
+	private int createNumValue(String s){
+		String  b[] = s.split("\\:");
+
+		int a = Integer.parseInt(b[0]);
+		a *= 60;
+		a += Integer.parseInt(b[1]);
+		
+		return a;
 	}
 
 

@@ -18,7 +18,7 @@ public class RoomModel {
 
 	//fjerne romnummer og gjoere romnavn til primary key i databasen
 	@XmlElement(name="roomnumber")
-	private int roomNumber;
+	private long roomNumber;
 	@XmlElement(name="roomname")
 	private String roomName;
 	@XmlElement(name="capacity")
@@ -28,7 +28,7 @@ public class RoomModel {
 
 	public RoomModel() {} /* for jaxb */
 	
-	public RoomModel(int roomNumber, String roomName,
+	public RoomModel(long roomNumber, String roomName,
 			int capacity, String location) {
 		this.roomNumber = roomNumber;
 		this.roomName = roomName;
@@ -39,12 +39,12 @@ public class RoomModel {
 	
 	/* setters & getters */
 
-	public int getRoomNumber() {
+	public long getRoomNumber() {
 		return roomNumber;
 	}
 
-	public void setRoomNumber(int roomNumber) {
-		int oldValue = this.roomNumber;
+	public void setRoomNumber(long roomNumber) {
+		long oldValue = this.roomNumber;
 		this.roomNumber = roomNumber;
 		changeSupport.firePropertyChange(ROOMNUMBER_PROPERTY, oldValue, roomNumber);
 	}
