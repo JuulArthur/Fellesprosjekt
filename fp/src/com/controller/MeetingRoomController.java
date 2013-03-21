@@ -1,14 +1,22 @@
 package com.controller;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.WindowConstants;
 
 import com.client.MainGUI;
 import com.model.AppointmentModel;
+import com.model.CalendarModel;
+import com.model.RoomModel;
 import com.net.msg.MSGFlagSubject;
 import com.net.msg.MSGFlagVerb;
 import com.net.msg.MSGType;
@@ -25,6 +33,8 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 	private AppointmentModel appointment;
 	private MainMeetingPanel meeting;
 	private ArrayList<Object> alist = new ArrayList<Object>();
+	
+	private DefaultListModel<RoomModel> defaultListModel;
 
 	
 
@@ -33,11 +43,27 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 		this.view = new MeetingRoomPanel();
 		//this.appointment = appointment;
 		this.meeting = meeting;
+		defaultListModel = new DefaultListModel<RoomModel>();
 		
 		view.setStartText(""+meeting.getStartText());
 		view.setEndText(""+meeting.getEndText());
 		
 		view.getSearch().addActionListener(this);
+		
+		view.addWindowListener(new WindowAdapter() 
+		{
+		  public void windowClosed(WindowEvent e)
+		  {
+		    
+		  }
+
+		  public void windowClosing(WindowEvent e)
+		  {
+		    Global.respondGUI.remove(this);
+		  }
+		});
+		
+		view.getRoomList().setCellRenderer(new RoomListRenderer());
 		
 		view.setLocationRelativeTo(gui);
 		
@@ -49,9 +75,12 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 	
 
 	public boolean recievedObjectRespone(boolean success, ArrayList<Object> al) {
-		if (success) {
-			JList rooms = new JList(al.toArray());
-			view.setRoomList(rooms);
+		if (success) {		
+			defaultListModel = new DefaultListModel<RoomModel>();
+			for(Object o : al)
+				defaultListModel.addElement((RoomModel)o);
+			
+			view.getRoomList().setModel(defaultListModel);
 			}
 			
 		return false;
@@ -96,6 +125,37 @@ public class MeetingRoomController implements ActionListener, IServerResponse {
 	}
 
 
+}
+
+class RoomListRenderer extends DefaultListCellRenderer{
+	
+	//private static ImageIcon maleIcon;
+	//private static ImageIcon femaleIcon;
+	
+	@Override 
+	public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {  
+        JLabel lbl = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus );  
+        
+        /*
+        if(maleIcon == null){
+        	maleIcon = new ImageIcon(new ImageIcon("img/Comics-Hero-Red-icon.png").getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
+        	femaleIcon = new ImageIcon(new ImageIcon("img/Street-Fighter-Chun-Li-icon.png").getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
+        }
+        */
+        
+        RoomModel room = (RoomModel)value;
+        
+        /*
+        if(person.getGender() == Gender.female)      
+            lbl.setIcon(femaleIcon);
+        else
+            lbl.setIcon(maleIcon);
+            */
+		
+		lbl.setText("<html><b>" + room.getRoomName() + "</b></html>");//<br/><i>" + calendar.getOwner() +"</i></html>");
+
+		return lbl;
+	}
 }
 
 	
