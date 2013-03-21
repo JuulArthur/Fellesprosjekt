@@ -147,9 +147,6 @@ public class ServerHandler extends ServiceHandler {
 						}
 						break;
 					}	
-					
-
-					
 					/* Must always null out a response*/
 					
 					//END ACCEPT
@@ -176,8 +173,6 @@ public class ServerHandler extends ServiceHandler {
 		default:
 			break;
 		}
-		
-		
 	}
 	
 	/**

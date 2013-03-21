@@ -104,44 +104,5 @@ public class MessageReader implements Runnable {
 			this.client.errorOnRead(e);
 			throw new RuntimeException(e);
 		}
-
 	}
-
 }
-
-/*
-System.out.println(size);
-JAXBUnmarshaller jux = new JAXBUnmarshaller();
-
-UserModel u = jux.UserModelUnmarshaller(this.stream);
-
-System.out.println(u.getUsername());
-System.out.println(u.getPassword());*/
-
-/*
- * XML Reader from stream with filter
- */
-/*
- XMLInputFactory xmlif = XMLInputFactory.newInstance();
- XMLEventReader xmler = xmlif.createXMLEventReader(this.stream);
- EventFilter filter = new EventFilter() {
-     public boolean accept(XMLEvent event) {
-         return true;//event.isStartElement();
-     }
- };
- XMLEventReader xmlfer = xmlif.createFilteredReader(xmler, filter); 
-
- // Parse into typed objects
- JAXBContext ctx = JAXBContext.newInstance("com.model");
- Unmarshaller um = ctx.createUnmarshaller();
- int bugs = 0;
- while (xmlfer.peek() != null) {
-      Object o = um.unmarshal(xmler);
-      if (o instanceof UserModel) {
-    	  UserModel bi = (UserModel) o;
-          // process the bug instance
-          bugs++;
-      }
- }*/
-
-//else {
