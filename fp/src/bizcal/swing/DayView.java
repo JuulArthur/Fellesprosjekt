@@ -127,8 +127,8 @@ public class DayView extends CalendarView {
 		calPanel.setLayout(new Layout());
 		ThisMouseListener mouseListener = new ThisMouseListener();
 		ThisKeyListener keyListener = new ThisKeyListener();
-		calPanel.addMouseListener(mouseListener);
-		calPanel.addMouseMotionListener(mouseListener);
+		//calPanel.addMouseListener(mouseListener);
+		//calPanel.addMouseMotionListener(mouseListener);
 		calPanel.addKeyListener(keyListener);
 		// calPanel.setPreferredSize(new
 		// Dimension(calPanel.getPreferredSize().width,
