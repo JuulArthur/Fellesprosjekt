@@ -64,7 +64,9 @@ public class SavedMeetingPanelController implements ActionListener,
 		meetingPanel.getRediger().addActionListener(this);
 		meetingPanel.getAddcalendar().addActionListener(this);
 		meetingPanel.getMooteinnkalling().addActionListener(this);
-
+		meetingPanel.getReturnButton().addActionListener(this);
+		
+		
 		if (!(appointment.getHost().getUsername().equals(gui.getUserModel().getUsername()))) {
 			meetingPanel.getRediger().setVisible(false);
 			meetingPanel.getMooteinnkalling().setVisible(false);
@@ -145,6 +147,9 @@ public class SavedMeetingPanelController implements ActionListener,
 			addAppointmentToCalender(appointment, (CalendarModel) meetingPanel
 					.getCalendarList().getSelectedItem());
 
+		}else if(e.getSource()==meetingPanel.getReturnButton()){
+			gui.initCalendar();
+			Global.respondGUI.remove(this);
 		}
 
 	}
@@ -207,7 +212,9 @@ public class SavedMeetingPanelController implements ActionListener,
 					verb = ToDO.ISNOTACC;
 					if(al!=null){
 					for (Object com : al) {
-						meetingPanel.getComming().addElement(com);
+						UserModel users = (UserModel)com;
+
+						meetingPanel.getComming().addElement(users.getUsername());
 					}
 					}
 
@@ -225,7 +232,8 @@ public class SavedMeetingPanelController implements ActionListener,
 				case ISNOTACC:
 					if(al!=null){
 					for (Object com : al) {
-						meetingPanel.getNotComming().addElement(com);
+						UserModel users = (UserModel)com;
+						meetingPanel.getNotComming().addElement(users.getUsername());
 					}
 					}
 					verb = ToDO.NOTHING;
