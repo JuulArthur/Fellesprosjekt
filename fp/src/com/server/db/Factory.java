@@ -788,7 +788,7 @@ public class Factory {
 				+ "from IsSummonedTo WHERE appointmentid='%s'", l);
 		rs = db.makeSingleQuery(query);
 
-		while (rs.next()) {
+		while (rs.next()) { //TODO MAJOR BUG
 			members.add(getUserModel(rs.getString(1)));
 		}
 

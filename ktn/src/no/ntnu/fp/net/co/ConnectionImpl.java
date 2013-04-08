@@ -30,7 +30,7 @@ import no.ntnu.fp.net.cl.KtnDatagram.Flag;
  * of the functionality, leaving message passing and error handling to this
  * implementation.
  * 
- * @author Sebjørn Birkeland and Stein Jakob Nordbø
+ * @author Sebjï¿½rn Birkeland and Stein Jakob Nordbï¿½
  * @see no.ntnu.fp.net.co.Connection
  * @see no.ntnu.fp.net.cl.ClSocket
  */
@@ -85,7 +85,15 @@ public class ConnectionImpl extends AbstractConnection {
     	this.remoteAddress = remoteAddress.getHostAddress();
     	try {
     		state = State.SYN_SENT;
-    		// TODO: get more stuff done..! =P
+    		simplySendPacket(constructInternalPacket(Flag.SYN));
+    		KtnDatagram receive = receiveAck();
+    		lastValidPacketReceived = receive;
+    		if(isValid(receive)) {
+    			sendAck(constructInternalPacket(Flag.ACK), false);
+    			state = State.ESTABLISHED;
+    		} else {
+    			throw new ConnectException("Did not receive ACK");
+    		}
     	} catch (Exception e) {
     		state = State.CLOSED;
     		throw new IOException("error contacting host " + e);
@@ -144,7 +152,18 @@ public class ConnectionImpl extends AbstractConnection {
      * @see no.ntnu.fp.net.co.Connection#send(String)
      */
     public void send(String msg) throws ConnectException, IOException {
-        throw new NotImplementedException();
+    	if(state != State.ESTABLISHED)
+    		throw new ConnectException("No connection exists");
+    	
+    	KtnDatagram sendDatagram = constructDataPacket(msg);
+    	
+    	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
+    	
+    	if(isValid(recievedDatagram))
+    		throw new IOException("No ack was recieved from the send operation");
+    	else
+    		throw new IOException("Nothing was recieved, wtf");
+
     }
 
     /**
