@@ -129,10 +129,8 @@ public class ConnectionImpl extends AbstractConnection {
     	
     	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
     	
-    	if(isValid(recievedDatagram))
+    	if(!isValid(recievedDatagram))
     		throw new IOException("No ack was recieved from the send operation");
-    	else
-    		throw new IOException("Nothing was recieved, wtf");
 
     }
 
