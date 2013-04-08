@@ -40,7 +40,7 @@ public class TestCoServer {
     // each new connection lives in its own instance
     Connection conn;
     try {
-      conn = server.accept();
+    	conn = server.accept();
 
       try {
 	while (true) {

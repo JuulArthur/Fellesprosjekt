@@ -1,0 +1,18 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:52:50.816     NETWORK                                                                                                                                 Packet 4762 send!                                 
+13:52:50.817     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:52:50.818     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:52:50.846     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:38331
+13:52:50.854     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+13:52:50.855     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:52:50.857     TestApplication                                                                                                                         error contacting host java.lang.NullPointerException
+13:52:50.858     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
