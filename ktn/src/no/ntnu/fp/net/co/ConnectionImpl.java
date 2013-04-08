@@ -169,8 +169,13 @@ public class ConnectionImpl extends AbstractConnection {
 		lastDataPacketSent = sendDatagram;
 		KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
 
-		if (!isValid(recievedDatagram))
+		if (!isValid(recievedDatagram)){
+			System.out.println("==================================");
+			System.out.println(recievedDatagram);
+			System.out.println("==================================");
+
 			throw new IOException("No ack was recieved from the send operation");
+		}
 
 		lastValidPacketReceived = recievedDatagram;
 

@@ -1,0 +1,31 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:58:14.941     NETWORK                                                                                                                                 Packet 7705 send!                                 
+14:58:14.942     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:58:14.944     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:58:14.975     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:39191
+14:58:14.979     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:58:14.981     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:58:14.982     AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           7707    ACK     7706                             0           Sending Ack: 7706                                 
+14:58:14.985     NETWORK                                                                                                                                 Packet 7707 send!                                 
+14:58:14.987     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:58:14.988     SendTimer                127.0.1.1:4001           127.0.1.1:1024           7708    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+14:58:14.988     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:58:14.989     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:58:14.990     NETWORK                                                                                                                                 Packet 7708 send!                                 
+14:58:15.787     SendTimer                127.0.1.1:4001           127.0.1.1:1024           7708    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+14:58:15.792     NETWORK                                                                                                                                 Packet 7708 send!                                 
+14:58:16.587     SendTimer                127.0.1.1:4001           127.0.1.1:1024           7708    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 3)                    
+14:58:16.592     NETWORK                                                                                                                                 Packet 7708 send!                                 
+14:58:17.387     SendTimer                127.0.1.1:4001           127.0.1.1:1024           7708    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 4)                    
+14:58:17.393     NETWORK                                                                                                                                 Packet 7708 send!                                 
+14:58:17.788     TestApplication                                                                                                                         No ack was recieved from the send operation       
+14:58:17.789     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
