@@ -36,193 +36,233 @@ import no.ntnu.fp.net.cl.KtnDatagram.Flag;
  */
 public class ConnectionImpl extends AbstractConnection {
 
-    /** Keeps track of the used ports for each server port. */
-    private static Map<Integer, Boolean> usedPorts = Collections.synchronizedMap(new HashMap<Integer, Boolean>());
+	/** Keeps track of the used ports for each server port. */
+	private static Map<Integer, Boolean> usedPorts = Collections
+			.synchronizedMap(new HashMap<Integer, Boolean>());
+	private int randomPortNr = 1000;
 
-    /**
-     * Initialise initial sequence number and setup state machine.
-     * 
-     * @param myPort
-     *            - the local port to associate with this connection
-     */
-    public ConnectionImpl(int myPort) {
-    	super();
-    	usedPorts.put(myPort, true);
-    	//setter myport og myadress, resten er i abstractconnection
-    	this.myPort = myPort;
-    	this.myAddress = getIPv4Address();
-    }
+	/**
+	 * Initialise initial sequence number and setup state machine.
+	 * 
+	 * @param myPort
+	 *            - the local port to associate with this connection
+	 */
+	public ConnectionImpl(int myPort) {
+		super();
+		usedPorts.put(myPort, true);
+		// setter myport og myadress, resten er i abstractconnection
+		this.myPort = myPort;
+		this.myAddress = getIPv4Address();
+	}
 
-    private String getIPv4Address() {
-        try {
-            return InetAddress.getLocalHost().getHostAddress();
-        }
-        catch (UnknownHostException e) {
-            return "127.0.0.1";
-        }
-    }
+	private String getIPv4Address() {
+		try {
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			return "127.0.0.1";
+		}
+	}
 
-    /**
-     * Establish a connection to a remote location.
-     * 
-     * @param remoteAddress
-     *            - the remote IP-address to connect to
-     * @param remotePort
-     *            - the remote portnumber to connect to
-     * @throws IOException
-     *             If there's an I/O error.
-     * @throws java.net.SocketTimeoutException
-     *             If timeout expires before connection is completed.
-     * @see Connection#connect(InetAddress, int)
-     */
-    public void connect(InetAddress remoteAddress, int remotePort) throws IOException,
-            SocketTimeoutException {
-    	if(state != State.CLOSED) {
-    		throw new ConnectException("socket is not closed");
-    	}
-    	this.remotePort = remotePort;
-    	this.remoteAddress = remoteAddress.getHostAddress();
-    	try {
-    		state = State.SYN_SENT;
-    		KtnDatagram sent = constructInternalPacket(Flag.SYN);
-    		simplySendPacket(sent);
-    		lastDataPacketSent = sent;
-    		KtnDatagram receive = receiveAck();
-    		lastValidPacketReceived = receive;
-    		if(isValid(receive)) {
-    			sent = constructInternalPacket(Flag.ACK);
-    			sendAck(sent, false);
-    			lastDataPacketSent = sent;
-    			state = State.ESTABLISHED;
-    		} else {
-    			throw new ConnectException("no valid ack received");
-    		}
-    	} catch (Exception e) {
-    		state = State.CLOSED;
-    		throw new IOException("error contacting host " + e);
-    	}
-    }
+	/**
+	 * Establish a connection to a remote location.
+	 * 
+	 * @param remoteAddress
+	 *            - the remote IP-address to connect to
+	 * @param remotePort
+	 *            - the remote portnumber to connect to
+	 * @throws IOException
+	 *             If there's an I/O error.
+	 * @throws java.net.SocketTimeoutException
+	 *             If timeout expires before connection is completed.
+	 * @see Connection#connect(InetAddress, int)
+	 */
+	public void connect(InetAddress remoteAddress, int remotePort)
+			throws IOException, SocketTimeoutException {
+		if (state != State.CLOSED) {
+			throw new ConnectException("socket is not closed");
+		}
+		this.remotePort = remotePort;
+		this.remoteAddress = remoteAddress.getHostAddress();
+		try {
+			state = State.SYN_SENT;
+			KtnDatagram sent = constructInternalPacket(Flag.SYN);
+			simplySendPacket(sent);
+			lastDataPacketSent = sent;
+			KtnDatagram receive = receiveAck();
+			lastValidPacketReceived = receive;
+			if (isValid(receive)) {
+				sent = constructInternalPacket(Flag.ACK);
+				sendAck(sent, false);
+				lastDataPacketSent = sent;
+				state = State.ESTABLISHED;
+			} else {
+				throw new ConnectException("no valid ack received");
+			}
+		} catch (Exception e) {
+			state = State.CLOSED;
+			throw new IOException("error contacting host " + e);
+		}
+	}
 
-    /**
-     * Listen for, and accept, incoming connections.
-     * 
-     * @return A new ConnectionImpl-object representing the new connection.
-     * @see Connection#accept()
-     */
-    public Connection accept() throws IOException, SocketTimeoutException {
-        throw new NotImplementedException();
-    }
+	/**
+	 * Listen for, and accept, incoming connections.
+	 * 
+	 * @return A new ConnectionImpl-object representing the new connection.
+	 * @see Connection#accept()
+	 */
+	public Connection accept() throws IOException, SocketTimeoutException {
 
-    /**
-     * Send a message from the application.
-     * 
-     * @param msg
-     *            - the String to be sent.
-     * @throws ConnectException
-     *             If no connection exists.
-     * @throws IOException
-     *             If no ACK was received.
-     * @see AbstractConnection#sendDataPacketWithRetransmit(KtnDatagram)
-     * @see no.ntnu.fp.net.co.Connection#send(String)
-     */
-    public void send(String msg) throws ConnectException, IOException {
+		// throw new NotImplementedException();
+		if (state != state.CLOSED) {
+			throw new ConnectException("socket is not closed");
+		}
+
+		while (true) {
+			state = state.LISTEN;
+			KtnDatagram syn = null;
+			syn = receivePacket(true);
+			while (!isValid(syn)) {
+				syn = receivePacket(true);
+			}
+
+			ConnectionImpl connection = new ConnectionImpl(randomPort());
+			connection.state = state.SYN_RCVD;
+			connection.remotePort = syn.getSrc_port();
+			connection.remoteAddress = syn.getSrc_addr();
+
+			connection.sendAck(syn, true);
+			KtnDatagram synAck = connection.receiveAck();
+			if (synAck != null) {
+				connection.state = connection.state.ESTABLISHED;
+				state = state.CLOSED;
+				return connection;
+			} else {
+				return null;
+			}
+		}
+	}
+
+	/**
+	 * Send a message from the application.
+	 * 
+	 * @param msg
+	 *            - the String to be sent.
+	 * @throws ConnectException
+	 *             If no connection exists.
+	 * @throws IOException
+	 *             If no ACK was received.
+	 * @see AbstractConnection#sendDataPacketWithRetransmit(KtnDatagram)
+	 * @see no.ntnu.fp.net.co.Connection#send(String)
+	 */
+	public void send(String msg) throws ConnectException, IOException {
     	if(state != State.ESTABLISHED)
     		throw new ConnectException("No connection exists");
     	
     	KtnDatagram sendDatagram = constructDataPacket(msg);
     	
+    	lastDataPacketSent = sendDatagram;
     	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
     	
-    	if(recievedDatagram != null && (recievedDatagram.getFlag() != null && recievedDatagram.getFlag() != Flag.ACK))
+    	if(!isValid(recievedDatagram))
     		throw new IOException("No ack was recieved from the send operation");
-    	else
-    		throw new IOException("Nothing was recieved, wtf");
+    	
+    	lastValidPacketReceived = recievedDatagram;
 
-    }
+	}
 
-    /**
-     * Wait for incoming data.
-     * 
-     * @return The received data's payload as a String.
-     * @see Connection#receive()
-     * @see AbstractConnection#receivePacket(boolean)
-     * @see AbstractConnection#sendAck(KtnDatagram, boolean)
-     */
-    public String receive() throws ConnectException, IOException {
-        throw new NotImplementedException();
-    }
+	/**
+	 * Wait for incoming data.
+	 * 
+	 * @return The received data's payload as a String.
+	 * @see Connection#receive()
+	 * @see AbstractConnection#receivePacket(boolean)
+	 * @see AbstractConnection#sendAck(KtnDatagram, boolean)
+	 */
+	public String receive() throws ConnectException, IOException {
+		throw new NotImplementedException();
+	}
 
-    /**
-     * Close the connection.
-     * 
-     * @see Connection#close()
-     */
-    public void close() throws IOException {
-        throw new NotImplementedException();
-    }
+	/**
+	 * Close the connection.
+	 * 
+	 * @see Connection#close()
+	 */
+	public void close() throws IOException {
+		throw new NotImplementedException();
+	}
 
-    /**
-     * Test a packet for transmission errors. This function should only called
-     * with data or ACK packets in the ESTABLISHED state.
-     * 
-     * @param packet
-     *            Packet to test.
-     * @return true if packet is free of errors, false otherwise.
-     */
-    protected boolean isValid(KtnDatagram packet) {
-    	if(packet != null && packet.calculateChecksum() == packet.getChecksum() &&
-    			isValidState(packet)) return true;
-    	return false;
-    }
-    
-    private KtnDatagram sendHelp(KtnDatagram packetToSend) {
-    	int tries = 30;
-    	KtnDatagram returnPacket = null;
-    	while (!isValid(returnPacket) && tries-->0) {
-    		
-    	}
-    }
-    
-    /**
-     * Check if current state is valid for packet
-     * 
-     * All in all check:
-     * 		- null-packets
-     * 		- checksum
-     * 		- retmoteaddress
-     * 		- retmoreport
-     * 		- seqno
-     * 
-     * @param packet
-     * @return true if valid state
-     */
-    private boolean isValidState(KtnDatagram packet) {
-    	// check if packet acks last packet
-    	if(packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK &&
-    			packet.getAck() != lastDataPacketSent.getSeq_nr())
-    		return false;
-    	//if package is fin, data has to be null
-    	if(packet.getFlag() == Flag.FIN && packet.getPayload() != null)
-    		return false;
-    	//if state is syn_sent package should be syn_ack and from right host
-    	if(state == State.SYN_SENT) {
-    		remotePort = packet.getSrc_port();
-    		return (packet.getFlag() == Flag.SYN_ACK && remoteAddress.equals(packet.getSrc_addr()));
-    	} else if (state == State.LISTEN)
-    		return (packet.getFlag() == Flag.SYN);
-    	//other packets port and source should be set, checking that
-    	else if(packet.getSrc_addr() != remoteAddress && packet.getSrc_port() != remotePort)
-    		return false;
-    	//have to be ack
-    	else if (state == State.SYN_RCVD)
-    		return (packet.getFlag() == Flag.ACK);
-    	//want ack or fin back
-    	else if(state == State.FIN_WAIT_1 || state == State.FIN_WAIT_2)
-    		return (packet.getFlag() == Flag.FIN || packet.getFlag() == Flag.ACK);
-    	//has to be fin
-    	else if (state == State.CLOSE_WAIT)
-    		return (packet.getFlag() == Flag.FIN);
-    	//need to check the rest, if not return true
-    	return true;
+	/**
+	 * Test a packet for transmission errors. This function should only called
+	 * with data or ACK packets in the ESTABLISHED state.
+	 * 
+	 * @param packet
+	 *            Packet to test.
+	 * @return true if packet is free of errors, false otherwise.
+	 */
+	protected boolean isValid(KtnDatagram packet) {
+		if (packet != null
+				&& packet.calculateChecksum() == packet.getChecksum()
+				&& isValidState(packet))
+			return true;
+		return false;
+	}
+
+	private KtnDatagram sendHelp(KtnDatagram packetToSend) {
+		int tries = 30;
+		KtnDatagram returnPacket = null;
+		while (!isValid(returnPacket) && tries-- > 0) {
+
+		}
+	}
+
+	/**
+	 * Check if current state is valid for packet
+	 * 
+	 * All in all check: - null-packets - checksum - retmoteaddress -
+	 * retmoreport - seqno
+	 * 
+	 * @param packet
+	 * @return true if valid state
+	 */
+	private boolean isValidState(KtnDatagram packet) {
+		// check if packet acks last packet
+		if (packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK
+				&& packet.getAck() != lastDataPacketSent.getSeq_nr())
+			return false;
+		// if package is fin, data has to be null
+		if (packet.getFlag() == Flag.FIN && packet.getPayload() != null)
+			return false;
+		// if state is syn_sent package should be syn_ack and from right host
+		if (state == State.SYN_SENT) {
+			remotePort = packet.getSrc_port();
+			return (packet.getFlag() == Flag.SYN_ACK && remoteAddress
+					.equals(packet.getSrc_addr()));
+		} else if (state == State.LISTEN)
+			return (packet.getFlag() == Flag.SYN);
+		// other packets port and source should be set, checking that
+		else if (packet.getSrc_addr() != remoteAddress
+				&& packet.getSrc_port() != remotePort)
+			return false;
+		// have to be ack
+		else if (state == State.SYN_RCVD)
+			return (packet.getFlag() == Flag.ACK);
+		// want ack or fin back
+		else if (state == State.FIN_WAIT_1 || state == State.FIN_WAIT_2)
+			return (packet.getFlag() == Flag.FIN || packet.getFlag() == Flag.ACK);
+		// has to be fin
+		else if (state == State.CLOSE_WAIT)
+			return (packet.getFlag() == Flag.FIN);
+		// need to check the rest, if not return true
+		return true;
+	}
+	
+  private int randomPort(){
+      if(this.randomPortNr==9999){
+        randomPortNr=1000;
+      }
+      else{
+        randomPortNr++;
+      }
+      return randomPortNr;
     }
 }
