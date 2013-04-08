@@ -100,6 +100,7 @@ public class ConnectionImpl extends AbstractConnection {
 			}
 		} catch (Exception e) {
 			state = State.CLOSED;
+			e.printStackTrace();
 			throw new IOException("error contacting host " + e);
 		}
 	}
@@ -213,6 +214,8 @@ public class ConnectionImpl extends AbstractConnection {
 		while (!isValid(returnPacket) && tries-- > 0) {
 
 		}
+		
+		return new KtnDatagram();
 	}
 
 	/**
