@@ -117,6 +117,7 @@ public class ConnectionImpl extends AbstractConnection {
         	KtnDatagram syn = null;
         	syn = receivePacket(true);
         	while(!isValid(syn)){
+        		System.out.println("validate syn package");
         		syn = receivePacket(true);
         	}
         	
@@ -126,14 +127,18 @@ public class ConnectionImpl extends AbstractConnection {
 			connection.remoteAddress = syn.getSrc_addr();
 			
 			connection.sendAck(syn, true);
+			lastDataPacketSent = syn;
+			
 			KtnDatagram synAck = connection.receiveAck();
+			System.out.println("for if");
 			if (synAck!=null){
+				lastValidPacketReceived = synAck;
 				connection.state = connection.state.ESTABLISHED;
 				state = state.CLOSED;
 				return connection;
 			}
 			else {
-				return null;
+				throw new ConnectException("Did not receive ACK");
 			}
         }
         
@@ -196,6 +201,12 @@ public class ConnectionImpl extends AbstractConnection {
      * @return true if packet is free of errors, false otherwise.
      */
     protected boolean isValid(KtnDatagram packet) {
+    	System.out.println(packet);
+    	if(packet!=null){
+        	System.out.println(packet.calculateChecksum());
+        	System.out.println(packet.getChecksum());
+        	System.out.println(isValidState(packet));
+    	}
     	if(packet != null && packet.calculateChecksum() == packet.getChecksum() &&
     			isValidState(packet)) return true;
     	return false;
