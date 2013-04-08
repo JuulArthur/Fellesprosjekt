@@ -242,7 +242,31 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see Connection#close()
 	 */
 	public void close() throws IOException {
-		throw new NotImplementedException();
+		if (state != State.CLOSED) {
+			
+			//sender pakke med FIN
+			KtnDatagram sendPacket = constructInternalPacket(Flag.FIN);
+			lastDataPacketSent = sendPacket;
+			
+			// venter på ACK tilbake
+			KtnDatagram receivedPacket = sendDataPacketWithRetransmit(sendPacket);
+			
+			if (isValid(receivedPacket)) {
+				lastValidPacketReceived  = receivedPacket;
+				state=State.ESTABLISHED;
+			
+			// hmmm	
+				KtnDatagram sendAckPacket = constructInternalPacket(Flag.ACK);
+				sendAck(sendAckPacket, false);
+				lastDataPacketSent = sendAckPacket;
+				
+			}
+			
+		}
+		
+		else {
+			System.out.println("State already closed");
+		}
 	}
 
 	/**
