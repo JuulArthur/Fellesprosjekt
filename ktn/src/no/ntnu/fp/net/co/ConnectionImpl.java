@@ -145,9 +145,28 @@ public class ConnectionImpl extends AbstractConnection {
      * @see AbstractConnection#sendAck(KtnDatagram, boolean)
      */
     public String receive() throws ConnectException, IOException {
-        throw new NotImplementedException();
+    	if(state!=state.CLOSED){
+    		try{
+    		KtnDatagram thisPacket = receivePacket(true);
+    		if (isValid(thisPacket)){
+    			thisPacket.setFlag(Flag.SYN_ACK);
+    			KtnDatagram thisInternalPacket = constructInternalPacket(thisPacket.getFlag());
+    			sendAck(thisInternalPacket, true);
+    			KtnDatagram recivedAck = receiveAck();
+    			if(isValid(recivedAck)){
+    				state=state.ESTABLISHED;
+    			return thisInternalPacket.toString();	
+    			}
+    			
+    		}
+    	}
+    		catch (EOFException e){
+    			System.out.println("something was wrong "+ e );
+    		}
+    	}
+    return null;	
     }
-
+    
     /**
      * Close the connection.
      * 
