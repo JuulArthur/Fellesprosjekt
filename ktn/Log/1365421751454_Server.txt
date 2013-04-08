@@ -1,0 +1,23 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:49:11.465     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:49:11.523     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+13:49:14.266     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:49:14.267     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+13:49:14.268     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:49:15.888     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:37716
+13:49:15.921     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+13:49:15.922     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+13:49:15.922     AbstractConnection       127.0.1.1:1001           127.0.1.1:4001           5244    SYN_ACK 3911                             0           Sending Ack: 3911                                 
+13:49:15.933     NETWORK                                                                                                                                 Packet 5244 send!                                 
+13:49:15.934     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:49:15.935     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+13:49:15.936     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
