@@ -38,7 +38,6 @@ public class ConnectionImpl extends AbstractConnection {
 
     /** Keeps track of the used ports for each server port. */
     private static Map<Integer, Boolean> usedPorts = Collections.synchronizedMap(new HashMap<Integer, Boolean>());
-    private int randomPortNr = 1000;
 
     /**
      * Initialise initial sequence number and setup state machine.
@@ -85,18 +84,21 @@ public class ConnectionImpl extends AbstractConnection {
     	this.remoteAddress = remoteAddress.getHostAddress();
     	try {
     		state = State.SYN_SENT;
-    		simplySendPacket(constructInternalPacket(Flag.SYN));
+    		KtnDatagram sent = constructInternalPacket(Flag.SYN);
+    		simplySendPacket(sent);
+    		lastDataPacketSent = sent;
     		KtnDatagram receive = receiveAck();
     		lastValidPacketReceived = receive;
     		if(isValid(receive)) {
-    			sendAck(constructInternalPacket(Flag.ACK), false);
+    			sent = constructInternalPacket(Flag.ACK);
+    			sendAck(sent, false);
+    			lastDataPacketSent = sent;
     			state = State.ESTABLISHED;
     		} else {
     			throw new ConnectException("no valid ack received");
     		}
     	} catch (Exception e) {
     		state = State.CLOSED;
-    		e.printStackTrace();
     		throw new IOException("error contacting host " + e);
     	}
     }
@@ -108,36 +110,7 @@ public class ConnectionImpl extends AbstractConnection {
      * @see Connection#accept()
      */
     public Connection accept() throws IOException, SocketTimeoutException {
-        //throw new NotImplementedException();
-        if (state != state.CLOSED){
-        	throw new ConnectException("socket is not closed");
-        }
-        
-        while (true){
-        	state = state.LISTEN;
-        	KtnDatagram syn = null;
-        	syn = receivePacket(true);
-        	while(!isValid(syn)){
-        		syn = receivePacket(true);
-        	}
-        	
-        	ConnectionImpl connection = new ConnectionImpl(randomPort());
-        	connection.state = state.SYN_RCVD;
-        	connection.remotePort = syn.getSrc_port();
-			connection.remoteAddress = syn.getSrc_addr();
-			
-			connection.sendAck(syn, true);
-			KtnDatagram synAck = connection.receiveAck();
-			if (synAck!=null){
-				connection.state = connection.state.ESTABLISHED;
-				state = state.CLOSED;
-				return connection;
-			}
-			else {
-				return null;
-			}
-        }
-        
+        throw new NotImplementedException();
     }
 
     /**
@@ -158,13 +131,13 @@ public class ConnectionImpl extends AbstractConnection {
     	
     	KtnDatagram sendDatagram = constructDataPacket(msg);
     	
-    	lastDataPacketSent = sendDatagram;
     	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
     	
-    	if(!isValid(recievedDatagram))
+    	if(recievedDatagram != null && (recievedDatagram.getFlag() != null && recievedDatagram.getFlag() != Flag.ACK))
     		throw new IOException("No ack was recieved from the send operation");
-    	
-    	lastValidPacketReceived = recievedDatagram;
+    	else
+    		throw new IOException("Nothing was recieved, wtf");
+
     }
 
     /**
@@ -251,15 +224,5 @@ public class ConnectionImpl extends AbstractConnection {
     		return (packet.getFlag() == Flag.FIN);
     	//need to check the rest, if not return true
     	return true;
-    }
-    
-    private int randomPort(){
-    	if(this.randomPortNr==9999){
-    		randomPortNr=1000;
-    	}
-    	else{
-    		randomPortNr++;
-    	}
-    	return randomPortNr;
     }
 }
