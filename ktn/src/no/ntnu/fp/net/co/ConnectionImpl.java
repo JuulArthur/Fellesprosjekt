@@ -194,24 +194,38 @@ public class ConnectionImpl extends AbstractConnection {
     		KtnDatagram thisPacket = receivePacket(true);
     		if (isValid(thisPacket)){
     			lastValidPacketReceived=thisPacket;
+    			
     			if(thisPacket.getFlag()==Flag.SYN){
     			KtnDatagram thisInternalPacket = constructInternalPacket(Flag.SYN_ACK);
     			sendAck(thisInternalPacket, true);
     			lastDataPacketSent= thisInternalPacket;
     			KtnDatagram recivedAck = receiveAck();
-    			if(isValid(recivedAck)){
-    				lastValidPacketReceived= recivedAck;
-    				state=State.ESTABLISHED;
-    				return null;	
+	   
+	    			if(isValid(recivedAck)){
+		    				lastValidPacketReceived= recivedAck;
+		    				state=State.ESTABLISHED;
+		    				String result ="Har godtatt ACK";
+		    				return result;	
+		    			}
     			}
-    			}
-    		else {
-    			thisPacket.setFlag(Flag.ACK);
-    			KtnDatagram newConstructedInternalPacket = constructInternalPacket(thisPacket.getFlag());
-   				sendAck(newConstructedInternalPacket, false); 
-   				lastDataPacketSent=newConstructedInternalPacket;
-   				return thisPacket.toString();
-    			}
+    			
+    			else if(thisPacket.getFlag()==Flag.FIN){
+    				KtnDatagram thisInternalDatagram = constructInternalPacket(Flag.ACK);    	
+    				sendAck(thisInternalDatagram, false);
+    				lastDataPacketSent= thisInternalDatagram;
+    				KtnDatagram newInternalDatagram= constructInternalPacket(Flag.FIN);
+    				sendDataPacketWithRetransmit(newInternalDatagram);
+    				lastDataPacketSent=newInternalDatagram;
+    				
+    				return "er litt usikker paa hva som skjer, har naa i teorien closed()";
+    				}
+	    		else {
+	    			thisPacket.setFlag(Flag.ACK);
+	    			KtnDatagram newConstructedInternalPacket = constructInternalPacket(thisPacket.getFlag());
+	   				sendAck(newConstructedInternalPacket, false); 
+	   				lastDataPacketSent=newConstructedInternalPacket;
+	   				return thisPacket.toString();
+	    			}
     		}
     	}
     		catch (EOFException e){
