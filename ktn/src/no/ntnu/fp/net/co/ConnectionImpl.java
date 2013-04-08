@@ -184,19 +184,29 @@ public class ConnectionImpl extends AbstractConnection {
      * @see AbstractConnection#sendAck(KtnDatagram, boolean)
      */
     public String receive() throws ConnectException, IOException {
-    	if(state!=state.CLOSED){
+    	if(state!=State.CLOSED){
     		try{
     		KtnDatagram thisPacket = receivePacket(true);
     		if (isValid(thisPacket)){
-    			thisPacket.setFlag(Flag.SYN_ACK);
-    			KtnDatagram thisInternalPacket = constructInternalPacket(thisPacket.getFlag());
+    			lastValidPacketReceived=thisPacket;
+    			if(thisPacket.getFlag()==Flag.SYN){
+    			KtnDatagram thisInternalPacket = constructInternalPacket(Flag.SYN_ACK);
     			sendAck(thisInternalPacket, true);
+    			lastDataPacketSent= thisInternalPacket;
     			KtnDatagram recivedAck = receiveAck();
     			if(isValid(recivedAck)){
-    				state=state.ESTABLISHED;
-    			return thisInternalPacket.toString();	
+    				lastValidPacketReceived= recivedAck;
+    				state=State.ESTABLISHED;
+    				return null;	
     			}
-    			
+    			}
+    		else {
+    			thisPacket.setFlag(Flag.ACK);
+    			KtnDatagram newConstructedInternalPacket = constructInternalPacket(thisPacket.getFlag());
+   				sendAck(newConstructedInternalPacket, false); 
+   				lastDataPacketSent=newConstructedInternalPacket;
+   				return thisPacket.toString();
+    			}
     		}
     	}
     		catch (EOFException e){
