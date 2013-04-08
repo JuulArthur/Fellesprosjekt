@@ -91,7 +91,7 @@ public class ConnectionImpl extends AbstractConnection {
     			sendAck(constructInternalPacket(Flag.ACK), false);
     			state = State.ESTABLISHED;
     		} else {
-    			throw new ConnectException("Did not receive ACK");
+    			throw new ConnectException("no valid ack received");
     		}
     	} catch (Exception e) {
     		state = State.CLOSED;
@@ -169,6 +169,14 @@ public class ConnectionImpl extends AbstractConnection {
     	if(packet != null && packet.calculateChecksum() == packet.getChecksum() &&
     			isValidState(packet)) return true;
     	return false;
+    }
+    
+    private KtnDatagram sendHelp(KtnDatagram packetToSend) {
+    	int tries = 30;
+    	KtnDatagram returnPacket = null;
+    	while (!isValid(returnPacket) && tries-->0) {
+    		
+    	}
     }
     
     /**
