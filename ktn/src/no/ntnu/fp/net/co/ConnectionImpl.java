@@ -30,7 +30,7 @@ import no.ntnu.fp.net.cl.KtnDatagram.Flag;
  * of the functionality, leaving message passing and error handling to this
  * implementation.
  * 
- * @author Sebjørn Birkeland and Stein Jakob Nordbø
+ * @author Sebjï¿½rn Birkeland and Stein Jakob Nordbï¿½
  * @see no.ntnu.fp.net.co.Connection
  * @see no.ntnu.fp.net.cl.ClSocket
  */
@@ -114,7 +114,15 @@ public class ConnectionImpl extends AbstractConnection {
      * @see no.ntnu.fp.net.co.Connection#send(String)
      */
     public void send(String msg) throws ConnectException, IOException {
-        throw new NotImplementedException();
+    	if(state != State.ESTABLISHED)
+    		throw new ConnectException("No connection exists");
+    	
+    	KtnDatagram sendDatagram = constructDataPacket(msg);
+    	
+    	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
+    	
+    	if(recievedDatagram == null)
+    		throw new IOException("No ack was recieved from the send operation");
     }
 
     /**

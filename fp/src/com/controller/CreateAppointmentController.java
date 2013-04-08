@@ -203,6 +203,7 @@ public class CreateAppointmentController implements ActionListener, IServerRespo
 			alist.clear();
 			alist.add(Long.toString(am.getId()));
 			alist.add(Long.toString(view.getSelectedCalendar().getId()));
+			view.getSelectedCalendar().addAppointment(am);
 			appointmentState = appointmentState.NOTHING;
 			Global.sHandler.setCurrentFlag(MSGFlagVerb.CREATE);
 			Global.sHandler.setState(State.CONNECTED_WAITING);
