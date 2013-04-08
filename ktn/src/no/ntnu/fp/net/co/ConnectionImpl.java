@@ -6,7 +6,9 @@ package no.ntnu.fp.net.co;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -100,6 +102,7 @@ public class ConnectionImpl extends AbstractConnection {
 			}
 		} catch (Exception e) {
 			state = State.CLOSED;
+			e.printStackTrace();
 			throw new IOException("error contacting host " + e);
 		}
 	}
@@ -132,18 +135,15 @@ public class ConnectionImpl extends AbstractConnection {
 
 			connection.sendAck(syn, true);
 			lastDataPacketSent = syn;
-			
+
 			KtnDatagram synAck = connection.receiveAck();
 
 			System.out.println("for if");
-			if (synAck!=null){
+			if (synAck != null) {
 				lastValidPacketReceived = synAck;
 				connection.state = connection.state.ESTABLISHED;
 				state = state.CLOSED;
 				return connection;
-			}
-			else {
-				throw new ConnectException("Did not receive ACK");
 			}
 		}
 	}
@@ -161,18 +161,18 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see no.ntnu.fp.net.co.Connection#send(String)
 	 */
 	public void send(String msg) throws ConnectException, IOException {
-    	if(state != State.ESTABLISHED)
-    		throw new ConnectException("No connection exists");
-    	
-    	KtnDatagram sendDatagram = constructDataPacket(msg);
-    	
-    	lastDataPacketSent = sendDatagram;
-    	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
-    	
-    	if(!isValid(recievedDatagram))
-    		throw new IOException("No ack was recieved from the send operation");
-    	
-    	lastValidPacketReceived = recievedDatagram;
+		if (state != State.ESTABLISHED)
+			throw new ConnectException("No connection exists");
+
+		KtnDatagram sendDatagram = constructDataPacket(msg);
+
+		lastDataPacketSent = sendDatagram;
+		KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
+
+		if (!isValid(recievedDatagram))
+			throw new IOException("No ack was recieved from the send operation");
+
+		lastValidPacketReceived = recievedDatagram;
 
 	}
     /**
@@ -221,9 +221,7 @@ public class ConnectionImpl extends AbstractConnection {
      * 
      * @see Connection#close()
      */
-    public void close() throws IOException {
-        throw new NotImplementedException();
-    }
+
 	/**
 	 * Wait for incoming data.
 	 * 
@@ -233,6 +231,23 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see AbstractConnection#sendAck(KtnDatagram, boolean)
 	 */
 
+	/**
+	 * Close the connection.
+	 * 
+	 * @see Connection#close()
+	 */
+	public void close() throws IOException {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * Wait for incoming data.
+	 * 
+	 * @return The received data's payload as a String.
+	 * @see Connection#receive()
+	 * @see AbstractConnection#receivePacket(boolean)
+	 * @see AbstractConnection#sendAck(KtnDatagram, boolean)
+	 */
 
 	/**
 	 * Close the connection.
@@ -255,12 +270,14 @@ public class ConnectionImpl extends AbstractConnection {
 			return true;
 		return false;
 	}
+
 	private KtnDatagram sendHelp(KtnDatagram packetToSend) {
 		int tries = 30;
 		KtnDatagram returnPacket = null;
 		while (!isValid(returnPacket) && tries-- > 0) {
 
 		}
+
 		return returnPacket;
 	}
 
@@ -304,14 +321,53 @@ public class ConnectionImpl extends AbstractConnection {
 		// need to check the rest, if not return true
 		return true;
 	}
-	
-  private int randomPort(){
-      if(this.randomPortNr==9999){
-        randomPortNr=1000;
-      }
-      else{
-        randomPortNr++;
-      }
-      return randomPortNr;
-    }
+
+	private int randomPort() {
+
+		do {
+			if (this.randomPortNr == 9999) {
+				randomPortNr = 1000;
+			}
+			randomPortNr++;
+		} while (!available(randomPortNr));
+
+		return randomPortNr;
+	}
+
+	/**
+	 * Checks to see if a specific port is available.
+	 * 
+	 * @param port
+	 *            the port to check for availability
+	 */
+	public static boolean available(int port) {
+		// if (port < MIN_PORT_NUMBER || port > MAX_PORT_NUMBER) {
+		// throw new IllegalArgumentException("Invalid start port: " + port);
+		// }
+
+		ServerSocket ss = null;
+		DatagramSocket ds = null;
+		try {
+			ss = new ServerSocket(port);
+			ss.setReuseAddress(true);
+			ds = new DatagramSocket(port);
+			ds.setReuseAddress(true);
+			return true;
+		} catch (IOException e) {
+		} finally {
+			if (ds != null) {
+				ds.close();
+			}
+
+			if (ss != null) {
+				try {
+					ss.close();
+				} catch (IOException e) {
+					/* should not be thrown */
+				}
+			}
+		}
+
+		return false;
+	}
 }

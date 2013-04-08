@@ -1,0 +1,19 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:41:21.694     NETWORK                                                                                                                                 Packet 7324 send!                                 
+14:41:21.695     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:41:21.697     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:41:21.716     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:39016
+14:41:21.720     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:41:21.721     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:41:21.721     AbstractConnection       127.0.1.1:4001           127.0.1.1:1001           7326    ACK     7325                             0           Sending Ack: 7325                                 
+14:41:22.133     TestApplication                                                                                                                         error contacting host java.net.ConnectException: Unable to send ACK.
+14:41:22.136     TestApplication                                                                                                                         CLIENT TEST FINISHED                              

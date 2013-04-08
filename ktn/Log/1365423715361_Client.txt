@@ -1,0 +1,19 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:21:55.462     NETWORK                                                                                                                                 Packet 9636 send!                                 
+14:21:55.463     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:21:55.464     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:21:55.484     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:38693
+14:21:55.489     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:21:55.489     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:21:55.490     AbstractConnection       127.0.1.1:4001           127.0.1.1:1001           9638    ACK     9637                             0           Sending Ack: 9637                                 
+14:21:55.897     TestApplication                                                                                                                         error contacting host java.net.ConnectException: Unable to send ACK.
+14:21:55.898     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
