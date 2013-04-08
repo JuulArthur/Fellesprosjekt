@@ -1,0 +1,11 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:56:42.508     NETWORK                                                                                                                                 Packet 6781 send!                                 
+14:56:42.509     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:56:42.510     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:56:42.512     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+14:56:42.514     TestApplication                                                                                                                         error contacting host java.net.ConnectException: no valid ack received
+14:56:42.515     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
