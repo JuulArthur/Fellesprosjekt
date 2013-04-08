@@ -101,12 +101,21 @@ public class SavedMeetingPanelController implements ActionListener,
 
 		meetingPanel.getComming().clear();
 		meetingPanel.getNotComming().clear();
+		
 		meetingPanel.getAvslag().setEnabled(true);
 		meetingPanel.getNotComming().removeElement(gui.getUserModel().getUsername());
 		meetingPanel.getComming().addElement(gui.getUserModel().getUsername());
+		smokeAndMirro();
 		meetingPanel.getGodta().setEnabled(false);
+		
 		addPersonToCommingAndNot();
 
+	}
+	
+	public void smokeAndMirro(){
+		for (int i =0; i<appointment.getMembers().size();i++){
+		meetingPanel.getNotComming().addElement(appointment.getMembers().get(i));
+}
 	}
 
 	public void notComming() {
@@ -251,9 +260,10 @@ public class SavedMeetingPanelController implements ActionListener,
 					for (Object com : al) {
 						UserModel users = (UserModel)com;
 						meetingPanel.getNotComming().addElement(users.getUsername());
+					}
 					
 					}
-					}
+					
 					verb = ToDO.NOTHING;
 					break;
 

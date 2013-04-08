@@ -132,13 +132,19 @@ public class ConnectionImpl extends AbstractConnection {
 			connection.remoteAddress = syn.getSrc_addr();
 
 			connection.sendAck(syn, true);
+			lastDataPacketSent = syn;
+			
 			KtnDatagram synAck = connection.receiveAck();
-			if (synAck != null) {
+
+			System.out.println("for if");
+			if (synAck!=null){
+				lastValidPacketReceived = synAck;
 				connection.state = connection.state.ESTABLISHED;
 				state = state.CLOSED;
 				return connection;
-			} else {
-				return null;
+			}
+			else {
+				throw new ConnectException("Did not receive ACK");
 			}
 		}
 	}
@@ -170,7 +176,45 @@ public class ConnectionImpl extends AbstractConnection {
     	lastValidPacketReceived = recievedDatagram;
 
 	}
-
+    /**
+     * Wait for incoming data.
+     * 
+     * @return The received data's payload as a String.
+     * @see Connection#receive()
+     * @see AbstractConnection#receivePacket(boolean)
+     * @see AbstractConnection#sendAck(KtnDatagram, boolean)
+     */
+    public String receive() throws ConnectException, IOException {
+    	if(state!=state.CLOSED){
+    		try{
+    		KtnDatagram thisPacket = receivePacket(true);
+    		if (isValid(thisPacket)){
+    			thisPacket.setFlag(Flag.SYN_ACK);
+    			KtnDatagram thisInternalPacket = constructInternalPacket(thisPacket.getFlag());
+    			sendAck(thisInternalPacket, true);
+    			KtnDatagram recivedAck = receiveAck();
+    			if(isValid(recivedAck)){
+    				state=state.ESTABLISHED;
+    			return thisInternalPacket.toString();	
+    			}
+    			
+    		}
+    	}
+    		catch (EOFException e){
+    			System.out.println("something was wrong "+ e );
+    		}
+    	}
+    return null;	
+    }
+    
+    /**
+     * Close the connection.
+     * 
+     * @see Connection#close()
+     */
+    public void close() throws IOException {
+        throw new NotImplementedException();
+    }
 	/**
 	 * Wait for incoming data.
 	 * 
@@ -179,18 +223,13 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see AbstractConnection#receivePacket(boolean)
 	 * @see AbstractConnection#sendAck(KtnDatagram, boolean)
 	 */
-	public String receive() throws ConnectException, IOException {
-		throw new NotImplementedException();
-	}
+
 
 	/**
 	 * Close the connection.
 	 * 
 	 * @see Connection#close()
 	 */
-	public void close() throws IOException {
-		throw new NotImplementedException();
-	}
 
 	/**
 	 * Test a packet for transmission errors. This function should only called
@@ -207,15 +246,14 @@ public class ConnectionImpl extends AbstractConnection {
 			return true;
 		return false;
 	}
-
 	private KtnDatagram sendHelp(KtnDatagram packetToSend) {
 		int tries = 30;
 		KtnDatagram returnPacket = null;
 		while (!isValid(returnPacket) && tries-- > 0) {
 
 		}
-		
-		return new KtnDatagram();
+
+		return returnPacket;
 	}
 
 	/**
