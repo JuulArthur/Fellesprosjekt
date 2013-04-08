@@ -96,6 +96,7 @@ public class ConnectionImpl extends AbstractConnection {
     		}
     	} catch (Exception e) {
     		state = State.CLOSED;
+    		e.printStackTrace();
     		throw new IOException("error contacting host " + e);
     	}
     }
@@ -157,11 +158,13 @@ public class ConnectionImpl extends AbstractConnection {
     	
     	KtnDatagram sendDatagram = constructDataPacket(msg);
     	
+    	lastDataPacketSent = sendDatagram;
     	KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
     	
     	if(!isValid(recievedDatagram))
     		throw new IOException("No ack was recieved from the send operation");
-
+    	
+    	lastValidPacketReceived = recievedDatagram;
     }
 
     /**
