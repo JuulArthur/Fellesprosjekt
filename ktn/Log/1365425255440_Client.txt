@@ -1,0 +1,31 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:47:35.520     NETWORK                                                                                                                                 Packet 1216 send!                                 
+14:47:35.521     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:47:35.522     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:47:35.608     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:39091
+14:47:35.613     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:47:35.614     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:47:35.615     AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           1218    ACK     1217                             0           Sending Ack: 1217                                 
+14:47:35.617     NETWORK                                                                                                                                 Packet 1218 send!                                 
+14:47:35.620     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:47:35.621     SendTimer                127.0.1.1:4001           127.0.1.1:1024           1219    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+14:47:35.623     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:47:35.623     NETWORK                                                                                                                                 Packet 1219 send!                                 
+14:47:35.624     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:47:36.420     SendTimer                127.0.1.1:4001           127.0.1.1:1024           1219    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+14:47:36.425     NETWORK                                                                                                                                 Packet 1219 send!                                 
+14:47:37.221     SendTimer                127.0.1.1:4001           127.0.1.1:1024           1219    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 3)                    
+14:47:37.226     NETWORK                                                                                                                                 Packet 1219 send!                                 
+14:47:38.21      SendTimer                127.0.1.1:4001           127.0.1.1:1024           1219    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 4)                    
+14:47:38.25      NETWORK                                                                                                                                 Packet 1219 send!                                 
+14:47:38.422     TestApplication                                                                                                                         No ack was recieved from the send operation       
+14:47:38.428     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
