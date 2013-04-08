@@ -84,7 +84,15 @@ public class ConnectionImpl extends AbstractConnection {
     	this.remoteAddress = remoteAddress.getHostAddress();
     	try {
     		state = State.SYN_SENT;
-    		// TODO: get more stuff done..! =P
+    		simplySendPacket(constructInternalPacket(Flag.SYN));
+    		KtnDatagram receive = receiveAck();
+    		lastValidPacketReceived = receive;
+    		if(isValid(receive)) {
+    			sendAck(constructInternalPacket(Flag.ACK), false);
+    			state = State.ESTABLISHED;
+    		} else {
+    			throw new ConnectException("Did not receive ACK");
+    		}
     	} catch (Exception e) {
     		state = State.CLOSED;
     		throw new IOException("error contacting host " + e);
