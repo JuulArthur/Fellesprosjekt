@@ -1,0 +1,31 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:5:56.506      NETWORK                                                                                                                                 Packet 6490 send!                                 
+13:5:56.506      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:5:56.508      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:5:56.528      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:55357
+13:5:56.535      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+13:5:56.536      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:5:56.537      AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           6492    ACK     6491                             0           Sending Ack: 6491                                 
+13:5:56.539      NETWORK                                                                                                                                 Packet 6492 send!                                 
+13:5:56.541      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:5:56.542      SendTimer                127.0.1.1:4001           127.0.1.1:1024           6493    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+13:5:56.542      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:5:56.543      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:5:56.544      NETWORK                                                                                                                                 Packet 6493 send!                                 
+13:5:57.342      SendTimer                127.0.1.1:4001           127.0.1.1:1024           6493    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+13:5:57.347      NETWORK                                                                                                                                 Packet 6493 send!                                 
+13:5:58.142      SendTimer                127.0.1.1:4001           127.0.1.1:1024           6493    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 3)                    
+13:5:58.148      NETWORK                                                                                                                                 Packet 6493 send!                                 
+13:5:58.942      SendTimer                127.0.1.1:4001           127.0.1.1:1024           6493    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 4)                    
+13:5:58.943      NETWORK                                                                                                                                 Packet 6493 send!                                 
+13:5:59.343      TestApplication                                                                                                                         No ack was recieved from the send operation       
+13:5:59.347      TestApplication                                                                                                                         CLIENT TEST FINISHED                              

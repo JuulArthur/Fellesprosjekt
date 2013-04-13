@@ -137,7 +137,6 @@ public class ConnectionImpl extends AbstractConnection {
 			lastDataPacketSent = syn;
 
 			KtnDatagram synAck = connection.receiveAck();
-
 			System.out.println("for if");
 			if (synAck != null) {
 				lastValidPacketReceived = synAck;
@@ -166,12 +165,14 @@ public class ConnectionImpl extends AbstractConnection {
 
 		KtnDatagram sendDatagram = constructDataPacket(msg);
 
-		lastDataPacketSent = sendDatagram;
+		//lastDataPacketSent = sendDatagram;
+
 		KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
 
 		if (!isValid(recievedDatagram)){
 			System.out.println("==================================");
-			System.out.println(recievedDatagram);
+			System.out.println(recievedDatagram.getFlag());
+			System.out.println(recievedDatagram.getSeq_nr());
 			System.out.println("==================================");
 
 			throw new IOException("No ack was recieved from the send operation");
@@ -188,52 +189,54 @@ public class ConnectionImpl extends AbstractConnection {
      * @see AbstractConnection#receivePacket(boolean)
      * @see AbstractConnection#sendAck(KtnDatagram, boolean)
      */
-    public String receive() throws ConnectException, IOException {
-    	if(state!=State.CLOSED){
-    		try{
-    		KtnDatagram thisPacket = receivePacket(true);
-    		if (isValid(thisPacket)){
-    			lastValidPacketReceived=thisPacket;
-    			
-    			if(thisPacket.getFlag()==Flag.SYN){
-    			KtnDatagram thisInternalPacket = constructInternalPacket(Flag.SYN_ACK);
-    			sendAck(thisInternalPacket, true);
-    			lastDataPacketSent= thisInternalPacket;
-    			KtnDatagram recivedAck = receiveAck();
-	   
-	    			if(isValid(recivedAck)){
-		    				lastValidPacketReceived= recivedAck;
-		    				state=State.ESTABLISHED;
-		    				String result ="Har godtatt ACK";
-		    				return result;	
-		    			}
-    			}
-    			
-    			else if(thisPacket.getFlag()==Flag.FIN){
-    				KtnDatagram thisInternalDatagram = constructInternalPacket(Flag.ACK);    	
-    				sendAck(thisInternalDatagram, false);
-    				lastDataPacketSent= thisInternalDatagram;
-    				KtnDatagram newInternalDatagram= constructInternalPacket(Flag.FIN);
-    				sendDataPacketWithRetransmit(newInternalDatagram);
-    				lastDataPacketSent=newInternalDatagram;
-    				
-    				return "er litt usikker paa hva som skjer, har naa i teorien closed()";
-    				}
-	    		else {
-	    			thisPacket.setFlag(Flag.ACK);
-	    			KtnDatagram newConstructedInternalPacket = constructInternalPacket(thisPacket.getFlag());
-	   				sendAck(newConstructedInternalPacket, false); 
-	   				lastDataPacketSent=newConstructedInternalPacket;
-	   				return thisPacket.toString();
-	    			}
-    		}
-    	}
-    		catch (EOFException e){
-    			System.out.println("something was wrong "+ e );
-    		}
-    	}
-    return null;	
-    }
+	public String receive() throws ConnectException, IOException {
+		if (state != State.CLOSED) {
+			try { 
+				/** We want packets with data. So we need reveivePacket(false)*/
+				KtnDatagram thisPacket = receivePacket(false);
+				
+				if (isValid(thisPacket)) {
+					lastValidPacketReceived = thisPacket;
+
+					if (thisPacket.getFlag() == Flag.SYN) {
+						KtnDatagram thisInternalPacket = constructInternalPacket(Flag.SYN_ACK);
+						sendAck(thisInternalPacket, true);
+						lastDataPacketSent = thisInternalPacket;
+						KtnDatagram recivedAck = receiveAck();
+
+						if (isValid(recivedAck)) {
+							lastValidPacketReceived = recivedAck;
+							state = State.ESTABLISHED;
+							String result = "Har godtatt ACK";
+							return result;
+						}
+					}
+
+					else if (thisPacket.getFlag() == Flag.FIN) {
+						KtnDatagram thisInternalDatagram = constructInternalPacket(Flag.ACK);
+						sendAck(thisInternalDatagram, false);
+						lastDataPacketSent = thisInternalDatagram;
+						KtnDatagram newInternalDatagram = constructInternalPacket(Flag.FIN);
+						sendDataPacketWithRetransmit(newInternalDatagram);
+						lastDataPacketSent = newInternalDatagram;
+
+						return "er litt usikker paa hva som skjer, har naa i teorien closed()";
+					} 
+					/** We have a packet that needs to be ACKED. Flag.NONE is a data packet */
+					else if (thisPacket.getFlag() == Flag.NONE) {
+						/** SendPacket handles construction of ACK package according to recieved package */
+						sendAck(thisPacket, false);
+						lastDataPacketSent = thisPacket;
+						return thisPacket.toString();
+					}
+				}
+			} catch (EOFException e) {
+				System.out.println("something was wrong " + e);
+			}
+		}
+		
+		return null;
+	}
     
     /**
      * Close the connection.
@@ -262,7 +265,8 @@ public class ConnectionImpl extends AbstractConnection {
 			KtnDatagram sendPacket = constructInternalPacket(Flag.FIN);
 			lastDataPacketSent = sendPacket;
 			
-			// venter på ACK tilbake
+			// venter pï¿½ ACK tilbake 
+			/* TODO !! kan ikke bruke sendDataPacket siden dette ikke er en datapacket*/
 			KtnDatagram receivedPacket = sendDataPacketWithRetransmit(sendPacket);
 			
 			if (isValid(receivedPacket)) {
@@ -335,12 +339,17 @@ public class ConnectionImpl extends AbstractConnection {
 	 */
 	private boolean isValidState(KtnDatagram packet) {
 		// check if packet acks last packet
-		if (packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK
-				&& packet.getAck() != lastDataPacketSent.getSeq_nr())
+		if ((packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.SYN_ACK)
+				&& packet.getAck() != lastDataPacketSent.getSeq_nr()){
 			return false;
+		}
+
 		// if package is fin, data has to be null
-		if (packet.getFlag() == Flag.FIN && packet.getPayload() != null)
+		if (packet.getFlag() == Flag.FIN && packet.getPayload() != null){
+			System.out.println("VALIDSTATECHECK FAIL 2");
+
 			return false;
+		}
 		// if state is syn_sent package should be syn_ack and from right host
 		if (state == State.SYN_SENT) {
 			remotePort = packet.getSrc_port();

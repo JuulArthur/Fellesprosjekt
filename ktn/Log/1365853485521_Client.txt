@@ -1,0 +1,35 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:44:45.612     NETWORK                                                                                                                                 Packet 9393 send!                                 
+13:44:45.613     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:44:45.614     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:44:45.643     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:55737
+13:44:45.646     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+13:44:45.647     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:44:45.648     AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           9395    ACK     9394                             0           Sending Ack: 9394                                 
+13:44:45.650     NETWORK                                                                                                                                 Packet 9395 send!                                 
+13:44:45.651     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:44:45.652     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:44:45.653     SendTimer                127.0.1.1:4001           127.0.1.1:1024           9396    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+13:44:45.653     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:44:45.655     NETWORK                                                                                                                                 Packet 9396 send!                                 
+13:44:46.452     SendTimer                127.0.1.1:4001           127.0.1.1:1024           9396    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+13:44:46.453     NETWORK                                                                                                                                 Packet 9396 send!                                 
+13:44:46.458     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:55741
+13:44:46.460     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+13:44:46.461     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:44:46.462     TestApplication                                                                                                                         No ack was recieved from the send operation       
+13:44:46.463     TestApplication                                                                                                                         CLIENT TEST FINISHED                              

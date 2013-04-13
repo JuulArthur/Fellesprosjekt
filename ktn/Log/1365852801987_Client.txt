@@ -1,0 +1,10 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:33:22.81      NETWORK                                                                                                                                 Packet 4661 send!                                 
+13:33:22.82      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:33:22.83      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:33:24.886     TestApplication                                                                                                                         error contacting host java.net.ConnectException: no valid ack received
+13:33:24.889     TestApplication                                                                                                                         CLIENT TEST FINISHED                              

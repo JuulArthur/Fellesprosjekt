@@ -1,0 +1,31 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12:57:40.279     NETWORK                                                                                                                                 Packet 8020 send!                                 
+12:57:40.280     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+12:57:40.281     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+12:57:40.312     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:55269
+12:57:40.316     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+12:57:40.318     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+12:57:40.320     AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           8022    ACK     8021                             0           Sending Ack: 8021                                 
+12:57:40.325     NETWORK                                                                                                                                 Packet 8022 send!                                 
+12:57:40.327     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+12:57:40.328     SendTimer                127.0.1.1:4001           127.0.1.1:1024           8023    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+12:57:40.329     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+12:57:40.330     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:57:40.331     NETWORK                                                                                                                                 Packet 8023 send!                                 
+12:57:41.128     SendTimer                127.0.1.1:4001           127.0.1.1:1024           8023    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+12:57:41.133     NETWORK                                                                                                                                 Packet 8023 send!                                 
+12:57:41.927     SendTimer                127.0.1.1:4001           127.0.1.1:1024           8023    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 3)                    
+12:57:41.929     NETWORK                                                                                                                                 Packet 8023 send!                                 
+12:57:42.727     SendTimer                127.0.1.1:4001           127.0.1.1:1024           8023    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 4)                    
+12:57:42.732     NETWORK                                                                                                                                 Packet 8023 send!                                 
+12:57:43.128     TestApplication                                                                                                                         No ack was recieved from the send operation       
+12:57:43.131     TestApplication                                                                                                                         CLIENT TEST FINISHED                              

@@ -1,0 +1,33 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:15:59.834     NETWORK                                                                                                                                 Packet 8005 send!                                 
+13:15:59.835     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:15:59.836     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:15:59.862     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:55461
+13:15:59.866     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+13:15:59.868     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:15:59.869     AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           8007    ACK     8006                             0           Sending Ack: 8006                                 
+13:15:59.871     NETWORK                                                                                                                                 Packet 8007 send!                                 
+13:15:59.873     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:15:59.874     SendTimer                127.0.1.1:4001           127.0.1.1:1024           8008    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+13:15:59.875     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+13:15:59.876     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:15:59.878     NETWORK                                                                                                                                 Packet 8008 send!                                 
+13:15:59.886     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:55464
+13:15:59.889     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+13:15:59.890     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:15:59.891     TestApplication                                                                                                                         No ack was recieved from the send operation       
+13:15:59.892     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
