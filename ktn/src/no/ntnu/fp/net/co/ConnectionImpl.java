@@ -259,31 +259,70 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see Connection#close()
 	 */
 	public void close() throws IOException {
-		if (state != State.CLOSED) {
-			
-			//sender pakke med FIN
-			KtnDatagram sendPacket = constructInternalPacket(Flag.FIN);
-			lastDataPacketSent = sendPacket;
-			
-			// venter p� ACK tilbake 
-			/* TODO !! kan ikke bruke sendDataPacket siden dette ikke er en datapacket*/
-			KtnDatagram receivedPacket = sendDataPacketWithRetransmit(sendPacket);
-			
-			if (isValid(receivedPacket)) {
-				lastValidPacketReceived  = receivedPacket;
-				state=State.ESTABLISHED;
-			
-			// hmmm	
-				KtnDatagram sendAckPacket = constructInternalPacket(Flag.ACK);
-				sendAck(sendAckPacket, false);
-				lastDataPacketSent = sendAckPacket;
-				
+		if (state != State.ESTABLISHED) {
+			throw new ConnectException("No connection exists");
+		}
+		//Send Packet with FIN
+		try {
+			KtnDatagram internalFin = constructInternalPacket(Flag.FIN);
+			state = State.FIN_WAIT_1;
+			KtnDatagram receivedfin = null;
+
+			while (true) {
+				simplySendPacket(internalFin);
+				KtnDatagram finack = receiveAck();
+
+				// Received FIN
+				if (isValid(finack) && finack.getFlag() == Flag.FIN) {
+					state = State.FIN_WAIT_2;
+					break;
+				}
+				//Received ACK
+				else if (isValid(finack) && finack.getFlag() == Flag.ACK) {
+					state = State.LAST_ACK;
+					receivedfin = finack;
+					break;
+				}
 			}
 			
-		}
-		
-		else {
-			System.out.println("State already closed");
+			if (state == State.FIN_WAIT_2) {
+				while (true) {
+					// Waiting for FIN
+					while (!isValid(receivedfin)) {
+						receivedfin = receivePacket(true);
+					}
+					// Sending ack
+					sendAck(receivedfin, false);
+					state = state.CLOSE_WAIT;						
+					receivedfin = receiveAck();
+
+					// break if timeout
+					if (receivedfin == null) {
+						break;
+					}		
+				}
+			}
+
+			// No need to wait for FIN
+			else if (state == State.LAST_ACK) {
+				while(true) {
+					sendAck(receivedfin, false);
+					state = State.CLOSE_WAIT;
+					receivedfin = receiveAck();
+
+					if (receivedfin == null) {
+						break;
+					}
+				}
+			}
+			
+			// State is now closed, and the port is removed
+			usedPorts.remove(myPort);
+			state = State.CLOSED;
+
+		} catch (ClException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
