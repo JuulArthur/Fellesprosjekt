@@ -1,0 +1,97 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:23:18.605     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:18.687     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:23:21.414     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:21.415     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:23:21.416     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:23:21.798     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:36860
+15:23:21.834     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:23:21.835     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:23:21.838     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           3483    SYN_ACK 1372                             0           Sending Ack: 1372                                 
+15:23:21.846     NETWORK                                                                                                                                 Packet 3483 send!                                 
+15:23:21.847     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:23:21.850     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:21.952     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:40090
+15:23:21.954     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:23:21.954     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:23:21.955     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:21.955     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:21.956     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:23:22.758     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:40092
+15:23:22.760     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:23:22.762     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:23:22.763     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           3484    ACK     1375                             0           Sending Ack: 1375                                 
+15:23:22.765     NETWORK                                                                                                                                 Packet 3484 send!                                 
+15:23:22.765     TestServer                                                                                                                              Message got through to server: Client: Hello Server! Are you there?
+15:23:22.766     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:22.767     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:22.768     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:23:22.771     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:40094
+15:23:22.773     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:23:22.774     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:23:22.776     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           3485    ACK     1376                             0           Sending Ack: 1376                                 
+15:23:22.778     NETWORK                                                                                                                                 Packet 3485 send!                                 
+15:23:22.779     TestServer                                                                                                                              Message got through to server: Client: Hi again!  
+15:23:22.779     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:22.780     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:22.780     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:23:22.785     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:40096
+15:23:22.787     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:23:22.787     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:23:22.790     TestServer                                                                                                                              Message got through to server: null               
+15:23:22.791     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:22.791     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:22.792     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:23:25.588     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:40097
+15:23:25.590     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:23:25.591     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:23:25.591     TestServer                                                                                                                              Message got through to server: null               
+15:23:25.593     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:25.594     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:25.594     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:23:28.390     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:40098
+15:23:28.392     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:23:28.393     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:23:28.394     TestServer                                                                                                                              Message got through to server: null               
+15:23:28.395     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:23:28.395     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:23:28.396     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

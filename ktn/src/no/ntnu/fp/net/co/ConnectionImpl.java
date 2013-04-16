@@ -137,7 +137,6 @@ public class ConnectionImpl extends AbstractConnection {
 			lastDataPacketSent = syn;
 
 			KtnDatagram synAck = connection.receiveAck();
-			System.out.println("for if");
 			if (synAck != null) {
 				lastValidPacketReceived = synAck;
 				connection.state = connection.state.ESTABLISHED;
@@ -184,49 +183,60 @@ public class ConnectionImpl extends AbstractConnection {
      */
 	public String receive() throws ConnectException, IOException {
 		if (state != State.CLOSED) {
-			try { 
-				/** We want packets with data. So we need reveivePacket(false)*/
-				KtnDatagram thisPacket = receivePacket(false);
-				
-				if (isValid(thisPacket)) {
-					lastValidPacketReceived = thisPacket;
+			KtnDatagram thisPacket = null;
+			
+			/*
+			if (thisPacket.getFlag() == Flag.SYN) {
+				KtnDatagram thisInternalPacket = constructInternalPacket(Flag.SYN_ACK);
+				sendAck(thisInternalPacket, true);
+				lastDataPacketSent = thisInternalPacket;
+				KtnDatagram recivedAck = receiveAck();
 
-					if (thisPacket.getFlag() == Flag.SYN) {
-						KtnDatagram thisInternalPacket = constructInternalPacket(Flag.SYN_ACK);
-						sendAck(thisInternalPacket, true);
-						lastDataPacketSent = thisInternalPacket;
-						KtnDatagram recivedAck = receiveAck();
+				if (isValid(recivedAck)) {
+					lastValidPacketReceived = recivedAck;
+					state = State.ESTABLISHED;
+					String result = "Har godtatt ACK";
+					return result;
+				}
+			}
 
-						if (isValid(recivedAck)) {
-							lastValidPacketReceived = recivedAck;
-							state = State.ESTABLISHED;
-							String result = "Har godtatt ACK";
-							return result;
+			else if (thisPacket.getFlag() == Flag.FIN) {
+				KtnDatagram thisInternalDatagram = constructInternalPacket(Flag.ACK);
+				sendAck(thisInternalDatagram, false);
+				lastDataPacketSent = thisInternalDatagram;
+				KtnDatagram newInternalDatagram = constructInternalPacket(Flag.FIN);
+				sendDataPacketWithRetransmit(newInternalDatagram);
+				lastDataPacketSent = newInternalDatagram;
+
+				return "er litt usikker paa hva som skjer, har naa i teorien closed()";
+			} */
+			//We are in an established state
+			if(state == State.ESTABLISHED)
+				try { 
+					/** We want packets with data. So we need reveivePacket(false)*/
+					thisPacket = receivePacket(false);
+					System.out.println("PACKAGE: " + thisPacket.getFlag());
+					
+					if (isValid(thisPacket)) {
+						lastValidPacketReceived = thisPacket;
+						/** We have a packet that needs to be ACKED. Flag.NONE is a data packet */
+						if (thisPacket.getFlag() == Flag.NONE) {
+							/** SendPacket handles construction of ACK package according to recieved package */
+							
+							sendAck(thisPacket, false);
+							lastDataPacketSent = thisPacket;
+							return thisPacket.toString();
 						}
 					}
-
-					else if (thisPacket.getFlag() == Flag.FIN) {
-						KtnDatagram thisInternalDatagram = constructInternalPacket(Flag.ACK);
-						sendAck(thisInternalDatagram, false);
-						lastDataPacketSent = thisInternalDatagram;
-						KtnDatagram newInternalDatagram = constructInternalPacket(Flag.FIN);
-						sendDataPacketWithRetransmit(newInternalDatagram);
-						lastDataPacketSent = newInternalDatagram;
-
-						return "er litt usikker paa hva som skjer, har naa i teorien closed()";
-					} 
-					/** We have a packet that needs to be ACKED. Flag.NONE is a data packet */
-					else if (thisPacket.getFlag() == Flag.NONE) {
-						/** SendPacket handles construction of ACK package according to recieved package */
+				} catch (EOFException e) {
+					//EOF means connection close
+					System.out.println("EOFException: Probably a close request");
+					if(thisPacket != null)
 						sendAck(thisPacket, false);
-						lastDataPacketSent = thisPacket;
-						return thisPacket.toString();
-					}
+					
+					KtnDatagram close = receivePacket(true);
+					System.out.println("1234" + close.getFlag());
 				}
-			} catch (EOFException e) {
-				//EOF means connection close
-				System.out.println("something was wrong " + e);
-			}
 		}
 		
 		return null;
