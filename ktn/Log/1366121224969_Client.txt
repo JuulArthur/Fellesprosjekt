@@ -1,0 +1,57 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+16:7:5.182       NETWORK                                                                                                                                 Packet 7525 send!                                 
+16:7:5.183       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:7:5.184       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:7:5.294       CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60511
+16:7:5.299       CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+16:7:5.300       AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+16:7:5.301       AbstractConnection       78.91.20.156:4001        78.91.20.156:1024        7527    ACK     7526                             0           Sending Ack: 7526                                 
+16:7:5.302       NETWORK                                                                                                                                 Packet 7527 send!                                 
+16:7:5.304       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:7:5.305       SendTimer                78.91.20.156:4001        78.91.20.156:1024        7528    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+16:7:5.305       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:7:5.306       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+16:7:5.307       NETWORK                                                                                                                                 Packet 7528 send!                                 
+16:7:6.105       SendTimer                78.91.20.156:4001        78.91.20.156:1024        7528    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+16:7:6.108       NETWORK                                                                                                                                 Packet 7528 send!                                 
+16:7:6.113       CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60515
+16:7:6.114       CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+16:7:6.115       AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+16:7:6.116       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:7:6.117       SendTimer                78.91.20.156:4001        78.91.20.156:1024        7529    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 1)                    
+16:7:6.118       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:7:6.119       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+16:7:6.119       NETWORK                                                                                                                                 Packet 7529 send!                                 
+16:7:6.123       CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60517
+16:7:6.125       CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+16:7:6.125       AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+16:7:6.125       TestApplication                                                                                                                         Client is now closing the connection!             
+16:7:6.127       NETWORK                                                                                                                                 Packet 7530 send!                                 
+16:7:6.128       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:7:6.129       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:7:6.129       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+16:7:8.931       NETWORK                                                                                                                                 Packet 7530 send!                                 
+16:7:8.932       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:7:8.933       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:7:8.934       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+16:7:11.735      TestApplication                                                                                                                         Connection refused                                
+16:7:11.736      TestApplication                                                                                                                         CLIENT TEST FINISHED                              

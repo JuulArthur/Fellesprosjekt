@@ -1,0 +1,31 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+16:20:15.611     NETWORK                                                                                                                                 Packet 4473 send!                                 
+16:20:15.611     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:20:15.613     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:20:15.662     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60682
+16:20:15.667     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+16:20:15.668     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+16:20:15.669     AbstractConnection       78.91.20.156:4001        78.91.20.156:1024        4475    ACK     4474                             0           Sending Ack: 4474                                 
+16:20:15.670     NETWORK                                                                                                                                 Packet 4475 send!                                 
+16:20:15.672     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+16:20:15.673     SendTimer                78.91.20.156:4001        78.91.20.156:1024        4476    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+16:20:15.673     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+16:20:15.674     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+16:20:15.675     NETWORK                                                                                                                                 Packet 4476 send!                                 
+16:20:16.473     SendTimer                78.91.20.156:4001        78.91.20.156:1024        4476    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+16:20:16.476     NETWORK                                                                                                                                 Packet 4476 send!                                 
+16:20:17.273     SendTimer                78.91.20.156:4001        78.91.20.156:1024        4476    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 3)                    
+16:20:17.276     NETWORK                                                                                                                                 Packet 4476 send!                                 
+16:20:18.73      SendTimer                78.91.20.156:4001        78.91.20.156:1024        4476    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 4)                    
+16:20:18.76      NETWORK                                                                                                                                 Packet 4476 send!                                 
+16:20:18.474     TestApplication                                                                                                                         No ack was recieved from the send operation       
+16:20:18.476     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
