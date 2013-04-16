@@ -165,16 +165,9 @@ public class ConnectionImpl extends AbstractConnection {
 
 		KtnDatagram sendDatagram = constructDataPacket(msg);
 
-		//lastDataPacketSent = sendDatagram;
-
 		KtnDatagram recievedDatagram = sendDataPacketWithRetransmit(sendDatagram);
 
 		if (!isValid(recievedDatagram)){
-			System.out.println("==================================");
-			System.out.println(recievedDatagram.getFlag());
-			System.out.println(recievedDatagram.getSeq_nr());
-			System.out.println("==================================");
-
 			throw new IOException("No ack was recieved from the send operation");
 		}
 
@@ -231,6 +224,7 @@ public class ConnectionImpl extends AbstractConnection {
 					}
 				}
 			} catch (EOFException e) {
+				//EOF means connection close
 				System.out.println("something was wrong " + e);
 			}
 		}
@@ -311,7 +305,7 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @return true if packet is free of errors, false otherwise.
 	 */
 	protected boolean isValid(KtnDatagram packet) {
-		if (packet != null
+		if (packet != null //Checksum only for data packets
 				&& packet.calculateChecksum() == packet.getChecksum()
 				&& isValidState(packet))
 			return true;
