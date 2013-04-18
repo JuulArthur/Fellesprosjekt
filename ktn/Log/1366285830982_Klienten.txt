@@ -1,0 +1,11 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:50:32.300     NETWORK                                                                                                                                 Packet 1268 send!                                 
+13:50:32.305     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:50:32.313     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+13:50:32.321     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:50:32.330     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:50:32.335     CLSocket::receive                                                                                                                       Receiving at:5555                                 

@@ -1,0 +1,16 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:20:9.971      NETWORK                                                                                                                                 Packet 2884 send!                                 
+13:20:9.976      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:20:9.983      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+13:20:10.45      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:49335
+13:20:10.79      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+13:20:10.100     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
