@@ -1,0 +1,514 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:20:47.123     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:47.179     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:20:49.831     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58095
+15:20:49.867     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:20:49.868     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:20:49.879     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           462     SYN_ACK 4032                             0           Sending Ack: 4032                                 
+15:20:49.890     NETWORK                                                                                                                                 Packet 462 send!                                  
+15:20:49.890     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:20:49.891     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:49.899     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54020
+15:20:49.903     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:49.903     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:20:49.904     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:49.905     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:49.905     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.706     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54021
+15:20:50.709     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.711     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.713     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           463     ACK     4035                             0           Sending Ack: 4035                                 
+15:20:50.716     NETWORK                                                                                                                                 Packet 463 send!                                  
+15:20:50.717     TestServer                                                                                                                              Message got through to server: Client: Hello Server! Are you there?
+15:20:50.717     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.718     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.719     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.724     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54023
+15:20:50.725     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.726     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.726     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           464     ACK     4036                             0           Sending Ack: 4036                                 
+15:20:50.729     NETWORK                                                                                                                                 Packet 464 send!                                  
+15:20:50.730     TestServer                                                                                                                              Message got through to server: Client: Hi again!0 
+15:20:50.730     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.731     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.731     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.740     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54025
+15:20:50.743     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.743     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.743     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           465     ACK     4037                             0           Sending Ack: 4037                                 
+15:20:50.745     NETWORK                                                                                                                                 Packet 465 send!                                  
+15:20:50.746     TestServer                                                                                                                              Message got through to server: Client: Hi again!1 
+15:20:50.747     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.747     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.747     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.750     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54027
+15:20:50.751     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.752     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.752     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           466     ACK     4038                             0           Sending Ack: 4038                                 
+15:20:50.753     NETWORK                                                                                                                                 Packet 466 send!                                  
+15:20:50.753     TestServer                                                                                                                              Message got through to server: Client: Hi again!2 
+15:20:50.753     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.754     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.754     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.757     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54029
+15:20:50.759     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.759     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.759     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           467     ACK     4039                             0           Sending Ack: 4039                                 
+15:20:50.760     NETWORK                                                                                                                                 Packet 467 send!                                  
+15:20:50.761     TestServer                                                                                                                              Message got through to server: Client: Hi again!3 
+15:20:50.761     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.761     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.762     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.766     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54031
+15:20:50.768     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.768     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.768     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           468     ACK     4040                             0           Sending Ack: 4040                                 
+15:20:50.770     NETWORK                                                                                                                                 Packet 468 send!                                  
+15:20:50.770     TestServer                                                                                                                              Message got through to server: Client: Hi again!4 
+15:20:50.770     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.771     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.771     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.776     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54033
+15:20:50.777     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.778     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.778     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           469     ACK     4041                             0           Sending Ack: 4041                                 
+15:20:50.779     NETWORK                                                                                                                                 Packet 469 send!                                  
+15:20:50.780     TestServer                                                                                                                              Message got through to server: Client: Hi again!5 
+15:20:50.780     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.780     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.780     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.785     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54036
+15:20:50.787     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.787     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.787     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           470     ACK     4042                             0           Sending Ack: 4042                                 
+15:20:50.788     NETWORK                                                                                                                                 Packet 470 send!                                  
+15:20:50.788     TestServer                                                                                                                              Message got through to server: Client: Hi again!6 
+15:20:50.789     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.789     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.789     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.791     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54038
+15:20:50.793     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.793     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.793     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           471     ACK     4043                             0           Sending Ack: 4043                                 
+15:20:50.794     NETWORK                                                                                                                                 Packet 471 send!                                  
+15:20:50.794     TestServer                                                                                                                              Message got through to server: Client: Hi again!7 
+15:20:50.794     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.794     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.795     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.797     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54040
+15:20:50.798     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.798     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.798     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           472     ACK     4044                             0           Sending Ack: 4044                                 
+15:20:50.799     NETWORK                                                                                                                                 Packet 472 send!                                  
+15:20:50.799     TestServer                                                                                                                              Message got through to server: Client: Hi again!8 
+15:20:50.800     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.800     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.800     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.802     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54042
+15:20:50.804     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.804     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.804     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           473     ACK     4045                             0           Sending Ack: 4045                                 
+15:20:50.805     NETWORK                                                                                                                                 Packet 473 send!                                  
+15:20:50.805     TestServer                                                                                                                              Message got through to server: Client: Hi again!9 
+15:20:50.805     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.806     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.806     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.812     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54044
+15:20:50.813     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.813     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.813     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           474     ACK     4046                             0           Sending Ack: 4046                                 
+15:20:50.814     NETWORK                                                                                                                                 Packet 474 send!                                  
+15:20:50.815     TestServer                                                                                                                              Message got through to server: Client: Hi again!10
+15:20:50.815     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.815     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.815     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.817     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54046
+15:20:50.818     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.818     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.818     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           475     ACK     4047                             0           Sending Ack: 4047                                 
+15:20:50.820     NETWORK                                                                                                                                 Packet 475 send!                                  
+15:20:50.820     TestServer                                                                                                                              Message got through to server: Client: Hi again!11
+15:20:50.820     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.820     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.820     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:50.822     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54048
+15:20:50.824     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:50.824     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:50.825     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           476     ACK     4048                             0           Sending Ack: 4048                                 
+15:20:50.827     NETWORK                                                                                                                                 Packet 476 send!                                  
+15:20:50.830     TestServer                                                                                                                              Message got through to server: Client: Hi again!12
+15:20:50.830     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:50.831     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:50.831     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:51.631     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54051
+15:20:51.636     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:51.637     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:51.639     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           477     ACK     4049                             0           Sending Ack: 4049                                 
+15:20:51.640     NETWORK                                                                                                                                 Packet 477 send!                                  
+15:20:51.640     TestServer                                                                                                                              Message got through to server: Client: Hi again!13
+15:20:51.641     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:51.641     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:51.641     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:51.645     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54053
+15:20:51.646     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:51.647     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:51.647     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           478     ACK     4050                             0           Sending Ack: 4050                                 
+15:20:51.648     NETWORK                                                                                                                                 Packet 478 send!                                  
+15:20:51.648     TestServer                                                                                                                              Message got through to server: Client: Hi again!14
+15:20:51.648     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:51.650     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:51.650     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:51.652     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54056
+15:20:51.653     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:51.654     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:51.654     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           479     ACK     4051                             0           Sending Ack: 4051                                 
+15:20:51.655     NETWORK                                                                                                                                 Packet 479 send!                                  
+15:20:51.655     TestServer                                                                                                                              Message got through to server: Client: Hi again!15
+15:20:51.655     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:51.656     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:51.656     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:51.661     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54058
+15:20:51.662     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:51.662     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:51.662     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           480     ACK     4052                             0           Sending Ack: 4052                                 
+15:20:51.663     NETWORK                                                                                                                                 Packet 480 send!                                  
+15:20:51.663     TestServer                                                                                                                              Message got through to server: Client: Hi again!16
+15:20:51.663     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:51.663     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:51.663     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:52.468     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54060
+15:20:52.472     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:52.472     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:52.472     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           481     ACK     4053                             0           Sending Ack: 4053                                 
+15:20:52.476     NETWORK                                                                                                                                 Packet 481 send!                                  
+15:20:52.476     TestServer                                                                                                                              Message got through to server: Client: Hi again!17
+15:20:52.477     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:52.477     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:52.478     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:52.483     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54062
+15:20:52.484     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:52.484     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:52.484     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           482     ACK     4054                             0           Sending Ack: 4054                                 
+15:20:52.485     NETWORK                                                                                                                                 Packet 482 send!                                  
+15:20:52.485     TestServer                                                                                                                              Message got through to server: Client: Hi again!18
+15:20:52.485     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:52.485     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:52.485     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:52.490     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54064
+15:20:52.492     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:52.492     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:52.492     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           483     ACK     4055                             0           Sending Ack: 4055                                 
+15:20:52.494     NETWORK                                                                                                                                 Packet 483 send!                                  
+15:20:52.495     TestServer                                                                                                                              Message got through to server: Client: Hi again!19
+15:20:52.495     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:52.495     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:52.495     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:52.499     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54067
+15:20:52.501     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:52.501     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:52.501     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           484     ACK     4055                             0           Sending Ack: 4055                                 
+15:20:52.505     NETWORK                                                                                                                                 Packet 484 send!                                  
+15:20:52.505     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:52.506     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:52.506     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:52.513     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54069
+15:20:52.516     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:52.517     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:52.517     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           485     ACK     4056                             0           Sending Ack: 4056                                 
+15:20:52.521     NETWORK                                                                                                                                 Packet 485 send!                                  
+15:20:52.521     TestServer                                                                                                                              Message got through to server: Client: Hi again!20
+15:20:52.522     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:52.522     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:52.522     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.331     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54072
+15:20:53.334     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.335     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.335     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           486     ACK     4057                             0           Sending Ack: 4057                                 
+15:20:53.339     NETWORK                                                                                                                                 Packet 486 send!                                  
+15:20:53.339     TestServer                                                                                                                              Message got through to server: Client: Hi again!21
+15:20:53.340     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.341     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.341     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.345     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54074
+15:20:53.347     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.348     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.348     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           487     ACK     4058                             0           Sending Ack: 4058                                 
+15:20:53.350     NETWORK                                                                                                                                 Packet 487 send!                                  
+15:20:53.351     TestServer                                                                                                                              Message got through to server: Client: Hi again!22
+15:20:53.351     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.351     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.351     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.355     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54076
+15:20:53.357     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.357     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.357     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           488     ACK     4059                             0           Sending Ack: 4059                                 
+15:20:53.358     NETWORK                                                                                                                                 Packet 488 send!                                  
+15:20:53.359     TestServer                                                                                                                              Message got through to server: Client: Hi again!23
+15:20:53.359     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.359     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.359     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.363     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54079
+15:20:53.365     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.365     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.365     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           489     ACK     4060                             0           Sending Ack: 4060                                 
+15:20:53.366     NETWORK                                                                                                                                 Packet 489 send!                                  
+15:20:53.366     TestServer                                                                                                                              Message got through to server: Client: Hi again!24
+15:20:53.366     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.366     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.366     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.368     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54081
+15:20:53.371     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.371     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.371     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           490     ACK     4061                             0           Sending Ack: 4061                                 
+15:20:53.373     NETWORK                                                                                                                                 Packet 490 send!                                  
+15:20:53.373     TestServer                                                                                                                              Message got through to server: Client: Hi again!25
+15:20:53.374     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.374     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.374     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.378     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54083
+15:20:53.380     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.381     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.381     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           491     ACK     4062                             0           Sending Ack: 4062                                 
+15:20:53.384     NETWORK                                                                                                                                 Packet 491 send!                                  
+15:20:53.384     TestServer                                                                                                                              Message got through to server: Client: Hi again!26
+15:20:53.384     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.384     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.384     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:53.387     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54085
+15:20:53.390     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:53.390     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:53.390     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           492     ACK     4063                             0           Sending Ack: 4063                                 
+15:20:53.391     NETWORK                                                                                                                                 Packet 492 send!                                  
+15:20:53.391     TestServer                                                                                                                              Message got through to server: Client: Hi again!27
+15:20:53.391     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:53.391     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:53.391     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:54.189     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54087
+15:20:54.193     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:54.194     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:54.194     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           493     ACK     4063                             0           Sending Ack: 4063                                 
+15:20:54.196     NETWORK                                                                                                                                 Packet 493 send!                                  
+15:20:54.196     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:54.196     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:54.196     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:54.201     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54089
+15:20:54.202     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:54.202     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:54.202     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           494     ACK     4064                             0           Sending Ack: 4064                                 
+15:20:54.206     NETWORK                                                                                                                                 Packet 494 send!                                  
+15:20:54.206     TestServer                                                                                                                              Message got through to server: Client: Hi again!28
+15:20:54.206     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:54.206     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:54.206     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:54.211     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54091
+15:20:54.213     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:54.213     AbstractConnection                                                                                                                      Received an external packet in doReceive          
+15:20:54.214     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           495     ACK     4065                             0           Sending Ack: 4065                                 
+15:20:54.219     NETWORK                                                                                                                                 Packet 495 send!                                  
+15:20:54.220     TestServer                                                                                                                              Message got through to server: Client: Hi again!29
+15:20:54.220     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:54.220     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:54.220     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:54.222     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 1024
+Remote Port:54093
+15:20:54.223     CLSocket::receive                                                                                                                       Finished receiving at:1024                        
+15:20:54.223     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:20:54.223     TestServer                                                                                                                              Got close request (EOFException), closing.        
+15:20:54.223     AbstractConnection       127.0.1.1:1024           127.0.1.1:4001           496     ACK     4066                             0           Sending Ack: 4066                                 
+15:20:54.225     NETWORK                                                                                                                                 Packet 496 send!                                  
+15:20:54.326     NETWORK                                                                                                                                 Packet 497 send!                                  
+15:20:54.327     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:54.328     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:54.328     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:57.129     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:57.130     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:57.130     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:20:59.930     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:20:59.931     CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:20:59.932     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:21:2.731      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:21:2.732      CLSocket::receive                                                                                                                       Receiving at:1024                                 
+15:21:2.732      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
