@@ -342,6 +342,12 @@ public class ConnectionImpl extends AbstractConnection {
 					simplySendPacket(finPacket);
 					this.state = State.FIN_WAIT_1;
 					ack = receiveAck();
+					System.out.println("==========FIN=================");
+					System.out.println(finPacket.getSeq_nr() );
+					if(ack != null){
+						System.out.println("==========ACK=================");
+						System.out.println(ack.getAck());
+					}
 				} catch (ClException e) {
 					e.printStackTrace();
 				}
@@ -376,6 +382,7 @@ public class ConnectionImpl extends AbstractConnection {
 			//   Send FIN to server and wait for ACK
 			while(!isValid(finack) && numOfTries-->0){
 				try {
+					System.out.println("SENDING FIN");
 					simplySendPacket(fin);
 					state = State.LAST_ACK;
 				} catch (ClException e) {
@@ -385,7 +392,8 @@ public class ConnectionImpl extends AbstractConnection {
 			}
 			//        	Lukk tilkoblingen
 			state = State.CLOSED;
-			disconnectRequest = null;        	
+			disconnectRequest = null;  
+			System.out.println("CONNECTION DISCONNECT DONE");
 		}
 	}
 		
