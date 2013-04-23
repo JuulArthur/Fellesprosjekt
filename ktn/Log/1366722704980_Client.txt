@@ -1,0 +1,600 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:11:45.188     NETWORK                                                                                                                                 Packet 9047 send!                                 
+15:11:45.189     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:45.191     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:45.273     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60783
+15:11:45.277     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:45.278     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:45.278     AbstractConnection       78.91.22.124:4001        78.91.22.124:1024        9049    ACK     9048                             0           Sending Ack: 9048                                 
+15:11:45.280     NETWORK                                                                                                                                 Packet 9049 send!                                 
+15:11:45.282     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:45.282     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9050    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+15:11:45.283     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:45.284     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:45.291     SendTimer                                                                                                                               ERROR: Could not establish a connection to 78.91.22.124:1024
+15:11:46.83      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9050    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+15:11:46.84      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9050    NONE    -1      Client: Hello Server! Are you there?2186906615  Datagram was duplicated                           
+15:11:46.86      NETWORK                                                                                                                                 Packet 9050 send!                                 
+15:11:46.88      NETWORK                                                                                                                                 Duplicate Packet 9050 send!                       
+15:11:46.91      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60788
+15:11:46.93      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.94      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.94      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.95      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9051    NONE    -1      Client: Hi again!0       1255084720  Sending this datagram (try: 1)                    
+15:11:46.95      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.96      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:46.97      NETWORK                                                                                                                                 Packet 9051 send!                                 
+15:11:46.101     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60790
+15:11:46.103     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.104     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.105     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.105     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9052    NONE    -1      Client: Hi again!1       1036526118  Sending this datagram (try: 1)                    
+15:11:46.106     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9052    NONE    -1      Client: Hi again!1       1036526118  Error in header                                   
+15:11:46.106     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.107     NETWORK                  78.91.22.124:4001        78.91.22.124:5382        9052    NONE    -1      Client: Hi again!1       1036526118  dest port was updated to 5382                     
+15:11:46.108     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:46.109     NETWORK                                                                                                                                 Packet 9052 send!                                 
+15:11:46.906     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9052    NONE    -1      Client: Hi again!1       1036526118  Sending this datagram (try: 2)                    
+15:11:46.909     NETWORK                                                                                                                                 Packet 9052 send!                                 
+15:11:46.914     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60793
+15:11:46.916     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.917     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.918     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.918     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9053    NONE    -1      Client: Hi again!2       2764141468  Sending this datagram (try: 1)                    
+15:11:46.918     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.919     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:46.920     NETWORK                                                                                                                                 Packet 9053 send!                                 
+15:11:46.923     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60795
+15:11:46.924     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.924     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.925     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.925     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9054    NONE    -1      Client: Hi again!3       3552985866  Sending this datagram (try: 1)                    
+15:11:46.926     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.926     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9054    NONE    -1      Client: Hi again!3       3552985866  Datagram was duplicated                           
+15:11:46.926     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:46.928     NETWORK                                                                                                                                 Packet 9054 send!                                 
+15:11:46.929     NETWORK                                                                                                                                 Duplicate Packet 9054 send!                       
+15:11:46.931     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60798
+15:11:46.933     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.933     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.934     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.934     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9055    NONE    -1      Client: Hi again!4       1302517417  Sending this datagram (try: 1)                    
+15:11:46.934     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.935     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:46.935     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9055    NONE    -1      Client: Hi again!4       1302517417  Error in payload                                  
+15:11:46.936     NETWORK                                                                                                                                 Packet 9055 send!                                 
+15:11:46.939     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60800
+15:11:46.940     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.940     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.941     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.941     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9055    NONE    -1      Client: Hi again!4       1302517417  Sending this datagram (try: 1)                    
+15:11:46.942     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.942     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:46.943     NETWORK                                                                                                                                 Packet 9055 send!                                 
+15:11:46.946     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60802
+15:11:46.947     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:46.947     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:46.948     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:46.948     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9056    NONE    -1      Client: Hi again!5       983950911   Sending this datagram (try: 1)                    
+15:11:46.948     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:46.948     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9056    NONE    -1      Client: Hi again!5       983950911   datagram was delayed 438ms                        
+15:11:46.949     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:47.391     NETWORK                                                                                                                                 Packet 9056 send!                                 
+15:11:47.391     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9056    NONE    -1      Client: Hi again!5       983950911    was sent after a delay                           
+15:11:47.395     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60804
+15:11:47.396     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:47.396     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:47.397     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:47.397     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9057    NONE    -1      Client: Hi again!6       2746005381  Sending this datagram (try: 1)                    
+15:11:47.398     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:47.398     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:47.399     NETWORK                                                                                                                                 Packet 9057 send!                                 
+15:11:47.403     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60806
+15:11:47.404     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:47.404     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:47.404     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:47.405     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9058    NONE    -1      Client: Hi again!7       3568011027  Sending this datagram (try: 1)                    
+15:11:47.405     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:47.405     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:47.408     NETWORK                                                                                                                                 Packet 9058 send!                                 
+15:11:47.415     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60808
+15:11:47.416     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:47.417     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:47.417     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:47.417     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9059    NONE    -1      Client: Hi again!8       1142200962  Sending this datagram (try: 1)                    
+15:11:47.417     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:47.418     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:47.418     NETWORK                                                                                                                                 Packet 9059 send!                                 
+15:11:48.218     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9059    NONE    -1      Client: Hi again!8       1142200962  Sending this datagram (try: 2)                    
+15:11:48.221     NETWORK                                                                                                                                 Packet 9059 send!                                 
+15:11:48.225     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60811
+15:11:48.226     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.226     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.227     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.227     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9060    NONE    -1      Client: Hi again!9       856926740   Sending this datagram (try: 1)                    
+15:11:48.227     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.228     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.229     NETWORK                                                                                                                                 Packet 9060 send!                                 
+15:11:48.232     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60813
+15:11:48.233     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.233     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.233     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.234     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9061    NONE    -1      Client: Hi again!10      1133291960  Sending this datagram (try: 1)                    
+15:11:48.234     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.235     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.235     NETWORK                                                                                                                                 Packet 9061 send!                                 
+15:11:48.238     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60815
+15:11:48.238     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.239     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.239     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.239     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9062    NONE    -1      Client: Hi again!11      881563950   Sending this datagram (try: 1)                    
+15:11:48.240     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.240     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.241     NETWORK                                                                                                                                 Packet 9062 send!                                 
+15:11:48.244     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60817
+15:11:48.245     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.245     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.246     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.246     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9063    NONE    -1      Client: Hi again!12      2911029396  Sending this datagram (try: 1)                    
+15:11:48.246     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.246     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.247     NETWORK                                                                                                                                 Packet 9063 send!                                 
+15:11:48.250     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60819
+15:11:48.252     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.252     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.252     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.253     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9064    NONE    -1      Client: Hi again!13      3666212866  Sending this datagram (try: 1)                    
+15:11:48.253     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.254     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.254     NETWORK                                                                                                                                 Packet 9064 send!                                 
+15:11:48.257     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60821
+15:11:48.258     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.258     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.259     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.259     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9065    NONE    -1      Client: Hi again!14      1155624353  Sending this datagram (try: 1)                    
+15:11:48.259     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.259     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.260     NETWORK                                                                                                                                 Packet 9065 send!                                 
+15:11:48.264     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60823
+15:11:48.265     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.265     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.266     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.266     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9066    NONE    -1      Client: Hi again!15      870735159   Sending this datagram (try: 1)                    
+15:11:48.267     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.268     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.268     NETWORK                                                                                                                                 Packet 9066 send!                                 
+15:11:48.271     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60825
+15:11:48.272     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.272     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.273     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.273     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9067    NONE    -1      Client: Hi again!16      2867793037  Sending this datagram (try: 1)                    
+15:11:48.274     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.274     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9067    NONE    -1      Client: Hi again!16      2867793037  Datagram was duplicated                           
+15:11:48.274     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.276     NETWORK                                                                                                                                 Packet 9067 send!                                 
+15:11:48.277     NETWORK                                                                                                                                 Duplicate Packet 9067 send!                       
+15:11:48.279     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60828
+15:11:48.281     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.281     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.281     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.282     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9068    NONE    -1      Client: Hi again!17      3722984475  Sending this datagram (try: 1)                    
+15:11:48.282     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.282     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9068    NONE    -1      Client: Hi again!17      3722984475  Error in payload                                  
+15:11:48.283     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.284     NETWORK                                                                                                                                 Packet 9068 send!                                 
+15:11:48.286     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60830
+15:11:48.287     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.287     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.288     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.288     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9068    NONE    -1      Client: Hi again!17      3722984475  Sending this datagram (try: 1)                    
+15:11:48.289     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.289     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:48.290     NETWORK                                                                                                                                 Packet 9068 send!                                 
+15:11:48.292     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60832
+15:11:48.293     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:48.293     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:48.294     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:48.295     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9069    NONE    -1      Client: Hi again!18      1297555850  Sending this datagram (try: 1)                    
+15:11:48.295     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:48.295     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9069    NONE    -1      Client: Hi again!18      1297555850  datagram was delayed 5465ms                       
+15:11:48.295     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:49.94      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9069    NONE    -1      Client: Hi again!18      1297555850  Sending this datagram (try: 2)                    
+15:11:49.97      NETWORK                                                                                                                                 Packet 9069 send!                                 
+15:11:49.101     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60834
+15:11:49.103     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:49.103     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:49.104     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:49.104     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9070    NONE    -1      Client: Hi again!19      978325788   Sending this datagram (try: 1)                    
+15:11:49.105     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:49.105     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:49.106     NETWORK                                                                                                                                 Packet 9070 send!                                 
+15:11:49.108     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60836
+15:11:49.110     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:49.110     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:49.110     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:49.111     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9071    NONE    -1      Client: Hi again!20      1755445883  Sending this datagram (try: 1)                    
+15:11:49.111     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:49.112     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:49.112     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9071    NONE    -1      Client: Hi again!20      1755445883  Datagram was duplicated                           
+15:11:49.115     NETWORK                                                                                                                                 Packet 9071 send!                                 
+15:11:49.116     NETWORK                                                                                                                                 Duplicate Packet 9071 send!                       
+15:11:49.118     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60839
+15:11:49.119     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:49.119     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:49.120     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:49.120     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9072    NONE    -1      Client: Hi again!21      531024621   Sending this datagram (try: 1)                    
+15:11:49.121     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:49.121     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:49.123     NETWORK                                                                                                                                 Packet 9072 send!                                 
+15:11:49.126     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60841
+15:11:49.128     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:49.128     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:49.129     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:49.129     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9073    NONE    -1      Client: Hi again!22      2259655511  Sending this datagram (try: 1)                    
+15:11:49.129     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:49.130     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:49.130     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9073    NONE    -1      Client: Hi again!22      2259655511  Error in header                                   
+15:11:49.132     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9073    FIN     -1      Client: Hi again!22      2259655511  flags was updated to FIN                          
+15:11:49.133     NETWORK                                                                                                                                 Packet 9073 send!                                 
+15:11:49.238     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60843
+15:11:49.239     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:49.239     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:49.240     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:11:49.240     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 1)                    
+15:11:49.240     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:11:49.241     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:11:49.242     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:49.341     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:60845
+15:11:49.343     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:11:49.343     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:11:49.344     TestApplication                                                                                                                         FIN packet received.                              
+15:11:49.344     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
+15:11:50.40      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 2)                    
+15:11:50.41      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:50.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 3)                    
+15:11:50.843     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:51.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 4)                    
+15:11:51.642     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:11:51.644     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:52.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 5)                    
+15:11:52.442     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:53.242     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 6)                    
+15:11:53.242     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 18773ms                      
+15:11:53.762     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9069    NONE    -1      Client: Hi again!18      1297555850  datagram was delayed 12682ms                      
+15:11:53.768     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9069    NONE    -1      Client: Hi again!18      1297555850   was sent after a delay                           
+15:11:54.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 7)                    
+15:11:54.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 2295ms                       
+15:11:54.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 8)                    
+15:11:54.841     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 5641ms                       
+15:11:55.642     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 9)                    
+15:11:55.642     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 1134ms                       
+15:11:56.340     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:56.340     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:11:56.440     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 10)                   
+15:11:56.443     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:56.779     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:56.779     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:11:57.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 11)                   
+15:11:57.244     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:58.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 12)                   
+15:11:58.43      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:58.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 13)                   
+15:11:58.842     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:11:59.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 14)                   
+15:11:59.642     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was lost                                 
+15:12:0.441      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 15)                   
+15:12:0.444      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:0.487      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:0.487      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:1.242      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 16)                   
+15:12:1.244      SendTimer                                                                                                                               ERROR: Could not establish a connection to 78.91.22.124:1024
+15:12:2.41       SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 17)                   
+15:12:2.44       NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:2.841      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 18)                   
+15:12:2.844      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:3.641      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 19)                   
+15:12:3.644      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:4.441      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 20)                   
+15:12:4.443      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:5.241      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 21)                   
+15:12:5.244      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:6.41       SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 22)                   
+15:12:6.43       NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:6.453      NETWORK                                                                                                                                 Packet 9069 send!                                 
+15:12:6.453      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9069    NONE    -1      Client: Hi again!18      1297555850   was sent after a delay                           
+15:12:6.841      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 23)                   
+15:12:6.843      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:7.641      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 24)                   
+15:12:7.641      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:7.643      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:7.644      NETWORK                                                                                                                                 Duplicate Packet 9074 send!                       
+15:12:8.441      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 25)                   
+15:12:8.442      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:9.241      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 26)                   
+15:12:9.243      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:10.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 27)                   
+15:12:10.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 12086ms                      
+15:12:10.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 28)                   
+15:12:10.844     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:11.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 29)                   
+15:12:11.642     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was lost                                 
+15:12:12.16      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was lost                                 
+15:12:12.17      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:12.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 30)                   
+15:12:12.442     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:13.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 31)                   
+15:12:13.241     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:13.244     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:13.245     NETWORK                                                                                                                                 Duplicate Packet 9074 send!                       
+15:12:14.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 32)                   
+15:12:14.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:12:14.43      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:14.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 33)                   
+15:12:14.842     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in header                                   
+15:12:14.842     NETWORK                  148.152.77.205:4001      78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  src addr was updated to: 148.152.77.205           
+15:12:14.845     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:15.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 34)                   
+15:12:15.643     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:16.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 35)                   
+15:12:16.444     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:17.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 36)                   
+15:12:17.242     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:18.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 37)                   
+15:12:18.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:12:18.50      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:18.840     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 38)                   
+15:12:18.841     SendTimer                                                                                                                               ERROR: Could not establish a connection to 78.91.22.124:1024
+15:12:19.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 39)                   
+15:12:19.642     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 1348ms                       
+15:12:20.440     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 40)                   
+15:12:20.443     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:20.992     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:20.993     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:21.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 41)                   
+15:12:21.242     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:21.244     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:21.245     NETWORK                                                                                                                                 Duplicate Packet 9074 send!                       
+15:12:22.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 42)                   
+15:12:22.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:12:22.43      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:22.129     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:22.130     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:22.840     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 43)                   
+15:12:22.843     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:23.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 44)                   
+15:12:23.643     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:24.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 45)                   
+15:12:24.441     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:24.443     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:24.444     NETWORK                                                                                                                                 Duplicate Packet 9074 send!                       
+15:12:25.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 46)                   
+15:12:25.244     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:26.40      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 47)                   
+15:12:26.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in header                                   
+15:12:26.42      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    SYN_ACK -1      Client: Hi again!23      4054363073  flags was updated to SYN_ACK                      
+15:12:26.44      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:26.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 48)                   
+15:12:26.842     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 6878ms                       
+15:12:27.640     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 49)                   
+15:12:27.641     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 4637ms                       
+15:12:28.442     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 50)                   
+15:12:28.442     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 5017ms                       
+15:12:29.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 51)                   
+15:12:29.242     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 4079ms                       
+15:12:30.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 52)                   
+15:12:30.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 18693ms                      
+15:12:30.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 53)                   
+15:12:30.841     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 5537ms                       
+15:12:31.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 54)                   
+15:12:31.643     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:32.281     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:32.282     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:32.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 55)                   
+15:12:32.442     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:32.445     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:32.446     NETWORK                                                                                                                                 Duplicate Packet 9074 send!                       
+15:12:33.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 56)                   
+15:12:33.244     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:33.324     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:33.324     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:33.464     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:33.464     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:33.722     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:33.723     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:34.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 57)                   
+15:12:34.43      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:34.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 58)                   
+15:12:34.841     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:12:34.844     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:35.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 59)                   
+15:12:35.642     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in header                                   
+15:12:35.689     NETWORK                  78.91.22.124:4214        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  src port was updated to 4214                      
+15:12:35.692     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:36.380     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 3726ms                       
+15:12:36.381     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:36.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 60)                   
+15:12:36.444     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:37.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 61)                   
+15:12:37.242     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was lost                                 
+15:12:38.41      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 62)                   
+15:12:38.42      SendTimer                                                                                                                               ERROR: Could not establish a connection to 78.91.22.124:1024
+15:12:38.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 63)                   
+15:12:38.842     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:38.845     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:38.846     NETWORK                                                                                                                                 Duplicate Packet 9074 send!                       
+15:12:39.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 64)                   
+15:12:39.643     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:40.108     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in header                                   
+15:12:40.109     NETWORK                  100.231.1.151:4001       78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  src addr was updated to: 100.231.1.151            
+15:12:40.111     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:40.111     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073   was sent after a delay                           
+15:12:40.441     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 65)                   
+15:12:40.441     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 11725ms                      
+15:12:41.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 66)                   
+15:12:41.242     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 9465ms                       
+15:12:42.40      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 67)                   
+15:12:42.41      NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 11016ms                      
+15:12:42.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 68)                   
+15:12:42.843     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:43.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 69)                   
+15:12:43.643     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:44.442     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 70)                   
+15:12:44.443     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:45.241     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 71)                   
+15:12:45.242     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:12:45.244     NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:46.40      SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 72)                   
+15:12:46.42      NETWORK                                                                                                                                 Packet 9074 send!                                 
+15:12:46.841     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 73)                   
+15:12:46.841     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 5835ms                       
+15:12:47.641     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 74)                   
+15:12:47.641     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  datagram was delayed 12704ms                      
+15:12:48.440     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 75)                   
+15:12:48.443     SendTimer                                                                                                                               ERROR: Could not establish a connection to 78.91.22.124:1024
+15:12:49.240     SendTimer                78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 76)                   
+15:12:49.241     NETWORK                  78.91.22.124:4001        78.91.22.124:1024        9074    NONE    -1      Client: Hi again!23      4054363073  Datagram was duplicated                           
+15:12:49.242     SendTimer                                                                                                                               ERROR: Could not establish a connection to 78.91.22.124:1024

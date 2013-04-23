@@ -1,0 +1,46 @@
+\documentclass[titlepage]{article}
+\usepackage[norsk]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{listings}
+
+\author{Gruppe 38}
+\title{KTN 2}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section{Innledning}
+Her kommer vår implementasjon av oppgaven presentert i KTN2. Vi har vært på sal, og studass (Kristian Vagstad) har sett over og godkjent dette. Her følger testplan, samt koden vi skrev i ConnectionImpl.java
+
+\newpage
+\section{Testplan}
+\input{testplan.tex}
+
+\newpage
+\section{Kode}
+\input{code.tex}
+
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{fpkomp}
+	Kompendium til fellesprosjektet,
+	\emph{it's learning-gruppa til faget}
+\end{thebibliography}
+
+\end{document}
