@@ -1,0 +1,10 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:34:41.63      NETWORK                                                                                                                                 Packet 2192 send!                                 
+14:34:41.64      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:34:41.66      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:34:43.867     TestApplication                                                                                                                         Client is now closing the connection!             
+14:34:43.869     TestApplication                                                                                                                         CLIENT TEST FINISHED                              

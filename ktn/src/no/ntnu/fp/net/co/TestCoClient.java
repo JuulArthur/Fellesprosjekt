@@ -43,7 +43,10 @@ public class TestCoClient {
 			conn.connect(addr, 5555);
 			// send two messages to server
 			conn.send("Client: Hello Server! Are you there?");
-			conn.send("Client: Hi again!");
+			for (int i = 0; i < 30; i++) {
+				conn.send("Client: Hi again!");
+			}
+			System.out.println("STARTING TO CLOSE");
 			// write a message in the log and close the connection
 			Log.writeToLog("Client is now closing the connection!",
 					"TestApplication");

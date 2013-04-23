@@ -230,7 +230,6 @@ public class ConnectionImpl extends AbstractConnection {
 					sendAck(lastValidPacketReceived, false);
 					return receive();
 				} else {
-					System.out.println("2");
 					sendAck(packet, false);
 					lastValidPacketReceived = packet;
 					return (String) packet.getPayload();
@@ -319,10 +318,152 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see Connection#close()
 	 */
 	
-	
+	private int counter = 10;
+	private final static int max_count = 2;
 	public void close() throws IOException {
 		System.out.println("close happening");
-		int numOfTries = 5;
+		System.out.println(this.state);
+		
+		/*First close initiate*/
+		if(this.state == State.ESTABLISHED){
+			/* Server */
+			if (disconnectRequest == null){ 
+				KtnDatagram finPacket = constructInternalPacket(Flag.FIN);
+				counter = max_count;
+				try {
+					simplySendPacket(finPacket);
+				} catch (ClException e) {
+					e.printStackTrace();
+				}
+				lastDataPacketSent = finPacket;
+				
+				this.state = State.FIN_WAIT_1;
+				close();
+			}
+			/* Client */
+			else{
+				sendAck(disconnectRequest, false);
+				this.state = State.CLOSE_WAIT;
+				counter = max_count;
+				close();
+			}
+		} 
+		else if(this.state == State.FIN_WAIT_1){
+			KtnDatagram ack = receiveAck();
+			if(counter <= 0){ //RESET
+				this.state = State.ESTABLISHED;
+				close();
+			}
+			else if(isValid(ack)){
+				this.state = State.FIN_WAIT_2;
+				counter = max_count;
+				close();
+			}
+			else{
+				counter--;
+				close();
+			}
+		}
+		else if(this.state == State.FIN_WAIT_2){
+
+			if(counter <= 0){ //RESET
+				//We need to send a new fin
+				this.state = State.ESTABLISHED;
+				counter = max_count;
+				close();
+			}
+			else {
+				KtnDatagram fin = receivePacket(true);
+				if(fin == null){
+					System.out.println("FIN NULL");
+					counter--;
+					close();
+				}
+				else if(fin.getFlag() == Flag.ACK){ //ERROR
+					//We have recieved yet an ACK from FIN_WAIT1, reset and wait for fin
+					System.out.println("ACK RECIEVED");
+					counter--;
+					close();
+				}	
+				else if (fin.getFlag() == Flag.FIN){
+					sendAck(fin, false);
+					this.state = State.TIME_WAIT;
+					counter = max_count;
+					close();
+				}
+				else {
+					counter--;
+					close();
+				}
+			}
+		}
+		else if(this.state == State.TIME_WAIT){
+			//WAIT
+			this.state = State.CLOSED;
+			close();
+		}
+		/* CLIENT*/
+		else if(this.state == State.CLOSE_WAIT){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			KtnDatagram finPacket = constructInternalPacket(Flag.FIN);
+			try {
+				simplySendPacket(finPacket);
+			} catch (ClException e) {
+				e.printStackTrace();
+			}
+			lastDataPacketSent = finPacket;
+			this.state = State.LAST_ACK;
+			close();
+			
+		}
+		else if (this.state == State.LAST_ACK){
+			if(counter <= 0){ //RESET
+				System.out.println("RESET");
+				this.state = State.CLOSE_WAIT;
+				counter = max_count;
+				close();
+			}
+			else {
+				KtnDatagram ack = receivePacket(true);
+				
+				if(ack == null){
+					System.out.println("ACK NULL");
+					counter--;
+					close();
+				}
+				else if(ack.getFlag() == Flag.FIN){
+					//We have recieved yet a FIN, WTF
+					System.out.println("FIN PACKET");
+					this.state = State.ESTABLISHED;
+					disconnectRequest = ack;
+					close();
+				}				
+				else if(ack.getFlag() == Flag.ACK && isValid(ack)){
+					this.state = State.CLOSED;
+					counter = max_count;
+					close();
+				}
+				else{
+					System.out.println("UHM");
+					this.state = State.ESTABLISHED;
+					counter = max_count;
+					close();
+					//System.out.println(this.state + "  NOT VALIED");
+					//counter--;
+					//close();
+				}
+			}
+		}
+		else if(this.state == State.CLOSED){
+			System.out.println("WE ARE CLOSED");
+		}
+		
+		/*
 		
 		if(this.state != State.ESTABLISHED){
 			throw new IllegalStateException("Cannot close connection if not in establish state");
@@ -331,6 +472,7 @@ public class ConnectionImpl extends AbstractConnection {
 		if(disconnectRequest == null){
 			// Initialize close
 			KtnDatagram finPacket = constructInternalPacket(Flag.FIN);
+			
 			KtnDatagram ack = null;
 			KtnDatagram fin = null;
 			System.out.println("1");
@@ -340,6 +482,8 @@ public class ConnectionImpl extends AbstractConnection {
 					System.out.println("2");
 
 					simplySendPacket(finPacket);
+					lastDataPacketSent = finPacket;
+					
 					this.state = State.FIN_WAIT_1;
 					ack = receiveAck();
 					System.out.println("==========FIN=================");
@@ -374,9 +518,11 @@ public class ConnectionImpl extends AbstractConnection {
 		else{
 			System.out.println("CLOSE WITH FIN");
 			sendAck(disconnectRequest, false);
+			
 			state = State.CLOSE_WAIT;
 
 			KtnDatagram fin = constructInternalPacket(Flag.FIN);
+			
 			KtnDatagram finack=null;
 
 			//   Send FIN to server and wait for ACK
@@ -384,6 +530,7 @@ public class ConnectionImpl extends AbstractConnection {
 				try {
 					System.out.println("SENDING FIN");
 					simplySendPacket(fin);
+					lastDataPacketSent = fin;
 					state = State.LAST_ACK;
 				} catch (ClException e) {
 					e.printStackTrace();
@@ -394,7 +541,7 @@ public class ConnectionImpl extends AbstractConnection {
 			state = State.CLOSED;
 			disconnectRequest = null;  
 			System.out.println("CONNECTION DISCONNECT DONE");
-		}
+		}*/
 	}
 		
 	/**

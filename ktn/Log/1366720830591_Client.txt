@@ -1,0 +1,70 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:40:30.699     NETWORK                                                                                                                                 Packet 2067 send!                                 
+14:40:30.699     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:40:30.701     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:40:30.740     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:39613
+14:40:30.745     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:40:30.746     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:40:30.747     AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           2069    ACK     2068                             0           Sending Ack: 2068                                 
+14:40:30.749     NETWORK                                                                                                                                 Packet 2069 send!                                 
+14:40:30.750     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:40:30.751     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2070    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+14:40:30.752     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:40:30.753     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:40:30.760     SendTimer                                                                                                                               ERROR: Could not establish a connection to 127.0.1.1:1024
+14:40:31.550     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2070    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+14:40:31.553     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2070    NONE    -1      Client: Hello Server! Are you there?2186906615  Datagram was duplicated                           
+14:40:31.564     NETWORK                                                                                                                                 Packet 2070 send!                                 
+14:40:31.566     NETWORK                                                                                                                                 Duplicate Packet 2070 send!                       
+14:40:31.568     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:39618
+14:40:31.570     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:40:31.571     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:40:31.572     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:40:31.573     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2071    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 1)                    
+14:40:31.574     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:40:31.575     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:40:31.581     NETWORK                                                                                                                                 Packet 2071 send!                                 
+14:40:32.372     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2071    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 2)                    
+14:40:32.373     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2071    NONE    -1      Client: Hi again!        4116405264  Error in header                                   
+14:40:32.373     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           3356    NONE    -1      Client: Hi again!        4116405264  seqfield was updated to 3356                      
+14:40:32.375     NETWORK                                                                                                                                 Packet 3356 send!                                 
+14:40:32.379     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:39622
+14:40:32.381     CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+14:40:32.382     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:40:32.382     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:40:32.383     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 1)                    
+14:40:32.384     CLSocket::receive                                                                                                                       Receiving at:4001                                 
+14:40:32.384     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  datagram was delayed 477ms                        
+14:40:32.384     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:40:32.864     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  datagram was delayed 9701ms                       
+14:40:32.866     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264   was sent after a delay                           
+14:40:33.182     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 2)                    
+14:40:33.183     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  datagram was delayed 10740ms                      
+14:40:33.983     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 3)                    
+14:40:33.984     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  datagram was delayed 15108ms                      
+14:40:34.783     SendTimer                127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  Sending this datagram (try: 4)                    
+14:40:34.784     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  datagram was delayed 12146ms                      
+14:40:35.184     TestApplication                                                                                                                         No ack was recieved from the send operation       
+14:40:35.187     TestApplication                                                                                                                         CLIENT TEST FINISHED                              
+14:40:42.568     NETWORK                                                                                                                                 Packet 2072 send!                                 
+14:40:42.569     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264   was sent after a delay                           
+14:40:46.932     NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2072    NONE    -1      Client: Hi again!        4116405264  Datagram was duplicated                           
