@@ -206,7 +206,8 @@ public class ConnectionImpl extends AbstractConnection {
 			packet = receivePacket(false);
 		} catch (EOFException e) {
 			// fikk en FIN
-			state = State.CLOSE_WAIT;
+			//state = State.CLOSE_WAIT;
+			System.out.println("FIN RECIEVED");
 			throw new EOFException();
 		}
 
@@ -332,10 +333,12 @@ public class ConnectionImpl extends AbstractConnection {
 			KtnDatagram finPacket = constructInternalPacket(Flag.FIN);
 			KtnDatagram ack = null;
 			KtnDatagram fin = null;
-
+			System.out.println("1");
 			// Send FIN to we get a valid ACK back
 			while(!isValid(ack)) {
 				try {
+					System.out.println("2");
+
 					simplySendPacket(finPacket);
 					this.state = State.FIN_WAIT_1;
 					ack = receiveAck();
@@ -346,6 +349,7 @@ public class ConnectionImpl extends AbstractConnection {
 			lastValidPacketReceived = ack;
 			this.state = State.FIN_WAIT_2;
 			//        	  waiting to receive FIN
+			System.out.println("3");
 			while(!isValid(fin)){
 				try{
 					fin = receivePacket(true);
@@ -362,6 +366,7 @@ public class ConnectionImpl extends AbstractConnection {
 		}	
 		//      DisconnectRequest, FIN has been received
 		else{
+			System.out.println("CLOSE WITH FIN");
 			sendAck(disconnectRequest, false);
 			state = State.CLOSE_WAIT;
 
