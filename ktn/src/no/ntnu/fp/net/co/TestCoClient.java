@@ -44,7 +44,7 @@ public class TestCoClient {
 			// send two messages to server
 			conn.send("Client: Hello Server! Are you there?");
 			for (int i = 0; i < 30; i++) {
-				conn.send("Client: Hi again!");
+				conn.send("Client: Hi again!" + i);
 			}
 			System.out.println("STARTING TO CLOSE");
 			// write a message in the log and close the connection

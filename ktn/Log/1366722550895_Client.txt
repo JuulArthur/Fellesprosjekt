@@ -1,0 +1,506 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:9:10.986      NETWORK                                                                                                                                 Packet 2849 send!                                 
+15:9:10.987      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:10.989      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:11.20       CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40039
+15:9:11.25       CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:11.26       AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:11.31       AbstractConnection       127.0.1.1:4001           127.0.1.1:1024           2851    ACK     2850                             0           Sending Ack: 2850                                 
+15:9:11.34       NETWORK                                                                                                                                 Packet 2851 send!                                 
+15:9:11.36       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:11.36       SendTimer                127.0.1.1:4001           127.0.1.1:1024           2852    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 1)                    
+15:9:11.37       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:11.38       NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2852    NONE    -1      Client: Hello Server! Are you there?2186906615  Datagram was lost                                 
+15:9:11.39       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:11.836      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2852    NONE    -1      Client: Hello Server! Are you there?2186906615  Sending this datagram (try: 2)                    
+15:9:11.843      NETWORK                                                                                                                                 Packet 2852 send!                                 
+15:9:11.854      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40042
+15:9:11.856      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:11.857      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:11.858      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:11.858      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2853    NONE    -1      Client: Hi again!0       1255084720  Sending this datagram (try: 1)                    
+15:9:11.859      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2853    NONE    -1      Client: Hi again!0       1255084720  Datagram was duplicated                           
+15:9:11.860      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:11.860      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:11.861      NETWORK                                                                                                                                 Packet 2853 send!                                 
+15:9:11.863      NETWORK                                                                                                                                 Duplicate Packet 2853 send!                       
+15:9:11.869      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40045
+15:9:11.871      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:11.872      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:11.872      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:11.873      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118  Sending this datagram (try: 1)                    
+15:9:11.875      NETWORK                                                                                                                                 Packet 2854 send!                                 
+15:9:11.878      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:11.879      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:12.673      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118  Sending this datagram (try: 2)                    
+15:9:12.674      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118  Error in header                                   
+15:9:12.675      NETWORK                  127.0.1.1:4001           113.202.94.89:1024       2854    NONE    -1      Client: Hi again!1       1036526118  dest addr was updated to: 113.202.94.89           
+15:9:12.677      SendTimer                                                                                                                               ERROR: Could not establish a connection to 127.0.1.1:1024
+15:9:13.472      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118  Sending this datagram (try: 3)                    
+15:9:13.473      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118  datagram was delayed 5286ms                       
+15:9:14.272      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118  Sending this datagram (try: 4)                    
+15:9:14.277      NETWORK                                                                                                                                 Packet 2854 send!                                 
+15:9:14.284      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40049
+15:9:14.286      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:14.286      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:14.287      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:14.288      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2855    NONE    -1      Client: Hi again!2       2764141468  Sending this datagram (try: 1)                    
+15:9:14.289      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:14.290      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:14.292      NETWORK                                                                                                                                 Packet 2855 send!                                 
+15:9:14.295      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40051
+15:9:14.296      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:14.297      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:14.298      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:14.298      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2856    NONE    -1      Client: Hi again!3       3552985866  Sending this datagram (try: 1)                    
+15:9:14.299      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:14.299      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:14.300      NETWORK                                                                                                                                 Packet 2856 send!                                 
+15:9:14.302      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40053
+15:9:14.307      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:14.308      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:14.309      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:14.311      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2857    NONE    -1      Client: Hi again!4       1302517417  Sending this datagram (try: 1)                    
+15:9:14.311      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:14.311      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:14.312      NETWORK                                                                                                                                 Packet 2857 send!                                 
+15:9:14.314      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40055
+15:9:14.316      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:14.316      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:14.318      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:14.318      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2858    NONE    -1      Client: Hi again!5       983950911   Sending this datagram (try: 1)                    
+15:9:14.319      NETWORK                                                                                                                                 Packet 2858 send!                                 
+15:9:14.323      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:14.323      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:14.324      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40057
+15:9:14.325      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:14.325      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:14.326      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:14.326      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2859    NONE    -1      Client: Hi again!6       2746005381  Sending this datagram (try: 1)                    
+15:9:14.326      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:14.326      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2859    NONE    -1      Client: Hi again!6       2746005381  datagram was delayed 7146ms                       
+15:9:14.327      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.126      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2859    NONE    -1      Client: Hi again!6       2746005381  Sending this datagram (try: 2)                    
+15:9:15.130      NETWORK                                                                                                                                 Packet 2859 send!                                 
+15:9:15.137      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40059
+15:9:15.138      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.138      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.139      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.139      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2860    NONE    -1      Client: Hi again!7       3568011027  Sending this datagram (try: 1)                    
+15:9:15.140      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.140      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.141      NETWORK                                                                                                                                 Packet 2860 send!                                 
+15:9:15.151      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40061
+15:9:15.152      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.152      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.152      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.152      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2861    NONE    -1      Client: Hi again!8       1142200962  Sending this datagram (try: 1)                    
+15:9:15.153      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.153      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.154      NETWORK                                                                                                                                 Packet 2861 send!                                 
+15:9:15.159      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40063
+15:9:15.162      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.162      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.162      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.163      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2862    NONE    -1      Client: Hi again!9       856926740   Sending this datagram (try: 1)                    
+15:9:15.163      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.163      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.164      NETWORK                                                                                                                                 Packet 2862 send!                                 
+15:9:15.168      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40065
+15:9:15.170      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.171      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.172      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.172      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2863    NONE    -1      Client: Hi again!10      1133291960  Sending this datagram (try: 1)                    
+15:9:15.175      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.175      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.177      NETWORK                                                                                                                                 Packet 2863 send!                                 
+15:9:15.180      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40067
+15:9:15.180      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.181      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.181      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.182      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2864    NONE    -1      Client: Hi again!11      881563950   Sending this datagram (try: 1)                    
+15:9:15.182      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.182      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.183      NETWORK                                                                                                                                 Packet 2864 send!                                 
+15:9:15.188      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40069
+15:9:15.189      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.190      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.190      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.190      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2865    NONE    -1      Client: Hi again!12      2911029396  Sending this datagram (try: 1)                    
+15:9:15.191      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.191      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.194      NETWORK                                                                                                                                 Packet 2865 send!                                 
+15:9:15.198      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40071
+15:9:15.199      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.200      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.200      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.200      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2866    NONE    -1      Client: Hi again!13      3666212866  Sending this datagram (try: 1)                    
+15:9:15.201      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.201      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.203      NETWORK                                                                                                                                 Packet 2866 send!                                 
+15:9:15.207      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40073
+15:9:15.208      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.209      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.210      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.210      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.211      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.211      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2867    NONE    -1      Client: Hi again!14      1155624353  Sending this datagram (try: 1)                    
+15:9:15.214      NETWORK                                                                                                                                 Packet 2867 send!                                 
+15:9:15.219      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40075
+15:9:15.220      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.220      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.221      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.221      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2868    NONE    -1      Client: Hi again!15      870735159   Sending this datagram (try: 1)                    
+15:9:15.221      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.221      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.223      NETWORK                                                                                                                                 Packet 2868 send!                                 
+15:9:15.227      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40077
+15:9:15.228      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.228      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.229      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.230      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2869    NONE    -1      Client: Hi again!16      2867793037  Sending this datagram (try: 1)                    
+15:9:15.230      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.230      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.232      NETWORK                                                                                                                                 Packet 2869 send!                                 
+15:9:15.234      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40079
+15:9:15.235      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.235      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.235      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.235      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2870    NONE    -1      Client: Hi again!17      3722984475  Sending this datagram (try: 1)                    
+15:9:15.236      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.236      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.237      NETWORK                                                                                                                                 Packet 2870 send!                                 
+15:9:15.238      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40081
+15:9:15.239      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.239      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.240      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.240      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2871    NONE    -1      Client: Hi again!18      1297555850  Sending this datagram (try: 1)                    
+15:9:15.240      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.240      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2871    NONE    -1      Client: Hi again!18      1297555850  Datagram was duplicated                           
+15:9:15.240      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.242      NETWORK                                                                                                                                 Packet 2871 send!                                 
+15:9:15.243      NETWORK                                                                                                                                 Duplicate Packet 2871 send!                       
+15:9:15.244      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40084
+15:9:15.245      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.246      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.247      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.247      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2872    NONE    -1      Client: Hi again!19      978325788   Sending this datagram (try: 1)                    
+15:9:15.247      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.247      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2872    NONE    -1      Client: Hi again!19      978325788   Error in payload                                  
+15:9:15.248      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.249      NETWORK                                                                                                                                 Packet 2872 send!                                 
+15:9:15.253      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40086
+15:9:15.254      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.255      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.256      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.256      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2872    NONE    -1      Client: Hi again!19      978325788   Sending this datagram (try: 1)                    
+15:9:15.256      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.257      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.259      NETWORK                                                                                                                                 Packet 2872 send!                                 
+15:9:15.266      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40088
+15:9:15.268      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.268      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.270      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.270      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2873    NONE    -1      Client: Hi again!20      1755445883  Sending this datagram (try: 1)                    
+15:9:15.271      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.271      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:15.273      NETWORK                                                                                                                                 Packet 2873 send!                                 
+15:9:15.275      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40090
+15:9:15.278      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:15.278      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:15.279      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:15.280      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2874    NONE    -1      Client: Hi again!21      531024621   Sending this datagram (try: 1)                    
+15:9:15.280      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:15.280      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2874    NONE    -1      Client: Hi again!21      531024621   Datagram was lost                                 
+15:9:15.280      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.80       SendTimer                127.0.1.1:4001           127.0.1.1:1024           2874    NONE    -1      Client: Hi again!21      531024621   Sending this datagram (try: 2)                    
+15:9:16.84       NETWORK                                                                                                                                 Packet 2874 send!                                 
+15:9:16.91       CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40092
+15:9:16.95       CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.95       AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.97       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.97       SendTimer                127.0.1.1:4001           127.0.1.1:1024           2875    NONE    -1      Client: Hi again!22      2259655511  Sending this datagram (try: 1)                    
+15:9:16.97       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.97       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.98       NETWORK                                                                                                                                 Packet 2875 send!                                 
+15:9:16.104      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40094
+15:9:16.107      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.107      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.109      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.109      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2876    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 1)                    
+15:9:16.110      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.110      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2876    NONE    -1      Client: Hi again!23      4054363073  Error in payload                                  
+15:9:16.111      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.113      NETWORK                                                                                                                                 Packet 2876 send!                                 
+15:9:16.115      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40096
+15:9:16.117      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.118      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.118      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.118      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2876    NONE    -1      Client: Hi again!23      4054363073  Sending this datagram (try: 1)                    
+15:9:16.119      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.119      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.121      NETWORK                                                                                                                                 Packet 2876 send!                                 
+15:9:16.125      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40098
+15:9:16.126      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.126      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.128      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.128      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2877    NONE    -1      Client: Hi again!24      1875656290  Sending this datagram (try: 1)                    
+15:9:16.128      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.128      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.129      NETWORK                                                                                                                                 Packet 2877 send!                                 
+15:9:16.136      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40100
+15:9:16.141      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.141      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.142      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.143      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2878    NONE    -1      Client: Hi again!25      415960820   Sending this datagram (try: 1)                    
+15:9:16.143      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.144      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.146      NETWORK                                                                                                                                 Packet 2878 send!                                 
+15:9:16.153      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40102
+15:9:16.155      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.156      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.157      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.157      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2879    NONE    -1      Client: Hi again!26      2176999246  Sending this datagram (try: 1)                    
+15:9:16.157      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.158      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2879    NONE    -1      Client: Hi again!26      2176999246  Datagram was duplicated                           
+15:9:16.158      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.159      NETWORK                                                                                                                                 Packet 2879 send!                                 
+15:9:16.160      NETWORK                                                                                                                                 Duplicate Packet 2879 send!                       
+15:9:16.162      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40105
+15:9:16.163      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.164      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.164      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.164      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2880    NONE    -1      Client: Hi again!27      4140134360  Sending this datagram (try: 1)                    
+15:9:16.167      NETWORK                                                                                                                                 Packet 2880 send!                                 
+15:9:16.167      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.176      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.964      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2880    NONE    -1      Client: Hi again!27      4140134360  Sending this datagram (try: 2)                    
+15:9:16.965      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2880    NONE    -1      Client: Hi again!27      4140134360  Error in header                                   
+15:9:16.966      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2880    NONE    17719                            4140134360  ack was updated to 17719                          
+15:9:16.969      NETWORK                                                                                                                                 Packet 2880 send!                                 
+15:9:16.986      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40109
+15:9:16.989      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:16.989      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:16.991      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:16.991      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2881    NONE    -1      Client: Hi again!28      1719300681  Sending this datagram (try: 1)                    
+15:9:16.992      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:16.992      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:16.995      NETWORK                                                                                                                                 Packet 2881 send!                                 
+15:9:17.3        CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40111
+15:9:17.6        CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:17.7        AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:17.7        AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:17.7        SendTimer                127.0.1.1:4001           127.0.1.1:1024           2882    NONE    -1      Client: Hi again!29      293421791   Sending this datagram (try: 1)                    
+15:9:17.8        CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:17.8        NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2882    NONE    -1      Client: Hi again!29      293421791   Datagram was lost                                 
+15:9:17.8        CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:17.807      SendTimer                127.0.1.1:4001           127.0.1.1:1024           2882    NONE    -1      Client: Hi again!29      293421791   Sending this datagram (try: 2)                    
+15:9:17.811      NETWORK                                                                                                                                 Packet 2882 send!                                 
+15:9:17.818      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40113
+15:9:17.822      CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:17.822      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:17.823      TestApplication                                                                                                                         Client is now closing the connection!             
+15:9:17.927      NETWORK                                                                                                                                 Packet 2883 send!                                 
+15:9:18.28       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:9:18.28       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:18.28       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:18.32       CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 4001
+Remote Port:40115
+15:9:18.35       CLSocket::receive                                                                                                                       Finished receiving at:4001                        
+15:9:18.36       AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:9:18.136      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:9:18.138      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:18.138      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:18.763      NETWORK                                                                                                                                 Packet 2854 send!                                 
+15:9:18.763      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2854    NONE    -1      Client: Hi again!1       1036526118   was sent after a delay                           
+15:9:21.38       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:9:21.40       CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:21.41       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:21.477      NETWORK                                                                                                                                 Packet 2859 send!                                 
+15:9:21.477      NETWORK                  127.0.1.1:4001           127.0.1.1:1024           2859    NONE    -1      Client: Hi again!6       2746005381   was sent after a delay                           
+15:9:23.940      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:9:23.942      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:23.942      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:26.841      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:9:26.842      CLSocket::receive                                                                                                                       Receiving at:4001                                 
+15:9:26.842      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:9:29.846      TestApplication                                                                                                                         Connection refused                                
+15:9:29.854      TestApplication                                                                                                                         CLIENT TEST FINISHED                              
