@@ -319,8 +319,14 @@ public class ConnectionImpl extends AbstractConnection {
 	 */
 	
 	private int counter = 10;
-	private final static int max_count = 2;
+	private final static int max_count = 4;
 	public void close() throws IOException {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		System.out.println("close happening");
 		System.out.println(this.state);
 		
@@ -404,12 +410,6 @@ public class ConnectionImpl extends AbstractConnection {
 		}
 		/* CLIENT*/
 		else if(this.state == State.CLOSE_WAIT){
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			KtnDatagram finPacket = constructInternalPacket(Flag.FIN);
 			try {
 				simplySendPacket(finPacket);
